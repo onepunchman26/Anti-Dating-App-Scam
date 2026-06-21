@@ -69,3 +69,31 @@ Result: Root launcher, PySide6 app scaffold, local profile generation, ChatGPT e
 Known limitations: PySide6 GUI was not launched in this environment because installing PySide6 failed due Windows Long Path support. Hash-based report signing is an MVP integrity check, not full cryptographic keypair signing. Provider adapters beyond Mock are placeholders and make no remote calls.
 Next task: Resolve local PySide6 installation on Windows or add a CI-friendly GUI smoke test, then implement real local keypair signing.
 Safety review: The MVP requires consent before analysis in the GUI, processes ChatGPT export files locally, avoids real user data in repo fixtures, uses non-accusatory risk language, and keeps provider API keys out of tracked files.
+
+## Assisted Browser Export Architecture
+
+Date: 2026-06-21
+Branch: feat/assisted-local-browser-export-architecture
+Codex task: Add a compliant local browser-assisted export automation module.
+Intent: Add user-assisted local export support for the user's own AI chat history without creating a stealth scraper, login bypasser, cookie/token extractor, or data exfiltration tool.
+Browser automation safety boundaries:
+- visible/headed browser sessions for real export;
+- manual login only;
+- consent required;
+- bounded `max_chats_per_run`;
+- no cookies, tokens, passwords, localStorage, sessionStorage, hidden API responses, CAPTCHA bypass, private API reverse engineering, uploads, fake evidence, or impersonation;
+- session logs record file metadata only, not full chat contents.
+Files created:
+- `src/anti_dating_scam/browser_export/`
+- `apps/desktop_pyqt/anti_dating_scam_desktop/widgets/assisted_browser_export_page.py`
+- `docs/ASSISTED_BROWSER_EXPORT.md`
+- `docs/CHAT2FILE_AUTOMATION_LIMITS.md`
+- `docs/BROWSER_EXPORT_SAFETY.md`
+- browser export tests under `tests/`
+Tests run:
+- `python -m compileall src apps run_desktop.py`: passed.
+- `pytest` with the user Python Scripts directory added to PATH: passed, 34 tests passed with 1 existing FastAPI/TestClient deprecation warning.
+- `python -m ruff check .`: passed.
+Known limitations: Chat2file-assisted mode builds a safe plan but does not force extension popup automation. Playwright is optional and imported lazily. Native visible-page export captures only visible rendered text and may be incomplete.
+Next task: Add an end-to-end manual smoke test for Playwright visible browser launch on a machine with Playwright browsers installed, then connect exported visible-page JSON files more deeply into profile generation.
+Safety review: The module centers user consent, visible local automation, local files, bounded runs, and refusal of browser secret extraction or platform bypass.

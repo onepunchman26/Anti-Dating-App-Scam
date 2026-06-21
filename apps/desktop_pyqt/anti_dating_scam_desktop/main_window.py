@@ -1,5 +1,8 @@
 from PySide6.QtWidgets import QMainWindow, QTabWidget
 
+from anti_dating_scam_desktop.widgets.assisted_browser_export_page import (
+    AssistedBrowserExportPage,
+)
 from anti_dating_scam_desktop.widgets.consent_page import ConsentPage
 from anti_dating_scam_desktop.widgets.conversation_analysis_page import (
     ConversationAnalysisPage,
@@ -37,4 +40,5 @@ class MainWindow(QMainWindow):
         tabs.addTab(TrustLadderPage(self.state), "Trust Ladder")
         tabs.addTab(ProviderSettingsPage(self.state), "Provider Settings")
         tabs.addTab(ReportExportVerifyPage(self.state), "Report Export / Verify")
+        tabs.addTab(AssistedBrowserExportPage(self.state), "Assisted Browser Export")
         self.setCentralWidget(tabs)

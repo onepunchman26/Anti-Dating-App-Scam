@@ -18,6 +18,12 @@ Desktop dependencies:
 pip install -e ".[desktop]"
 ```
 
+Optional local browser automation dependency:
+
+```bash
+pip install -e ".[browser]"
+```
+
 ## Run
 
 From the repository root:
@@ -62,6 +68,7 @@ PySide6 is required. Install dependencies with: pip install -e ".[desktop]"
 5. Trust Ladder
 6. Provider Settings
 7. Report Export / Verify
+8. Assisted Browser Export
 
 ## ChatGPT Export Import
 
@@ -70,6 +77,18 @@ Use the Import My Profile tab to select a local ChatGPT data export ZIP or a loc
 The app does not scrape ChatGPT automatically. Users must request their own export from ChatGPT settings or the privacy portal, then choose the file locally.
 
 ChatGPT export ZIPs may contain sensitive account data. Import only your own data and review/redact sensitive information before analysis.
+
+## Assisted Browser Export
+
+The Assisted Browser Export tab is for user-assisted local export of the user's own AI chat history. It supports:
+
+- experimental Chat2file-assisted export planning;
+- native visible-page text export;
+- local export folders;
+- bounded runs with `max_chats_per_run`;
+- audit logs without full chat contents.
+
+It must not bypass login, CAPTCHA, rate limits, private APIs, browser storage protections, or platform restrictions. Playwright is optional and not required for normal app use.
 
 ## ChatGPT Memory Summary
 
