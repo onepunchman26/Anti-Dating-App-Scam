@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-slowmatch.local/schemas/risk_report.schema.json",
+  "title": "AI-SlowMatch Risk Report",
+  "type": "object",
+  "required": [
+    "report_type",
+    "schema_version",
+    "app_version",
+    "policy_version",
+    "created_at",
+    "input_hash",
+    "prompt_hash",
+    "provider_name",
+    "model_name",
+    "risk_level",
+    "risk_signals",
+    "uncertainty_notes",
+    "recommended_next_steps",
+    "safety_disclaimer"
+  ],
+  "properties": {
+    "report_type": {
+      "type": "string",
+      "const": "risk_report"
+    },
+    "schema_version": {
+      "type": "string",
+      "const": "0.1"
+    },
+    "app_version": {
+      "type": "string"
+    },
+    "policy_version": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "input_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "prompt_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "provider_name": {
+      "type": "string"
+    },
+    "model_name": {
+      "type": "string"
+    },
+    "risk_level": {
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "UNKNOWN"
+      ]
+    },
+    "risk_signals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "severity",
+          "evidence",
+          "explanation"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "severity": {
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "explanation": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "uncertainty_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_next_steps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "safety_disclaimer": {
+      "type": "string"
+    },
+    "signature": {
+      "type": "object",
+      "required": [
+        "algorithm",
+        "signed_at",
+        "signer_id",
+        "content_hash"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string"
+        },
+        "signed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "signer_id": {
+          "type": "string"
+        },
+        "content_hash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

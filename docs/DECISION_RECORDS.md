@@ -40,6 +40,8 @@ Decision: Use PySide6 for the first desktop GUI shell.
 
 Consequences: The GUI can ship quickly while sharing Python models and services. The UI should be modular so a future shell can replace it.
 
+Implementation note 2026-06-21: `apps/desktop_pyqt/` and `run_desktop.py` now provide the first runnable PySide6 MVP path. GUI widgets call the Python core engine and should not own safety or report-generation business logic.
+
 ## ADR-005: Future Tauri Plus Python Sidecar Migration
 
 Status: Proposed

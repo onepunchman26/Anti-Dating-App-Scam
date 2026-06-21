@@ -1,128 +1,132 @@
-# Anti-Dating-App-Scam
+# Anti-Dating-App-Scam / AI-SlowMatch
 
-AI-SlowMatch is a prototype architecture for AI-assisted anti-dating-scam and relationship-trust infrastructure. It is not a dating marketplace and not a personality scoring system. The goal is to help people slow down risky online intimacy, notice scam patterns, preserve autonomy, and move toward real-world trust only through consent-based, low-pressure steps.
+AI-SlowMatch is a local-first AI-assisted relationship trust, anti-romance-scam, and self-reflection tool. The current phase is a runnable Python + PySide6 desktop MVP, backed by a UI-independent Python engine.
 
-## Problem Statement
+It is not a dating app, cloud platform, AI judge, public score, or replacement for real relationships. It is a local document tool for scam-risk reflection, trust-ladder pacing, profile generation, and verifiable risk reports.
 
-Modern online dating safety problems are part of a broader chain: social atomization, weaker relational intermediaries, platformized intimacy, marketized matching logic, gender antagonism, mutual risk perception, and trust deficit. This creates room for scams, manipulation, defensive filtering, and the exit of sincere users.
+## Install
 
-AI-SlowMatch explores whether AI can act as restrained trust infrastructure rather than a love oracle. It supports risk awareness, uncertainty-aware explanations, trust-ladder progression, and privacy-first education.
-
-## What The System Does
-
-- Analyzes pasted dating-app conversations for scam risk signals.
-- Explains uncertainty and missing information without accusing anyone.
-- Recommends slow, low-risk next steps.
-- Evaluates relationship progress through a trust ladder.
-- Summarizes relationship-risk journal events over time.
-- Provides education and governance documents for safer design.
-
-## What The System Refuses To Do
-
-- No public personality scores or social-credit style ranking.
-- No deterministic "good person" or "bad person" labels.
-- No hidden scraping or cross-platform data ingestion without consent.
-- No stalking, doxxing, hacking, impersonation, harassment, or revenge advice.
-- No addictive swiping, engagement farming, or paid anxiety loops.
-- No advice to send money to online-only romantic contacts.
-
-## Architecture
-
-```mermaid
-flowchart LR
-    User["User"]
-    API["FastAPI backend"]
-    Safety["SafetyPolicy"]
-    Consent["ConsentManager"]
-    Risk["ScamRiskAnalyzer"]
-    Ladder["TrustLadderEngine"]
-    Journal["JournalSummarizer"]
-    AI["LLMClient interface"]
-    Mock["MockAIProvider"]
-
-    User --> API
-    API --> Safety
-    API --> Consent
-    API --> Risk
-    API --> Ladder
-    API --> Journal
-    Risk --> AI
-    Journal --> AI
-    AI --> Mock
-```
-
-## Quickstart
+Core/test dependencies:
 
 ```bash
-python -m pip install -e ".[dev]"
-uvicorn anti_dating_scam.main:app --reload
+pip install -e ".[dev]"
 ```
 
-Open the API docs at `http://127.0.0.1:8000/docs`.
-
-## API Examples
-
-Health:
+Desktop dependencies:
 
 ```bash
-curl http://127.0.0.1:8000/health
+pip install -e ".[desktop]"
 ```
 
-Risk analysis:
+## Run
+
+From the repository root:
 
 ```bash
-curl -X POST http://127.0.0.1:8000/risk/analyze \
-  -H "Content-Type: application/json" \
-  -d '{
-    "conversation_text": "I love you already. Please send gift cards for my emergency.",
-    "user_notes": "We met yesterday.",
-    "consent_confirmed": true
-  }'
+python run_desktop.py
 ```
 
-Trust ladder:
+If PySide6 is missing, the launcher prints:
 
-```bash
-curl -X POST http://127.0.0.1:8000/trust-ladder/evaluate \
-  -H "Content-Type: application/json" \
-  -d '{
-    "current_stage": "LOW_PRESSURE_CHAT",
-    "observed_events": ["asked for money", "ignored my boundary"],
-    "consent_confirmed": true
-  }'
+```text
+PySide6 is required. Install dependencies with: pip install -e ".[desktop]"
 ```
 
-Journal summary:
+## What This Tool Does
 
-```bash
-curl -X POST http://127.0.0.1:8000/journal/summarize \
-  -H "Content-Type: application/json" \
-  -d '{
-    "entries": [
-      {"event_text": "Asked for money"},
-      {"event_text": "Refused video call"},
-      {"event_text": "Respected my boundary later"}
-    ],
-    "consent_confirmed": true
-  }'
-```
+- Builds a local personal relationship profile document from user-provided notes.
+- Imports a local ChatGPT export ZIP or JSON for metadata and limited snippets only.
+- Accepts a pasted ChatGPT Memory Summary as one input source.
+- Analyzes pasted conversations for uncertainty-aware scam risk signals.
+- Evaluates relationship pacing through a trust ladder.
+- Exports risk reports as JSON or Markdown.
+- Adds hash-based report integrity metadata for local verification.
+- Keeps provider settings isolated for future adapters.
+
+## What It Refuses To Do
+
+- No deterministic "this person is definitely a scammer" judgment.
+- No psychological diagnosis of real people.
+- No public personality score or dating social credit.
+- No stalking, doxxing, hacking, impersonation, harassment, revenge, blackmail, or entrapment.
+- No hidden scraping of ChatGPT or dating app accounts.
+- No uploading user data without explicit action and consent.
+- No committed real user data or API keys.
+
+## Desktop Tabs
+
+1. Consent / Safety
+2. Import My Profile
+3. Generate Local Personal Profile
+4. Conversation Risk Analysis
+5. Trust Ladder
+6. Provider Settings
+7. Report Export / Verify
+
+## ChatGPT Export Import
+
+Use the Import My Profile tab to select a local ChatGPT data export ZIP or a local JSON file. The MVP processes the file locally, tries to find `conversations.json`, summarizes metadata, and extracts only limited snippets for profile generation.
+
+The app does not scrape ChatGPT automatically. Users must request their own export from ChatGPT settings or the privacy portal, then choose the file locally.
+
+ChatGPT export ZIPs may contain sensitive account data. Import only your own data and review/redact sensitive information before analysis.
+
+## ChatGPT Memory Summary
+
+You can paste a ChatGPT Memory Summary into the Import My Profile tab. Memory Summary may be incomplete; treat it as one input source, not an authoritative full self-profile.
+
+## Local Profile JSON
+
+The Generate Local Personal Profile tab creates a JSON document with:
+
+- relationship values;
+- boundary preferences;
+- communication preferences;
+- risk tolerance notes;
+- trust ladder preferences;
+- self-reflection notes;
+- uncertainty notes.
+
+This is a local personal relationship profile document. It is not training a personal model.
+
+## Risk Reports
+
+Conversation analysis generates a schema-valid risk report with:
+
+- risk level;
+- risk signals;
+- uncertainty notes;
+- recommended next steps;
+- input hash;
+- provider/model metadata;
+- safety disclaimer.
+
+Risk language must stay non-accusatory. A risk signal is not proof of intent, identity, or wrongdoing.
+
+## Verifiable Reports
+
+The MVP includes hash-based integrity signing. A valid report signature only means the report file was not modified after signing and conforms to the project schema. It does not prove that the submitted conversation is authentic or that any real person committed wrongdoing.
+
+Full cryptographic keypair signing is a future phase.
 
 ## Testing
 
 ```bash
-python -m compileall src
+python -m compileall src apps run_desktop.py
 pytest
+```
+
+If `pytest` is not on PATH, use:
+
+```bash
+python -m pytest
 ```
 
 ## Roadmap
 
-- Phase 0: docs and architecture.
-- Phase 1: local scam-risk analyzer prototype.
-- Phase 2: FastAPI endpoints and mock AI provider.
-- Phase 3: optional frontend dashboard under `apps/web`.
-- Phase 4: privacy-preserving local-first storage.
-- Phase 5: evaluation with synthetic and consented data only.
-
-## Ethics Disclaimer
-
-This is a risk-support prototype, not legal, criminal, psychological, or relationship judgment. Outputs should be treated as cautious decision support based only on submitted information. Users should seek professional, legal, platform, or emergency help when appropriate.
+- Now: Python core engine + PySide6 desktop MVP.
+- Next: provider plugin adapters and local profile/report schema hardening.
+- Next: local signed reports with real keypair verification.
+- Later: optional local FastAPI server.
+- Later: Tauri + Python sidecar.
+- Later: Rust/Tauri security layer for signing, storage, packaging, and update integrity.

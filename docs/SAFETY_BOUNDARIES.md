@@ -31,6 +31,12 @@ AI-SlowMatch is for user self-protection, not retaliation.
 - schema validation;
 - signed report integrity checks.
 
+## Desktop MVP Consent Boundary
+
+The desktop app must not run profile generation, conversation analysis, trust ladder evaluation, provider calls, export, or signing workflows on hidden data. Users must choose the text or file locally and consent before analysis.
+
+ChatGPT import must be local and user-selected. The app must not scrape ChatGPT account data automatically.
+
 ## Required Language Norms
 
 Use:

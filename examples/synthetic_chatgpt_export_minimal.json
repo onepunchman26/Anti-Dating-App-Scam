@@ -1,0 +1,28 @@
+[
+  {
+    "title": "Synthetic relationship reflection",
+    "create_time": 1735689600,
+    "mapping": {
+      "root": {
+        "message": {
+          "create_time": 1735689600,
+          "content": {
+            "parts": [
+              "I want to build trust slowly and avoid sending money to online-only contacts."
+            ]
+          }
+        }
+      },
+      "assistant": {
+        "message": {
+          "create_time": 1735689660,
+          "content": {
+            "parts": [
+              "A slow trust ladder can help you keep boundaries visible."
+            ]
+          }
+        }
+      }
+    }
+  }
+]

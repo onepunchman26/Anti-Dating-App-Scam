@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-slowmatch.local/schemas/trust_ladder.schema.json",
+  "title": "AI-SlowMatch Trust Ladder Evaluation",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "current_stage",
+    "recommended_actions",
+    "rationale",
+    "safety_disclaimer"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.1"
+    },
+    "current_stage": {
+      "enum": [
+        "UNKNOWN_STRANGER",
+        "LOW_PRESSURE_CHAT",
+        "REPEATED_CONSISTENT_INTERACTION",
+        "BOUNDARY_RESPECT_VERIFIED",
+        "SAFETY_CHECKED_OFFLINE_MEETING",
+        "DEEPER_RELATIONSHIP_EXPLORATION"
+      ]
+    },
+    "recommended_stage": {
+      "enum": [
+        "UNKNOWN_STRANGER",
+        "LOW_PRESSURE_CHAT",
+        "REPEATED_CONSISTENT_INTERACTION",
+        "BOUNDARY_RESPECT_VERIFIED",
+        "SAFETY_CHECKED_OFFLINE_MEETING",
+        "DEEPER_RELATIONSHIP_EXPLORATION"
+      ]
+    },
+    "recommended_actions": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "stay_at_current_stage",
+          "slow_down",
+          "step_back",
+          "stop_interaction",
+          "gather_more_information",
+          "use_safety_checklist"
+        ]
+      }
+    },
+    "rationale": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "safety_checklist": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "safety_disclaimer": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}
