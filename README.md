@@ -59,16 +59,46 @@ PySide6 is required. Install dependencies with: pip install -e ".[desktop]"
 - No uploading user data without explicit action and consent.
 - No committed real user data or API keys.
 
-## Desktop Tabs
+## Desktop Flow
 
-1. Consent / Safety
-2. Import My Profile
-3. Generate Local Personal Profile
-4. Conversation Risk Analysis
-5. Trust Ladder
-6. Provider Settings
-7. Report Export / Verify
-8. Assisted Browser Export
+The GUI opens as a guided onboarding flow, not a startup tab dashboard:
+
+```text
+Welcome
+  -> Safety & Consent
+  -> Local Profile Detection
+  -> Agent/API Mode
+  -> Import Data
+  -> Generate/Load Profile
+  -> Home
+```
+
+Home then shows cards for:
+
+- Analyze a Conversation
+- Trust Ladder Coach
+- View / Edit Local Profile
+- Export or Verify Report
+- Import More Data
+- Settings
+- Assisted Browser Export
+
+## Local Profile Files
+
+AI-SlowMatch stores local profiles outside the repository by default:
+
+```text
+~/.ai_slowmatch/profile.mpm.md
+~/.ai_slowmatch/profile.json
+```
+
+`profile.mpm.md` is a Markdown Personal Memory Document. It is user-readable and editable. `profile.json` is the machine-readable companion file.
+
+## Agent Mode And API Mode
+
+Agent Mode is the recommended current prototype path. The app does not automatically call an AI provider; users manually control which local files are shared with Codex or another assistant.
+
+API Mode is a selectable placeholder for future direct provider integration. No real API call is made unless provider code is explicitly configured later.
 
 ## ChatGPT Export Import
 

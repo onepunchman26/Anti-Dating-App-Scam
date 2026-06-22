@@ -97,3 +97,35 @@ Tests run:
 Known limitations: Chat2file-assisted mode builds a safe plan but does not force extension popup automation. Playwright is optional and imported lazily. Native visible-page export captures only visible rendered text and may be incomplete.
 Next task: Add an end-to-end manual smoke test for Playwright visible browser launch on a machine with Playwright browsers installed, then connect exported visible-page JSON files more deeply into profile generation.
 Safety review: The module centers user consent, visible local automation, local files, bounded runs, and refusal of browser secret extraction or platform bypass.
+
+## Desktop Onboarding Flow
+
+Date: 2026-06-21
+Branch: feat/desktop-onboarding-flow
+Codex task: Refactor the desktop GUI from a tab dashboard into an app-like onboarding flow.
+Goal: Make startup feel like a normal consumer app: Welcome, Safety & Consent, Local Profile detection, Agent/API Mode selection, Import Data, Generate/Load Profile, then Home.
+Files changed:
+- `apps/desktop_pyqt/anti_dating_scam_desktop/main_window.py`
+- `apps/desktop_pyqt/anti_dating_scam_desktop/app_state.py`
+- `apps/desktop_pyqt/anti_dating_scam_desktop/profile_store.py`
+- `apps/desktop_pyqt/anti_dating_scam_desktop/navigation.py`
+- `apps/desktop_pyqt/anti_dating_scam_desktop/style.py`
+- `apps/desktop_pyqt/anti_dating_scam_desktop/screens/`
+- `apps/desktop_pyqt/anti_dating_scam_desktop/widgets/app_card.py`
+- `apps/desktop_pyqt/anti_dating_scam_desktop/widgets/primary_button.py`
+- `apps/desktop_pyqt/anti_dating_scam_desktop/widgets/secondary_button.py`
+- `apps/desktop_pyqt/anti_dating_scam_desktop/widgets/status_banner.py`
+- `apps/desktop_pyqt/anti_dating_scam_desktop/widgets/step_header.py`
+- `src/anti_dating_scam/profile/`
+- `docs/GUI_FLOW.md`
+- `docs/LOCAL_PROFILE_MPMD.md`
+- `docs/AGENT_MODE_VS_API_MODE.md`
+Flow implemented:
+`Welcome -> Policy -> Profile Detection -> Agent/API Mode -> Import Data -> Generate/Load Profile -> Home`.
+Tests run:
+- `python -m compileall src apps run_desktop.py`: passed.
+- `pytest` with the user Python Scripts directory added to PATH: passed, 41 tests passed with 1 existing FastAPI/TestClient deprecation warning.
+- `python -m ruff check .`: passed.
+Limitations: GUI interaction tests are limited to non-GUI state/store/converter tests. Existing feature widgets are reused behind home-card screens and still use a compatibility dict bridge internally.
+Next task: Add a lightweight GUI smoke test once PySide6 installation is stable on the target Windows machine.
+Safety review: Policy appears before import or analysis, local profiles default to `~/.ai_slowmatch/`, Agent Mode avoids automatic API calls, and API Mode is explicitly marked as a placeholder.

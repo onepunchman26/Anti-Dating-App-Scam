@@ -17,11 +17,13 @@
 
 ## Phase 2 - PySide6 Desktop GUI
 
-- Local conversation input.
-- Risk report view.
-- Trust ladder view.
-- Provider settings.
-- Report export and verify view.
+- App-like onboarding flow.
+- Safety & Consent before import or analysis.
+- Local Profile detection.
+- Agent Mode versus API Mode selection.
+- Import Data cards instead of startup tabs.
+- Generate or load `profile.mpm.md` and `profile.json`.
+- Home action cards for risk analysis, trust ladder, profile viewer, reports, settings, and assisted export.
 
 ## Phase 3 - Local Document System
 

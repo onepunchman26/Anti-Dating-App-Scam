@@ -20,15 +20,27 @@ pip install -e ".[dev]"
 python run_desktop.py
 ```
 
-The app opens a PySide6 desktop window with tabs for consent, profile import, profile generation, risk analysis, trust ladder evaluation, provider settings, and report export/verification.
+The app opens a PySide6 desktop window with a screen-by-screen onboarding flow.
+
+```text
+Welcome
+  -> Safety & Consent
+  -> Local Profile Detection
+  -> Agent/API Mode
+  -> Import Data
+  -> Generate/Load Profile
+  -> Home
+```
 
 ## First Local Test
 
-1. Open Consent / Safety and check the consent box.
-2. Open Import My Profile and paste synthetic self-profile notes.
-3. Open Generate Local Personal Profile and click Generate Profile.
-4. Open Conversation Risk Analysis and paste a synthetic conversation.
-5. Open Report Export / Verify to export or sign the generated report.
+1. Start at Welcome and continue to Safety & Consent.
+2. Accept the consent checkbox.
+3. Let the app detect whether `~/.ai_slowmatch/profile.mpm.md` exists.
+4. Choose Agent Mode for the current prototype.
+5. Import notes or a local export.
+6. Generate and save `profile.mpm.md` and `profile.json`.
+7. Enter Home and choose Risk Analysis or Trust Ladder.
 
 ## Local-First Rule
 
