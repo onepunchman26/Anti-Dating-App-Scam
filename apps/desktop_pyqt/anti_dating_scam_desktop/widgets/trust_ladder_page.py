@@ -12,6 +12,7 @@ from PySide6.QtWidgets import (
 )
 
 from anti_dating_scam.engine.trust_ladder_engine import TrustLadderEngine
+from anti_dating_scam_desktop.i18n import bi
 
 
 class TrustLadderPage(QWidget):
@@ -30,31 +31,37 @@ class TrustLadderPage(QWidget):
         self.engine = TrustLadderEngine()
 
         layout = QVBoxLayout(self)
-        layout.addWidget(QLabel("<h2>Trust Ladder</h2>"))
-        layout.addWidget(QLabel("Current stage"))
+        layout.addWidget(QLabel(f"<h2>{bi('Trust Ladder', '信任阶梯')}</h2>"))
+        layout.addWidget(QLabel(bi("Current stage", "当前阶段")))
         self.stage = QComboBox()
         self.stage.addItems(self.STAGES)
         layout.addWidget(self.stage)
 
-        layout.addWidget(QLabel("Recent events"))
+        layout.addWidget(QLabel(bi("Recent events", "近期事件")))
         self.events = QTextEdit()
         layout.addWidget(self.events)
 
-        layout.addWidget(QLabel("Boundary concerns"))
+        layout.addWidget(QLabel(bi("Boundary concerns", "边界相关顾虑")))
         self.boundaries = QTextEdit()
         self.boundaries.setMaximumHeight(110)
         layout.addWidget(self.boundaries)
 
         self.money_or_sensitive = QCheckBox(
-            "Money, private images, or sensitive data was requested"
+            bi(
+                "Money, private images, or sensitive data was requested",
+                "对方要求过金钱、私密照片或其他敏感数据",
+            )
         )
         self.identity_verified = QCheckBox(
-            "Identity was verified through safe, consent-based methods"
+            bi(
+                "Identity was verified through safe, consent-based methods",
+                "已通过安全、双方同意的方式核实过身份",
+            )
         )
         layout.addWidget(self.money_or_sensitive)
         layout.addWidget(self.identity_verified)
 
-        evaluate = QPushButton("Evaluate")
+        evaluate = QPushButton(bi("Evaluate", "评估"))
         evaluate.clicked.connect(self._evaluate)
         layout.addWidget(evaluate)
 
@@ -66,8 +73,11 @@ class TrustLadderPage(QWidget):
         if not self.state.get("consent_confirmed"):
             QMessageBox.warning(
                 self,
-                "Consent required",
-                "Please confirm consent on the Consent / Safety tab before evaluation.",
+                bi("Consent required", "需要先确认同意"),
+                bi(
+                    "Please confirm consent on the Consent / Safety tab before evaluation.",
+                    "请先在「同意与安全」页确认同意，再进行评估。",
+                ),
             )
             return
         result = self.engine.evaluate(

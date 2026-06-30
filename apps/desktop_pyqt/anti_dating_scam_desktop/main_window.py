@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QMainWindow, QStackedWidget
 
 from anti_dating_scam_desktop.app_state import AppState
+from anti_dating_scam_desktop.i18n import bi
 from anti_dating_scam_desktop.navigation import Navigator
 from anti_dating_scam_desktop.profile_store import ProfileStore
 from anti_dating_scam_desktop.screens.analysis_mode_screen import AnalysisModeScreen
@@ -26,7 +27,7 @@ from anti_dating_scam_desktop.style import APP_STYLESHEET
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
-        self.setWindowTitle("AI-SlowMatch - Local Trust Tool")
+        self.setWindowTitle(bi("AI-SlowMatch - Local Trust Tool", "AI-SlowMatch —— 本地信任工具"))
         self.setStyleSheet(APP_STYLESHEET)
         self.app_state = AppState()
         self.profile_store = ProfileStore()
@@ -66,6 +67,7 @@ class MainWindow(QMainWindow):
             "analysis_mode",
             AnalysisModeScreen(
                 self.app_state,
+                self.profile_store,
                 self.navigator.bind("import_data"),
                 self.navigator.back,
             ),

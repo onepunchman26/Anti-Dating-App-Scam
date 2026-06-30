@@ -3,6 +3,7 @@ from pathlib import Path
 from PySide6.QtWidgets import QFileDialog, QGridLayout, QTextEdit, QVBoxLayout, QWidget
 
 from anti_dating_scam.engine.chatgpt_export_parser import ChatGPTExportParser
+from anti_dating_scam_desktop.i18n import bi
 from anti_dating_scam_desktop.widgets.app_card import AppCard
 from anti_dating_scam_desktop.widgets.primary_button import PrimaryButton
 from anti_dating_scam_desktop.widgets.secondary_button import SecondaryButton
@@ -19,54 +20,74 @@ class ImportDataScreen(QWidget):
         layout.setContentsMargins(48, 48, 48, 48)
         layout.addWidget(
             StepHeader(
-                "Import Data to Build Your Local Profile",
-                "Choose one or more local sources. Nothing is uploaded by this screen.",
+                bi("Import Data to Build Your Local Profile", "导入数据以建立您的本地档案"),
+                bi(
+                    "Choose one or more local sources. Nothing is uploaded by this screen.",
+                    "选择一个或多个本地数据来源。本界面不会上传任何内容。",
+                ),
             )
         )
-        self.banner = StatusBanner("No sources imported yet.")
+        self.banner = StatusBanner(bi("No sources imported yet.", "尚未导入任何数据来源。"))
         layout.addWidget(self.banner)
         self.notes = QTextEdit()
-        self.notes.setPlaceholderText("Paste Manual Markdown / Notes here.")
+        self.notes.setPlaceholderText(
+            bi("Paste Manual Markdown / Notes here.", "在此粘贴手动 Markdown / 笔记。")
+        )
         layout.addWidget(self.notes)
         grid = QGridLayout()
         cards = [
             AppCard(
-                "Manual Markdown / Notes",
-                "Paste above or load a local .md / .txt file.",
-                "Import",
+                bi("Manual Markdown / Notes", "手动 Markdown / 笔记"),
+                bi(
+                    "Paste above or load a local .md / .txt file.",
+                    "在上方粘贴，或加载本地 .md / .txt 文件。",
+                ),
+                bi("Import", "导入"),
                 self._import_notes,
             ),
             AppCard(
-                "ChatGPT Export ZIP",
-                "Load an official local export if available.",
-                "Import",
+                bi("ChatGPT Export ZIP", "ChatGPT 导出 ZIP"),
+                bi(
+                    "Load an official local export if available.",
+                    "如有官方本地导出文件，可在此加载。",
+                ),
+                bi("Import", "导入"),
                 self._import_chatgpt_export,
             ),
             AppCard(
-                "Saved Web AI Chat HTML / JSON",
-                "Load exported or saved files from another AI chat platform.",
-                "Import",
+                bi("Saved Web AI Chat HTML / JSON", "已保存的网页 AI 聊天 HTML / JSON"),
+                bi(
+                    "Load exported or saved files from another AI chat platform.",
+                    "加载从其他 AI 聊天平台导出或保存的文件。",
+                ),
+                bi("Import", "导入"),
                 self._import_saved_file,
             ),
             AppCard(
-                "Assisted Browser Export",
-                "Open the user-assisted local browser export screen.",
-                "Open",
+                bi("Assisted Browser Export", "辅助浏览器导出"),
+                bi(
+                    "Open the user-assisted local browser export screen.",
+                    "打开用户辅助的本地浏览器导出界面。",
+                ),
+                bi("Open", "打开"),
                 on_assisted_export,
             ),
             AppCard(
-                "Existing Profile File",
-                "Choose an existing .mpm.md or .json profile.",
-                "Import",
+                bi("Existing Profile File", "现有档案文件"),
+                bi(
+                    "Choose an existing .mpm.md or .json profile.",
+                    "选择现有的 .mpm.md 或 .json 档案文件。",
+                ),
+                bi("Import", "导入"),
                 self._import_existing_profile,
             ),
         ]
         for index, card in enumerate(cards):
             grid.addWidget(card, index // 2, index % 2)
         layout.addLayout(grid)
-        next_button = PrimaryButton("Continue to Generate Profile")
+        next_button = PrimaryButton(bi("Continue to Generate Profile", "继续生成档案"))
         next_button.clicked.connect(on_generation)
-        back = SecondaryButton("Back")
+        back = SecondaryButton(bi("Back", "返回"))
         back.clicked.connect(on_back)
         layout.addWidget(next_button)
         layout.addWidget(back)
@@ -75,7 +96,10 @@ class ImportDataScreen(QWidget):
         text = self.notes.toPlainText().strip()
         if not text:
             path, _ = QFileDialog.getOpenFileName(
-                self, "Load Markdown or notes", "", "Notes (*.md *.txt)"
+                self,
+                bi("Load Markdown or notes", "加载 Markdown 或笔记"),
+                "",
+                "Notes (*.md *.txt)",
             )
             if not path:
                 return
@@ -87,7 +111,7 @@ class ImportDataScreen(QWidget):
 
     def _import_chatgpt_export(self) -> None:
         path, _ = QFileDialog.getOpenFileName(
-            self, "Load ChatGPT export", "", "ChatGPT export (*.zip *.json)"
+            self, bi("Load ChatGPT export", "加载 ChatGPT 导出文件"), "", "ChatGPT export (*.zip *.json)"
         )
         if not path:
             return
@@ -98,7 +122,10 @@ class ImportDataScreen(QWidget):
 
     def _import_saved_file(self) -> None:
         path, _ = QFileDialog.getOpenFileName(
-            self, "Load saved AI chat file", "", "AI chat files (*.html *.htm *.json *.md *.txt)"
+            self,
+            bi("Load saved AI chat file", "加载已保存的 AI 聊天文件"),
+            "",
+            "AI chat files (*.html *.htm *.json *.md *.txt)",
         )
         if not path:
             return
@@ -109,7 +136,10 @@ class ImportDataScreen(QWidget):
 
     def _import_existing_profile(self) -> None:
         path, _ = QFileDialog.getOpenFileName(
-            self, "Load existing profile", "", "Profile files (*.mpm.md *.md *.json)"
+            self,
+            bi("Load existing profile", "加载现有档案"),
+            "",
+            "Profile files (*.mpm.md *.md *.json)",
         )
         if not path:
             return
@@ -122,4 +152,6 @@ class ImportDataScreen(QWidget):
         self._update_banner()
 
     def _update_banner(self) -> None:
-        self.banner.set_text(f"Imported sources: {len(self.state.import_sources)}")
+        self.banner.set_text(
+            f"{bi('Imported sources', '已导入的数据来源')}: {len(self.state.import_sources)}"
+        )

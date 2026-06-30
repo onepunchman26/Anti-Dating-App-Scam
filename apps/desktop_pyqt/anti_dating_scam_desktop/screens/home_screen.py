@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QGridLayout, QVBoxLayout, QWidget
 
+from anti_dating_scam_desktop.i18n import bi
 from anti_dating_scam_desktop.widgets.app_card import AppCard
 from anti_dating_scam_desktop.widgets.status_banner import StatusBanner
 from anti_dating_scam_desktop.widgets.step_header import StepHeader
@@ -14,39 +15,72 @@ class HomeScreen(QWidget):
         layout.setContentsMargins(48, 48, 48, 48)
         layout.addWidget(
             StepHeader(
-                "AI-SlowMatch",
-                "Local relationship trust and anti-scam assistant.",
+                bi("AI-SlowMatch", "AI-SlowMatch"),
+                bi(
+                    "Local relationship trust and anti-scam assistant.",
+                    "本地关系信任与反诈骗助手。",
+                ),
             )
         )
         self.profile_status = StatusBanner()
         layout.addWidget(self.profile_status)
         grid = QGridLayout()
         cards = [
-            ("Analyze a Conversation", "Create a local Risk Report.", "Open", "risk"),
             (
-                "Trust Ladder Coach",
-                "Decide whether to stay, slow down, or step back.",
-                "Open",
+                bi("Analyze a Conversation", "分析一段对话"),
+                bi("Create a local Risk Report.", "生成本地风险报告。"),
+                bi("Open", "打开"),
+                "risk",
+            ),
+            (
+                bi("Trust Ladder Coach", "信任阶梯教练"),
+                bi(
+                    "Decide whether to stay, slow down, or step back.",
+                    "决定是继续、放慢节奏，还是退一步。",
+                ),
+                bi("Open", "打开"),
                 "trust",
             ),
             (
-                "View / Edit Local Profile",
-                "Review your MPMD Profile and JSON companion.",
-                "Open",
+                bi("View / Edit Local Profile", "查看 / 编辑本地档案"),
+                bi(
+                    "Review your MPMD Profile and JSON companion.",
+                    "查看您的 MPMD 档案及对应的 JSON 文件。",
+                ),
+                bi("Open", "打开"),
                 "profile",
             ),
             (
-                "Export or Verify Report",
-                "Export, sign, or verify local report files.",
-                "Open",
+                bi("Export or Verify Report", "导出或验证报告"),
+                bi(
+                    "Export, sign, or verify local report files.",
+                    "导出、签名或验证本地报告文件。",
+                ),
+                bi("Open", "打开"),
                 "report",
             ),
-            ("Import More Data", "Add notes, exports, or AI chat files.", "Open", "import"),
-            ("Settings", "Provider settings and API-mode placeholders.", "Open", "settings"),
             (
-                "Assisted Browser Export",
-                "User-assisted local export of your own AI chats.",
-                "Open",
+                bi("Import More Data", "导入更多数据"),
+                bi("Add notes, exports, or AI chat files.", "添加笔记、导出文件或 AI 聊天记录。"),
+                bi("Open", "打开"),
+                "import",
+            ),
+            (
+                bi("Settings", "设置"),
+                bi(
+                    "Provider settings and API-mode placeholders.",
+                    "提供方设置与 API 模式占位功能。",
+                ),
+                bi("Open", "打开"),
+                "settings",
+            ),
+            (
+                bi("Assisted Browser Export", "辅助浏览器导出"),
+                bi(
+                    "User-assisted local export of your own AI chats.",
+                    "用户辅助的本地导出，导出您自己的 AI 聊天记录。",
+                ),
+                bi("Open", "打开"),
                 "browser",
             ),
         ]
@@ -59,19 +93,22 @@ class HomeScreen(QWidget):
         layout.addLayout(grid)
 
     def on_enter(self) -> None:
-        profile_path = self.state.profile_path or "No Markdown Profile saved yet"
-        updated = "Unknown"
+        profile_path = self.state.profile_path or bi(
+            "No Markdown Profile saved yet", "尚未保存任何 Markdown 档案"
+        )
+        updated = bi("Unknown", "未知")
         if self.state.profile_path and self.state.profile_path.exists():
             updated = self.state.profile_path.stat().st_mtime_ns
         profile_loaded = (
-            "yes"
+            bi("yes", "是")
             if self.state.profile_exists or self.state.current_profile_markdown
-            else "not yet"
+            else bi("not yet", "尚未")
         )
+        mode = self.state.analysis_mode or bi("not selected", "未选择")
         self.profile_status.set_text(
-            "Profile loaded: "
+            f"{bi('Profile loaded', '档案已加载')}: "
             f"{profile_loaded}\n"
-            f"Path: {profile_path}\n"
-            f"Last updated marker: {updated}\n"
-            f"Analysis mode: {self.state.analysis_mode or 'not selected'}"
+            f"{bi('Path', '路径')}: {profile_path}\n"
+            f"{bi('Last updated marker', '最后更新标记')}: {updated}\n"
+            f"{bi('Analysis mode', '分析模式')}: {mode}"
         )
