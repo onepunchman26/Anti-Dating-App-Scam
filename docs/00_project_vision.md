@@ -1,6 +1,8 @@
 # Project Vision
 
-AI-SlowMatch is a prototype for anti-dating-scam and relationship-trust infrastructure. It is not a normal dating app, not a matching oracle, and not an AI lover replacement.
+AI-SlowMatch is a prototype for anti-dating-scam and relationship-trust infrastructure. It is not a normal dating app, not a centralized matching oracle, and not an AI lover replacement.
+
+**Note on the compatibility-matching addition (see `docs/11_compatibility_matching_plan.md`):** the project now also supports an opt-in, fully decentralized deep-compatibility comparison between two specific people who already know each other or are already in contact through other means. This does not contradict the line above — there is no central database of users, no discovery feed, and no algorithm searching a population to surface candidates. People still find each other entirely on their own. The feature only ever compares two locally-held profiles that both people explicitly chose to share with each other, and produces a non-scoring reflection (alignment/divergence points), never a ranking or percentage match. Treat any future implementation that drifts toward a centralized pool, swiping, or discovery feed as out of scope and a violation of this vision, not a natural extension of it.
 
 ## Social Atomization
 

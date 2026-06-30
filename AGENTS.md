@@ -32,31 +32,22 @@ Anti-Dating-App-Scam is an AI-SlowMatch prototype for scam awareness and relatio
 
 - Update docs when changing architecture, safety policy, trust-ladder logic, or data governance.
 - Keep examples synthetic. Do not commit real user conversations or personal data.
+- **Bilingual rule (human-facing docs):** any document meant for the project owner or end user to read directly — `PLAN_FOR_ONEPUCHMAN.md`, `PROGRESS_TRACKER.md`, `README.md`, onboarding/help text in the app UI — must be provided in **English and Simplified Chinese**, in full (not machine-gloss snippets). Use either two clearly labeled full sections (English first, then "中文版") or side-by-side tables; never silently drop one language when updating the other.
+- Technical/internal docs in `docs/` (architecture, ADRs, schemas, taxonomy) are agent-facing and may stay English-only unless a human-facing doc references them directly.
+- `PROGRESS_TRACKER.md` is agent-maintained: whenever a task in this project changes status (started, blocked, done), update its checklist in both languages in the same edit — don't let it drift out of sync with actual work.
+- **No real name in any file.** Never write the project owner's real/legal name into any file in this repo (code, docs, commit messages, filenames). If a name must appear (e.g., "reading copy for ___"), use the pseudonyms only: **onepuchman** (English) and **观澜击水** (Chinese).
 
 ## Privacy-First Rule
 
 - No secret keys in the repo.
 - No real user data in tests, examples, docs, or fixtures.
-- No hidden scraping or cross-platform ingestion without explicit authorization.
-- Prefer deletion, export, minimization, and local-first design paths.
+- No hidden data collection: process only data the user has explicitly provided; never
+  scrape, exfiltrate, or transmit third-party platform content or vault contents.
 
-## Project Memory And Documentation Rule
+## Inherited rules
 
-Every future Codex task that changes architecture, schemas, safety policy, provider system, report format, or GUI flow must update:
-
-- `docs/AI_DEVELOPMENT_LOG.md`;
-- the relevant ADR in `docs/DECISION_RECORDS.md`;
-- `docs/FUTURE_CODEX_TASKS.md` if task status changes;
-- relevant schema docs if data format changes.
-
-Architecture direction:
-
-- GUI-first for the current phase.
-- Core engine remains UI-independent.
-- Provider adapters stay isolated.
-- Reports should be schema-valid before export, signing, or verification.
-- No secrets.
-- No real user data in the repo.
-- No gender-hostile wording.
-- No public personality score.
-- No deterministic "good/bad person" labels.
+This project inherits the global safety, privacy, and publishing rules from the control
+center (`setup/ai/rules/`): `safety-boundaries.md`, `privacy-and-secrets.md`,
+`redaction-standard.md`, `publishing-hygiene.md`. The Safety Boundaries and Privacy-First
+sections above are this project's local statement of those shared defaults; keep only
+project-specific rules here and defer to the apex for the rest.

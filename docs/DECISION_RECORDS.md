@@ -101,3 +101,13 @@ Context: Existing FastAPI routes provide useful contracts and tests.
 Decision: Keep FastAPI only as an optional local API server.
 
 Consequences: Future work should move core logic into engine modules and keep API code thin. Documentation should not present the app as a cloud backend.
+
+## ADR-011: Ollama Adapter Implemented With Stdlib HTTP, No New Dependency
+
+Status: Accepted
+
+Context: Phase 2 calls for an Ollama (local) provider adapter as the recommended default AI path, since it keeps imported chat/profile data on-device. The project has no existing HTTP client dependency (`httpx` is dev/test-only, used for FastAPI's `TestClient`).
+
+Decision: Implement `OllamaClient` using only Python's stdlib `urllib`, with an injectable `transport` callable so unit tests never need a live Ollama server or network access. Provide two thin adapters around the same client: one for the `LLMClient` protocol (services), one for the `AIProvider` protocol (registry/Settings UI).
+
+Consequences: No new third-party dependency was added for this feature. The `LLMClient`-side adapter raises `OllamaUnavailableError` on failure (services should know loudly if their AI call didn't happen); the `AIProvider`-side adapter instead catches that error and returns a readable error in its output dict, because the Settings screen calls providers synchronously in the UI thread and must not crash. If a richer Ollama feature set (streaming, embeddings, model pull/list) is needed later, revisit whether stdlib `urllib` is still sufficient or whether `httpx` should be promoted to a core dependency.
