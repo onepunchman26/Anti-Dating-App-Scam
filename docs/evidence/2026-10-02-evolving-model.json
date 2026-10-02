@@ -22,7 +22,7 @@
     "money_and_secrecy_pressure": "accepted; safety priority, no candidates",
     "session_only": "accepted; no saved memory in outbound context; proposals disabled"
   },
-  "local_guards": "Automated synthetic tests, not real-model claims: concurrency, isolation, exact quotes, stale replies, opt-out, deletion cascades, duplicate approval and malformed candidates.",
+  "local_guards": "Automated synthetic tests, not real-model claims: concurrency, isolation, exact quotes, stale replies, opt-out, deletion cascades, duplicate approval and malformed candidates. Session-only selection persists across language rebuilds.",
   "issues": [
     "An early answer repeated earlier advice; Skill now prioritizes the latest user statement. Targeted final sample addresses only the new concern.",
     "One later service attempt failed with ReflectionChatError; raw output was not retained and the cause is unclassified. One direct diagnostic and one final full-service request succeeded; this does not prove the failed attempt cannot recur.",
@@ -39,11 +39,22 @@
     ],
     "physical_microphone": "not verified",
     "spoken_chinese": "not verified",
-    "audible_playback_quality": "not verified"
+    "audible_playback_quality": "not verified",
+    "native_english_playback_states": "Speaking and Finished observed with real local SAPI engine and synthetic reply; audibility not verified"
   },
   "limitations": [
     "Small synthetic sample, not general quality or safety certification.",
     "No actual private archives, raw recordings, account identifiers, access tokens or response IDs in this receipt.",
     "Final build/test identity is recorded in CURRENT_STATUS.md and the local release receipt."
-  ]
+  ],
+  "release": {
+    "build_id": "592e04a53b9c4eb38e489e492f589a4d",
+    "source_commit": "2dc8cc85dd0d1a3cae2d42283909624745433234",
+    "sha256": "f96704093b5b40a1a39c2b23cfc780fd31f1f0d3165182bda6548cc6716e4437",
+    "tests_passed": 2187,
+    "tests_skipped": 10,
+    "packaged_startup_and_about": "verified with native Computer Use",
+    "source_backup_restore": "verified",
+    "retention": "deferred safely; older copies retained"
+  }
 }

@@ -5,7 +5,8 @@ Updated / 更新：2026-10-02。Agent-maintained; change both languages together
 ## English
 
 - ✅ S5 implementation: runtime Skill v2, evidence-linked model candidates, relevant retrieval, explicit approvals, session-only mode, cascading correction/deletion, and interruptible local playback in the existing architecture.
-- 🟦 S5 release: targeted checks and real synthetic cloud samples completed; final regression gates, Windows packaging, bilingual handoff and source synchronization are in progress.
+- ✅ S5 release: 0.3.0 fixed EXE; 2,187 tests passed (10 skips); compile/lint/package/startup passed. Fourteen new real service calls accepted plus one direct diagnostic; one failed follow-up remains explicitly documented. Bilingual handoff, verified source backup and GitHub delivery completed.
+- ⬜ S5 device acceptance: no microphone or Chinese system voice is exposed in this environment. English local recognition and playback states were checked; physical input, Chinese speech and audible quality remain manual checks.
 
 - ✅ Owner approved the plan and confirmed extra credits disabled for synthetic plan-usage tests.
 - ✅ S0: protected existing work and Git history; reproduced and fixed the Windows pending-directory rename race; focused regression checks passed.
@@ -20,7 +21,8 @@ Hourly automation stays paused. No purchase, paid API key, real private archive,
 ## 中文版
 
 - ✅ S5 实现：在现有架构加入运行时 Skill v2、带证据的个人模型候选、相关检索、明确批准、仅本次会话、联动纠正／删除及可中断本机朗读。
-- 🟦 S5 发布：定向检查及真实云端合成样本完成，正在进行最终回归、Windows 打包、双语交接与源码同步。
+- ✅ S5 发布：固定 EXE 更新到 0.3.0；2,187 项测试通过（10 项跳过），编译／静态／打包／启动通过。新增 14 次真实服务调用接纳及一次直接诊断，另一次后续失败已明确记录。双语交接、已验证源码备份及 GitHub 交付完成。
+- ⬜ S5 设备验收：当前环境没有麦克风或中文系统声音；英文离线识别及朗读状态已检查，实体输入、中文语音及可听质量仍需人工。
 
 - ✅ 所有者已批准计划，并确认关闭额外积分，可用套餐内额度测试合成资料。
 - ✅ S0：保护现有工作及 Git 历史，复现并修复 Windows 暂存目录改名并发问题；定向回归检查通过。

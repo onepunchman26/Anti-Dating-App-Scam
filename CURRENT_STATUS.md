@@ -2,87 +2,114 @@
 
 ## English
 
-**New request in progress:** version 0.3.0 adds evolving personal-model review and local
-speech playback. Implementation and targeted real samples are complete; final frozen-source
-release gates are pending. The 0.2.1 evidence below is the previous released baseline.
+October 2, 2026. The autonomous implementation of the new chat/personal-model request
+is complete. **Open root `AI-SlowMatch.exe` (0.3.0)**. Physical voice and subjective
+owner acceptance remain open in [Owner review](OWNER_REVIEW.md). Hourly automation
+`ai-slowmatch` remains PAUSED; work resumes only on the owner's instruction.
 
-October 2, 2026. Autonomous work on the approved correction is complete; physical
-voice and subjective owner acceptance remain open. Source is synchronized to
-`codex/standards-correction` on GitHub. Hourly automation remains paused.
-Use the fixed root `AI-SlowMatch.exe`. The current local release receipt is
-`releases/current.json`; archived manifests, source hashes, dependency versions and
-package audit live under its build ID. About shows the embedded version and identity.
+The app now connects typed or reviewed local speech input to the selected ChatGPT
+cloud model, retrieves bounded relevant approved context, displays a useful response,
+offers optional interruptible local speech, and evaluates personal-model updates.
+The authoritative bilingual [Skill v2](src/anti_dating_scam/skills/relationship-reflection/SKILL.md)
+is loaded into actual requests and verified inside the EXE. The existing Python core,
+PySide interface and local memory store are retained; no second database was added.
 
-The final 0.2.1 build passed 2,154 tests (10 skips, one upstream deprecation warning),
-compilation, lint, embedded-module/native dependency checks and isolated startup.
-Build `40deb7267e84476fab4a2879decf421b` uses source commit `409098d9cc4d`;
-subsequent commits only record acceptance. Its SHA-256 is
-`1b4b0aed5454d322c142a5e1bf61208c9100cfff8ed29f86fa9d2a06c2587429`.
-The earlier verified 0.2.0 is retained for rollback. Root still has one user EXE.
-The development/dirty flag honestly includes the pre-existing untracked `.vscode/`
-and `paper/` directories; neither was uploaded or included in the source snapshot.
+Personal-model candidates show exact user quotes, context, inference/report origin,
+alternatives and uncertainty. Every item needs approval before persistence. Inspect,
+correct, question, reject, export or delete items in My approved notes. Changes clear
+dependent interpretations and invalidate stale replies/evaluations. Revision locking,
+idempotency and selected-folder isolation are enforced in code. Session-only mode
+ignores the saved model, including after a language change. No update is valid; a
+malformed proposal does not discard an otherwise valid conversational response.
 
-Native Computer Use confirmed Start/End and Back in an isolated synthetic chat,
-the first-use voice model prompt, and the packaged program's startup/About identity.
-The test environment enumerated zero microphone inputs. Automated voice tests and
-the visible dialog therefore do not establish physical capture or spoken-Chinese accuracy.
+The frozen-source release passed **2,187 tests, 10 skips** and one upstream deprecation
+warning, plus compilation, lint, module/resource/native dependency checks and isolated
+startup. Native Computer Use verified the packaged startup and About identity. Build
+`592e04a53b9c4eb38e489e492f589a4d` uses source commit `2dc8cc85dd0d`; subsequent commits record
+acceptance/docs only. SHA-256: `f96704093b5b40a1a39c2b23cfc780fd31f1f0d3165182bda6548cc6716e4437`.
+Full local receipts are in `releases/current.json` and the corresponding build archive.
+There is one root EXE. Verified older releases remain available for rollback. The
+honest development/dirty flag includes original untracked `.vscode/` and `paper/`;
+those folders are neither included in snapshots nor uploaded.
 
-Actual ChatGPT-plan tests now use only fictional examples, following the owner's
-extra-credit confirmation. A complete seven-request run used GPT-5.6-Luna, with matching
-requested/reported IDs, and exercised two conversations/portraits plus encrypted
-export/import and comparison. Chat answers took about 5–7 seconds, portraits 11–13,
-comparison 16 in this small sample. Initial failures revealed empty terminal output
-and an over-short socket timeout; both were fixed without enabling retries or fallback.
-Semantic review found an over-broad shared-preference sentence; the revised comparison
-passed a targeted follow-up. Four further coaching calls covered opening, rejection,
-correction/topic changes and financial pressure. All twelve accepted calls returned
-the selected model ID. The redacted receipt is in `docs/evidence/2026-10-02-chatgpt-plan.json`. This is sample evidence, not a general
-quality or safety guarantee. No physical microphone acceptance is claimed.
+New live tests used synthetic data and the authorized ChatGPT plan with extra credits
+disabled: **14 accepted service calls**, plus one direct diagnostic response, used
+GPT-5.6-Luna with matching known requested/reported IDs. They covered first motivation,
+uncertain ideals, self-description versus a reported action, approved context in a
+returning session, childhood without assumed causality, corrections, no update,
+financial pressure and session-only behavior. An early sample repeated earlier advice;
+the Skill was tightened and targeted final checks addressed only the latest concern.
+One later service attempt failed without a retained raw reply, so its cause remains
+unclassified; later diagnostics succeeded. This is bounded sample evidence, not a
+claim of universal reliability. [Sanitized receipt](docs/evidence/2026-10-02-evolving-model.json).
+The earlier successful portrait/encrypted exchange/comparison samples remain in
+[the prior receipt](docs/evidence/2026-10-02-chatgpt-plan.json).
 
-The installed coaching skill is backed up and fast-forwarded to reviewed commit
-`6db7354a4002dc7c448a9c87ffdad8132570c9d3`. The application uses its own bounded policy,
-not the skill's questionnaires, scores, gender calibration, memory scripts or private data.
-Local chat/portrait/notes storage is ordinary unencrypted storage. Sharing packages
-alone use authenticated encryption. Approved notes are context, never fresh evidence.
+Actual offline English Vosk recognition of generated synthetic speech passed separately;
+that optional downloaded-model check is skipped in the isolated source build. Native
+UI checks observed English SAPI Speaking/Finished states and the missing-Chinese-voice
+fallback. The environment reports **0 microphones, 1 output device, English/Spanish
+SAPI voices and no Chinese voice**. Physical capture, spoken-Chinese accuracy and
+actual audibility still require the owner's device. Automated interruption tests do
+not establish human listening quality. Missing hardware never produces simulated success.
 
-Continue from [Progress](PROGRESS_TRACKER.md); pending human actions are in
-[Owner review](OWNER_REVIEW.md). Earlier long-form records are preserved in
-[history](docs/history/2026-10-01-before-standards-correction/CURRENT_STATUS.md).
+Local chat/portrait/model storage is unencrypted; sharing attachments alone are
+authenticated-encrypted. Deletion clears this model and its dependents, not earlier
+cloud disclosures, independent saved sessions/reports, exports or external backups.
+No private backup or automatic restoration exists. Development source/Git backups
+are verified by restoration outside the checkout. Old-copy cleanup was deferred
+safely during this release; older verified copies remain rather than being forced away.
+Source and bilingual handoff are delivered on GitHub branch `codex/standards-correction`.
+No purchases, paid API keys, real private archives, emails or public deployment were used.
+
+[Progress](PROGRESS_TRACKER.md) · [Approved scope](PLAN_FOR_ONEPUCHMAN.md) ·
+[Architecture/storage limits](docs/32_standards_correction.md) · [Build/recovery](packaging/README.md).
 
 ## 中文版
 
-**追加任务进行中：**0.3.0 加入持续个人模型审核及本机朗读。实现及定向真实样本已完成，
-正在准备最终冻结源码发布检查。下方 0.2.1 依据属于此前已交付基线。
+2026 年 10 月 2 日。本次聊天／个人模型请求中可自主完成的实现已完成。
+**打开根目录 `AI-SlowMatch.exe`（0.3.0）**。实体语音及主观实用性仍需按
+[所有者审阅](OWNER_REVIEW.md)验收。小时任务 `ai-slowmatch` 保持 PAUSED，下一轮由所有者发出指令启动。
 
-2026 年 10 月 2 日。已批准整改中的自主工作完成，实体语音及所有者主观验收仍待完成。
-源码已同步到 GitHub 的 `codex/standards-correction` 分支，小时自动任务保持暂停。
-使用根目录固定的 `AI-SlowMatch.exe`。当前本地发布记录为 `releases/current.json`；
-对应构建编号目录内保留清单、源码哈希、依赖版本及程序包核验结果。“关于”显示内嵌版本与编号。
+现在应用可以将打字或经核对的本地语音输入交给所选 ChatGPT 云端模型，检索有限的相关
+已批准背景，显示有效回复，按需本机朗读并随时打断，同时评估个人模型更新。
+权威双语 [Skill v2](src/anti_dating_scam/skills/relationship-reflection/SKILL.md)
+真正加载进请求，并已核验包含在 EXE 中。沿用 Python 核心、PySide 界面及现有记忆存储，
+没有第二套数据库。
 
-最终 0.2.1 构建通过 2,154 项测试（10 项跳过、1 项上游弃用警告）、编译、静态检查、
-嵌入模块／原生依赖及隔离启动检查。构建编号 `40deb7267e84476fab4a2879decf421b`，
-源码提交 `409098d9cc4d`；后续提交仅记录验收。SHA-256 为
-`1b4b0aed5454d322c142a5e1bf61208c9100cfff8ed29f86fa9d2a06c2587429`。
-此前验证的 0.2.0 保留供回滚，根目录仍只有一个用户 EXE。开发／脏工作区标记如实包含
-原有未跟踪的 `.vscode/` 及 `paper/` 目录，二者均未上传，也未进入源码快照。
+候选展示准确原话、情境、自述／AI 推断类别、其他解释和不确定性，每条明确批准才保存。
+在“我批准的记忆”中可查看、纠正、质疑、拒绝、导出或删除。变更联动清理依赖解释，使旧
+回复／候选失效；版本锁、幂等及按选定文件夹隔离由代码执行。“仅本次会话”忽略已存模型，
+切换语言后仍保持。无需更新是有效结果；候选不合格不会丢弃原本有效的聊天回复。
 
-通过原生 Computer Use 检查了隔离合成聊天的开始／结束／返回、首次语音模型提示，
-以及打包程序启动和“关于”中的身份。测试环境检测到零个麦克风输入，因此自动语音测试及
-可见弹窗不能证明实体录音或中文口述准确性。
+冻结源码发布通过 **2,187 项测试、10 项跳过**，有一项上游弃用警告；编译、静态检查、
+模块／资源／原生依赖及隔离启动均通过。原生 Computer Use 核验了打包程序启动及“关于”
+身份。构建编号 `592e04a53b9c4eb38e489e492f589a4d`，源码提交 `2dc8cc85dd0d`，
+后续提交仅记录验收／文档。SHA-256：`f96704093b5b40a1a39c2b23cfc780fd31f1f0d3165182bda6548cc6716e4437`。
+完整本地记录见 `releases/current.json` 及对应构建归档。根目录仅一个 EXE，旧的已验证
+版本可供回滚。开发／脏工作区标记如实包含原有 `.vscode/` 和 `paper/` 未跟踪目录；
+这两个目录未进入快照，也未上传。
 
-所有者确认额外积分关闭后，真实 ChatGPT 套餐测试只使用虚构案例。一次完整七请求流程
-使用 GPT-5.6-Luna，请求及返回模型标识一致，涵盖双方聊天／画像、加密导出／导入及比较。
-这个小样本中聊天约 5–7 秒、画像约 11–13 秒、比较约 16 秒。最初失败揭示了末尾事件正文为空
-及连接读取超时过短的问题，均已修复，没有启用自动重试或后备模型。语义审阅发现一处把偏好
-扩大为双方共有的句子，修订后的比较已通过定向后续检查。另四次军师调用涵盖开场、明确拒绝、
-纠正／换话题和金钱压力；十二次接纳的调用均返回所选模型标识。脱敏记录位于
-`docs/evidence/2026-10-02-chatgpt-plan.json`。样本依据不等于普遍质量或
-安全保证；尚不宣称通过实体麦克风验收。
+本轮真实测试只用合成资料，使用已授权且关闭额外积分的 ChatGPT 套餐：**14 次服务调用
+获接纳**，另一次直接诊断回复。使用 GPT-5.6-Luna，已知请求／返回标识一致，覆盖初次
+动机、理想不明、自述与单次行为、返回会话中的批准背景、童年非自动因果、纠正、无更新、
+金钱压力及仅本次会话。较早样本重复了之前的建议，已收紧 Skill，最终定向检查只回答最新
+问题。另一次后续服务请求失败且未保留原始回复，因此尚未归因；后续诊断成功。这是有限
+样本依据，不是普遍可靠性保证。[脱敏记录](docs/evidence/2026-10-02-evolving-model.json)。
+此前画像／加密交换／比较的成功样本仍保存在[上一份记录](docs/evidence/2026-10-02-chatgpt-plan.json)。
 
-已备份并快进更新军师 skill 到审阅提交 `6db7354a4002dc7c448a9c87ffdad8132570c9d3`。
-应用使用自己维护的有限策略，不加载 skill 的问卷、分数、性别校准、记忆脚本或私人资料。
-本地聊天／画像／记忆为普通未加密存储，只有共享附件使用带完整性保护的加密。
-已批准记忆只作背景，不能变成新证据。
+真实离线英文 Vosk 已单独识别生成的合成语音；隔离源码构建不带下载模型，所以跳过该
+可选检查。原生界面看到英文 SAPI 朗读／完成状态，以及缺少中文声音时的提示。
+环境检测到 **0 个麦克风、1 个输出设备、英语／西语 SAPI 声音，没有中文声音**。
+实体录音、中文口述准确性及实际可听效果仍需所有者设备。自动停止测试不能代替人的听感
+验收；缺设备时不会制造模拟成功。
 
-接续以[进度](PROGRESS_TRACKER.md)为准，人工事项见[所有者审阅](OWNER_REVIEW.md)。
-原长篇记录保存在[历史交接](docs/history/2026-10-01-before-standards-correction/CURRENT_STATUS.md)。
+本地聊天／画像／模型仍未加密，只有分享附件使用带完整性保护的加密。删除清理本模型及
+依赖项，不会抹除之前云端披露、独立会话／报告、导出或外部备份；没有私人自动备份或自动
+恢复。开发源码／Git 备份在仓库之外经恢复核验。本次发布安全地暂缓了旧副本清理，继续
+保留已验证旧副本，没有强行移除。源码和双语交接交付到 GitHub 的
+`codex/standards-correction` 分支。未购买服务、使用付费 API key、读取真实私人档案、
+发送邮件或公开部署。
+
+[进度](PROGRESS_TRACKER.md) · [批准范围](PLAN_FOR_ONEPUCHMAN.md) ·
+[架构及存储限制](docs/32_standards_correction.md) · [构建与恢复](packaging/README.md)。
