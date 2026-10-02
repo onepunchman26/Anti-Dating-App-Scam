@@ -18,5 +18,5 @@ if ($Path) { $releaseArgs += @("--path", $Path) }
 if ($Destination) { $releaseArgs += @("--destination", $Destination) }
 if ($BuildId) { $releaseArgs += @("--build-id", $BuildId) }
 if ($StageOnly) { $releaseArgs += "--stage-only" }
-& $Python @releaseArgs
+& $Python -X utf8 @releaseArgs
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

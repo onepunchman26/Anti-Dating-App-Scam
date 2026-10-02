@@ -4,7 +4,7 @@ from anti_dating_scam_desktop.widgets.relationship_memory_dialog import (
     MemoryCandidateDialog,
     RelationshipMemoryDialog,
 )
-from PySide6.QtWidgets import QApplication
+from PySide6.QtWidgets import QApplication, QPushButton
 from test_evolving_personal_model import batch, candidate, enabled
 from test_reflection_chat_ui import _QUESTION, _Deferred, _local_backend, _window
 
@@ -78,3 +78,40 @@ def test_session_only_and_end_interrupt_playback(tmp_path, monkeypatch):
     finally:
         window.close()
         app.processEvents()
+
+
+def test_session_only_survives_language_rebuild_without_reenabling_memory(tmp_path, monkeypatch):
+    from anti_dating_scam_desktop.i18n import current_language, set_language
+    from anti_dating_scam_desktop.screens import reflection_chat_screen as screen
+    from test_reflection_chat_ui import _settle
+
+    original_language = current_language()
+    app = QApplication.instance() or QApplication([])
+    backend, _ = _local_backend(_QUESTION)
+    monkeypatch.setattr(screen.ai_backend, "get_active", lambda: backend)
+    deferred = _Deferred()
+    monkeypatch.setattr(screen, "run_async", deferred.run)
+    window, store = _window(tmp_path, monkeypatch)
+    try:
+        store.create_default_directories()
+        memory = enabled(store.base_dir)
+        memory.change(1, confirmed=True, action="add", text="A synthetic private preference")
+        window.navigator.go("reflection_chat")
+        chat = window.navigator._screens["reflection_chat"]
+        chat.session_only.setChecked(True)
+        chat.start_button.click()
+        deferred.finish()
+        window.findChild(QPushButton, "LanguageButton").click()
+        _settle(app)
+        rebuilt = window.navigator._screens["reflection_chat"]
+        assert rebuilt is not chat
+        assert rebuilt.session_only.isChecked()
+        assert rebuilt.memory_status.text()
+        assert rebuilt._sync_memory() and not rebuilt.service._memory.enabled
+        request = rebuilt.service.propose_turn("A preference to discuss")
+        assert "APPROVED_MEMORY" not in request.request.messages[0].content
+        assert memory.read().enabled  # Per-session choice never changes persistent consent.
+    finally:
+        window.close()
+        app.processEvents()
+        set_language(original_language, persist=False)

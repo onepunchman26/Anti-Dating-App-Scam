@@ -271,7 +271,11 @@ class ReflectionChatScreen(QWidget):
                 vault,
                 ReflectionChatService(language=current_language()),
             )
+            self.session_only.blockSignals(True)
+            self.session_only.setChecked(self.service._session_only)
+            self.session_only.blockSignals(False)
             self.input_box.setPlainText(self.holder.drafts.get(vault, ""))
+        self._sync_memory()
         self._render()
         self._controls()
         if ai_backend.get_active() is None:
