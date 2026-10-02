@@ -4,6 +4,10 @@ Updated / 更新：2026-10-02。Agent-maintained; change both languages together
 
 ## English
 
+- ✅ S6 local implementation: adult introductions, separate snapshots, persistent invitation permissions, reciprocal discovery/private ordering, local worker and integrated Qt/API/model flow. Real HTTP/Qt tests and three useful real model samples verified; first two empty introduction replies preserved as functional failures.
+- 🟦 S6 delivery: full frozen-source tests, fixed 0.4.0 EXE, backup and source sync in progress.
+- ⬜ S6 external service: no deployed HTTPS coordinator, verified identity/age or email integration. See owner review; do not claim cross-device/public readiness.
+
 - ✅ S5 implementation: runtime Skill v2, evidence-linked model candidates, relevant retrieval, explicit approvals, session-only mode, cascading correction/deletion, and interruptible local playback in the existing architecture.
 - ✅ S5 release: 0.3.0 fixed EXE; 2,187 tests passed (10 skips); compile/lint/package/startup passed. Fourteen new real service calls accepted plus one direct diagnostic; one failed follow-up remains explicitly documented. Bilingual handoff, verified source backup and GitHub delivery completed.
 - ⬜ S5 device acceptance: no microphone or Chinese system voice is exposed in this environment. English local recognition and playback states were checked; physical input, Chinese speech and audible quality remain manual checks.
@@ -19,6 +23,10 @@ Updated / 更新：2026-10-02。Agent-maintained; change both languages together
 Hourly automation stays paused. No purchase, paid API key, real private archive, email delivery or public deployment was used. The [prior tracker](docs/history/2026-10-01-before-standards-correction/PROGRESS_TRACKER.md) is historical, not an extra backlog. Current evidence belongs in [CURRENT_STATUS](CURRENT_STATUS.md).
 
 ## 中文版
+
+- ✅ S6 本机实现：成年人介绍、独立快照、持久化邀请权限、双向发现／私密排序、本机工作进程与 Qt／API／模型整合。真实 HTTP／Qt 流程和三个可用真实模型样本已验证；最初两次空白介绍作为功能失败保留。
+- 🟦 S6 交付：冻结源码全套测试、固定 0.4.0 EXE、备份与源码同步进行中。
+- ⬜ S6 外部服务：尚未部署 HTTPS 协调节点、身份／年龄核验或邮件整合，见人工审阅；不可宣称跨设备／公开服务已就绪。
 
 - ✅ S5 实现：在现有架构加入运行时 Skill v2、带证据的个人模型候选、相关检索、明确批准、仅本次会话、联动纠正／删除及可中断本机朗读。
 - ✅ S5 发布：固定 EXE 更新到 0.3.0；2,187 项测试通过（10 项跳过），编译／静态／打包／启动通过。新增 14 次真实服务调用接纳及一次直接诊断，另一次后续失败已明确记录。双语交接、已验证源码备份及 GitHub 交付完成。

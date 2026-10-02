@@ -75,6 +75,11 @@ def audit_package(root: Path, executable: Path, metadata: dict) -> dict:
         "anti_dating_scam.ai.chatgpt_backend",
         "anti_dating_scam.services.voice_input",
         "anti_dating_scam.services.personal_model",
+        "anti_dating_scam.services.dating_introduction",
+        "anti_dating_scam.services.peer_ai",
+        "anti_dating_scam.matchmaking.peer_coordinator",
+        "anti_dating_scam.api.routes_peers",
+        "anti_dating_scam_desktop.screens.peer_workbench_screen",
         "anti_dating_scam_desktop.speech_playback",
     ):
         if required not in verified:

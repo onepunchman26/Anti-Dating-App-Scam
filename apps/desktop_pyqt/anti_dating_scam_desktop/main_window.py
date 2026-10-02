@@ -1,3 +1,5 @@
+import os
+
 from PySide6.QtCore import Qt, QTimer
 from PySide6.QtWidgets import (
     QFrame,
@@ -27,6 +29,10 @@ from anti_dating_scam_desktop.screens.criteria_viewer_screen import CriteriaView
 from anti_dating_scam_desktop.screens.home_screen import HomeScreen
 from anti_dating_scam_desktop.screens.import_data_screen import ImportDataScreen
 from anti_dating_scam_desktop.screens.interview_chat_screen import InterviewChatScreen
+from anti_dating_scam_desktop.screens.peer_workbench_screen import (
+    PeerWorkbenchScreen,
+    PeerWorkbenchState,
+)
 from anti_dating_scam_desktop.screens.policy_consent_screen import PolicyConsentScreen
 from anti_dating_scam_desktop.screens.profile_detection_screen import ProfileDetectionScreen
 from anti_dating_scam_desktop.screens.profile_generation_screen import ProfileGenerationScreen
@@ -69,6 +75,9 @@ class MainWindow(QMainWindow):
         self.legacy_state = self.app_state.as_legacy_dict()
         self.reflection_state = ReflectionChatState()
         self.exchange_state = RelationshipExchangeState()
+        self.peer_state = PeerWorkbenchState(
+            pending_link=os.environ.pop("ADS_PENDING_INVITATION", "")
+        )
 
         self._current_screen = "welcome"
         self._pending_language_change = False
@@ -213,6 +222,7 @@ class MainWindow(QMainWindow):
             self._defer_lifecycle()
             event.ignore()
             return
+        self.peer_state.stop()
         super().closeEvent(event)
 
     def _add_screens(self) -> None:
@@ -261,6 +271,7 @@ class MainWindow(QMainWindow):
                     "connect_ai": self.navigator.bind("ai_connect"),
                     "reflection_chat": self.navigator.bind("reflection_chat"),
                     "exchange": self.navigator.bind("relationship_exchange"),
+                    "peers": self.navigator.bind("peers"),
                     "understand": self.navigator.bind("self_portrait"),
                     "add_data": self.navigator.bind("import_data"),
                     "self_portrait_view": self.navigator.bind("self_portrait_viewer"),
@@ -278,6 +289,12 @@ class MainWindow(QMainWindow):
                 self.app_state,
                 self.profile_store,
                 self.navigator.back,
+            ),
+        )
+        self.navigator.add(
+            "peers",
+            PeerWorkbenchScreen(
+                self.app_state, self.profile_store, self.peer_state, self.navigator.back
             ),
         )
         self.navigator.add(
@@ -441,6 +458,8 @@ class MainWindow(QMainWindow):
     def _go_home(self) -> None:
         self._sync_app_state_from_legacy()
         self.navigator.go("home")
+        if self.peer_state.pending_link:
+            self.navigator.go("peers")
 
     def _go_risk(self) -> None:
         self._sync_legacy_from_app_state()

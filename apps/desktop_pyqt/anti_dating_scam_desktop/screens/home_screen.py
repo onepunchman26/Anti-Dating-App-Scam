@@ -53,6 +53,12 @@ class HomeScreen(QWidget):
         exchange.clicked.connect(on_routes.get("exchange", on_routes["advanced"]))
         layout.addWidget(exchange)
 
+        if "peers" in on_routes:
+            peers = SecondaryButton(bi("Introductions & invitations", "介绍与邀请"))
+            peers.setObjectName("home_peers")
+            peers.clicked.connect(on_routes["peers"])
+            layout.addWidget(peers)
+
         tools = SecondaryButton(bi("More tools", "更多工具"))
         tools.clicked.connect(on_routes["advanced"])
         layout.addWidget(tools)
@@ -68,12 +74,7 @@ class HomeScreen(QWidget):
             else bi("Connect ChatGPT to start chatting.", "连接 ChatGPT 后即可开始聊天。")
         )
         if backend_name:
-            self.connect_button.setText(
-                f"{bi('AI connection', 'AI 连接')}: {backend_name}"
-            )
+            self.connect_button.setText(f"{bi('AI connection', 'AI 连接')}: {backend_name}")
         else:
             self.connect_button.setText(bi("Connect ChatGPT", "连接 ChatGPT"))
-        self.vault_status.set_text(
-            f"{ai_line}\n"
-            f"{bi('Local folder', '本地文件夹')}: {vault}"
-        )
+        self.vault_status.set_text(f"{ai_line}\n{bi('Local folder', '本地文件夹')}: {vault}")

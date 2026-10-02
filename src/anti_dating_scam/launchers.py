@@ -64,7 +64,13 @@ def desktop_main(argv: list[str] | None = None) -> int:
         "--smoke-test", action="store_true",
         help="start with temporary data and exit automatically / 临时数据启动检查后自动退出",
     )
+    parser.add_argument("--invitation", help="Open an invitation for review / 打开邀请供审阅")
     args = parser.parse_args(argv)
+    if args.invitation:
+        # Carry opaque text to the review field only. Never connect, claim or consent here.
+        if len(args.invitation) > 2048:
+            parser.error("Invalid invitation / 邀请过长")
+        os.environ["ADS_PENDING_INVITATION"] = args.invitation
     if not args.smoke_test:
         return _desktop_run()
     # Set isolation before importing any module that resolves the user's vault.

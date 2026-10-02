@@ -2,93 +2,76 @@
 
 ## English
 
-The 0.3.0 handoff and exact release status are in [CURRENT_STATUS](CURRENT_STATUS.md).
-Open the single root **AI-SlowMatch.exe**; About should show 0.3.0. Earlier files in
-build/dist/releases are not additional user launchers. Hourly automation remains paused;
-a new instruction from the owner starts the next iteration.
+Open the single root **AI-SlowMatch.exe**. [Current release status](CURRENT_STATUS.md)
+is authoritative; the target is 0.4.0. Hourly task execution stays paused. This work
+uses the architecture and synthetic included-plan tests already authorized.
 
-Already authorized: the current architecture and personal-model work, plus synthetic
-ChatGPT-plan tests with extra credits disabled. No repeat design approval is needed.
-No payment, public deployment, real-data import or external message awaits approval.
+1. **Introduction:** AI Chat → My approved notes: enable and approve a few fictional
+   interests/preferences. Home → Introductions & invitations → My introduction: declare
+   18+, select those notes and generate. Verify facts, missing fields, wording and edits;
+   approve, copy or export. Lower the length or use Shorten to generate another reviewed
+   version. Nothing publishes automatically.
+2. **Local invitation journey:** start the local node, create a synthetic device identity,
+   review matching/disclosure choices and create a link. Use another synthetic folder
+   on this computer as the other adult. Both review the claimant, current versions and
+   cloud permission before comparing. Correct a matching profile or withdraw consent
+   and verify that the old result is no longer available. The full [guide](docs/35_adult_peer_workflow.md)
+   includes storage and link limits. Do not send loopback links to someone on another
+   computer and expect them to work.
+3. **Discovery:** explicitly opt in, choose both people's areas/hard criteria and priorities.
+   A fresh node has no real members; an empty pool is correct. Optional automatic discovery
+   requires the local node to remain running and does not make automatic AI calls or
+   send invitations. Connection/refresh shows an opted-in minimal update notice.
+4. **Voice/conversation:** existing AI Chat starts/ends at any time. Test topic changes,
+   corrections and helpfulness using fiction. This environment had zero microphones
+   and no Chinese system voice. Select a physical microphone and the free offline
+   recognition model, review the transcription, then Send. Test local playback and Stop
+   yourself; Chinese playback needs a Chinese system voice. These hardware checks are
+   still open, and are separate from real text-model and synthetic-audio verification.
 
-1. **Conversation:** Connect ChatGPT, select an account-listed model (the tested light
-   default is GPT-5.6-Luna if available), then AI Chat → Start. Use a fictional concern,
-   change topic, challenge an interpretation and End whenever you want. Check whether
-   the reply helps with the current issue, distinguishes facts from guesses and avoids
-   automatic agreement. Back is beside Start/End. Generate a separate reflection after
-   End only if wanted; inspect original quotes before choosing to save.
-2. **Evolving model:** My approved notes → enable reuse if wanted. Describe a fictional
-   preference such as wanting a ten-minute pause followed by an agreed return time.
-   Review suggested updates: check the original quote, whether this is your report or
-   an AI hypothesis, context and uncertainty. Approve one item, leave and start a new
-   conversation about a similar situation; check that relevant context is recalled.
-   Correct/question/reject/delete it in My approved notes. Dependent interpretations
-   should disappear. Session only excludes the stored model, including after a language
-   change. Not every reply should produce a candidate; nothing is automatically approved.
-3. **Voice input:** this test environment reports **zero microphones**. Connect/select
-   a real microphone; select English or Chinese and install the selected free offline
-   recognition model using the first-use button. Record a short fictional sentence,
-   check/correct the draft and send manually. Include a name or ambiguous word to check
-   that a transcription error is not treated as a personality fact. Physical capture
-   and spoken-Chinese accuracy still need your device.
-4. **Spoken replies:** choose Read latest reply, then Stop playback or Voice input to
-   interrupt it. The observed system has English/Spanish SAPI voices but **no Chinese
-   system voice**. Chinese recognition and Chinese playback are separate components:
-   install a Chinese local system voice yourself if Chinese playback is wanted. English
-   engine Speaking/Finished states were observed; actual audibility, comfort and Chinese
-   playback still need a human check. Text remains available if speech fails.
-5. **Private exchange:** the existing encrypted `.slowmatch` attachment flow remains.
-   Use two fictional, separately saved summaries first; review the selected summaries
-   and both permissions before comparison. Sharing/email and exchanging the password
-   separately are personal actions; the app does not send mail automatically.
+**Decision for a future cross-device release:** whether to authorize a managed HTTPS
+node and which deployment/operations environment to use; how to establish adult
+eligibility, identity and account recovery; retention/deletion and distribution policy.
+No service or cost has been selected. The present local credential proves possession,
+not a verified person/age. Email is unnecessary for manual link sharing; no provider
+or delivery integration is present. Until these decisions and implementation checks
+are complete, public/cross-device readiness is not claimed. There is no pending charge
+or automatic deployment request, and no new recurring task will run after review.
 
-Local chat/reflection/personal-model files remain **unencrypted**. Individual approval
-covers the note and its displayed evidence; only relevant notes are included in reviewed
-cloud requests. Deleting a model item clears its dependent model entries, not earlier
-cloud disclosures, separate saved conversations/reports, manual exports or external
-backups. The app never auto-imports or auto-restores those copies. Use fictional content
-for acceptance until this storage choice and the conversational behavior satisfy you.
-
-Real cloud samples are distinct from mocks: 14 new service calls were accepted, plus
-one direct diagnostic response. One follow-up attempt failed without a preserved raw
-reply and remains unclassified; later targeted calls succeeded. See the [sanitized
-receipt](docs/evidence/2026-10-02-evolving-model.json). This small sample does not establish
-universal reliability or psychological validity.
+Use synthetic data until local storage choices satisfy you: private model/chat and
+approved introduction files are unencrypted; the minimal node state and credentials
+are encrypted for the Windows user. Approval does not erase earlier cloud disclosures,
+manual exports, screenshots or other copies. The app sends no full database by email.
+Five new real calls included two initially empty introductions that were corrected;
+three final useful samples do not validate personality science or guaranteed success.
 
 ## 中文版
 
-0.3.0 交接及准确发布状态见 [CURRENT_STATUS](CURRENT_STATUS.md)。打开根目录唯一的
-**AI-SlowMatch.exe**，“关于”应显示 0.3.0。build／dist／releases 中的旧文件不是新增
-用户入口。小时自动任务保持暂停，下一轮迭代由所有者的新指令启动。
+打开根目录唯一的 **AI-SlowMatch.exe**；以[当前发布状态](CURRENT_STATUS.md)为准，目标
+版本为 0.4.0。小时任务继续暂停，本轮使用已经授权的架构及合成资料套餐测试。
 
-当前架构及个人模型工作、关闭额外积分后的合成资料 ChatGPT 套餐测试均已授权，不需要
-重复设计审批。目前没有付款、公开部署、真实资料导入或向外发消息等待批准。
+1. **介绍：**在 AI 聊天 → 我批准的记忆中启用并批准几条虚构兴趣／偏好。主页 → 介绍与
+   邀请 → 我的介绍：声明年满 18 岁，选择条目并生成。核对事实、缺项、措辞和修改，再批准、
+   复制或导出。降低字数或点击缩短可生成另一份待审稿，不自动发布。
+2. **本机邀请：**启动节点，建立合成身份，审阅匹配／披露选择并创建链接。在同一电脑用
+   另一个合成资料文件夹作为另一位成年人。双方核对认领者、当前版本与云端许可后比较。
+   纠正匹配资料或撤回同意，确认旧结果不可继续读取。[完整指南](docs/35_adult_peer_workflow.md)
+   说明存储及链接限制；本机链接发给其他电脑上的人目前无法使用。
+3. **发现：**明确加入，选择双方地区／硬要求及私密偏好。新节点没有真实用户，空池是正常
+   结果。可选自动发现需要本机节点一直运行，不自动调用 AI 或发邀请；连接／刷新显示已
+   开启的最小更新提示。
+4. **语音／聊天：**原有 AI 聊天随时开始／结束，用虚构内容测试换话题、纠正及实用程度。
+   此环境曾检测到零个麦克风、没有中文系统声音。选择实体麦克风及免费离线识别模型，
+   核对转写后发送，自行测试本地朗读和停止；中文朗读需要中文系统声音。这些硬件检查仍
+   待完成，与真实文字模型、合成音频验证分开。
 
-1. **聊天：**连接 ChatGPT，从账号列表选模型（若可用，已测试的轻量默认是 GPT-5.6-Luna），
-   进入 AI 聊天 → 开始。使用一个虚构困扰，换话题、质疑解释，随时结束。检查它是否帮助
-   解决眼前问题，区分事实和推测，而不是一味赞同。“返回”就在开始／结束旁边。如需独立
-   画像，可在结束后生成，核对原文再自行选择保存。
-2. **持续模型：**在“我批准的记忆”中按需启用复用。说一条虚构偏好，例如争论时希望暂停
-   十分钟并约好继续讨论的时间。审核建议更新，核对原话、自述或 AI 假设、情境及未知。
-   批准一条后离开，再开始一个涉及类似场景的会话，检查相关记忆是否被回忆起来。
-   在“我批准的记忆”中纠正／质疑／拒绝／删除，依赖它的解释应消失。选择“仅本次会话”
-   后不使用已存模型，切换语言后仍保持。不是每次都应产生候选，也不会自动批准。
-3. **语音输入：**测试环境目前检测到**零个麦克风**。连接／选择实体麦克风，选择中或英文，
-   首次使用点击按钮安装对应的免费离线识别模型。录一句虚构内容，核对／纠正草稿后自行
-   发送。可加入名字或易混淆词，检查识别错误不会被直接当作人格事实。实体采集和中文
-   口述准确性仍需用你的设备验收。
-4. **回复朗读：**点击“朗读最新回复”，再点击“停止朗读”或“语音输入”打断。观察到的系统
-   装有英语／西语 SAPI 声音，**没有中文系统声音**。中文识别和中文朗读是不同组件，
-   如需中文朗读，请自行安装本地中文系统声音。已看到英文引擎进入朗读／完成状态，实际
-   能否听见、是否舒适以及中文播放仍需人工检查。语音失败时仍可读文字。
-5. **私密交换：**保留现有加密 `.slowmatch` 附件流程。先使用双方虚构、分别保存的摘要，
-   比较前审阅选定摘要并取得双方许可。分享／邮件及另行告知密码由本人操作，应用不自动发邮件。
+**未来跨电脑版本需要你的决定：**是否授权受管理 HTTPS 节点、使用哪个部署／运营环境；
+如何核实成年资格、身份及恢复账号；采用什么保留／删除和分发规则。尚未选择任何服务或
+费用。当前凭据只能证明持有，不能证明真实身份／年龄。手动分享链接不需要邮件，没有
+供应商或发送整合。完成这些决定与实现检查前，不宣称公开／跨设备就绪。没有待支付费用，
+也没有自动部署申请；人工审阅后不会启动新周期任务。
 
-本地聊天／画像／个人模型文件仍**未加密**。逐项批准涵盖该条记忆及展示的证据；只有相关
-条目进入经审阅的云端请求。删除模型条目会清理依赖模型，不会删除先前云端披露、独立保存
-的对话／报告、手动导出或外部备份。应用不自动导入或恢复这些副本。在确认存储选择及对话
-行为符合你的预期前，请使用虚构内容验收。
-
-真实云端样本与模拟测试分开：本轮接纳 14 次服务调用，另有一次直接诊断回复。一次后续
-请求失败且没有保留原始回复，原因仍未归类；之后的定向请求成功。见[脱敏记录](docs/evidence/2026-10-02-evolving-model.json)。
-这些少量样本不代表普遍可靠性或心理学效度。
+确认存储选择前请用合成数据：私人模型／聊天和本机批准介绍未加密；最小节点状态与凭据
+为当前 Windows 用户加密。批准不抹除先前云端披露、手动导出、截图或副本，应用不会用
+邮件发送完整数据库。本轮五次真实调用中，最初两份空白介绍已修正；三个有效最终样本
+不能证明人格科学效度或保证恋爱成功。

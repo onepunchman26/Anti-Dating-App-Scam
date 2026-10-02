@@ -4,7 +4,7 @@
 
 A Windows relationship copilot: start or end a conversation whenever you choose,
 explore your needs and boundaries, and review a private, tentative self-reflection.
-There is no public ranking, personality score, partner feed or automatic messaging.
+Optional adult discovery uses private stated priorities. There are no public personality scores or automatic messages.
 
 **Open `AI-SlowMatch.exe` in this repository's root folder.** This fixed filename is
 the current Desktop entry. Copies under `dist/` are older development artifacts;
@@ -33,13 +33,16 @@ archives under `releases/` are for recovery. See About for the version and build
    Up to 20 short entries are retained; only relevant notes appear in the sending
    review. **Session only** ignores the saved model and disables new proposals.
    Approved memory provides background, never fresh evidence for a separate portrait.
-6. **Share or compare reflections** previews a minimal summary and saves a password-
+6. **Introductions & invitations** adds adult introductions, local discovery and revocable comparison links.
+   Follow the complete [peer workflow guide](docs/35_adult_peer_workflow.md). The built-in node runs
+   on this computer only; no public hosting is configured. The private model never goes to the node.
+7. **Share or compare reflections** is the earlier optional file workflow. It previews a minimal summary and saves a password-
    encrypted `.slowmatch` attachment. Send it yourself, with the password separately.
    Import both participants' voluntarily shared files, obtain both permissions, and
    review the selected summaries before an AI discussion of fit. No match score is produced.
 
 ChatGPT processing is online and does not read existing ChatGPT conversations. Local
-saved chat/reflection/notes files are **not encrypted**; only sharing attachments are.
+saved chat/reflection/notes files are **not encrypted**; sharing attachments and the new approved-snapshot coordinator are encrypted.
 Deleting notes cannot retract exported or already transmitted copies. No paid API
 fallback, automatic email, public deployment or hourly work is enabled.
 
@@ -54,7 +57,7 @@ launches source; `./release.ps1 build` backs up, tests, builds and updates the f
 ## 中文版
 
 这是一款 Windows 恋爱军师：用户随时开始或结束聊天，探索自己的需要与边界，
-再审阅私密、暂定的相处画像。不提供公开排名、人格分数、对象推荐流或自动发消息。
+再审阅私密、暂定的相处画像。成年人可按需启用发现，使用私密明确偏好排序，不设公开人格分数，不自动发消息。
 
 **打开本仓库根目录的 `AI-SlowMatch.exe`。** 固定文件名就是当前桌面入口。
 `dist/` 中是较早的开发产物，`releases/` 中的归档用于恢复；“关于”页面显示版本和构建编号。
@@ -75,12 +78,14 @@ launches source; `./release.ps1 build` backs up, tests, builds and updates the f
    质疑、拒绝、导出或删除；纠正／删除也会移除依赖它的解释。最多保留 20 条简短条目，
    仅相关记忆出现在发送审核中。**仅本次会话**忽略已存模型并关闭新候选。
    已批准记忆只作背景，不能作为另行生成画像的新证据。
-6. **分享或比对相处画像**会先预览最小摘要，再生成密码加密的 `.slowmatch` 附件。
+6. **介绍与邀请**新增成年人介绍、本机发现和可撤销比较链接，完整操作见[邀请流程指南](docs/35_adult_peer_workflow.md)。
+   内置节点仅在当前电脑运行，尚未配置公开托管，私人模型不会发送到节点。
+7. **分享或比对相处画像**是此前可选文件流程，会先预览最小摘要，再生成密码加密的 `.slowmatch` 附件。
    邮件由你自行发送，密码另行告知。导入双方自愿提供的文件、取得双方许可并审阅待发摘要后，
    可请 AI 讨论相处契合度，不生成人格或匹配分数。
 
 ChatGPT 在线处理，但不会读取原有 ChatGPT 聊天记录。本地保存的对话、画像和记忆
-**未加密**，只有分享附件经过加密。删除记忆不能撤回已导出或发送的副本。
+**未加密**，分享附件和新增批准快照协调库经过加密。删除记忆不能撤回已导出或发送的副本。
 未启用付费 API 后备、自动邮件、公开部署或每小时任务。
 
 [当前依据](CURRENT_STATUS.md) · [批准范围](PLAN_FOR_ONEPUCHMAN.md) ·

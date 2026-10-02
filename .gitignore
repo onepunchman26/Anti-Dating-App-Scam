@@ -22,6 +22,11 @@ pip/cache/
 *.dpapi
 *.key
 *.pem
+*.sqlite3
+.peer-session/
+.dating-introduction/
+.relationship-memory/
+matching-node/
 node_modules/
 .DS_Store
 

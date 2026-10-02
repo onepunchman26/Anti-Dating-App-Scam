@@ -1,0 +1,160 @@
+{
+  "at": "2026-10-02T12:33:12.620704+00:00",
+  "synthetic_only": true,
+  "automatic_retries": 0,
+  "public_deployment": false,
+  "calls": [
+    {
+      "case": "introduction_en",
+      "service_accepted": true,
+      "output": {
+        "fields": [
+          {
+            "label": "About me",
+            "text": "",
+            "evidence": []
+          },
+          {
+            "label": "What I value",
+            "text": "",
+            "evidence": []
+          }
+        ],
+        "missing": [
+          "Explicit confirmation that you are 18 or older is required before drafting an adult dating introduction."
+        ]
+      },
+      "provenance": {
+        "provider": "chatgpt_plan",
+        "requested_model": "gpt-5.6-luna",
+        "reported_model": "gpt-5.6-luna",
+        "input_tokens": 3268,
+        "output_tokens": 204,
+        "completion": "completed"
+      },
+      "model_agreement": "exact"
+    },
+    {
+      "case": "introduction_zh",
+      "service_accepted": true,
+      "output": {
+        "fields": [
+          {
+            "label": "About me",
+            "text": "",
+            "evidence": []
+          },
+          {
+            "label": "What I value",
+            "text": "",
+            "evidence": []
+          }
+        ],
+        "missing": [
+          "明确确认本人已满18岁后，才能起草面向其他成年人的交友介绍"
+        ]
+      },
+      "provenance": {
+        "provider": "chatgpt_plan",
+        "requested_model": "gpt-5.6-luna",
+        "reported_model": "gpt-5.6-luna",
+        "input_tokens": 3268,
+        "output_tokens": 159,
+        "completion": "completed"
+      },
+      "model_agreement": "exact"
+    },
+    {
+      "case": "peer_comparison_private_cache_and_withdraw",
+      "service_accepted": true,
+      "output": {
+        "alignment": [
+          {
+            "text": {
+              "en": "Both participants state a long-term intention.",
+              "zh": "双方都表达了长期发展的意向。"
+            },
+            "evidence": [
+              {
+                "source": "A00",
+                "quote": "long_term"
+              },
+              {
+                "source": "B00",
+                "quote": "long_term"
+              }
+            ]
+          },
+          {
+            "text": {
+              "en": "Both participants select direct communication.",
+              "zh": "双方都选择直接沟通。"
+            },
+            "evidence": [
+              {
+                "source": "A01",
+                "quote": "direct"
+              },
+              {
+                "source": "B01",
+                "quote": "direct"
+              }
+            ]
+          }
+        ],
+        "tensions": [],
+        "uncertain_differences": [
+          {
+            "text": {
+              "en": "Their stated pace preferences differ: A selects slow, while B selects steady. The practical meaning and compatibility of these terms are unclear without more context.",
+              "zh": "双方表达的节奏偏好不同：A选择较慢，B选择稳定推进。若没有更多情境，这些词的实际含义及相容性仍不明确。"
+            },
+            "evidence": [
+              {
+                "source": "A02",
+                "quote": "slow"
+              },
+              {
+                "source": "B02",
+                "quote": "steady"
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          {
+            "en": "The reports do not describe how either person behaves in practice, handles disagreement, or interprets these preferences.",
+            "zh": "这些自述没有说明双方实际如何行动、处理分歧，或理解这些偏好。"
+          },
+          {
+            "en": "It is unknown whether both participants mean the same thing by long-term, direct, slow, and steady.",
+            "zh": "未知双方是否以相同含义理解 long-term、direct、slow 和 steady。"
+          }
+        ],
+        "questions": [
+          {
+            "en": "What would a comfortable pace and direct communication look like in concrete situations for each participant?",
+            "zh": "对双方而言，在具体情境中，舒适的推进节奏和直接沟通分别是什么样的？"
+          }
+        ],
+        "caveat": {
+          "en": "This private comparison uses only the two participants' approved, disclosed self-reports. It identifies stated overlap and a possible pace difference, not verified behavior, personality, guaranteed success, or a judgment of either person's value.",
+          "zh": "这份私密比较只使用双方已批准、披露的自我报告。它仅指出表达出的重合点和一个可能的节奏差异，不代表经核实的行为、人格、成功保证，也不评价任何人的价值。"
+        }
+      },
+      "provenance": {
+        "provider": "chatgpt_plan",
+        "requested_model": "gpt-5.6-luna",
+        "reported_model": "gpt-5.6-luna",
+        "input_tokens": 3692,
+        "output_tokens": 545,
+        "completion": "completed"
+      },
+      "model_agreement": "exact"
+    }
+  ],
+  "manual_assessment": {
+    "en": "The first two introduction calls were schema-valid but functionally failed: both returned empty text because the app did not include its checked adult declaration. These are not successful introduction samples. After adding the minimal eligibility declaration, the separate final receipt contains two usable outputs. The peer comparison was useful, evidence-linked, non-deterministic and passed cache/withdrawal checks. Five real calls in total, three useful final samples; no automatic retry.",
+    "zh": "前两次介绍调用虽然结构有效，但功能失败：应用没有传入已检查的成年声明，两次均返回空白文字，不能算介绍成功样本。补充最小成年声明后，独立最终记录含两份可用介绍。比较结果有引用且保留不确定性，并通过私密缓存与撤销检查。共五次真实调用，三个有效最终样本，没有自动重试。"
+  }
+}

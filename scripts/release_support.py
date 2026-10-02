@@ -132,6 +132,10 @@ def source_files(root: Path) -> list[str]:
                     ".git",
                     "vault",
                     "imports",
+                    ".peer-session",
+                    ".dating-introduction",
+                    ".relationship-memory",
+                    "matching-node",
                 }
             )
             for filename in sorted(files):

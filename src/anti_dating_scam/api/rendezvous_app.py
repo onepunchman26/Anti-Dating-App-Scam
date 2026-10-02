@@ -1,10 +1,10 @@
-"""Standalone rendezvous-node app: matchmaking API + optional static web UI.
+"""Existing node factory with separate legacy and approved-snapshot modes.
 
-This is the deployable LBS demo server (docs/12, docs/14, ADR-012/ADR-013). It
-deliberately includes ONLY the matchmaking router, so its runtime dependency
-surface is fastapi + uvicorn + pydantic — no PySide6, no risk/journal engine.
-The node stays a bulletin board + notary: pseudonyms, coarse buckets, Tier-1
-gates, blinded contacts, and card fingerprints. Never profiles, cards, or chats.
+Legacy mode retains the in-memory bulletin/notary experiment. Explicit peer mode
+stores only participant-approved adult matching/public snapshots, permissions and
+private results in encrypted SQLite. It has a local worker and browser boundary,
+never a route to private chats or personal-model files. See docs/35 for the change
+from ADR-012/013 and the outstanding public-deployment/identity requirements.
 """
 
 from __future__ import annotations
@@ -33,22 +33,58 @@ DEFAULT_WEB_DIR = _default_web_dir()
 
 
 def create_rendezvous_app(
-    web_dir: Path | None = DEFAULT_WEB_DIR, *, public_cors: bool = True
+    web_dir: Path | None = DEFAULT_WEB_DIR,
+    *,
+    public_cors: bool = True,
+    peer_directory: Path | None = None,
+    peer_key: bytes | None = None,
 ) -> FastAPI:
     """Build the node app. Pass ``web_dir=None`` for an API-only node."""
+    from contextlib import asynccontextmanager
+
+    @asynccontextmanager
+    async def lifespan(application):
+        import asyncio
+
+        worker = None
+        if peer_directory is not None:
+
+            async def tick():
+                while True:
+                    try:
+                        await asyncio.to_thread(application.state.peer_coordinator.run_due)
+                        application.state.peer_worker_status = "running_local"
+                    except Exception:
+                        application.state.peer_worker_status = "failed"
+                    await asyncio.sleep(30)
+
+            worker = asyncio.create_task(tick())
+        yield
+        if worker:
+            worker.cancel()
+            try:
+                await worker
+            except asyncio.CancelledError:
+                pass
+
     app = FastAPI(
         title="AI-SlowMatch Rendezvous Node",
         version=__version__,
+        lifespan=lifespan,
         description=(
-            "Bulletin board + notary for nearby matchmaking. Stores rendezvous "
-            "metadata only — never profiles, compatibility cards, or chats."
+            "Local approved adult snapshots, invitations and consent; no private DB access."
+            if peer_directory is not None
+            else (
+                "Bulletin board + notary for nearby matchmaking. Stores rendezvous "
+                "metadata only — never profiles, compatibility cards, or chats."
+            )
         ),
     )
 
     # The node is a public bulletin-board API; the local client app (its own
     # origin, e.g. http://127.0.0.1:8471) calls it directly from the browser.
     # All sensitive reads are gated by per-registration tokens, not by origin.
-    if public_cors:
+    if public_cors and peer_directory is None:
         app.add_middleware(
             CORSMiddleware,
             allow_origins=["*"],
@@ -63,8 +99,21 @@ def create_rendezvous_app(
             content={"detail": str(exc), "error_type": "consent_required"},
         )
 
-    app.state.rendezvous_service = RendezvousService()
     app.add_middleware(MatchmakingBoundary)
+    if peer_directory is not None:
+        from anti_dating_scam.api.local_boundary import LocalBrowserBoundary
+        from anti_dating_scam.api.routes_peers import landing_router
+        from anti_dating_scam.api.routes_peers import router as peer_router
+        from anti_dating_scam.matchmaking.peer_coordinator import PeerCoordinator
+
+        app.state.peer_coordinator = PeerCoordinator(peer_directory, key=peer_key)
+        app.add_middleware(LocalBrowserBoundary)
+        app.state.peer_worker_status = "not_started"
+        app.include_router(peer_router)
+        app.include_router(landing_router)
+        # No legacy public bulletin-board routes or catch-all web demo in this mode.
+        return app
+    app.state.rendezvous_service = RendezvousService()
     app.include_router(matchmaking_router)
 
     if web_dir is not None and web_dir.is_dir():

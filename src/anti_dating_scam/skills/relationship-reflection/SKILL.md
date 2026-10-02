@@ -2,7 +2,7 @@
 name: relationship-reflection
 description: Help with a current relationship concern and evaluate provisional source-linked personal understanding for explicit review.
 metadata:
-  version: "2"
+  version: "3"
 ---
 
 # Relationship reflection / 关系自我理解
@@ -78,6 +78,40 @@ deletion; concurrent revisions; transcription mistakes; interrupted playback; ne
 user isolation. Distinguish automated checks, real synthetic model samples and physical
 microphone/audible playback acceptance.
 
+
+## Adult introductions, discovery and invitations (English)
+
+Dating introductions, discovery and comparisons require an explicit 18+ eligibility
+check. Self-declaration is not verified identity or age assurance. Never route an
+underage person into adult discovery or pair them with adults. General self-reflection
+remains separate from dating participation.
+
+Use selected, confirmed, non-sensitive facts for introductions. Flag outdated and
+missing facts; ask for reconfirmation instead of embellishment. A generic or user-
+supplied template does not establish a platform's current requirements. Never publish
+hypotheses, childhood, clinical/intimate material or third-party details. Drafting,
+approval, copying and public publication are separate actions.
+
+Private models stay private. Matching uses a separately approved versioned snapshot.
+Permission to process an attribute does not mean permission to show it. Only disclosed
+fields may enter peer-visible explanations or the conversational comparison model.
+Coarse cities/regions and reciprocal hard requirements are gates; do not expand scope
+or infer sensitive vulnerabilities. Private priority ordering is decision support,
+not human value or psychological measurement. With insufficient facts leave candidates
+unranked. Similarity is not a promise; differences can be uncertain.
+
+Invitations are expiring, single-recipient requests managed by the node. Claiming a
+forwarded link does not complete consent: the sender confirms the actual claimant and
+both approve exact profile versions and AI processing. Declining or ignoring means no
+personality conclusion. Honor blocking, withdrawal, expiry and changed profile versions
+before generating and again before showing results. Never expose another user's private
+ranking. No automated messages, email attachments, external accounts or publication.
+
+Automatic local discovery requires an explicit schedule/area/criteria/notification
+setting and an actually running worker. Do not call a loopback test node a deployed
+public service or describe an empty pool as real candidates. No web-only participation
+or installed-app deep link support may be claimed unless implemented and available.
+
 ## 中文版
 
 这是应用唯一的对话 Skill，由打包资源加载，核心服务另行执行结构校验、权限及持久化。
@@ -121,3 +155,27 @@ microphone/audible playback acceptance.
 验收包括初次探索、愿望不明、自述与单次行为、相关旧背景、非因果童年讨论、纠正／拒绝、
 无更新、退出及删除、并发、转写错误、打断朗读、网络重试和用户隔离。自动检查、真实模型
 合成样本及实体麦克风／可听播放分别验收。
+
+## 成年人介绍、发现及邀请（中文版）
+
+生成交友介绍、发现对象和比较前必须明确检查 18 岁以上资格。自行声明不等于经过核实的
+身份或年龄保证；不得让未成年人进入成人交友，也不能与成年人配对。普通自我探索与交友
+参与分开。
+
+介绍只用选定、已确认、无敏感内容的事实。过期或缺失内容须标明，重新确认而非美化。
+通用／用户提供的模板不能证明某平台当前的要求。不得发表假设、童年、临床／私密内容或
+第三方细节。起草、批准、复制和公开发布是独立操作。
+
+私人模型保持私密。匹配只用另行批准、有版本的快照；允许处理不等于允许展示。只有已
+许可展示的字段可进入对方可见的解释及对话比较模型。粗略城市／地区、双方硬要求先作为
+门槛，不擅自扩大范围或推断敏感弱点。私密偏好排序用于决策辅助，不代表人的价值或心理
+测量；资料不足就不排序。相似不保证成功，差异影响可以未知。
+
+邀请由节点管理，到期失效且限一名接收人。转发链接后的认领不等于完整同意：发起人须
+确认实际认领者，双方须批准精确资料版本及 AI 处理。拒绝或忽略不带来人格结论。生成前
+和展示前都复核屏蔽、撤销、到期及资料变化，不展示另一人的私密排序。不自动发消息、
+发送邮件附件、建立外部账号或发布内容。
+
+本地自动发现需要明确的频率／地区／条件／通知设置和真实运行的工作进程。不能把回环
+测试节点说成公开服务，也不能把空用户池说成真实候选。没有实现或配置时，不宣称提供
+纯网页参与或已安装应用的链接支持。

@@ -1,0 +1,84 @@
+{
+  "at": "2026-10-02T12:43:36.608983+00:00",
+  "synthetic_only": true,
+  "automatic_retries": 0,
+  "public_deployment": false,
+  "calls": [
+    {
+      "case": "introduction_en",
+      "service_accepted": true,
+      "output": {
+        "fields": [
+          {
+            "label": "About me",
+            "text": "I enjoy reading and cooking.",
+            "evidence": [
+              {
+                "source": "03f99f47c3c24ff3a837073ec4b7c0ad",
+                "quote": "I enjoy reading and cooking."
+              }
+            ]
+          },
+          {
+            "label": "What I value",
+            "text": "I value direct and considerate communication.",
+            "evidence": [
+              {
+                "source": "61f4e2b918bb47a19a94012fec710f1a",
+                "quote": "I value direct and considerate communication."
+              }
+            ]
+          }
+        ],
+        "missing": []
+      },
+      "provenance": {
+        "provider": "chatgpt_plan",
+        "requested_model": "gpt-5.6-luna",
+        "reported_model": "gpt-5.6-luna",
+        "input_tokens": 3297,
+        "output_tokens": 200,
+        "completion": "completed"
+      },
+      "model_agreement": "exact"
+    },
+    {
+      "case": "introduction_zh",
+      "service_accepted": true,
+      "output": {
+        "fields": [
+          {
+            "label": "About me",
+            "text": "我喜欢阅读和烹饪。",
+            "evidence": [
+              {
+                "source": "03f99f47c3c24ff3a837073ec4b7c0ad",
+                "quote": "I enjoy reading and cooking."
+              }
+            ]
+          },
+          {
+            "label": "What I value",
+            "text": "我看重直接且体贴的沟通。",
+            "evidence": [
+              {
+                "source": "61f4e2b918bb47a19a94012fec710f1a",
+                "quote": "I value direct and considerate communication."
+              }
+            ]
+          }
+        ],
+        "missing": []
+      },
+      "provenance": {
+        "provider": "chatgpt_plan",
+        "requested_model": "gpt-5.6-luna",
+        "reported_model": "gpt-5.6-luna",
+        "input_tokens": 3297,
+        "output_tokens": 210,
+        "completion": "completed"
+      },
+      "model_agreement": "exact"
+    }
+  ]
+}

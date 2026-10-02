@@ -165,6 +165,15 @@ def seed_source(root):
     (root / "vault/transcript.json").write_text('{"synthetic":true}')
     (root / "pip/cache").mkdir(parents=True)
     (root / "pip/cache/response.txt").write_text("synthetic cached response")
+    for private in (
+        ".peer-session",
+        ".dating-introduction",
+        ".relationship-memory",
+        "matching-node",
+    ):
+        folder = root / "src" / private
+        folder.mkdir()
+        (folder / "state.json").write_text('{"private":"synthetic-not-for-backup"}')
 
 
 def test_backup_restore_preserves_dirty_and_untracked_source_excludes_data(tmp_path):
