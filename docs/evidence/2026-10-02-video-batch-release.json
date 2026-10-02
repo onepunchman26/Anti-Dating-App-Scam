@@ -26,7 +26,7 @@
   "new_batch_cases": 29,
   "native_ui": {
     "source": "Home, preview, completed interest groups, separate reflection draft, sources, lower edit controls and Back observed with recorded synthetic model outputs.",
-    "packaged": "Startup and About observed: 0.5.0 / cdfe34db1594.",
+    "packaged": "Startup and About observed: 0.5.0 / cdfe34db1594. Isolated manual inspection exited with code 0.",
     "privacy_approvals": "Tested in hermetic Qt tests, not clicked through native permission dialogs."
   },
   "public_deployment": false,

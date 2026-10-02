@@ -59,7 +59,7 @@ requires authorization/appropriate permissions; the app does not claim arbitrary
 transcripts. The [oEmbed specification](https://oembed.com/) documents the YouTube example.
 TikTok documents [personal data requests](https://support.tiktok.com/en/account-and-privacy/personalized-ads-and-data/requesting-your-data),
 [likes/favorites data types](https://developers.tiktok.com/docs/en/data-portability-data-types),
-and [public embeds](https://developers.tiktok.com/doc/embed-videos/).
+and [public embeds](https://developers.tiktok.com/docs/en/embed-videos).
 Its [portability API](https://developers.tiktok.com/products/data-portability-api/) has
 approval, scope and regional restrictions; it is not an installed connector here.
 Bilibili's [privacy statement](https://www.bilibili.com/blackboard/privacy-policy.html)
@@ -74,8 +74,8 @@ only, not messages or watch history. Markdown uses headings `Transcript`, `Descr
 `Summary`, `User annotation`, or their Chinese equivalents; unlabeled prose is an existing
 summary of unknown authorship, never automatically the user's own view.
 
-The bounded prototype accepts at most 1,000 distinct videos, 5,000 rows, 2 MB per file
-and 16 MB of selected input. ZIP archives are not opened. A stored excerpt is at most
+The bounded prototype accepts at most 1,000 distinct videos, 5,000 rows across selected
+files, 2 MB per file or pasted input and 16 MB across selected files. ZIP archives are not opened. A stored excerpt is at most
 4,000 characters; AI sees at most 2,000 per excerpt, and truncation is labeled. “Full”
 means all supplied transcript text was processed, not that the app watched the whole
 video or verified the transcript. Descriptions/summaries/annotations and titles are
@@ -161,7 +161,7 @@ Google 的[导出说明](https://support.google.com/accounts/answer/3024190?hl=e
 筛选一致；YouTube [字幕下载 API](https://developers.google.com/youtube/v3/docs/captions/download)需要
 鉴权及适当权限，应用不承诺任意公开视频字幕。[oEmbed 规范](https://oembed.com/)提供 YouTube 示例。
 TikTok 公开说明了[个人数据申请](https://support.tiktok.com/en/account-and-privacy/personalized-ads-and-data/requesting-your-data)、
-[点赞／收藏字段](https://developers.tiktok.com/docs/en/data-portability-data-types)和[嵌入接口](https://developers.tiktok.com/doc/embed-videos/)。
+[点赞／收藏字段](https://developers.tiktok.com/docs/en/data-portability-data-types)和[嵌入接口](https://developers.tiktok.com/docs/en/embed-videos)。
 其[数据迁移 API](https://developers.tiktok.com/products/data-portability-api/)有审核、范围和地区限制，
 本应用没有安装该连接器。Bilibili [隐私声明](https://www.bilibili.com/blackboard/privacy-policy.html)
 不能据以认定存在公开收藏下载接口。
@@ -174,7 +174,7 @@ TikTok 公开说明了[个人数据申请](https://support.tiktok.com/en/account
 `User annotation`，或“字幕”“描述”“摘要”“我的备注”标题；无标签正文视作作者未核实的已有摘要，
 不会自动当成用户观点。
 
-此有限原型最多接受 1,000 个不同视频、5,000 行、单文件 2 MB、选定输入合计 16 MB；不解压 ZIP。
+此有限原型最多接受 1,000 个不同视频、选定文件合计 5,000 行、单文件／粘贴输入 2 MB、选定文件合计 16 MB；不解压 ZIP。
 单段最多本地保留 4,000 字，AI 每段最多接收 2,000 字，截断会标注。“完整”只表示完整处理所供
 字幕文本，不表示看完视频或验证字幕。描述／摘要／备注和标题是部分证据，不补造缺失内容。
 

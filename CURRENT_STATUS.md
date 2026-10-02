@@ -24,7 +24,9 @@ SHA-256: `0f648929e97e3421efe8d1a3636b2197bcc55cc14ab79b9fde514940f91505aa`. The
 [sanitized release record](docs/evidence/2026-10-02-video-batch-release.json) and local
 `releases/current.json` identify the exact binary. The dirty flag reflects preserved
 unrelated untracked folders. Older verified releases were retained for rollback.
-Final bilingual handoff/source backup and source synchronization are being completed.
+The bilingual handoff, restore-verified source backup and GitHub source delivery are
+complete. The isolated packaged inspection exited normally. The EXE/private data were
+not uploaded; source is on `codex/standards-correction`. Await owner review, with no new scope.
 
 **Evidence:** 88 focused cases pass, including connected English/Chinese Qt journeys,
 failure/restart/late-reply handling, scope changes, duplicate evidence, grouped correction,
@@ -77,7 +79,8 @@ task was added. See [owner review](OWNER_REVIEW.md).
 SHA-256：`0f648929e97e3421efe8d1a3636b2197bcc55cc14ab79b9fde514940f91505aa`。
 [脱敏发布记录](docs/evidence/2026-10-02-video-batch-release.json)与本机 `releases/current.json`
 对应确切二进制。未提交标记反映保留的无关未跟踪目录；已验证旧版继续保留供回滚。
-正在完成最终双语交接／源码备份及源码同步。
+双语交接、恢复验证过的源码备份及 GitHub 源码交付完成；隔离打包版检查正常退出。
+没有上传 EXE 或私人数据，源码在 `codex/standards-correction`，现等待人工验收，不新增范围。
 
 **验证依据：**88 项定向检查通过，包括完整中英文 Qt 流程、失败／重启／迟到回复、范围变化、
 证据去重、分组纠正、合并、保留仍有效支持及联动删除。关闭额外积分后，仅用合成材料真实
