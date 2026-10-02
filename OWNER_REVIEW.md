@@ -3,7 +3,7 @@
 ## English
 
 Open the single root **AI-SlowMatch.exe**. [Current release status](CURRENT_STATUS.md)
-is authoritative; the new target About version is 0.5.0. Hourly task execution stays paused. This work
+is authoritative; About shows the delivered version 0.5.0. Hourly task execution stays paused. This work
 uses the architecture and synthetic included-plan tests already authorized.
 
 1. **Saved-video batch:** Home → Saved videos & interests → choose
@@ -60,7 +60,7 @@ example returned an error. Bilibili and unrecognized sources use prepared input 
 ## 中文版
 
 打开根目录唯一的 **AI-SlowMatch.exe**；以[当前发布状态](CURRENT_STATUS.md)为准，目标
-新版目标为 0.5.0。小时任务继续暂停，本轮使用已经授权的架构及合成资料套餐测试。
+已交付版本为 0.5.0。小时任务继续暂停，本轮使用已经授权的架构及合成资料套餐测试。
 
 1. **视频集合：**主页 → 收藏视频与兴趣，选择 `examples/video_batch/mixed.json`。预览／筛选，
    导入后一次批准整批 AI 范围。样例应有四个不同视频（一个重复），一项所供字幕、两项部分／

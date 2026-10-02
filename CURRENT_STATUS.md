@@ -2,8 +2,7 @@
 
 ## English
 
-October 2, 2026. **S7 implementation is complete; the 0.5.0 release gates are running.**
-Until promotion succeeds, root `AI-SlowMatch.exe` remains the verified 0.4.0.
+October 2, 2026. **S7 is delivered: open root `AI-SlowMatch.exe`, version 0.5.0.**
 Hourly automation `ai-slowmatch` stays PAUSED; owner instructions start further work.
 The [S6 handoff](docs/history/2026-10-02-before-video-batches/CURRENT_STATUS.md)
 retains earlier release, invitation and voice evidence.
@@ -15,6 +14,17 @@ separate interests/reflections, grouped editing/merging/adoption into existing m
 source inspection and reversible imports. No second personality database was added.
 The packaged conversation Skill is version 4. Start with the
 [synthetic sample](examples/video_batch/mixed.json) and [bilingual guide](docs/36_saved_video_batches.md).
+
+Full frozen-source release gates passed: **2,257 tests, 10 skips**, one upstream
+Starlette/httpx deprecation warning; compilation, lint, embedded code/resources/native
+dependencies and isolated EXE startup all passed. Native Computer Use verified the
+populated source UI, separate draft categories, controls and Back, then packaged startup
+and About (0.5.0 / cdfe34db1594). Build: `64f479a89311475e862617f865c7153a`;
+SHA-256: `0f648929e97e3421efe8d1a3636b2197bcc55cc14ab79b9fde514940f91505aa`. The
+[sanitized release record](docs/evidence/2026-10-02-video-batch-release.json) and local
+`releases/current.json` identify the exact binary. The dirty flag reflects preserved
+unrelated untracked folders. Older verified releases were retained for rollback.
+Final bilingual handoff/source backup and source synchronization are being completed.
 
 **Evidence:** 88 focused cases pass, including connected English/Chinese Qt journeys,
 failure/restart/late-reply handling, scope changes, duplicate evidence, grouped correction,
@@ -51,8 +61,7 @@ task was added. See [owner review](OWNER_REVIEW.md).
 
 ## 中文版
 
-2026 年 10 月 2 日。**S7 功能实现完成，正在运行 0.5.0 发布检查。** 替换成功前，根目录
-`AI-SlowMatch.exe` 仍是已验证的 0.4.0。`ai-slowmatch` 小时任务继续暂停，只按所有者指令
+2026 年 10 月 2 日。**S7 已交付：打开根目录 `AI-SlowMatch.exe`，版本 0.5.0。**`ai-slowmatch` 小时任务继续暂停，只按所有者指令
 开始后续工作。[S6 交接](docs/history/2026-10-02-before-video-batches/CURRENT_STATUS.md)保留此前发布、邀请和语音证据。
 
 主页 → **收藏视频与兴趣**支持整批导出／链接／已准备笔记，按平台／集合／日期筛选，规范化
@@ -60,6 +69,15 @@ task was added. See [owner review](OWNER_REVIEW.md).
 与反思分组，分组编辑／合并／采纳到现有记忆，查看来源及撤销导入。没有另建人格数据库，
 应用内对话 Skill 更新为版本 4。可从[合成样例](examples/video_batch/mixed.json)和
 [完整双语指南](docs/36_saved_video_batches.md)开始。
+
+冻结源码的完整发布检查通过：**2,257 项测试通过、10 项跳过**，一项上游 Starlette/httpx
+弃用警告；编译、静态检查、嵌入代码／资源／原生依赖和隔离 EXE 启动均通过。Computer Use
+验证了有实际结果的源码界面、独立草稿分类、操作按钮与返回，以及打包版启动和关于页
+（0.5.0／cdfe34db1594）。构建：`64f479a89311475e862617f865c7153a`；
+SHA-256：`0f648929e97e3421efe8d1a3636b2197bcc55cc14ab79b9fde514940f91505aa`。
+[脱敏发布记录](docs/evidence/2026-10-02-video-batch-release.json)与本机 `releases/current.json`
+对应确切二进制。未提交标记反映保留的无关未跟踪目录；已验证旧版继续保留供回滚。
+正在完成最终双语交接／源码备份及源码同步。
 
 **验证依据：**88 项定向检查通过，包括完整中英文 Qt 流程、失败／重启／迟到回复、范围变化、
 证据去重、分组纠正、合并、保留仍有效支持及联动删除。关闭额外积分后，仅用合成材料真实

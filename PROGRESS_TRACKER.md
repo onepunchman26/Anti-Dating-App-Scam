@@ -5,7 +5,8 @@ Updated / 更新：2026-10-02。Agent-maintained; change both languages together
 ## English
 
 - ✅ S7 implementation: collection import/filter/deduplication, supplied-content analysis, bounded interest/reflection synthesis, grouped review and reversible existing-memory adoption. Official source capabilities recorded; 88 focused checks pass. Six real synthetic plan calls produced a final useful collection result; two failed syntheses are preserved.
-- 🔄 S7 release: prepare 0.5.0 fixed EXE, full regression/build gates, bilingual handoff, verified source backup and source delivery. Native completed-result review is in progress.
+- ✅ S7 release: fixed 0.5.0 EXE, 2,257 tests passed/10 skipped; compile, lint, package and isolated startup passed. Native completed-result/source and packaged About inspection passed; old releases retained.
+- 🔄 S7 handoff: finish verified source backup and GitHub delivery; hourly task remains paused for owner review.
 
 - ✅ S6 local implementation: adult introductions, separate snapshots, persistent invitation permissions, reciprocal discovery/private ordering, local worker and integrated Qt/API/model flow. Real HTTP/Qt tests and three useful real model samples verified; first two empty introduction replies preserved as functional failures.
 - ✅ S6 release: fixed 0.4.0 EXE; 2,228 tests passed, 10 skips; compile/lint/package/isolated node startup passed. Native packaged About verified. Restore-verified source backup exists; older releases retained.
@@ -29,7 +30,8 @@ Hourly automation stays paused. No purchase, paid API key, real private archive,
 ## 中文版
 
 - ✅ S7 实现：集合导入／筛选／去重、所供正文分析、有限兴趣／反思综合、分组审阅与可撤销的现有记忆采纳。已记录官方平台能力，88 项定向检查通过；六次真实合成套餐调用最终得到可用结果，保留两次综合失败。
-- 🔄 S7 发布：准备固定 0.5.0 EXE、完整回归／构建检查、双语交接、已验证源码备份和源码交付；正在检查真实结果界面。
+- ✅ S7 发布：固定 0.5.0 EXE，2,257 项通过／10 项跳过；编译、静态、打包及隔离启动通过。实际结果源码界面和打包关于页检查通过，旧版本保留。
+- 🔄 S7 交接：完成已验证源码备份及 GitHub 交付；小时任务继续暂停，交给所有者验收。
 
 - ✅ S6 本机实现：成年人介绍、独立快照、持久化邀请权限、双向发现／私密排序、本机工作进程与 Qt／API／模型整合。真实 HTTP／Qt 流程和三个可用真实模型样本已验证；最初两次空白介绍作为功能失败保留。
 - ✅ S6 发布：固定 0.4.0 EXE；2,228 项通过、10 项跳过；编译／静态／打包／隔离节点启动通过，实际打包关于页已验证。源码备份恢复通过，旧版本保留。
