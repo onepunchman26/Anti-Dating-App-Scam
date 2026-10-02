@@ -15,15 +15,19 @@ class PolicyConsentScreen(QWidget):
         layout.addWidget(
             StepHeader(
                 bi("Safety & Consent", "安全与同意"),
-                bi("Policy first, before import or analysis.", "先了解政策，再导入或分析。"),
+                bi(
+                    "You control what you share and when to stop.",
+                    "分享什么、何时结束，都由你决定。",
+                ),
             )
         )
         content = QLabel(
             "<ul>"
             "<li>"
             + bi(
-                "This app analyzes only data you choose to provide.",
-                "本应用仅分析您主动提供的数据。",
+                "ChatGPT receives only the conversation you review and choose to send. "
+                "You may skip questions or end at any time.",
+                "ChatGPT 只接收你审核并选择发送的对话。你可以跳过问题或随时结束。",
             )
             + "</li>"
             "<li>"
@@ -56,7 +60,11 @@ class PolicyConsentScreen(QWidget):
             )
             + "</li>"
             "<li>"
-            + bi("Your local profile is stored on your computer.", "您的本地档案保存在您自己的电脑上。")
+            + bi(
+                "Saved reflections stay in ordinary, unencrypted files on your computer. "
+                "A cloud-sync folder may upload them.",
+                "已保存画像以普通、未加密文件保存在你的电脑上；云同步文件夹可能上传这些文件。",
+            )
             + "</li>"
             "</ul>"
         )

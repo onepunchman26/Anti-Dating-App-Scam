@@ -111,3 +111,51 @@ Context: Phase 2 calls for an Ollama (local) provider adapter as the recommended
 Decision: Implement `OllamaClient` using only Python's stdlib `urllib`, with an injectable `transport` callable so unit tests never need a live Ollama server or network access. Provide two thin adapters around the same client: one for the `LLMClient` protocol (services), one for the `AIProvider` protocol (registry/Settings UI).
 
 Consequences: No new third-party dependency was added for this feature. The `LLMClient`-side adapter raises `OllamaUnavailableError` on failure (services should know loudly if their AI call didn't happen); the `AIProvider`-side adapter instead catches that error and returns a readable error in its output dict, because the Settings screen calls providers synchronously in the UI thread and must not crash. If a richer Ollama feature set (streaming, embeddings, model pull/list) is needed later, revisit whether stdlib `urllib` is still sufficient or whether `httpx` should be promoted to a core dependency.
+
+## ADR-012: Thin Rendezvous Server For Nearby Discovery (Amends ADR-001 Scope)
+
+Status: Accepted (owner decision, 2026-07-06)
+
+Context: The compatibility pillar (`docs/11_compatibility_matching_plan.md`) was designed
+strictly peer-to-peer, which only works for two people already in contact. The owner now
+wants nearby-location matchmaking between strangers, while keeping all profile data local,
+with the platform authenticating exchanged matching information so users cannot privately
+alter cards or craft per-target personas.
+
+Decision: Add an **optional online rendezvous server** that is a bulletin board and a
+notary, never a profile database. It stores only: pseudonym, client-derived coarse geohash
+bucket, Tier-1 gate ranges, a contact channel hidden until mutual accept, and compatibility
+card **fingerprints** with attestation history. Cards themselves travel person-to-person
+(email/QR/file), encrypted, never through the server. Attestation provides tamper-evidence
+and history transparency — explicitly not truth verification (same stance as ADR-008).
+
+Consequences: ADR-001 stands for all personal data (local-first); this ADR narrowly
+authorizes server-side *rendezvous metadata*. ADR-009 still forbids scoring: the server
+gates only on location bucket + mutual Tier-1 ranges and never ranks. Discovery requires
+the requester to have an attested card (no browsing without skin in the game). Full design:
+`docs/12_rendezvous_matchmaking_plan.md`.
+
+## ADR-013: Decentralized Rendezvous — No Single Operator, Minimal Server
+
+Status: Accepted (owner decision, 2026-07-06)
+
+Context: ADR-012's thin rendezvous server still implied one hosted service. The owner
+requires that the rendezvous layer not depend on a server owned or rented by one person,
+that it can ride on existing social platforms (Facebook, 小红书, etc.), and that server
+requirements stay minimal because users bring their own AI for all analysis.
+
+Decision: Three deployment models, no privileged operator. (A) **Private nodes** — the
+node is a trivially self-hostable artifact (`run_rendezvous_node.py`, single small
+machine); communities run their own, like private game servers, and users choose node
+URLs. (B) **Platform relay, serverless** — armored, checksummed "beacon" text blocks
+(`matchmaking/beacon.py`) that users post and copy **manually** on platforms they already
+use; the app parses and matches locally; contact flows through the platform's own DMs;
+no scraping or login automation, ever. (C) **Federation** of nodes — designed, deferred
+until P1 keypair signatures exist.
+
+Consequences: no single point of control or failure; the platform account becomes the
+identity anchor in Model B (post timestamp = public witness), with honest limits — the
+checksum stops corruption/casual edits, not determined forgery, until P1 Ed25519
+signatures. Nodes must stay small (bulletin board + notary only); anything needing real
+compute belongs client-side with the user's connected AI. Full design:
+`docs/14_decentralized_rendezvous.md`.

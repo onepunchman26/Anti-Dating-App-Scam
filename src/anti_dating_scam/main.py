@@ -2,12 +2,15 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
 from anti_dating_scam import __version__
+from anti_dating_scam.api.matchmaking_boundary import MatchmakingBoundary
 from anti_dating_scam.api.routes_health import router as health_router
 from anti_dating_scam.api.routes_journal import router as journal_router
+from anti_dating_scam.api.routes_matchmaking import router as matchmaking_router
 from anti_dating_scam.api.routes_risk import router as risk_router
 from anti_dating_scam.api.routes_trust_ladder import router as trust_ladder_router
 from anti_dating_scam.core.config import get_settings
 from anti_dating_scam.core.safety_policy import SafetyPolicyViolation
+from anti_dating_scam.matchmaking.rendezvous import RendezvousService
 from anti_dating_scam.services.consent_manager import ConsentRequiredError
 
 
@@ -44,6 +47,9 @@ def create_app() -> FastAPI:
     app.include_router(risk_router)
     app.include_router(trust_ladder_router)
     app.include_router(journal_router)
+    app.state.rendezvous_service = RendezvousService()
+    app.add_middleware(MatchmakingBoundary)
+    app.include_router(matchmaking_router)
     return app
 
 

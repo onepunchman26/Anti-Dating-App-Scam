@@ -4,8 +4,8 @@ Recommended default AI path per `docs/10_data_import_and_frontend_plan.md`: self
 and risk-analysis narration should run on the user's own machine against a local model
 rather than a cloud API, so imported chat/social data never has to leave the device.
 
-This module only talks to `http://localhost:11434` (Ollama's default bind, local-only)
-unless the caller explicitly overrides `base_url` — never default to a non-local host.
+This module only talks to loopback Ollama origins. Overriding `base_url` cannot
+change that boundary; remote origins, cloud model names, proxies and redirects fail closed.
 No network call happens unless a caller explicitly constructs and uses this client; the
 default provider used elsewhere in the app remains `MockAIProvider`.
 """
@@ -13,12 +13,12 @@ default provider used elsewhere in the app remains `MockAIProvider`.
 from __future__ import annotations
 
 import json
-import urllib.error
-import urllib.request
 from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
+from anti_dating_scam.ai.chat_backends import _default_http
+from anti_dating_scam.ai.privacy import BackendError, validate_local_url
 from anti_dating_scam.ai.provider import LLMClient
 
 DEFAULT_OLLAMA_BASE_URL = "http://localhost:11434"
@@ -49,23 +49,18 @@ Transport = Callable[[str, dict[str, Any], float], dict[str, Any]]
 
 
 def _default_transport(url: str, payload: dict[str, Any], timeout: float) -> dict[str, Any]:
-    body = json.dumps(payload).encode("utf-8")
-    request = urllib.request.Request(
-        url, data=body, headers={"Content-Type": "application/json"}, method="POST"
-    )
+    # Share the existing proxy-free, no-redirect, bounded-response transport.
     try:
-        with urllib.request.urlopen(request, timeout=timeout) as response:  # noqa: S310
-            return json.loads(response.read().decode("utf-8"))
-    except urllib.error.URLError as exc:
-        raise OllamaUnavailableError(
-            "Could not reach the local Ollama server at "
-            f"{url}. Make sure Ollama is installed and running (`ollama serve`), "
-            "or switch to a different provider in Settings."
-        ) from exc
-    except json.JSONDecodeError as exc:
-        raise OllamaUnavailableError(
-            "Ollama returned a response that was not valid JSON."
-        ) from exc
+        return _default_http(url, payload, {}, timeout)
+    except BackendError as exc:
+        raise OllamaUnavailableError(str(exc)) from None
+
+
+def _local_origin(value: str) -> str:
+    try:
+        return validate_local_url(value)
+    except BackendError as exc:
+        raise OllamaUnavailableError(str(exc)) from None
 
 
 class OllamaClient:
@@ -82,12 +77,19 @@ class OllamaClient:
         timeout: float = 60.0,
         transport: Transport | None = None,
     ) -> None:
-        self.base_url = base_url.rstrip("/")
+        self.base_url = _local_origin(base_url)
         self.model = model
         self.timeout = timeout
         self._transport = transport or _default_transport
 
     def generate(self, prompt: str, *, json_mode: bool = True) -> OllamaResult:
+        url = _local_origin(self.base_url)
+        if not isinstance(self.model, str) or not self.model.strip():
+            raise OllamaUnavailableError("Select an installed local Ollama model.")
+        if "-cloud" in self.model.lower() or ":cloud" in self.model.lower():
+            raise OllamaUnavailableError(
+                "Cloud-routed Ollama models are disabled in local-only mode."
+            )
         payload: dict[str, Any] = {
             "model": self.model,
             "prompt": prompt,
@@ -96,12 +98,23 @@ class OllamaClient:
         if json_mode:
             payload["format"] = "json"
 
-        response = self._transport(f"{self.base_url}/api/generate", payload, self.timeout)
+        try:
+            response = self._transport(f"{url}/api/generate", payload, self.timeout)
+        except OllamaUnavailableError:
+            raise
+        except Exception:
+            raise OllamaUnavailableError(
+                "Local Ollama request failed; check the local model and connection settings."
+            ) from None
+        if not isinstance(response, dict) or not isinstance(response.get("response"), str):
+            raise OllamaUnavailableError("Local Ollama returned an invalid response object.")
         raw_text = response.get("response", "")
         parsed: dict[str, Any] | None = None
         if json_mode and raw_text:
             try:
                 parsed = json.loads(raw_text)
+                if not isinstance(parsed, dict):
+                    parsed = None
             except json.JSONDecodeError:
                 parsed = None
         return OllamaResult(raw_text=raw_text, parsed_json=parsed, model=self.model)

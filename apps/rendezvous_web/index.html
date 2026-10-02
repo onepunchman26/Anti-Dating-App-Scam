@@ -1,0 +1,2582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self' https: http://localhost:* http://127.0.0.1:*; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>AI-SlowMatch — Rendezvous Demo</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --ink: #1c2733; --muted: #5b6b7b;
+    --accent: #2f6f5e; --accent-ink: #ffffff; --line: #dde3ea;
+    --warn-bg: #fdf6ec; --warn-line: #e7c98a; --bad: #a03434; --good: #2f6f5e;
+    --chip: #eef2f0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14181d; --card: #1d232b; --ink: #e8edf2; --muted: #9aa8b5;
+      --accent: #58a08c; --accent-ink: #10141a; --line: #313a45;
+      --warn-bg: #2a2415; --warn-line: #6d5a2c; --bad: #d98383; --good: #7cc0ab;
+      --chip: #26303a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.55 system-ui, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 16px 16px 64px; }
+  header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 8px 0 4px; }
+  h1 { font-size: 1.35rem; margin: 0; }
+  h2 { font-size: 1.05rem; margin: 0 0 10px; }
+  .tagline { color: var(--muted); font-size: .92rem; margin: 0 0 14px; }
+  .lang-btn {
+    border: 1px solid var(--line); background: var(--card); color: var(--ink);
+    border-radius: 999px; padding: 4px 14px; cursor: pointer; font-size: .9rem;
+  }
+  section.card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px; margin: 14px 0;
+  }
+  section.card.locked { opacity: .55; pointer-events: none; }
+  .step-tag {
+    display: inline-block; background: var(--chip); color: var(--accent);
+    font-size: .78rem; font-weight: 600; border-radius: 6px; padding: 2px 8px; margin-bottom: 6px;
+  }
+  label { display: block; font-size: .88rem; color: var(--muted); margin: 10px 0 4px; }
+  input[type=text], input[type=number], textarea, select {
+    width: 100%; padding: 9px 10px; border: 1px solid var(--line); border-radius: 8px;
+    background: var(--bg); color: var(--ink); font: inherit;
+  }
+  textarea { min-height: 72px; resize: vertical; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .row > div { flex: 1 1 140px; }
+  .checks { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 4px; }
+  .checks label { display: flex; align-items: center; gap: 6px; margin: 0; color: var(--ink); }
+  button.primary {
+    background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 8px;
+    padding: 10px 18px; font: inherit; font-weight: 600; cursor: pointer; margin-top: 12px;
+  }
+  button.ghost {
+    background: transparent; color: var(--accent); border: 1px solid var(--accent);
+    border-radius: 8px; padding: 8px 14px; font: inherit; cursor: pointer; margin-top: 8px;
+  }
+  button.small { padding: 5px 12px; font-size: .85rem; margin: 0; }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  .notice {
+    background: var(--warn-bg); border: 1px solid var(--warn-line); border-radius: 10px;
+    padding: 10px 14px; font-size: .88rem; margin: 10px 0;
+  }
+  .fine { color: var(--muted); font-size: .82rem; margin: 6px 0 0; }
+  .error-box { color: var(--bad); font-size: .9rem; margin-top: 10px; white-space: pre-wrap; }
+  .ok-box { color: var(--good); font-size: .9rem; margin-top: 10px; }
+  .mono { font-family: ui-monospace, Consolas, monospace; font-size: .8rem; word-break: break-all; }
+  .candidate, .intro-entry {
+    border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin: 8px 0;
+    display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .badge { background: var(--chip); border-radius: 6px; padding: 2px 8px; font-size: .78rem; }
+  .badge.matched { color: var(--good); font-weight: 600; }
+  .badge.declined { color: var(--bad); }
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+  .compare-grid .col { border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
+  .compare-grid h4 { margin: 0 0 6px; font-size: .9rem; }
+  ul.plain { margin: 6px 0; padding-left: 20px; }
+  footer { color: var(--muted); font-size: .8rem; margin-top: 30px; }
+  details summary { cursor: pointer; color: var(--accent); font-size: .9rem; margin-top: 8px; }
+  .hidden { display: none !important; }
+  @media (max-width: 560px) { .compare-grid { grid-template-columns: 1fr; } }
+
+  /* ------- app shell ------- */
+  nav.tabs {
+    display: flex; gap: 4px; margin: 10px 0 4px; border-bottom: 1px solid var(--line);
+    overflow-x: auto;
+  }
+  nav.tabs button {
+    background: transparent; border: 0; border-bottom: 2px solid transparent;
+    color: var(--muted); font: inherit; font-weight: 600; padding: 8px 14px; cursor: pointer;
+    white-space: nowrap;
+  }
+  nav.tabs button.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .view { display: none; }
+  .view.active { display: block; }
+  .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+  @media (max-width: 560px) { .dash-grid { grid-template-columns: 1fr; } }
+  .dash-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .dash-card h3 { margin: 0; font-size: .95rem; }
+  .dash-card .status { font-size: .85rem; color: var(--muted); flex: 1; }
+  .dash-card .status.good { color: var(--good); }
+  .settings-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+  .settings-tabs button {
+    background: var(--chip); border: 1px solid var(--line); border-radius: 8px;
+    color: var(--muted); font: inherit; padding: 6px 14px; cursor: pointer;
+  }
+  .settings-tabs button.active { color: var(--accent); border-color: var(--accent); font-weight: 600; }
+  /* ------- chat ------- */
+  #chatLog {
+    display: flex; flex-direction: column; gap: 10px; min-height: 200px; max-height: 46vh;
+    overflow-y: auto; padding: 4px 2px; margin: 10px 0;
+  }
+  .msg { max-width: 85%; padding: 9px 12px; border-radius: 12px; white-space: pre-wrap; font-size: .93rem; }
+  .msg.user { align-self: flex-end; background: var(--accent); color: var(--accent-ink); border-bottom-right-radius: 4px; }
+  .msg.ai { align-self: flex-start; background: var(--chip); border-bottom-left-radius: 4px; }
+  .msg.sys { align-self: center; color: var(--muted); font-size: .8rem; background: transparent; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0; }
+  .chips button {
+    background: var(--chip); border: 1px solid var(--line); border-radius: 999px;
+    color: var(--ink); font: inherit; font-size: .82rem; padding: 5px 12px; cursor: pointer;
+  }
+  .chat-input { display: flex; gap: 8px; align-items: flex-end; }
+  .chat-input textarea { flex: 1; min-height: 46px; }
+  .file-list { font-size: .82rem; color: var(--muted); margin: 6px 0; }
+  /* Styled markdown rendering for self-model portrait + plan (no more raw text walls) */
+  .mdview { font-size:.93rem; line-height:1.65; max-height:52vh; overflow-y:auto; }
+  .mdview h1 { font-size:1.15rem; margin:.4rem 0 .6rem; }
+  .mdview h2 { font-size:1rem; margin:1rem 0 .4rem; color:var(--accent);
+               border-bottom:1px solid var(--line); padding-bottom:.2rem; }
+  .mdview h3 { font-size:.95rem; margin:.8rem 0 .3rem; }
+  .mdview blockquote { margin:.6rem 0; padding:.5rem .8rem;
+                       border-left:3px solid var(--accent); background:var(--chip);
+                       border-radius:0 8px 8px 0; color:var(--muted); }
+  .mdview ul { margin:.3rem 0 .6rem 1.2rem; padding:0; }
+  .mdview li { margin:.25rem 0; }
+  .mdview p { margin:.45rem 0; }
+  .mdview code { background:var(--chip); border-radius:4px; padding:0 .3em; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1 data-i18n="title"></h1>
+    <button class="lang-btn" id="langBtn" onclick="toggleLang()">中文</button>
+  </header>
+
+  <nav class="tabs" id="mainNav">
+    <button data-view="home" onclick="showView('home')" data-i18n="navHome"></button>
+    <button data-view="chat" onclick="showView('chat')" data-i18n="navChat"></button>
+    <button data-view="matching" onclick="showView('matching')" data-i18n="navMatching"></button>
+    <button data-view="settings" onclick="showView('settings')" data-i18n="navSettings"></button>
+  </nav>
+
+  <!-- First-run setup (everything skippable; AI & data live in Settings) -->
+  <section class="card hidden" id="setupWizard">
+    <span class="step-tag" data-i18n="wizardTag"></span>
+    <h2 data-i18n="wizardTitle"></h2>
+    <p class="fine" data-i18n="tagline"></p>
+    <div class="notice" data-i18n-html="privacyNotice"></div>
+    <button class="primary" onclick="finishSetup('settings','ai')" data-i18n="wizardAI"></button>
+    <button class="ghost" onclick="finishSetup('settings','data')" data-i18n="wizardData"></button>
+    <button class="ghost" onclick="finishSetup('home')" data-i18n="wizardSkip"></button>
+  </section>
+
+  <!-- HOME: your AI report (the self-model), onboarding prompts, matching widget -->
+  <div class="view" id="view-home">
+    <div class="notice hidden" id="notLocalNotice" data-i18n-html="notLocalClient"></div>
+
+    <!-- First-open prompts: shown only while the corresponding piece is missing -->
+    <div class="dash-grid" id="homePrompts">
+      <div class="dash-card hidden" id="promptAI">
+        <h3 data-i18n="dashAI"></h3>
+        <div class="status" data-i18n="dashNotConnected"></div>
+        <button class="ghost small" onclick="showView('settings','ai')" data-i18n="dashAIBtn"></button>
+      </div>
+      <div class="dash-card hidden" id="promptData">
+        <h3 data-i18n="dashData"></h3>
+        <div class="status" data-i18n="promptDataHint"></div>
+        <button class="ghost small" onclick="showView('settings','data')" data-i18n="dashDataBtn"></button>
+      </div>
+      <div class="dash-card hidden" id="promptChat">
+        <h3 data-i18n="dashChat"></h3>
+        <div class="status" data-i18n="dashChatHint"></div>
+        <button class="ghost small" onclick="showView('chat')" data-i18n="dashChatBtn"></button>
+      </div>
+    </div>
+
+    <!-- Deep analysis: the Chat-Analysis Module's social self-portrait -->
+    <section class="card hidden" id="deepReportCard">
+      <span class="step-tag" data-i18n="deepTag"></span>
+      <h2 data-i18n="deepTitle"></h2>
+      <p class="fine" id="deepMeta"></p>
+      <div id="deepReportBox" class="mdview"></div>
+      <button class="ghost small" id="deepRunBtn2" onclick="runDeepAnalysis()" data-i18n="deepUpdate"></button>
+      <div id="deepMsg"></div>
+    </section>
+
+    <!-- The self-model card summary (what matching attests) -->
+    <section class="card hidden" id="reportCard">
+      <span class="step-tag" data-i18n="reportTag"></span>
+      <h2 data-i18n="reportTitle"></h2>
+      <p class="fine" data-i18n="reportIntro"></p>
+      <div id="reportBox"></div>
+      <p class="fine mono" id="reportMeta"></p>
+      <button class="primary" onclick="showView('chat')" data-i18n="reportRefine"></button>
+      <button class="ghost" id="regenBtn" onclick="generateModel()" data-i18n="analyzeBtn"></button>
+      <button class="ghost" id="deepRunBtn" onclick="runDeepAnalysis()" data-i18n="deepRun"></button>
+      <div id="generateMsg"></div>
+    </section>
+    <section class="card hidden" id="noReportCard">
+      <h2 data-i18n="noReportTitle"></h2>
+      <p class="fine" data-i18n="noReportIntro"></p>
+      <button class="primary" onclick="showView('chat')" data-i18n="dashChatBtn"></button>
+      <button class="ghost" id="genFromDataBtn" onclick="generateModel()" data-i18n="analyzeBtn"></button>
+      <div id="generateMsg2"></div>
+    </section>
+
+    <!-- Matching mini-widget -->
+    <section class="card" id="matchWidget">
+      <h2 data-i18n="dashMatch"></h2>
+      <div class="status" id="dashMatchStatus"></div>
+      <div class="file-list" id="matchWidgetLog"></div>
+      <button class="ghost small" onclick="showView('matching')" data-i18n="dashMatchBtn"></button>
+    </section>
+
+    <div class="notice" data-i18n-html="scamReminder" style="margin-top:14px"></div>
+  </div>
+
+  <!-- CHAT: understand yourself with your own AI -->
+  <div class="view" id="view-chat">
+    <section class="card">
+      <h2 data-i18n="chatTitle"></h2>
+      <p class="fine" data-i18n="chatIntro"></p>
+      <p class="fine" id="chatBackendLine"></p>
+      <div class="notice" id="chatDataReminder" data-i18n-html="chatDataReminder"></div>
+      <div class="chips">
+        <button onclick="useTemplate(0)" data-i18n="tpl0"></button>
+        <button onclick="useTemplate(1)" data-i18n="tpl1"></button>
+        <button onclick="useTemplate(2)" data-i18n="tpl2"></button>
+        <button onclick="useTemplate(3)" data-i18n="tpl3"></button>
+      </div>
+      <div id="chatLog"></div>
+      <div class="chat-input">
+        <textarea id="chatInput" data-i18n-ph="chatPh"></textarea>
+        <button class="ghost small hidden" id="micBtn" onclick="toggleMic()" title="voice input" style="margin:0">🎤</button>
+        <button class="primary" id="chatSendBtn" onclick="sendChat()" data-i18n="chatSend"></button>
+        <label class="fine" style="white-space:nowrap">
+          <input type="checkbox" id="coachMode"> <span data-i18n="coachModeLabel"></span>
+        </label>
+      </div>
+      <button class="ghost small" onclick="refineFromChat()" data-i18n="refineBtn" style="margin-top:10px"></button>
+      <button class="ghost small" onclick="clearChat()" data-i18n="chatClear" style="margin-top:10px"></button>
+      <div id="chatMsg"></div>
+    </section>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="view" id="view-settings">
+    <div class="settings-tabs">
+      <button id="stabBtn-ai" onclick="showSettingsTab('ai')" data-i18n="tabAI"></button>
+      <button id="stabBtn-data" onclick="showSettingsTab('data')" data-i18n="tabData"></button>
+      <button id="stabBtn-matching" onclick="showSettingsTab('matching')" data-i18n="tabMatching"></button>
+    </div>
+    <div id="stab-ai">
+  <!-- Settings > AI (local client only) -->
+  <section class="card" id="stepAI">
+    <h2 data-i18n="step1Title"></h2>
+    <p class="fine" data-i18n="aiIntro"></p>
+
+    <div class="row" id="aiControls">
+      <div>
+        <label data-i18n="aiBackendLabel"></label>
+        <select id="aiBackend" onchange="onBackendChange()">
+          <option value="ollama" data-i18n="backendOllama" selected></option>
+          <option value="claude" data-i18n="backendClaude"></option>
+          <option value="codex" data-i18n="backendCodex" disabled></option>
+          <option value="gemini" data-i18n="backendGemini" disabled></option>
+          <option value="anthropic" data-i18n="backendAnthropic"></option>
+          <option value="openai_compat" data-i18n="backendOpenAICompat"></option>
+        </select>
+      </div>
+      <div id="aiBaseUrlWrap">
+        <label data-i18n="baseUrlLabel"></label>
+        <input type="text" id="aiBaseUrl" value="http://localhost:11434">
+      </div>
+      <div>
+        <label data-i18n="modelLabel"></label>
+        <select id="aiModelSel" onchange="onModelSelChange()"></select>
+        <input type="text" id="aiModel" placeholder="llama3.2" class="hidden">
+      </div>
+      <div id="aiKeyWrap" class="hidden">
+        <label data-i18n="apiKeyLabel"></label>
+        <input type="password" id="aiKey" autocomplete="off">
+      </div>
+    </div>
+    <p class="fine" data-i18n="apiKeyFine"></p>
+    <button class="primary" onclick="testAI()" data-i18n="testConnect"></button>
+    <div id="aiMsg"></div>
+  </section>
+
+    </div>
+    <div id="stab-data" class="hidden">
+      <!-- Settings > Your data (all local; skippable) -->
+      <section class="card">
+        <h2 data-i18n="step2Title"></h2>
+        <p class="fine" data-i18n="step2Intro"></p>
+
+        <label data-i18n="vaultLabel"></label>
+        <div class="row">
+          <div style="flex:3"><input type="text" id="vaultDir" data-i18n-ph="vaultPh"></div>
+          <div style="flex:1"><button class="ghost small" onclick="applyVault()" data-i18n="vaultApply" style="margin-top:0"></button></div>
+        </div>
+        <p class="fine" data-i18n="vaultFine"></p>
+        <div id="vaultMsg"></div>
+
+        <label data-i18n="dataDirLabel"></label>
+        <div class="row">
+          <div style="flex:3"><input type="text" id="dataDir" data-i18n-ph="dataDirPh"></div>
+          <div style="flex:1"><button class="ghost small" onclick="applyDataDir()" data-i18n="dataDirApply" style="margin-top:0"></button></div>
+        </div>
+        <p class="fine" data-i18n="dataDirFine"></p>
+        <div class="file-list" id="dataFileList"></div>
+
+        <label data-i18n="importFilesLabel"></label>
+        <input type="file" id="dataFiles" accept=".json,.txt,.md" multiple onchange="importSourceFile(event)" style="margin-top:6px; font-size:.85rem">
+        <label data-i18n="importZipLabel"></label>
+        <input type="file" id="chatgptZip" accept=".zip,.json" onchange="importChatGPTZip(event)" style="margin-top:6px; font-size:.85rem">
+        <label data-i18n="sourceLabel"></label>
+        <textarea id="sourceNotes" data-i18n-ph="sourcePh" oninput="updateSourceCount()"></textarea>
+        <p class="fine" id="sourceCount"></p>
+        <p class="fine" data-i18n="sourceFine"></p>
+        <button class="primary" onclick="saveNotes()" data-i18n="saveNotesBtn"></button>
+        <button class="ghost small" onclick="copyDistillPrompt()" data-i18n="copyDistill"></button>
+        <div id="analyzeMsg"></div>
+      </section>
+    </div>
+    <div id="stab-matching" class="hidden">
+      <!-- Settings > Matching: identity & node; shown as a prompt on first use -->
+      <section class="card">
+        <h2 data-i18n="matchSetupTitle"></h2>
+        <p class="fine" data-i18n="matchSetupIntro"></p>
+
+        <label data-i18n="pseudonymLabel"></label>
+        <input type="text" id="pseudonym" maxlength="40" autocomplete="off" data-i18n-ph="pseudonymPh" onchange="saveIdentity()">
+
+        <label data-i18n="contactLabel"></label>
+        <input type="text" id="contact" maxlength="120" autocomplete="off" onchange="saveIdentity()">
+        <p class="fine" data-i18n="contactFine"></p>
+
+        <details>
+          <summary data-i18n="manualLocation"></summary>
+          <div class="row">
+            <div><label data-i18n="latitude"></label><input type="number" id="lat" step="any" placeholder="31.23"></div>
+            <div><label data-i18n="longitude"></label><input type="number" id="lon" step="any" placeholder="121.47"></div>
+          </div>
+          <button class="ghost small" onclick="useManualLocation()" data-i18n="computeBucket"></button>
+        </details>
+        <p class="fine" id="bucketDisplay"></p>
+
+        <details>
+          <summary data-i18n="nodeUrlLabel"></summary>
+          <input type="text" id="nodeUrl" placeholder="https://your-node.example.org" onchange="setNodeUrl()">
+          <p class="fine" data-i18n="nodeUrlFine"></p>
+        </details>
+
+        <div class="checks" style="margin-top:12px">
+          <label><input type="checkbox" id="consent" onchange="saveIdentity()"> <span data-i18n="consentLabel"></span></label>
+        </div>
+        <div id="identityMsg"></div>
+      </section>
+    </div>
+  </div>
+
+  <!-- MATCHING: preferences + automated matching + live log -->
+  <div class="view" id="view-matching">
+  <!-- Relationship coach: plan + practice for users with no experience -->
+  <section class="card hidden" id="coachCard">
+    <span class="step-tag" data-i18n="coachTag"></span>
+    <h2 data-i18n="coachTitle"></h2>
+    <p class="fine" data-i18n="coachIntro"></p>
+    <p class="fine mono" id="coachSkillLine"></p>
+    <div id="planBox" class="mdview hidden" style="max-height:44vh"></div>
+    <button class="primary" onclick="generatePlan()" data-i18n="planBtn"></button>
+    <button class="ghost" onclick="showView('chat'); document.getElementById('coachMode').checked = true;"
+            data-i18n="coachChatBtn"></button>
+    <div style="margin-top:.8rem">
+      <label data-i18n="outreachLabel"></label>
+      <select id="outreachPlatform">
+        <option value="Xiaohongshu">小红书 Xiaohongshu</option>
+        <option value="Facebook">Facebook</option>
+        <option value="WeChat Moments">微信朋友圈 WeChat Moments</option>
+        <option value="a dating app">Dating app / 交友软件</option>
+      </select>
+      <button class="ghost" onclick="draftOutreach()" data-i18n="outreachBtn"></button>
+    </div>
+    <div id="outreachBox" class="hidden"
+         style="white-space:pre-wrap; font-size:.9rem; max-height:36vh; overflow-y:auto"></div>
+    <div style="margin-top:.8rem">
+      <label data-i18n="simLabel"></label>
+      <textarea id="simCard" rows="3" data-i18n-ph="simPh"></textarea>
+      <button class="ghost" onclick="runSimulation()" data-i18n="simBtn"></button>
+    </div>
+    <div id="simBox" class="hidden"
+         style="white-space:pre-wrap; font-size:.9rem; max-height:40vh; overflow-y:auto"></div>
+    <div id="coachMsg"></div>
+  </section>
+
+  <section class="card" id="matchPrefs">
+    <h2 data-i18n="matchPrefsTitle"></h2>
+    <p class="fine" data-i18n="matchPrefsIntro"></p>
+    <div class="notice hidden" id="matchSetupHint" data-i18n-html="matchSetupHint"></div>
+    <div class="notice hidden" id="matchModelHint" data-i18n-html="matchModelHint"></div>
+
+    <div class="row">
+      <div>
+        <label data-i18n="iAmLabel"></label>
+        <select id="gender">
+          <option value="" data-i18n="preferNot"></option>
+          <option value="woman" data-i18n="woman"></option>
+          <option value="man" data-i18n="man"></option>
+          <option value="nonbinary" data-i18n="nonbinary"></option>
+        </select>
+      </div>
+      <div>
+        <label data-i18n="ageLabel"></label>
+        <input type="number" id="age" min="18" max="120" required placeholder="—">
+      </div>
+      <div>
+        <label data-i18n="distanceLabel"></label>
+        <select id="distanceSel">
+          <option value="4" data-i18n="distMetro"></option>
+          <option value="3" data-i18n="distCity"></option>
+        </select>
+      </div>
+    </div>
+
+    <label data-i18n="seekingLabel"></label>
+    <div class="checks">
+      <label><input type="checkbox" id="seekEveryone" checked onchange="onSeekEveryone()"> <span data-i18n="everyone"></span></label>
+      <label><input type="checkbox" class="seekGender" value="woman"> <span data-i18n="women"></span></label>
+      <label><input type="checkbox" class="seekGender" value="man"> <span data-i18n="men"></span></label>
+      <label><input type="checkbox" class="seekGender" value="nonbinary"> <span data-i18n="nonbinaryPlural"></span></label>
+    </div>
+
+    <div class="row">
+      <div>
+        <label data-i18n="seekAgeMin"></label>
+        <input type="number" id="seekAgeMin" min="18" max="120" placeholder="—">
+      </div>
+      <div>
+        <label data-i18n="seekAgeMax"></label>
+        <input type="number" id="seekAgeMax" min="18" max="120" placeholder="—">
+      </div>
+    </div>
+
+    <button class="primary" id="startMatchBtn" onclick="startMatching()" data-i18n="startMatching"></button>
+    <button class="ghost hidden" id="stopMatchBtn" onclick="stopMatching()" data-i18n="stopMatching"></button>
+    <div id="registerMsg"></div>
+  </section>
+
+  <!-- Live matching activity -->
+  <section class="card" id="matchLogCard">
+    <h2 data-i18n="matchLogTitle"></h2>
+    <p class="fine" data-i18n="matchLogIntro"></p>
+    <div class="file-list" id="matchLog"></div>
+  </section>
+
+  <!-- Introductions (consent stays human: accept/decline is never automated) -->
+  <section class="card locked" id="stepIntros">
+    <h2 data-i18n="step5Title"></h2>
+    <p class="fine" data-i18n="step5Intro"></p>
+    <div id="introList"></div>
+    <div id="introMsg"></div>
+  </section>
+
+  <!-- STEP 5: Match -->
+  <section class="card hidden" id="stepMatch">
+    <span class="step-tag" data-i18n="matchTag"></span>
+    <h2 data-i18n="matchTitle"></h2>
+    <div id="matchPacket"></div>
+    <div class="notice" data-i18n-html="scamReminder"></div>
+
+    <h2 style="margin-top:18px" data-i18n="exchangeTitle"></h2>
+    <button class="ghost small" onclick="exportMyCard()" data-i18n="exportCard"></button>
+    <label data-i18n="pasteTheirCard"></label>
+    <textarea id="theirCardInput" data-i18n-ph="pasteCardPh"></textarea>
+    <button class="primary" onclick="verifyTheirCard()" data-i18n="verifyBtn"></button>
+    <div id="verifyMsg"></div>
+    <div id="comparison"></div>
+  </section>
+
+  <!-- Danger zone -->
+  <section class="card locked" id="stepDelete">
+    <h2 data-i18n="deleteTitle"></h2>
+    <p class="fine" data-i18n="deleteFine"></p>
+    <button class="ghost small" onclick="deleteMe()" data-i18n="deleteBtn"></button>
+    <div id="deleteMsg"></div>
+  </section>
+  </div>
+
+  <footer data-i18n-html="footer"></footer>
+</main>
+
+<script>
+"use strict";
+
+/* ------------------------------------------------------------------ i18n */
+const I18N = {
+  en: {
+    title: "AI-SlowMatch · Rendezvous Demo",
+    tagline: "Nearby matching on a bulletin-board server. No photos, no jobs, no income — only a self-model you build from your own AI chats. No scores, ever.",
+    privacyNotice: "<b>What this server stores:</b> your pseudonym, a coarse area bucket (~39×20 km), basic filters, a hidden contact channel, and card fingerprints. <b>Never:</b> your real name, exact location, photos, profile text, or chats. Raw coordinates never leave this device. Registration issues an access token that stays in this browser tab — whoever holds it controls the pseudonym, and it cannot be recovered if lost. Demo note: server memory is cleared on restart — use a throwaway pseudonym.",
+    navHome: "Home", navChat: "Chat", navMatching: "Coach & Matching", navProfile: "My Model", navSettings: "Settings",
+    wizardTag: "Welcome", wizardTitle: "Set up AI-SlowMatch (everything is skippable)",
+    wizardAI: "Connect my AI now", wizardData: "Add my data now", wizardSkip: "Skip — take me to the app",
+    dashAI: "Your AI", dashAIBtn: "Settings › AI",
+    dashData: "Your data", dashDataBtn: "Settings › Data",
+    dashChat: "Understand yourself", dashChatHint: "Chat with your AI about your own data — refine your self-model, examine patterns and how to work on them.", dashChatBtn: "Open chat",
+    dashModel: "Self-model", dashModelBtn: "View / edit",
+    dashMatch: "Matching", dashMatchBtn: "Open matching",
+    dashNotConnected: "Not connected yet — works fine without it, but chat and generation need it.",
+    dashNoModel: "Not saved yet.",
+    dashNotRegistered: "Not registered on a node yet.",
+    dashUnavailable: "Available in the packaged app.",
+    dashFiles: "data files", noDataFiles: "No data files yet.",
+    tabAI: "AI", tabData: "Your data",
+    chatTitle: "Chat with your AI about yourself",
+    chatIntro: "Grounded in your imported data and current self-model. Short check-in or long deep-dive — refine the model as you go. Your AI is contract-bound to be honest, not flattering: patterns and practical improvements, never verdicts or scores.",
+    chatPh: "Ask anything about yourself, or answer the AI's question…",
+    chatSend: "Send", chatClear: "Clear chat",
+    chatUsing: "Connected:", chatNoAI: "No AI connected yet — Settings › AI.",
+    thinking: "Thinking…",
+    tpl0: "My personality flaws", tpl1: "Interview me", tpl2: "Communication style", tpl3: "Am I ready to date?",
+    tplP0: "Based on my data, what are my three most consequential personality flaws in a relationship context? For each: the concrete pattern you see in my data, what it would cost a partner, and one practical way I could work on it. Be direct — do not soften it.",
+    tplP1: "Interview me to refine my self-model. Ask one question at a time, focusing on gaps and contradictions between what my data shows and what my current self-model claims.",
+    tplP2: "Analyze my communication style from my chat data: how I open up, how I handle disagreement, what a partner would find easy and hard about it.",
+    tplP3: "From my data and self-model: what should I honestly resolve or work on before seriously dating someone? What am I likely to repeat from past patterns?",
+    refineBtn: "Update my self-model from this conversation",
+    reviewThenSave: "Review the fields below, edit anything that isn't true, then save.",
+    notesSaved: "Notes saved to your local vault",
+    saveNotesBtn: "Save notes to my local vault",
+    vaultLabel: "Vault folder — like an Obsidian vault, this ONE folder holds your model, notes, and reports",
+    vaultPh: "D:\\OneDrive\\...\\AI-SlowMatch-Vault",
+    vaultApply: "Open this vault",
+    vaultFine: "The vault stores readable, unencrypted files. A synced folder may copy them to your cloud account and other devices. Choose a local folder if you do not want that. Existing desktop portraits can be opened until a new analysis replaces them.",
+    vaultHasModel: "self-model found",
+    vaultHasReport: "report found",
+    dataDirLabel: "My data folder (optional): a local folder of exports the AI may read",
+    dataDirPh: "C:\\Users\\you\\Documents\\my-exports",
+    dataDirApply: "Use this folder",
+    dataDirFine: "Reads .txt / .md / .json files locally at analysis time. External AI receives only the messages you edit, review and approve. Matching nodes receive card fingerprints, not these files.",
+    notLocalShort: "This needs the packaged desktop app.",
+    profileTitle: "Your self-model",
+    profileIntro: "This replaces photos, job and income in matching. Generate it with your AI, refine it in Chat, and edit it by hand until it is true. It stays on this device; matching only ever sees its fingerprint.",
+    backendClaude: "Claude Code (your installed agent & plan)",
+    backendCodex: "Codex CLI (unavailable: data isolation not verified)",
+    backendGemini: "Gemini CLI (unavailable: data isolation not verified)",
+    backendOpenAICompat: "OpenAI-compatible API (Doubao 豆包, DeepSeek, OpenAI…)",
+    tabMatching: "Matching",
+    matchSetupTitle: "Matching setup (once)",
+    matchSetupIntro: "Shown once, then it lives here in Settings. Matching itself is automated from the Matching page.",
+    pseudonymPh: "leave empty to auto-generate one",
+    matchPrefsTitle: "Find people near you",
+    matchPrefsIntro: "Set what you're looking for and press start. Your device location is used automatically (coarse ~39×20 km bucket, computed on this device). The app then keeps discovering compatible people nearby and requests introductions for you — accepting one is always your decision.",
+    matchSetupHint: "First time: add a <b>contact channel</b> and tick <b>consent</b> in Settings › Matching (one minute, once).",
+    matchModelHint: "No self-model yet — chat with your AI (or import data and generate) first. Matching runs on your model's fingerprint.",
+    distanceLabel: "Distance", distMetro: "Metro area (~40 km)", distCity: "City-wide (~150 km)",
+    startMatching: "Start matching (uses my device location)",
+    stopMatching: "Pause matching",
+    matchNeedSetup: "Add a contact channel and consent in Settings › Matching first.",
+    matchingStarted: "Matching started — discovering nearby, auto-requesting introductions.",
+    matchingStopped: "Matching paused.",
+    matchingActive: "matching…",
+    introSentTo: "Introduction requested:",
+    matchLogTitle: "Matching activity",
+    matchLogIntro: "Live record of what the app is doing on your behalf. Contact is revealed only after BOTH sides accept.",
+    logEmpty: "Nothing yet — press start.",
+    reportTag: "Your self-model",
+    reportTitle: "Your self-model — matching card",
+    reportIntro: "Generated by your AI from your data and conversations — never typed in by hand, never scored. It replaces photos, job and income in matching; matches only ever see its fingerprint until you share it.",
+    reportRefine: "Refine it in Chat",
+    noReportTitle: "No self-model yet",
+    noReportIntro: "Your self-model is built by your AI — from a conversation, or from your imported data. It replaces photos, job and income. Start with either:",
+    reportUpdated: "Report updated and saved on this device.",
+    promptDataHint: "Optional but recommended: your exports make the AI's picture of you much sharper.",
+    chatDataReminder: "Tip: importing your data first (Settings › Data) makes this conversation much sharper — or just start talking and the AI will interview you from scratch.",
+    reflecting: "Your AI is writing the compatibility reflection…",
+    aiReflectionTitle: "AI reflection (not a score)",
+    deepTag: "Your self-model",
+    deepTitle: "Your self-model — deep portrait",
+    deepRun: "Run deep analysis (evidence-bound report)",
+    deepUpdate: "Update the analysis",
+    deepRunning: "Running the Chat-Analysis Module — evidence-bound, so this reads everything and takes a while…",
+    generatedAt: "Generated:",
+    claimsWord: "evidence-backed claims", tensionsWord: "tensions to resolve",
+    step1Title: "Connect your AI",
+    aiIntro: "Your own AI does the analysis — a local model on this device, or your own API key. Nothing in steps 1-2 is sent to any matching server.",
+    notLocalClient: "This page is served by a matching node only, so connected-AI features are off. Use the packaged desktop app for steps 1-2, or fill the self-model fields by hand (the copy-prompt button still works with any AI you use).",
+    aiBackendLabel: "AI backend",
+    backendOllama: "Ollama (local, private — recommended)",
+    backendAnthropic: "Anthropic API (cloud, opt-in)",
+    baseUrlLabel: "Ollama address",
+    modelLabel: "Model",
+    cliModelPh: "optional — e.g. claude-haiku-4-5 to save your plan's quota",
+    modelDefaultOpt: "Default (recommended)",
+    modelCustomOpt: "Custom… (type a model name)",
+    coachTag: "Coach",
+    coachTitle: "Relationship Coach & Practice",
+    coachIntro: "A step-by-step teacher for building a relationship with no prior "
+      + "experience: your personal plan, honest outreach drafts you post yourself, "
+      + "and a rehearsal of the first conversation. No manipulation tactics — ever.",
+    coachSkillOk: "✔ Coaching knowledge pack installed (goutoujunshi — evidence-graded, anti-PUA).",
+    coachSkillMissing: "Optional knowledge pack not found. Install it for deeper coaching:",
+    planBtn: "Generate My Step-by-Step Plan",
+    coachChatBtn: "Ask the Coach (chat)",
+    coachModeLabel: "Coach mode",
+    coachWorking: "Working… this can take a minute.",
+    outreachLabel: "Where do you want to meet people? The AI drafts — you post it yourself:",
+    outreachBtn: "Draft My Outreach Kit",
+    outreachDone: "Drafts ready — copy what feels like you, edit, and post it yourself.",
+    simLabel: "Rehearse the first conversation: paste your match's card (JSON or text):",
+    simPh: "Paste the card they shared with you after a mutual match…",
+    simBtn: "Simulate First Conversation",
+    simNeedCard: "Paste their card first (both sides must have consented to share).",
+    simDone: "Rehearsal ready — remember: the real person will differ from the card.",
+    apiKeyLabel: "API key",
+    apiKeyFine: "Imported files remain in your vault. External AI receives only the messages you review and approve for that request. API keys stay in process memory and are sent only to your chosen provider; they are never saved to disk.",
+    testConnect: "Connect & test",
+    importFilesLabel: "Add exported files (.txt / .md / .json — imported locally)",
+    importZipLabel: "Or a ChatGPT export (.zip or conversations.json — parsed locally; only the temporary upload copy is deleted, extracted notes remain here)",
+    zipParsed: "Export parsed locally:",
+    conversations: "conversations", messages: "messages",
+    charsCollected: "characters collected",
+    analyzeBtn: "Analyze with my AI → build self-model",
+    analyzing: "Analyzing — a local model can take a minute or two…",
+    evidenceLabel: "Evidence & extrapolation notes (from the AI)",
+    evidenceFine: "Evidence notes are included when you export your card. Review them first. A valid format does not prove the AI's claims are true.",
+    saveModelBtn: "Save self-model on this device & fingerprint it",
+    savedModel: "Self-model saved on this device. Fingerprint:",
+    needModel: "Build and save your self-model (Step 2) first — matching only attests its fingerprint.",
+    nodeUrlLabel: "Matching node (advanced): use a different server",
+    nodeUrlFine: "Leave empty to use this app's built-in node (fine for a two-tab test on one PC). Paste a hosted node URL (https://…) to match with other people.",
+    step3Tag: "Step 3", step3Title: "Who you are (the minimum)",
+    pseudonymLabel: "Pseudonym — never your real name",
+    iAmLabel: "I am", preferNot: "prefer not to say", woman: "a woman", man: "a man", nonbinary: "nonbinary",
+    ageLabel: "Age (required, adults 18+ only)",
+    seekingLabel: "Seeking", everyone: "everyone", women: "women", men: "men", nonbinaryPlural: "nonbinary people",
+    seekAgeMin: "Their age from (optional)", seekAgeMax: "to (optional)",
+    contactLabel: "Contact channel (e.g. an email you control)",
+    contactFine: "Kept hidden by the server until BOTH of you accept an introduction.",
+    locationLabel: "Your area",
+    useLocation: "Use my device location (stays on this device)",
+    manualLocation: "Enter location manually instead",
+    latitude: "Latitude", longitude: "Longitude", computeBucket: "Compute area bucket locally",
+    consentLabel: "I consent to this node storing the rendezvous metadata above, and I can delete it at any time.",
+    registerBtn: "Register on this node",
+    registered: "Registered as", bucketIs: "Area bucket (computed on this device):",
+    alreadyRegistered: "This pseudonym already exists on the node and this tab holds no access token for it. There is no account recovery in this demo — choose a different pseudonym.",
+    continueAs: "Continue with this pseudonym (token found in this tab)",
+    badCoords: "Latitude must be between -90 and 90, longitude between -180 and 180.",
+    sessionLost: "This node no longer knows this pseudonym (node restart or deletion). Please register again.",
+    invalidJson: "That does not parse as JSON — paste the card exactly as it was sent.",
+    distillPlaceholder: "(paste your notes here)",
+    withdraw: "Withdraw",
+    step2Tag: "Step 2", step2Title: "Your data → AI analysis → self-model",
+    step2Intro: "Import your own notes or exports to build a self-model grounded in evidence. Files are processed locally; external AI receives only the edited messages you review and approve. Matching nodes receive fingerprints. Review uncertainty before sharing a card yourself.",
+    sourceLabel: "Source notes (optional): paste an AI-chat self-summary, or import an export file",
+    sourcePh: "e.g. paste your ChatGPT memory summary here, or notes from your own AI…",
+    sourceFine: "Files are read into this browser locally. External AI requests require a separate review of the exact messages to send.",
+    copyDistill: "Copy a prompt for your own AI to distill this into card fields",
+    valuesLabel: "Core values (comma-separated)", valuesPh: "honesty, curiosity, stability",
+    goalsLabel: "Life goals", commLabel: "Communication style", boundariesLabel: "Boundaries",
+    uncertaintyLabel: "What I'm still unsure about", uncertaintyPh: "Honest uncertainty makes the card credible.",
+    attestFine: "Only the SHA-256 fingerprint of your saved self-model is registered for matching — never the content. Every re-save while registered re-attests; frequent rewrites are visible to matches as a plain fact.",
+    attested: "Card attested. Fingerprint:", version: "version",
+    step4Tag: "Step 4", step4Title: "Nearby (same area bucket, mutual basics)",
+    refreshNearby: "Refresh",
+    nearbyEmpty: "Nobody in your bucket right now (or mutual filters exclude you both). Try the two-tab demo: open this page in a second tab as another pseudonym.",
+    requestIntro: "Request introduction",
+    introSent: "Introduction requested.",
+    cardVersions: "card versions", firstAttested: "first attested",
+    step5Tag: "Step 5", step5Title: "Introductions",
+    step5Intro: "Double-blind: contact is revealed only after both sides accept. A declined pair cannot be re-requested.",
+    introEmpty: "No introductions yet.",
+    dirSent: "sent to", dirReceived: "received from",
+    accept: "Accept", decline: "Decline", openMatch: "Open match",
+    statusPending: "pending", statusMatched: "matched", statusDeclined: "declined",
+    matchTag: "Matched", matchTitle: "Your match",
+    contactIs: "Their contact channel:", lockedFp: "Locked card fingerprint (from before you matched):",
+    howVerify: "Ask them to send their card (file or text) over that channel, paste it below, and verify it against the locked fingerprint.",
+    scamReminder: "<b>Slow down.</b> A match is a starting point, not a verdict. Never send money, identity documents, or private images to someone you have only met online — no matter how compatible the cards look.",
+    exchangeTitle: "Exchange & verify cards",
+    exportCard: "Export my card (send it over the revealed channel)",
+    pasteTheirCard: "Paste the card they sent you (JSON)",
+    pasteCardPh: '{"schema_version": "0.1", ...}',
+    verifyBtn: "Verify against locked fingerprint",
+    verifyOk: "✔ Card matches the fingerprint attested before your match.",
+    verifyBad: "✘ Card does NOT match — it was altered after the introduction was created.",
+    comparisonTitle: "Local reflection (computed on this device — not a score)",
+    sharedValues: "Values you share", differentValues: "Values only one of you named",
+    myCol: "You", theirCol: "Them",
+    talkAbout: "Worth talking about",
+    copyCompare: "Copy a prompt to run a deeper comparison with your own AI",
+    noMyCard: "Your own card was not found on this device — rebuild it in Step 2 first.",
+    goals: "Life goals", comm: "Communication style", boundaries: "Boundaries", uncertainty: "Unsure about",
+    deleteTitle: "Delete my data from this node",
+    deleteFine: "Removes your registration, attestation history and open introductions from the server (docs/06 deletion rule). Your card stays only on this device.",
+    deleteBtn: "Delete me from this node",
+    deleted: "Deleted. Reload the page to start over.",
+    copied: "Copied to clipboard.",
+    needLocation: "Please set your area first (device location or manual entry).",
+    needConsent: "Please tick the consent box first.",
+    geoDenied: "Location was denied or unavailable — use manual entry below.",
+    geoInsecure: "Browsers only allow device location on https:// or localhost — use manual entry below.",
+    footer: "AI-SlowMatch rendezvous demo (P0). This node refuses to store: real names, exact locations, photos, profile content, chats, or any compatibility score. Matching order is registration time only — never ranking. An attested card proves integrity and history, not truth: staying scam-aware is still on you. 服务器只存化名、粗略区域、基础筛选与卡片指纹；绝不存真实姓名、精确位置、照片、资料内容、聊天记录或任何兼容性评分。",
+    talkPrompts: [
+      "Where do your life goals pull in different directions, and does that matter in 5 years?",
+      "You named different values — ask each other for a real story behind one of them.",
+      "How does each of you want disagreements handled? Compare your communication notes.",
+      "Read each other's boundaries aloud and ask: which one is hardest for you to respect?",
+      "Each card lists honest uncertainty — which of theirs would you want them to figure out first?"
+    ],
+    distillPrompt: "You are helping me build an honest self-model card for slow, deep-compatibility matching. Do NOT flatter me. From my notes below, produce: core values (max 6 words/phrases), life goals (2-3 sentences), communication style (2-3 sentences, including how I handle conflict), boundaries (2-3 sentences), and what I am still genuinely unsure about (1-2 sentences). Be specific and honest; note contradictions plainly.\n\nMY NOTES:\n",
+    comparePrompt: "Compare these two compatibility cards for a reflective, NON-SCORING analysis. Hard rules: no percentage, no ranking, no verdict about whether we are 'a good match', no flattery. Output: (1) genuine alignments, (2) genuine differences and what friction they could cause, (3) five concrete questions we should discuss in person, (4) one thing each of us seems unsure about that the other should know. Both people consented to this comparison.\n\nCARD A (me):\n{A}\n\nCARD B (them):\n{B}"
+  },
+  zh: {
+    title: "AI-慢配 · 会合演示",
+    tagline: "基于公告板服务器的附近匹配。没有照片、职业、收入——只有你从自己的 AI 对话中构建的自我模型。永远不打分。",
+    privacyNotice: "<b>本服务器存储：</b>你的化名、一个粗略区域格（约 39×20 公里）、基础筛选条件、一个隐藏的联系方式、以及卡片指纹。<b>绝不存储：</b>真实姓名、精确位置、照片、资料内容或聊天记录。原始坐标永远不会离开本设备。注册时会发放一个访问令牌，保存在当前浏览器标签页中——持有令牌者即控制该化名，丢失后无法找回。演示提示：服务器重启后数据清空——请使用一次性化名。",
+    navHome: "主页", navChat: "对话", navMatching: "教练与匹配", navProfile: "我的模型", navSettings: "设置",
+    wizardTag: "欢迎", wizardTitle: "开始使用 AI-慢配（每一步都可跳过）",
+    wizardAI: "现在连接我的 AI", wizardData: "现在添加我的数据", wizardSkip: "跳过——直接进入应用",
+    dashAI: "你的 AI", dashAIBtn: "设置 › AI",
+    dashData: "你的数据", dashDataBtn: "设置 › 数据",
+    dashChat: "了解你自己", dashChatHint: "基于你自己的数据与 AI 对话——完善自我模型，审视自身模式并找到改进方法。", dashChatBtn: "打开对话",
+    dashModel: "自我模型", dashModelBtn: "查看 / 编辑",
+    dashMatch: "匹配", dashMatchBtn: "进入匹配",
+    dashNotConnected: "尚未连接——不连接也能使用，但对话和生成功能需要它。",
+    dashNoModel: "尚未保存。",
+    dashNotRegistered: "尚未在节点上注册。",
+    dashUnavailable: "打包版应用中可用。",
+    dashFiles: "个数据文件", noDataFiles: "暂无数据文件。",
+    tabAI: "AI", tabData: "你的数据",
+    chatTitle: "与你的 AI 聊聊你自己",
+    chatIntro: "以你导入的数据和当前自我模型为基础。可以简短交流，也可以深入长谈——边聊边完善模型。你的 AI 受契约约束：诚实而不奉承——只谈模式与可行的改进，绝不下结论或打分。",
+    chatPh: "问任何关于你自己的问题，或回答 AI 的提问……",
+    chatSend: "发送", chatClear: "清空对话",
+    chatUsing: "已连接：", chatNoAI: "尚未连接 AI——请到 设置 › AI。",
+    thinking: "思考中……",
+    tpl0: "我的性格缺点", tpl1: "访谈我", tpl2: "沟通方式", tpl3: "我适合开始约会吗？",
+    tplP0: "根据我的数据，我在亲密关系中最要紧的三个性格缺点是什么？每一条请给出：你在数据中看到的具体模式、它会让伴侣付出什么代价、以及一个切实可行的改进方法。请直接说——不要缓和措辞。",
+    tplP1: "请访谈我以完善自我模型。一次只问一个问题，重点放在我的数据与当前自我模型之间的缺口和矛盾上。",
+    tplP2: "根据我的聊天数据分析我的沟通方式：我如何敞开心扉、如何处理分歧、伴侣会觉得哪些地方容易相处、哪些地方难。",
+    tplP3: "根据我的数据和自我模型：在认真开始一段感情之前，我应该诚实面对或解决什么？我最可能重复过去的哪些模式？",
+    refineBtn: "根据这段对话更新我的自我模型",
+    reviewThenSave: "请检查下面各字段，修改不符合事实的部分，然后保存。",
+    notesSaved: "笔记已保存到本地档案库",
+    saveNotesBtn: "把笔记保存到本地档案库",
+    vaultLabel: "档案库文件夹——像 Obsidian 库一样，这一个文件夹保存你的模型、笔记和报告",
+    vaultPh: "D:\\OneDrive\\...\\AI-SlowMatch-Vault",
+    vaultApply: "打开此档案库",
+    vaultFine: "档案库以可读、未加密的文件保存。同步文件夹可能把这些文件复制到你的云账户及其他设备；若不希望如此，请选择本地文件夹。已有桌面画像可继续打开，直到新分析将其替换。",
+    vaultHasModel: "已发现自我模型",
+    vaultHasReport: "已发现报告",
+    dataDirLabel: "我的数据文件夹（可选）：AI 可读取的本地导出文件夹",
+    dataDirPh: "C:\\Users\\你\\Documents\\my-exports",
+    dataDirApply: "使用此文件夹",
+    dataDirFine: "分析时在本地读取 .txt / .md / .json 文件。外部 AI 仅接收你编辑、审核并同意发送的消息。匹配节点接收卡片指纹，不接收这些文件。",
+    notLocalShort: "此功能需要打包版桌面应用。",
+    profileTitle: "你的自我模型",
+    profileIntro: "在匹配中它取代照片、职业和收入。用你的 AI 生成，在对话中完善，再手动编辑到真实为止。它保存在本设备；匹配只会看到它的指纹。",
+    backendClaude: "Claude Code（你已安装的代理与套餐）",
+    backendCodex: "Codex CLI（不可用：数据隔离尚未验证）",
+    backendGemini: "Gemini CLI（不可用：数据隔离尚未验证）",
+    backendOpenAICompat: "OpenAI 兼容 API（豆包、DeepSeek、OpenAI……）",
+    tabMatching: "匹配",
+    matchSetupTitle: "匹配设置（一次性）",
+    matchSetupIntro: "只需设置一次，之后一直放在设置里。匹配本身在「匹配」页面自动进行。",
+    pseudonymPh: "留空则自动生成",
+    matchPrefsTitle: "发现你附近的人",
+    matchPrefsIntro: "设定你想认识的人，然后点开始。应用会自动使用设备定位（约 39×20 公里的粗略区域格，在本设备计算），持续发现附近合适的人并替你发出引荐请求——是否接受永远由你决定。",
+    matchSetupHint: "首次使用：请先到 设置 › 匹配 填写<b>联系方式</b>并勾选<b>同意</b>（一分钟，一次性）。",
+    matchModelHint: "还没有自我模型——请先与你的 AI 对话（或导入数据后生成）。匹配依赖模型的指纹。",
+    distanceLabel: "距离", distMetro: "都会区（约 40 公里）", distCity: "全城（约 150 公里）",
+    startMatching: "开始匹配（使用设备定位）",
+    stopMatching: "暂停匹配",
+    matchNeedSetup: "请先到 设置 › 匹配 填写联系方式并勾选同意。",
+    matchingStarted: "匹配已开始——持续发现附近的人并自动发出引荐请求。",
+    matchingStopped: "匹配已暂停。",
+    matchingActive: "匹配中……",
+    introSentTo: "已发出引荐请求：",
+    matchLogTitle: "匹配动态",
+    matchLogIntro: "应用替你执行操作的实时记录。只有双方都接受后才会显示联系方式。",
+    logEmpty: "暂无记录——点击开始。",
+    reportTag: "你的自我模型",
+    reportTitle: "你的自我模型——匹配卡片",
+    reportIntro: "由你的 AI 根据你的数据和对话生成——从不需要手动填写，也从不打分。在匹配中它取代照片、职业和收入；在你亲自分享之前，匹配对象只能看到它的指纹。",
+    reportRefine: "在对话中完善它",
+    noReportTitle: "还没有自我模型",
+    noReportIntro: "自我模型由你的 AI 构建——通过一段对话，或根据你导入的数据。它取代照片、职业和收入。从任意一种方式开始：",
+    reportUpdated: "报告已更新并保存在本设备。",
+    promptDataHint: "可选但推荐：导入你的数据能让 AI 对你的刻画更精准。",
+    chatDataReminder: "提示：先导入你的数据（设置 › 数据）会让这段对话精准得多——也可以直接开聊，AI 会从零开始访谈你。",
+    reflecting: "你的 AI 正在撰写兼容性反思……",
+    aiReflectionTitle: "AI 反思（不是评分）",
+    deepTag: "你的自我模型",
+    deepTitle: "你的自我模型——深度画像",
+    deepRun: "运行深度分析（证据绑定报告）",
+    deepUpdate: "更新分析",
+    deepRunning: "正在运行对话分析模块——每条结论都需证据支撑，需要通读全部数据，请稍候……",
+    generatedAt: "生成于：",
+    claimsWord: "条有证据支撑的结论", tensionsWord: "个待澄清的张力",
+    step1Title: "连接你的 AI",
+    aiIntro: "分析由你自己的 AI 完成——本设备上的本地模型，或你自己的 API 密钥。第 1-2 步不会向任何匹配服务器发送任何内容。",
+    notLocalClient: "本页面由匹配节点直接提供，连接 AI 功能不可用。请使用打包版桌面应用完成第 1-2 步，或手动填写自我模型字段（「复制提示词」按钮可配合你使用的任何 AI）。",
+    aiBackendLabel: "AI 后端",
+    backendOllama: "Ollama（本地、私密——推荐）",
+    backendAnthropic: "Anthropic API（云端，需自选）",
+    baseUrlLabel: "Ollama 地址",
+    modelLabel: "模型",
+    cliModelPh: "可选——如填 claude-haiku-4-5 可节省套餐额度",
+    modelDefaultOpt: "默认（推荐）",
+    modelCustomOpt: "自定义……（输入模型名称）",
+    coachTag: "教练",
+    coachTitle: "恋爱教练与练习",
+    coachIntro: "为没有恋爱经验的人准备的分步教学：你的个人推进计划、由你亲自发布的真诚交友文案草稿、"
+      + "以及首次对话的预演。绝不使用任何操控话术。",
+    coachSkillOk: "✔ 已安装教练知识库（狗头军师——证据分级、反 PUA）。",
+    coachSkillMissing: "未找到可选知识库。安装后教学更深入：",
+    planBtn: "生成我的分步计划",
+    coachChatBtn: "向教练提问（聊天）",
+    coachModeLabel: "教练模式",
+    coachWorking: "处理中……可能需要一分钟。",
+    outreachLabel: "你想在哪里认识人？AI 起草——由你亲自发布：",
+    outreachBtn: "起草我的交友文案包",
+    outreachDone: "草稿已就绪——挑选像你自己的那份，修改后自己发布。",
+    simLabel: "预演首次对话：粘贴对方分享的卡片（JSON 或文本）：",
+    simPh: "粘贴双方匹配后对方分享给你的卡片……",
+    simBtn: "模拟首次对话",
+    simNeedCard: "请先粘贴对方的卡片（双方都须同意分享）。",
+    simDone: "预演已就绪——请记住：真实的人会与卡片有所不同。",
+    apiKeyLabel: "API 密钥",
+    apiKeyFine: "导入的文件保留在你的档案库中。外部 AI 仅接收你为本次请求审核并同意发送的消息。API 密钥仅存于进程内存，只发送给你选择的服务商，绝不保存到磁盘。",
+    testConnect: "连接并测试",
+    importFilesLabel: "添加导出文件（.txt / .md / .json——在本地导入）",
+    importZipLabel: "或 ChatGPT 导出（.zip 或 conversations.json——本地解析；仅删除上传的临时副本，提取的笔记仍保留在此页面）",
+    zipParsed: "导出已在本地解析：",
+    conversations: "段对话", messages: "条消息",
+    charsCollected: "个字符已收集",
+    analyzeBtn: "用我的 AI 分析 → 生成自我模型",
+    analyzing: "分析中——本地模型可能需要一两分钟……",
+    evidenceLabel: "证据与推断说明（来自 AI）",
+    evidenceFine: "导出卡片时会包含证据说明，请先审核。格式有效并不证明 AI 的描述真实。",
+    saveModelBtn: "在本设备保存自我模型并生成指纹",
+    savedModel: "自我模型已保存在本设备。指纹：",
+    needModel: "请先完成并保存你的自我模型（第 2 步）——匹配只会认证它的指纹。",
+    nodeUrlLabel: "匹配节点（高级）：使用其他服务器",
+    nodeUrlFine: "留空则使用本应用内置节点（适合单机双标签页测试）。粘贴托管节点的 URL（https://…）即可与其他人匹配。",
+    step3Tag: "第 3 步", step3Title: "你是谁（只需最少信息）",
+    pseudonymLabel: "化名——切勿使用真实姓名",
+    iAmLabel: "我是", preferNot: "不愿透露", woman: "女性", man: "男性", nonbinary: "非二元",
+    ageLabel: "年龄（必填，仅限 18 岁及以上成年人）",
+    seekingLabel: "想认识", everyone: "所有人", women: "女性", men: "男性", nonbinaryPlural: "非二元人士",
+    seekAgeMin: "对方年龄从（可选）", seekAgeMax: "到（可选）",
+    contactLabel: "联系方式（例如你掌控的邮箱）",
+    contactFine: "在双方都接受引荐之前，服务器会一直隐藏它。",
+    locationLabel: "你的区域",
+    useLocation: "使用设备定位（数据留在本设备）",
+    manualLocation: "改为手动输入位置",
+    latitude: "纬度", longitude: "经度", computeBucket: "在本地计算区域格",
+    consentLabel: "我同意本节点存储上述会合元数据，并且我可以随时删除。",
+    registerBtn: "在此节点注册",
+    registered: "已注册：", bucketIs: "区域格（在本设备上计算）：",
+    alreadyRegistered: "该化名已在节点上存在，且当前标签页没有它的访问令牌。本演示没有账号找回机制——请换一个化名。",
+    continueAs: "继续使用此化名（本标签页存有令牌）",
+    badCoords: "纬度须在 -90 到 90 之间，经度须在 -180 到 180 之间。",
+    sessionLost: "节点已不认识这个化名（节点重启或已删除）。请重新注册。",
+    invalidJson: "无法解析为 JSON——请原样粘贴对方发来的卡片。",
+    distillPlaceholder: "（把你的笔记粘贴到这里）",
+    withdraw: "撤回",
+    step2Tag: "第 2 步", step2Title: "你的数据 → AI 分析 → 自我模型",
+    step2Intro: "导入你自己的笔记或导出文件，建立有证据支持的自我模型。文件在本地处理；外部 AI 仅接收你编辑、审核并同意发送的消息。匹配节点只接收指纹。自行分享卡片前，请检查其中的不确定性。",
+    sourceLabel: "来源笔记（可选）：粘贴 AI 对话的自我总结，或导入导出文件",
+    sourcePh: "例如：把你的 ChatGPT 记忆总结粘贴到这里，或你自己 AI 的笔记……",
+    sourceFine: "文件在本地读入当前浏览器。调用外部 AI 前，需要单独审核本次将发送的完整消息。",
+    copyDistill: "复制提示词，让你自己的 AI 把这些提炼成卡片字段",
+    valuesLabel: "核心价值观（逗号分隔）", valuesPh: "诚实, 好奇心, 稳定",
+    goalsLabel: "人生目标", commLabel: "沟通方式", boundariesLabel: "边界",
+    uncertaintyLabel: "我仍不确定的事", uncertaintyPh: "诚实的不确定让卡片更可信。",
+    attestFine: "匹配注册的只是你已保存自我模型的 SHA-256 指纹——绝不是内容本身。注册后每次重新保存都会重新认证；频繁改写会作为客观事实展示给匹配对象。",
+    attested: "卡片已认证。指纹：", version: "版本",
+    step4Tag: "第 4 步", step4Title: "附近的人（同区域格 + 双向基础条件）",
+    refreshNearby: "刷新",
+    nearbyEmpty: "你的区域格里暂时没有人（或双向筛选互不匹配）。可以试试双标签页演示：在另一个标签页用另一个化名打开本页。",
+    requestIntro: "请求引荐",
+    introSent: "已发出引荐请求。",
+    cardVersions: "卡片版本数", firstAttested: "首次认证",
+    step5Tag: "第 5 步", step5Title: "引荐",
+    step5Intro: "双盲机制：只有双方都接受后才会显示联系方式。被拒绝的组合无法再次请求。",
+    introEmpty: "暂无引荐。",
+    dirSent: "发给", dirReceived: "来自",
+    accept: "接受", decline: "拒绝", openMatch: "查看匹配",
+    statusPending: "等待中", statusMatched: "已匹配", statusDeclined: "已拒绝",
+    matchTag: "已匹配", matchTitle: "你的匹配",
+    contactIs: "对方联系方式：", lockedFp: "锁定的卡片指纹（匹配前锁定）：",
+    howVerify: "请对方通过该渠道把卡片（文件或文本）发给你，粘贴到下方，与锁定指纹核对。",
+    scamReminder: "<b>慢一点。</b>匹配只是起点，不是结论。无论卡片看起来多契合，都绝不要向只在网上认识的人汇款、发送证件或私密照片。",
+    exchangeTitle: "交换并核验卡片",
+    exportCard: "导出我的卡片（通过已显示的渠道发给对方）",
+    pasteTheirCard: "粘贴对方发来的卡片（JSON）",
+    pasteCardPh: '{"schema_version": "0.1", ...}',
+    verifyBtn: "与锁定指纹核对",
+    verifyOk: "✔ 卡片与匹配前认证的指纹一致。",
+    verifyBad: "✘ 卡片不一致——它在引荐创建后被修改过。",
+    comparisonTitle: "本地反思（在本设备计算——不是评分）",
+    sharedValues: "你们共同的价值观", differentValues: "只有一方提到的价值观",
+    myCol: "你", theirCol: "对方",
+    talkAbout: "值得聊聊",
+    copyCompare: "复制提示词，用你自己的 AI 做更深入的比对",
+    noMyCard: "本设备上找不到你自己的卡片——请先回到第 2 步重建。",
+    goals: "人生目标", comm: "沟通方式", boundaries: "边界", uncertainty: "不确定的事",
+    deleteTitle: "从此节点删除我的数据",
+    deleteFine: "从服务器删除你的注册、认证历史和未完成的引荐（docs/06 删除规则）。你的卡片只保留在本设备上。",
+    deleteBtn: "从此节点删除我",
+    deleted: "已删除。刷新页面即可重新开始。",
+    copied: "已复制到剪贴板。",
+    needLocation: "请先设置你的区域（设备定位或手动输入）。",
+    needConsent: "请先勾选同意框。",
+    geoDenied: "定位被拒绝或不可用——请使用下方手动输入。",
+    geoInsecure: "浏览器只在 https:// 或 localhost 下允许定位——请使用下方手动输入。",
+    footer: "AI-慢配会合演示（P0）。本节点拒绝存储：真实姓名、精确位置、照片、资料内容、聊天记录或任何兼容性评分。匹配顺序只按注册时间——绝不排名。认证卡片证明的是完整性与历史，不是真实性：防骗意识仍然靠你自己。The server stores only pseudonyms, coarse buckets, basic filters and card fingerprints; never real names, exact locations, photos, profile content, chats, or any compatibility score.",
+    talkPrompts: [
+      "你们的人生目标在哪些方向上会互相拉扯？五年后这重要吗？",
+      "你们写下了不同的价值观——请对方讲一个背后的真实故事。",
+      "你们各自希望怎样处理分歧？对比一下彼此的沟通描述。",
+      "把对方的边界读出来，问问自己：哪一条对你最难做到？",
+      "每张卡片都写了诚实的不确定——你最希望对方先想清楚哪一条？"
+    ],
+    distillPrompt: "你在帮我构建一张诚实的自我模型卡片，用于慢节奏的深度兼容匹配。不要奉承我。请根据下面的笔记输出：核心价值观（最多 6 个词/短语）、人生目标（2-3 句）、沟通方式（2-3 句，包括我如何处理冲突）、边界（2-3 句）、以及我仍然真正不确定的事（1-2 句）。要具体、诚实；如有矛盾请直接指出。\n\n我的笔记：\n",
+    comparePrompt: "请对这两张兼容性卡片做反思性的、【不打分】的比对。硬性规则：不要百分比、不要排名、不要给出“是否合适”的结论、不要奉承。输出：(1) 真实的契合点；(2) 真实的差异及可能产生的摩擦；(3) 我们应当当面讨论的五个具体问题；(4) 双方各有一件自己不确定、但对方应该知道的事。双方均已同意此比对。\n\n卡片 A（我）：\n{A}\n\n卡片 B（对方）：\n{B}"
+  }
+};
+
+let lang = localStorage.getItem("slowmatch_lang")
+  || (navigator.language && navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en");
+
+function t(key) { return I18N[lang][key] !== undefined ? I18N[lang][key] : key; }
+
+function applyI18n() {
+  document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+  document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll("[data-i18n-html]").forEach(el => { el.innerHTML = t(el.dataset.i18nHtml); });
+  document.querySelectorAll("[data-i18n-ph]").forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
+  document.getElementById("langBtn").textContent = lang === "zh" ? "EN" : "中文";
+  for (const [value, key] of [["", "modelDefaultOpt"], ["__custom__", "modelCustomOpt"]]) {
+    const option = document.querySelector('#aiModelSel option[value="' + value + '"]');
+    if (option) option.textContent = t(key);
+  }
+  renderBucket();
+  if (state.registered) renderInbox(state.lastInbox || []);
+  renderLog();
+  renderReport();
+  if (state.aiName) setMsg("aiMsg", "✔ " + t("chatUsing") + " " + state.aiName, true);
+}
+
+function toggleLang() {
+  lang = lang === "zh" ? "en" : "zh";
+  localStorage.setItem("slowmatch_lang", lang);
+  applyI18n();
+  renderDeepReport();  // re-render the portrait in the newly selected language
+}
+
+/* ------------------------------------------------------------------ state */
+// sessionStorage = per-tab (two tabs can be two demo users); localStorage = per-device cards.
+const state = {
+  pseudonym: sessionStorage.getItem("sm_pseudonym") || null,
+  registered: sessionStorage.getItem("sm_registered") === "1",
+  attested: sessionStorage.getItem("sm_attested") === "1",
+  geohash: sessionStorage.getItem("sm_geohash") || null,
+  token: sessionStorage.getItem("sm_token") || null,
+  nodeUrl: sessionStorage.getItem("sm_node") || "",
+  localClient: false,        // true when served by the packaged app (/local/* exists)
+  aiName: null,              // connected backend's display name
+  savedCard: null,           // the saved self-model (device-local)
+  savedFingerprint: null,    // its fingerprint; the only thing matching ever attests
+  activeMatchIntro: null,
+  activeMatchPacket: null,
+  lastInbox: [],
+  lastNearby: null,
+  pollTimer: null,
+  matchTimer: null,          // the automated matching loop
+  introduced: new Set(),     // pseudonyms we already auto-introduced to
+  dataFileCount: 0,
+  inboxSeq: 0,
+  lastInboxJson: ""
+};
+
+// Matching calls go to the chosen node (empty = this app's built-in node).
+function mm(path) { return (state.nodeUrl || "") + path; }
+function setNodeUrl() {
+  const value = document.getElementById("nodeUrl").value.trim().replace(/\/+$/, "");
+  state.nodeUrl = value;
+  sessionStorage.setItem("sm_node", value);
+}
+
+/* Shared compatibility-card structure: mirrors reports/local_artifacts.py.
+   Structural checks cannot establish truth, consent, or safe advice. */
+function validateCompatibilityCard(card) {
+  const invalid = () => { throw new Error(
+    "This card is incomplete or uses an unsupported format. Review and regenerate it before sharing. / 此卡片不完整或格式不受支持；分享前请审核并重新生成。"
+  ); };
+  const object = value => value !== null && typeof value === "object" && !Array.isArray(value);
+  const exact = (value, keys) => object(value) && Object.keys(value).length === keys.length
+    && keys.every(key => Object.prototype.hasOwnProperty.call(value, key));
+  const text = (value, limit) => typeof value === "string" && /\S/u.test(value)
+    && [...value].length <= limit && ![...value].some(char => {
+      const code = char.codePointAt(0); return code >= 0xd800 && code <= 0xdfff;
+    });
+  if (!exact(card, ["schema_version", "tier2_summary", "source"])
+      || card.schema_version !== "0.1"
+      || card.source !== "self_model_from_ai_analysis_of_own_data") invalid();
+  const summary = card.tier2_summary;
+  const prose = ["life_goals", "communication_style", "boundaries", "uncertainty_notes", "evidence_notes"];
+  if (!exact(summary, ["values", ...prose]) || !Array.isArray(summary.values)
+      || summary.values.length < 1 || summary.values.length > 20
+      || !summary.values.every(value => text(value, 1000))
+      || !prose.every(key => text(summary[key], 8000))) invalid();
+  return card;
+}
+/* End compatibility-card structure. */
+
+function cardKey(p) { return "slowmatch_card::" + p; }
+function readCardKey(key) {
+  const raw = localStorage.getItem(key);
+  if (!raw) return null;
+  try {
+    return validateCompatibilityCard(JSON.parse(raw));
+  } catch (error) {
+    genMsg("Saved card needs review and regeneration; the original is preserved. / 已保存卡片需要审核后重新生成；原始内容已保留。", false);
+    return null;
+  }
+}
+// Device card (built before any registration) + per-pseudonym copy (two-tab demo).
+function saveMyCard(card) {
+  validateCompatibilityCard(card);
+  if (state.localClient) return; // the active vault owns local-client cards
+  localStorage.setItem(cardKey("__device"), JSON.stringify(card));
+  if (state.pseudonym) localStorage.setItem(cardKey(state.pseudonym), JSON.stringify(card));
+}
+function loadMyCard() {
+  if (state.localClient) return state.savedCard;
+  return (state.pseudonym && readCardKey(cardKey(state.pseudonym)))
+    || readCardKey(cardKey("__device"));
+}
+
+function setLocked(id, locked) {
+  const el = document.getElementById(id);
+  el.classList.toggle("locked", locked);
+  // .locked only blocks pointer events; inert also blocks keyboard focus.
+  if (locked) el.setAttribute("inert", ""); else el.removeAttribute("inert");
+}
+
+function resetSession(message) {
+  if (state.pollTimer) clearInterval(state.pollTimer);
+  state.pollTimer = null;
+  state.pseudonym = null;
+  state.registered = false;
+  state.attested = false;
+  state.token = null;
+  state.activeMatchIntro = null;
+  state.activeMatchPacket = null;
+  state.lastInbox = [];
+  state.lastNearby = null;
+  state.lastInboxJson = "";
+  if (state.matchTimer) clearInterval(state.matchTimer);
+  state.matchTimer = null;
+  sessionStorage.removeItem("sm_pseudonym");
+  sessionStorage.removeItem("sm_registered");
+  sessionStorage.removeItem("sm_attested");
+  sessionStorage.removeItem("sm_token");
+  ["stepIntros", "stepDelete"].forEach(id => setLocked(id, true));
+  document.getElementById("stepMatch").classList.add("hidden");
+  document.getElementById("introList").innerHTML = "";
+  refreshMatchGates();
+  if (message) setMsg("registerMsg", message, false);
+}
+
+/* ------------------------------------------------------------------ api */
+let pendingApiCalls = 0;
+let vaultSwitching = false;
+let vaultGeneration = null;
+let vaultId = null;
+function selectionChangedError() {
+  return new Error("The active vault or AI changed. Reload this page before continuing; previous files are preserved. / 当前档案库或 AI 已变化。请重新加载页面后继续；原有文件已保留。");
+}
+async function api(path, opts = {}) {
+  pendingApiCalls += 1;
+  try { return await requestApi(path, opts); }
+  finally { pendingApiCalls -= 1; }
+}
+async function requestApi(path, opts = {}) {
+  const local = String(path).startsWith("/local/");
+  const startedGeneration = vaultGeneration;
+  if (local && startedGeneration !== null) {
+    opts = {...opts, headers: {...(opts.headers || {}), "X-Slowmatch-Generation": String(startedGeneration)}};
+  }
+  if (String(path).includes("/matchmaking/") && state.token) {
+    opts = {...opts, headers: {...(opts.headers || {}), Authorization: "Bearer " + state.token}};
+  }
+  const response = await fetch(path, opts);
+  let body = null;
+  try { body = await response.json(); } catch (_e) { /* non-JSON error page */ }
+  if (vaultGeneration !== startedGeneration) throw selectionChangedError();
+  if (response.status === 409 && body?.detail?.code === "local_selection_changed") {
+    throw selectionChangedError();
+  }
+  if (response.status === 409 && body?.detail?.code === "disclosure_review_required") {
+    const disclosure = await reviewDisclosure(body.detail);
+    if (!disclosure) throw new Error("Sending cancelled / 已取消发送");
+    const payload = JSON.parse(opts.body || "{}");
+    payload.disclosure = disclosure;
+    return api(path, {...opts, body: JSON.stringify(payload)});
+  }
+  if (!response.ok) {
+    const detail = body && body.detail ? body.detail : ("HTTP " + response.status);
+    throw new Error(typeof detail === "string" ? detail : JSON.stringify(detail));
+  }
+  if (local) {
+    const generation = response.headers.get("X-Slowmatch-Generation");
+    const nextVault = response.headers.get("X-Slowmatch-Vault");
+    const selects = ["/local/vault/config", "/local/ai/config", "/local/ai/restore"].includes(path);
+    if (startedGeneration !== null && !selects
+        && (generation !== String(startedGeneration) || nextVault !== vaultId)) {
+      throw selectionChangedError();
+    }
+    if (generation !== null && nextVault) {
+      vaultGeneration = Number(generation);
+      vaultId = nextVault;
+    }
+  }
+  return body;
+}
+function post(path, payload) {
+  return api(path, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+}
+// Credentials travel in the Authorization header, never in URLs.
+function authed(path) {
+  return path;
+}
+function setMsg(id, text, ok) {
+  const el = document.getElementById(id);
+  el.className = ok ? "ok-box" : "error-box";
+  el.textContent = text;
+}
+
+
+function reviewDisclosure(preview) {
+  return new Promise(resolve => {
+    const dialog = document.createElement("dialog");
+    dialog.style.cssText = "width:min(820px,90vw);max-height:90vh;border-radius:16px;padding:24px;overflow:auto";
+    const title = document.createElement("h2");
+    title.textContent = "Review external AI disclosure / 审核发送给外部 AI 的内容";
+    const note = document.createElement("p");
+    note.textContent = "Destination / 接收方: " + preview.recipient + "\n" +
+      "Edit this into a minimal summary. Remove names, contact details and private facts. Only the approved messages and instructions below will be sent. Your provider may charge for use. / 请编辑为最小摘要，删除姓名、联系方式及私密事实。仅发送审核后的消息与下方指令；提供方可能收费。";
+    const details = document.createElement("details");
+    const summary = document.createElement("summary");
+    summary.textContent = "Application instructions also sent / 同时发送的应用指令";
+    const instructions = document.createElement("pre");
+    instructions.style.whiteSpace = "pre-wrap";
+    instructions.textContent = preview.instructions;
+    details.append(summary, instructions);
+    const editor = document.createElement("textarea");
+    editor.setAttribute("aria-label", "Disclosure messages / 披露消息");
+    editor.style.cssText = "width:100%;height:38vh;font-family:monospace;box-sizing:border-box";
+    editor.value = JSON.stringify(preview.messages, null, 2);
+    const error = document.createElement("p");
+    error.setAttribute("role", "alert");
+    const cancel = document.createElement("button"); cancel.textContent = "Cancel / 取消";
+    const approve = document.createElement("button"); approve.textContent = "Approve and send / 同意并发送";
+    function close(value) { dialog.close(); dialog.remove(); resolve(value); }
+    cancel.onclick = () => close(null);
+    dialog.addEventListener("cancel", e => { e.preventDefault(); close(null); });
+    approve.onclick = () => {
+      try {
+        const messages = JSON.parse(editor.value);
+        if (!Array.isArray(messages) || !messages.length || messages.some(m =>
+          !["user", "assistant"].includes(m.role) || typeof m.content !== "string" || !m.content.trim()) ||
+          messages.reduce((n,m) => n + m.content.length, 0) > 24000) {
+          throw new Error("Use user/assistant messages, maximum 24,000 characters. / 仅限 user/assistant 消息，总计最多 24,000 字符。");
+        }
+        close({recipient:preview.recipient, instructions_hash:preview.instructions_hash, messages, reviewed:true});
+      } catch(e) { error.textContent = e.message; }
+    };
+    dialog.append(title, note, details, editor, error, cancel, approve);
+    document.body.append(dialog); dialog.showModal();
+  });
+}
+
+/* ------------------------------------------------------------------ geohash (client-side only) */
+const BASE32 = "0123456789bcdefghjkmnpqrstuvwxyz";
+function encodeGeohash(latitude, longitude, precision) {
+  precision = precision || 4;
+  let latLo = -90, latHi = 90, lonLo = -180, lonHi = 180;
+  const bits = [];
+  let useLon = true;
+  while (bits.length < precision * 5) {
+    if (useLon) {
+      const mid = (lonLo + lonHi) / 2;
+      if (longitude >= mid) { bits.push(1); lonLo = mid; } else { bits.push(0); lonHi = mid; }
+    } else {
+      const mid = (latLo + latHi) / 2;
+      if (latitude >= mid) { bits.push(1); latLo = mid; } else { bits.push(0); latHi = mid; }
+    }
+    useLon = !useLon;
+  }
+  let hash = "";
+  for (let i = 0; i < bits.length; i += 5) {
+    let value = 0;
+    for (let j = i; j < i + 5; j++) value = (value << 1) | bits[j];
+    hash += BASE32[value];
+  }
+  return hash;
+}
+
+function setBucket(latitude, longitude) {
+  state.geohash = encodeGeohash(latitude, longitude, 4);
+  sessionStorage.setItem("sm_geohash", state.geohash);
+  renderBucket();
+}
+function renderBucket() {
+  const el = document.getElementById("bucketDisplay");
+  el.textContent = state.geohash ? t("bucketIs") + " " + state.geohash : "";
+}
+function useBrowserLocation() {
+  if (!window.isSecureContext) { setMsg("registerMsg", t("geoInsecure"), false); return; }
+  if (!navigator.geolocation) { setMsg("registerMsg", t("geoDenied"), false); return; }
+  navigator.geolocation.getCurrentPosition(
+    pos => { setBucket(pos.coords.latitude, pos.coords.longitude); setMsg("registerMsg", "", true); },
+    () => setMsg("registerMsg", t("geoDenied"), false),
+    { enableHighAccuracy: false, timeout: 10000 }
+  );
+}
+function useManualLocation() {
+  const latitude = parseFloat(document.getElementById("lat").value);
+  const longitude = parseFloat(document.getElementById("lon").value);
+  if (Number.isNaN(latitude) || Number.isNaN(longitude)) { setMsg("registerMsg", t("needLocation"), false); return; }
+  // Mirror the Python encoder's range checks; out-of-range input would silently
+  // encode into a wrong edge bucket where no real neighbor ever appears.
+  if (latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180) {
+    setMsg("registerMsg", t("badCoords"), false);
+    return;
+  }
+  setBucket(latitude, longitude);
+  setMsg("registerMsg", "", true);
+}
+
+/* ------------------------------------------------------------------ step 1: register */
+function onSeekEveryone() {
+  const everyone = document.getElementById("seekEveryone").checked;
+  document.querySelectorAll(".seekGender").forEach(cb => { if (everyone) cb.checked = false; });
+}
+document.querySelectorAll(".seekGender").forEach(cb =>
+  cb.addEventListener("change", () => {
+    if (cb.checked) document.getElementById("seekEveryone").checked = false;
+  }));
+
+function intOrNull(id) {
+  const value = document.getElementById(id).value;
+  return value === "" ? null : parseInt(value, 10);
+}
+
+function enterRegistered(pseudonym, token) {
+  state.pseudonym = pseudonym;
+  state.registered = true;
+  state.token = token;
+  sessionStorage.setItem("sm_pseudonym", pseudonym);
+  sessionStorage.setItem("sm_registered", "1");
+  sessionStorage.setItem("sm_token", token || "");
+  setMsg("registerMsg", t("registered") + " " + pseudonym, true);
+  unlockSteps();
+  startPolling();
+}
+
+function unlockSteps() {
+  setLocked("stepDelete", false);
+  if (state.attested) setLocked("stepIntros", false);
+}
+
+/* ------------------------------------- step 1: connect AI (local client only) */
+function onBackendChange() {
+  const kind = document.getElementById("aiBackend").value;
+  document.getElementById("aiBaseUrlWrap").classList.toggle(
+    "hidden", kind !== "ollama" && kind !== "openai_compat");
+  document.getElementById("aiKeyWrap").classList.toggle(
+    "hidden", kind !== "anthropic" && kind !== "openai_compat");
+  const baseUrl = document.getElementById("aiBaseUrl");
+  if (kind === "ollama" && !baseUrl.value.includes("11434")) baseUrl.value = "http://localhost:11434";
+  if (kind === "openai_compat" && baseUrl.value.includes("11434"))
+    baseUrl.value = "https://ark.cn-beijing.volces.com/api/v3";
+  // Model is always choosable — CLI plans included, so the app can run on a
+  // cheaper model of the user's plan instead of occupying the default quota.
+  const placeholders = {
+    ollama: "llama3.2",
+    openai_compat: "doubao-1-5-pro-32k",
+    anthropic: "claude-sonnet-5",
+    claude: t("cliModelPh"),
+    codex: t("cliModelPh"),
+    gemini: t("cliModelPh")
+  };
+  document.getElementById("aiModel").placeholder = placeholders[kind] || "";
+  refreshModelOptions();
+}
+
+/* Model dropdown: live list for Ollama, curated for the rest, Custom always kept. */
+function currentModelValue() {
+  const sel = document.getElementById("aiModelSel");
+  return sel.value === "__custom__"
+    ? document.getElementById("aiModel").value.trim() : sel.value;
+}
+function onModelSelChange() {
+  document.getElementById("aiModel").classList.toggle(
+    "hidden", document.getElementById("aiModelSel").value !== "__custom__");
+}
+async function refreshModelOptions(savedModel) {
+  const kind = document.getElementById("aiBackend").value;
+  const sel = document.getElementById("aiModelSel");
+  const keep = savedModel !== undefined ? savedModel : currentModelValue();
+  let models = [];
+  if (state.localClient) {
+    try {
+      const result = await api("/local/ai/models?backend=" + encodeURIComponent(kind)
+        + "&base_url=" + encodeURIComponent(
+          document.getElementById("aiBaseUrl").value.trim() || "http://localhost:11434"));
+      models = result.models || [];
+    } catch (_e) { /* offline: default + custom still work */ }
+  }
+  sel.innerHTML = "";
+  const add = (value, label) => {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = label;
+    sel.appendChild(option);
+  };
+  add("", t("modelDefaultOpt"));
+  models.forEach(name => add(name, name));
+  add("__custom__", t("modelCustomOpt"));
+  if (keep && models.includes(keep)) {
+    sel.value = keep;
+  } else if (keep) {
+    sel.value = "__custom__";
+    document.getElementById("aiModel").value = keep;
+  } else {
+    sel.value = "";
+  }
+  onModelSelChange();
+}
+
+async function testAI() {
+  try {
+    const result = await post("/local/ai/config", {
+      backend: document.getElementById("aiBackend").value,
+      base_url: document.getElementById("aiBaseUrl").value.trim(),
+      model: currentModelValue(),
+      api_key: document.getElementById("aiKey").value
+    });
+    setMsg("aiMsg", result.ok
+      ? "✔ " + t("chatUsing") + " " + result.backend
+      : "✘ " + result.detail, result.ok);
+    state.aiName = result.ok ? result.backend : null;
+    refreshDashboard();
+  } catch (err) {
+    setMsg("aiMsg", err.message, false);
+    state.aiName = null;
+  }
+}
+
+/* --------------------------- step 2: data -> AI analysis -> self-model (local) */
+function updateSourceCount() {
+  const n = document.getElementById("sourceNotes").value.length;
+  document.getElementById("sourceCount").textContent = n ? n + " " + t("charsCollected") : "";
+}
+
+function appendSource(text) {
+  const box = document.getElementById("sourceNotes");
+  box.value = (box.value ? box.value + "\n\n" : "") + text;
+  updateSourceCount();
+}
+
+function importSourceFile(event) {
+  const importedGeneration = vaultGeneration;
+  // Read into this tab; subsequent external AI calls require disclosure review.
+  for (const file of event.target.files) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (vaultGeneration !== importedGeneration) return;
+      appendSource("--- FILE: " + file.name + " ---\n" + String(reader.result).slice(0, 20000));
+    };
+    reader.readAsText(file);
+  }
+  event.target.value = "";
+}
+
+async function importChatGPTZip(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  event.target.value = "";
+  try {
+    const result = await api("/local/import/chatgpt", { method: "POST", body: file });
+    if (result.errors && result.errors.length) {
+      setMsg("analyzeMsg", result.errors.join(" "), false);
+      return;
+    }
+    const snippets = (result.limited_text_snippets || []).join("\n");
+    appendSource("--- ChatGPT export (" + result.conversations_count + " " + t("conversations")
+      + ", " + result.messages_count + " " + t("messages") + ") ---\n" + snippets);
+    setMsg("analyzeMsg", t("zipParsed") + " " + result.conversations_count + " "
+      + t("conversations") + ", " + result.messages_count + " " + t("messages"), true);
+  } catch (err) { setMsg("analyzeMsg", err.message, false); }
+}
+
+/* ------------------------------------------------------------------ router */
+let currentSettingsTab = "ai";
+function showView(name, tab) {
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  const el = document.getElementById("view-" + name);
+  if (el) el.classList.add("active");
+  document.querySelectorAll("#mainNav button").forEach(b =>
+    b.classList.toggle("active", b.dataset.view === name));
+  if (name === "settings") showSettingsTab(tab || currentSettingsTab);
+  if (name === "home") refreshDashboard();
+  if (name === "chat") renderChatStatus();
+  if (name === "matching") { refreshMatchGates(); loadCoach(); }
+  sessionStorage.setItem("sm_view", name);
+}
+function showSettingsTab(tab) {
+  currentSettingsTab = tab;
+  ["ai", "data", "matching"].forEach(t => {
+    document.getElementById("stab-" + t).classList.toggle("hidden", t !== tab);
+    document.getElementById("stabBtn-" + t).classList.toggle("active", t === tab);
+  });
+  if (tab === "data") refreshDataList();
+}
+function finishSetup(view, tab) {
+  localStorage.setItem("sm_setup_done", "1");
+  document.getElementById("setupWizard").classList.add("hidden");
+  showView(view, tab);
+}
+
+/* ------------------------- home: prompts, the AI report, matching widget */
+async function refreshDashboard() {
+  // First-open prompts: each shows only while its piece is missing.
+  if (state.localClient) {
+    document.getElementById("promptAI").classList.toggle("hidden", !!state.aiName);
+    try {
+      const list = await api("/local/data/list");
+      state.dataFileCount = list.count;
+    } catch (_e) { state.dataFileCount = 0; }
+    document.getElementById("promptData").classList.toggle("hidden", state.dataFileCount > 0);
+  } else {
+    document.getElementById("promptAI").classList.add("hidden");
+    document.getElementById("promptData").classList.add("hidden");
+  }
+  document.getElementById("promptChat").classList.toggle("hidden", !!state.savedCard);
+  if (state.localClient) {
+    try { renderDeepReport(await api("/local/report")); } catch (_e) { /* none yet */ }
+    try { await loadCoach(); } catch (_e) { /* coach panel is optional */ }
+  }
+  renderReport();
+  renderMatchWidget();
+  renderChatReminder();
+}
+
+function renderReport() {
+  const has = !!state.savedCard;
+  document.getElementById("reportCard").classList.toggle("hidden", !has);
+  document.getElementById("noReportCard").classList.toggle("hidden", has);
+  document.getElementById("regenBtn").classList.toggle("hidden", !state.aiName);
+  document.getElementById("genFromDataBtn").classList.toggle("hidden", !state.aiName);
+  document.getElementById("deepRunBtn").classList.toggle("hidden", !state.aiName);
+  document.getElementById("deepRunBtn2").classList.toggle("hidden", !state.aiName);
+  if (!has) return;
+  const summary = state.savedCard.tier2_summary || {};
+  const box = document.getElementById("reportBox");
+  box.innerHTML = "";
+  const chips = document.createElement("div");
+  chips.className = "chips";
+  (summary.values || []).forEach(value => {
+    const chip = document.createElement("button");
+    chip.disabled = true;
+    chip.textContent = value;
+    chips.appendChild(chip);
+  });
+  box.appendChild(chips);
+  [["goals", "life_goals"], ["comm", "communication_style"],
+   ["boundaries", "boundaries"], ["uncertainty", "uncertainty_notes"]].forEach(([key, field]) => {
+    if (!summary[field]) return;
+    const p = document.createElement("p");
+    p.innerHTML = "<b>" + t(key) + ":</b> ";
+    p.appendChild(document.createTextNode(summary[field]));
+    box.appendChild(p);
+  });
+  const evidence = state.localClient ? summary.evidence_notes : localStorage.getItem("slowmatch_evidence");
+  if (evidence) {
+    const p = document.createElement("p");
+    p.className = "fine";
+    p.innerHTML = "<b>" + t("evidenceLabel") + ":</b> ";
+    p.appendChild(document.createTextNode(evidence));
+    box.appendChild(p);
+  }
+  document.getElementById("reportMeta").textContent = state.savedFingerprint
+    ? t("savedModel") + " " + state.savedFingerprint.slice(0, 16) + "…" : "";
+}
+
+function renderMatchWidget() {
+  const status = document.getElementById("dashMatchStatus");
+  status.textContent = state.registered
+    ? t("registered") + " " + state.pseudonym
+      + (state.matchTimer ? " · " + t("matchingActive") : "")
+    : t("dashNotRegistered");
+  status.classList.toggle("good", state.registered && !!state.matchTimer);
+  const log = loadMatchLog();
+  document.getElementById("matchWidgetLog").textContent =
+    log.slice(0, 3).map(entry => entry.time + " " + entry.text).join("\n");
+}
+
+function renderChatReminder() {
+  const show = state.localClient && !state.savedCard && !(state.dataFileCount > 0);
+  document.getElementById("chatDataReminder").classList.toggle("hidden", !show);
+}
+
+/* ---------------------------------------------------------- settings > data */
+async function saveNotes() {
+  if (!state.localClient) { setMsg("analyzeMsg", t("notLocalShort"), false); return; }
+  try {
+    const result = await post("/local/data/notes", {
+      text: document.getElementById("sourceNotes").value
+    });
+    setMsg("analyzeMsg", "✔ " + t("notesSaved") + " (" + result.chars + " " + t("charsCollected") + ")", true);
+    refreshDataList();
+  } catch (err) { setMsg("analyzeMsg", err.message, false); }
+}
+async function applyDataDir() {
+  if (!state.localClient) { setMsg("analyzeMsg", t("notLocalShort"), false); return; }
+  try {
+    const result = await post("/local/data/config", {
+      path: document.getElementById("dataDir").value
+    });
+    renderDataList(result);
+    setMsg("analyzeMsg", "✔ " + result.count + " " + t("dashFiles"), true);
+  } catch (err) { setMsg("analyzeMsg", err.message, false); }
+}
+
+async function applyVault() {
+  // Obsidian model: the chosen folder owns model/notes/reports/settings.
+  // Point it at a OneDrive-synced folder and every device shows the same state.
+  if (!state.localClient) { setMsg("vaultMsg", t("notLocalShort"), false); return; }
+  if (pendingApiCalls || vaultSwitching) {
+    setMsg("vaultMsg", "Wait for the current request or review to finish before switching vaults. / 请等待当前请求或审核完成后再切换档案库。", false);
+    return;
+  }
+  vaultSwitching = true;
+  try {
+    archiveVaultSession(vaultId);
+    const result = await post("/local/vault/config", {
+      path: document.getElementById("vaultDir").value
+    });
+    setMsg("vaultMsg", "✔ "
+      + (result.model_saved ? t("vaultHasModel") + " · " : "")
+      + (result.report_exists ? t("vaultHasReport") + " · " : "")
+      + result.data_files + " " + t("dashFiles"), true);
+    clearActiveVaultSession();
+    sessionStorage.setItem("sm_vault_id", vaultId);
+    await refreshModelOptions("");
+    try {
+      const stored = await api("/local/profile/load");
+      if (stored.profile) {
+        state.savedCard = validateCompatibilityCard(stored.profile);
+        state.savedFingerprint = stored.fingerprint;
+        saveMyCard(stored.profile);
+      }
+    } catch (error) { genMsg(error.message, false); }
+    await refreshDataList();
+    await refreshDashboard();
+  } catch (err) { setMsg("vaultMsg", err.message, false); }
+  finally { vaultSwitching = false; }
+}
+function archiveVaultSession(id) {
+  // Keep the previous tab history and node credentials under its original vault.
+  const archive = {chat: chatHistory, pseudonym: state.pseudonym, token: state.token,
+    registered: state.registered, attested: state.attested, nodeUrl: state.nodeUrl,
+    geohash: state.geohash, matchLog: sessionStorage.getItem("sm_matchlog"),
+    drafts: Object.fromEntries(["sourceNotes", "chatInput", "simCard", "theirCardInput"].map(id =>
+      [id, document.getElementById(id)?.value || ""])), archivedAt: new Date().toISOString()};
+  sessionStorage.setItem("sm_vault_session::" + (id || "legacy") + "::" + Date.now(), JSON.stringify(archive));
+}
+function clearActiveVaultSession() {
+  resetSession(null);
+  state.savedCard = null;
+  state.savedFingerprint = null;
+  state.aiName = null;
+  state.identityReviewRequired = true;
+  state.dataFileCount = 0;
+  state.introduced = new Set();
+  sessionStorage.setItem("sm_matchlog", "[]");
+  chatHistory = [];
+  persistChat();
+  renderChatStatus();
+  renderReport();
+  renderDeepReport({exists: false});
+  for (const id of ["deepReportBox", "planBox", "comparison", "outreachBox", "simBox"]) {
+    const element = document.getElementById(id);
+    if (element) { element.textContent = ""; if (id !== "comparison") element.classList.add("hidden"); }
+  }
+  for (const id of ["sourceNotes", "dataDir", "chatInput", "aiKey", "pseudonym", "contact", "simCard", "theirCardInput"]) {
+    const element = document.getElementById(id);
+    if (element) element.value = "";
+  }
+  document.getElementById("consent").checked = false;
+  for (const id of ["sourceCount", "generateMsg", "generateMsg2", "deepMsg", "chatMsg", "coachMsg",
+    "analyzeMsg", "registerMsg", "identityMsg", "deleteMsg", "introMsg", "verifyMsg", "reportBox", "reportMeta"]) {
+    const element = document.getElementById(id);
+    if (element) { element.textContent = ""; element.className = ""; }
+  }
+  setMsg("aiMsg", "Connect an AI for this vault. / 请为当前档案库连接 AI。", true);
+}
+async function refreshDataList() {
+  if (!state.localClient) return;
+  try { renderDataList(await api("/local/data/list")); } catch (_e) { /* plain node */ }
+}
+function renderDataList(result) {
+  const dirBox = document.getElementById("dataDir");
+  if (!dirBox.value && result.data_dir) dirBox.value = result.data_dir;
+  const names = (result.files || []).map(f => f.name);
+  document.getElementById("dataFileList").textContent = result.count
+    ? names.slice(0, 12).join(" · ") + (result.count > 12 ? " …" : "")
+    : t("noDataFiles");
+}
+
+/* --------------------------------------------- the self-model (AI-only) */
+function genMsg(text, ok) {
+  setMsg("generateMsg", text, ok);
+  setMsg("generateMsg2", text, ok);
+}
+async function applyModel(model) {
+  // AI output becomes the card directly — users never fill fields by hand.
+  const card = {
+    schema_version: "0.1",
+    tier2_summary: {
+      values: model.values || [],
+      life_goals: model.life_goals || "",
+      communication_style: model.communication_style || "",
+      boundaries: model.boundaries || "",
+      uncertainty_notes: model.uncertainty_notes || "",
+      evidence_notes: model.evidence_notes || ""
+    },
+    source: "self_model_from_ai_analysis_of_own_data"
+  };
+  if (!state.localClient) localStorage.setItem("slowmatch_evidence", model.evidence_notes || "");
+  await persistCard(card);
+}
+async function persistCard(card) {
+  validateCompatibilityCard(card);
+  if (state.localClient) {
+    const saved = await post("/local/profile/save", { profile: card });
+    state.savedFingerprint = saved.fingerprint;
+  } else if (canHashLocally()) {
+    state.savedFingerprint = await cardFingerprint(card);
+  } else {
+    throw new Error("Local hashing is required / 需要本地哈希计算");
+  }
+  state.savedCard = card;
+  saveMyCard(card);
+  if (state.registered) await autoAttest();  // updated model = re-attest (version bump)
+  renderReport();
+}
+async function runDeepAnalysis() {
+  // The Chat-Analysis Module (system prompt v2): evidence-bound portrait +
+  // consistency audit, written to the vault's reports/ by the local server.
+  if (!state.localClient) { setMsg("deepMsg", t("notLocalShort"), false); return; }
+  if (!state.aiName) { setMsg("deepMsg", t("chatNoAI"), false); return; }
+  setMsg("deepMsg", t("deepRunning"), true);
+  genMsg(t("deepRunning"), true);
+  try {
+    const result = await post("/local/ai/analyze", {
+      messages: [], language: lang === "zh" ? "Simplified Chinese" : "English"
+    });
+    renderDeepReport({
+      exists: true, md: result.md, md_en: result.md_en, md_zh: result.md_zh,
+      generated_at: result.generated_at
+    });
+    setMsg("deepMsg", "✔ " + result.claims + " " + t("claimsWord")
+      + " · " + result.consistency_findings + " " + t("tensionsWord"), true);
+    await generateModel();  // keep the matching card in sync with the fresh analysis
+  } catch (err) {
+    // Surface the failure IN the report panel — a small message line under a
+    // button is too easy to miss, and "analysis ran but no report appeared"
+    // must never happen silently.
+    document.getElementById("deepReportCard").classList.remove("hidden");
+    document.getElementById("deepMeta").textContent = "";
+    document.getElementById("deepReportBox").textContent = "⚠ " + err.message;
+    setMsg("deepMsg", err.message, false);
+    genMsg(err.message, false);
+  }
+}
+function mdToHtml(md) {
+  // Tiny safe markdown renderer: escape everything first, then transform
+  // headings / bold / code / blockquotes / lists into styled HTML.
+  const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const inline = s => esc(s)
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/`([^`]+)`/g, "<code>$1</code>");
+  let html = "", inList = false, inQuote = false;
+  const closeAll = () => {
+    if (inList) { html += "</ul>"; inList = false; }
+    if (inQuote) { html += "</blockquote>"; inQuote = false; }
+  };
+  for (const raw of (md || "").split(/\r?\n/)) {
+    const line = raw.trimEnd();
+    const heading = line.match(/^(#{1,3})\s+(.*)/);
+    if (heading) {
+      closeAll();
+      const level = heading[1].length;
+      html += "<h" + level + ">" + inline(heading[2]) + "</h" + level + ">";
+      continue;
+    }
+    if (/^>\s?/.test(line)) {
+      if (inList) { html += "</ul>"; inList = false; }
+      if (!inQuote) { html += "<blockquote>"; inQuote = true; }
+      html += inline(line.replace(/^>\s?/, "")) + "<br>";
+      continue;
+    }
+    if (/^[-*]\s+/.test(line)) {
+      if (inQuote) { html += "</blockquote>"; inQuote = false; }
+      if (!inList) { html += "<ul>"; inList = true; }
+      html += "<li>" + inline(line.replace(/^[-*]\s+/, "")) + "</li>";
+      continue;
+    }
+    if (!line.trim()) { closeAll(); continue; }
+    closeAll();
+    html += "<p>" + inline(line) + "</p>";
+  }
+  closeAll();
+  return html;
+}
+
+function renderDeepReport(report) {
+  // Cache the last report so the EN/中文 toggle can re-render without refetching.
+  if (report !== undefined) state.lastDeepReport = report;
+  report = state.lastDeepReport;
+  const has = !!(report && report.exists);
+  document.getElementById("deepReportCard").classList.toggle("hidden", !has);
+  if (!has) return;
+  // Fully separated languages: pick the current one; older single-language
+  // reports fall back to `md` until the next analysis regenerates both.
+  const md = (lang === "zh" ? (report.md_zh || report.md) : (report.md_en || report.md)) || "";
+  document.getElementById("deepReportBox").innerHTML = mdToHtml(md);
+  document.getElementById("deepMeta").textContent = report.generated_at
+    ? t("generatedAt") + " " + report.generated_at.slice(0, 16).replace("T", " ") : "";
+}
+
+/* --------------------------------------------- relationship coach panel */
+async function loadCoach() {
+  if (!state.localClient) return;
+  document.getElementById("coachCard").classList.remove("hidden");
+  try {
+    const status = await api("/local/coach/status");
+    document.getElementById("coachSkillLine").textContent = status.skill_installed
+      ? t("coachSkillOk")
+      : t("coachSkillMissing") + "  " + status.install_hint;
+  } catch (_e) { /* panel still usable without the pack */ }
+  try {
+    const plan = await api("/local/coach/plan");
+    if (plan.exists) {
+      const box = document.getElementById("planBox");
+      box.classList.remove("hidden");
+      box.innerHTML = mdToHtml(plan.md);
+    }
+  } catch (_e) { /* no plan yet */ }
+}
+async function generatePlan() {
+  if (!state.aiName) { setMsg("coachMsg", t("chatNoAI"), false); return; }
+  setMsg("coachMsg", t("coachWorking"), true);
+  try {
+    const result = await post("/local/coach/plan", {
+      language: lang === "zh" ? "Simplified Chinese" : "English"
+    });
+    const box = document.getElementById("planBox");
+    box.classList.remove("hidden");
+    box.innerHTML = mdToHtml(result.md);
+    setMsg("coachMsg", "✔ " + result.backend, true);
+  } catch (err) { setMsg("coachMsg", err.message, false); }
+}
+async function draftOutreach() {
+  if (!state.aiName) { setMsg("coachMsg", t("chatNoAI"), false); return; }
+  setMsg("coachMsg", t("coachWorking"), true);
+  try {
+    const result = await post("/local/ai/outreach", {
+      language: lang === "zh" ? "Simplified Chinese" : "English",
+      platform: document.getElementById("outreachPlatform").value
+    });
+    const box = document.getElementById("outreachBox");
+    box.classList.remove("hidden");
+    box.textContent = result.drafts;
+    setMsg("coachMsg", "✔ " + t("outreachDone"), true);
+  } catch (err) { setMsg("coachMsg", err.message, false); }
+}
+async function runSimulation() {
+  if (!state.aiName) { setMsg("coachMsg", t("chatNoAI"), false); return; }
+  const raw = document.getElementById("simCard").value.trim();
+  if (!raw) { setMsg("coachMsg", t("simNeedCard"), false); return; }
+  let theirCard;
+  try { theirCard = JSON.parse(raw); }
+  catch (_e) { setMsg("coachMsg", t("invalidJson"), false); return; }
+  if (!confirm("Have both people explicitly agreed to use these cards for this AI rehearsal? / 双方是否都明确同意将这些卡片用于此次 AI 演练？")) return;
+  setMsg("coachMsg", t("coachWorking"), true);
+  try {
+    const result = await post("/local/ai/simulate", {
+      their_card: theirCard, counterpart_consent_confirmed: true,
+      language: lang === "zh" ? "Simplified Chinese" : "English"
+    });
+    const box = document.getElementById("simBox");
+    box.classList.remove("hidden");
+    box.textContent = result.simulation;
+    setMsg("coachMsg", "✔ " + t("simDone"), true);
+  } catch (err) { setMsg("coachMsg", err.message, false); }
+}
+
+async function generateModel() {
+  if (!state.localClient) { genMsg(t("notLocalShort"), false); return; }
+  if (!state.aiName) { genMsg(t("chatNoAI"), false); return; }
+  genMsg(t("analyzing"), true);
+  try {
+    const result = await post("/local/ai/refine", {
+      messages: [], language: lang === "zh" ? "Simplified Chinese" : "English"
+    });
+    await applyModel(result.model);
+    refreshDashboard();
+    genMsg("✔ " + result.backend + " — " + t("reportUpdated"), true);
+  } catch (err) {
+    genMsg(err.message, false);
+  }
+}
+
+/* ------------------------------------------------------------------- chat */
+let chatHistory = [];
+try { chatHistory = JSON.parse(sessionStorage.getItem("sm_chat") || "[]"); } catch (_e) { chatHistory = []; }
+function persistChat() { sessionStorage.setItem("sm_chat", JSON.stringify(chatHistory.slice(-60))); }
+function renderChat() {
+  const log = document.getElementById("chatLog");
+  log.innerHTML = "";
+  chatHistory.forEach(message => {
+    const bubble = document.createElement("div");
+    bubble.className = "msg " + (message.role === "user" ? "user" : "ai");
+    bubble.textContent = message.content;
+    log.appendChild(bubble);
+  });
+  log.scrollTop = log.scrollHeight;
+}
+function renderChatStatus() {
+  const line = document.getElementById("chatBackendLine");
+  line.textContent = state.aiName ? t("chatUsing") + " " + state.aiName : t("chatNoAI");
+  renderChat();
+}
+function useTemplate(index) {
+  document.getElementById("chatInput").value = t("tplP" + index);
+  document.getElementById("chatInput").focus();
+}
+function clearChat() { chatHistory = []; persistChat(); renderChat(); }
+async function sendChat() {
+  const input = document.getElementById("chatInput");
+  const text = input.value.trim();
+  if (!text) return;
+  if (!state.localClient) { setMsg("chatMsg", t("notLocalShort"), false); return; }
+  if (!state.aiName) { setMsg("chatMsg", t("chatNoAI"), false); return; }
+  input.value = "";
+  chatHistory.push({ role: "user", content: text });
+  persistChat(); renderChat();
+  const btn = document.getElementById("chatSendBtn");
+  btn.disabled = true;
+  setMsg("chatMsg", t("thinking"), true);
+  try {
+    const endpoint = document.getElementById("coachMode").checked
+      ? "/local/ai/coach" : "/local/ai/chat";
+    const result = await post(endpoint, {
+      messages: chatHistory, language: lang === "zh" ? "Simplified Chinese" : "English"
+    });
+    chatHistory.push({ role: "assistant", content: result.reply });
+    persistChat(); renderChat();
+    setMsg("chatMsg", "", true);
+  } catch (err) {
+    setMsg("chatMsg", err.message, false);
+  } finally { btn.disabled = false; }
+}
+/* Voice input via the Web Speech API (Chrome/Edge); hidden when unsupported. */
+let _recognizer = null;
+let _listening = false;
+function micSupported() {
+  return !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+}
+function toggleMic() {
+  const btn = document.getElementById("micBtn");
+  if (_listening) {
+    if (_recognizer) _recognizer.stop();
+    return;
+  }
+  const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  _recognizer = new Recognition();
+  _recognizer.lang = lang === "zh" ? "zh-CN" : "en-US";
+  _recognizer.interimResults = true;
+  _recognizer.continuous = false;
+  const input = document.getElementById("chatInput");
+  const base = input.value ? input.value + " " : "";
+  const recordingGeneration = vaultGeneration;
+  _recognizer.onresult = event => {
+    if (vaultGeneration !== recordingGeneration) return;
+    let text = "";
+    for (const result of event.results) text += result[0].transcript;
+    input.value = base + text;
+  };
+  _recognizer.onend = () => { _listening = false; btn.textContent = "🎤"; };
+  _recognizer.onerror = () => { _listening = false; btn.textContent = "🎤"; };
+  _listening = true;
+  btn.textContent = "⏹";
+  _recognizer.start();
+}
+
+async function refineFromChat() {
+  if (!state.localClient || !state.aiName) { setMsg("chatMsg", t("chatNoAI"), false); return; }
+  setMsg("chatMsg", t("analyzing"), true);
+  try {
+    const result = await post("/local/ai/refine", {
+      messages: chatHistory, language: lang === "zh" ? "Simplified Chinese" : "English"
+    });
+    await applyModel(result.model);
+    refreshDashboard();
+    showView("home");
+    genMsg("✔ " + t("reportUpdated"), true);
+    setMsg("chatMsg", "", true);
+  } catch (err) { setMsg("chatMsg", err.message, false); }
+}
+
+/* Canonical JSON identical to reports/canonical_json.py:
+   sort_keys=True, separators=(",",":"), ensure_ascii=False, top-level "signature"
+   excluded. Card keys are ASCII, so JS/Python sort orders agree. */
+function canonicalJson(value) {
+  if (Array.isArray(value)) return "[" + value.map(canonicalJson).join(",") + "]";
+  if (value !== null && typeof value === "object") {
+    return "{" + Object.keys(value).sort()
+      .map(key => JSON.stringify(key) + ":" + canonicalJson(value[key])).join(",") + "}";
+  }
+  return JSON.stringify(value);
+}
+async function sha256Hex(text) {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, "0")).join("");
+}
+function canHashLocally() { return !!(window.crypto && window.crypto.subtle); }
+async function cardFingerprint(card) {
+  validateCompatibilityCard(card);
+  if (!canHashLocally()) throw new Error("Local hashing unavailable. Open the local app on localhost. / 本地哈希不可用，请通过 localhost 打开本地应用。");
+  const unsigned = { ...card };
+  delete unsigned.signature;
+  return sha256Hex(canonicalJson(unsigned));
+}
+
+async function autoAttest() {
+  // Registers the saved self-model's fingerprint with the matching node.
+  // Preferred: fingerprint only — the node never sees the model content.
+  // If local hashing is unavailable, fail without disclosing the card.
+  if (!state.savedCard) { setMsg("registerMsg", t("needModel"), false); return; }
+  try {
+    validateCompatibilityCard(state.savedCard);
+    const payload = { pseudonym: state.pseudonym, token: state.token };
+    payload.fingerprint = state.savedFingerprint || await cardFingerprint(state.savedCard);
+    const result = await post(mm("/matchmaking/attest"), payload);
+    saveMyCard(state.savedCard);  // per-pseudonym copy for the comparison step
+    state.attested = true;
+    sessionStorage.setItem("sm_attested", "1");
+    logEvent(t("attested") + " " + result.fingerprint.slice(0, 12) + "… ("
+      + t("version") + " " + result.version + ")");
+    unlockSteps();
+  } catch (err) {
+    setMsg("registerMsg", err.message, false);
+  }
+}
+
+function copyDistillPrompt() {
+  const reviewed = window.prompt("Enter only a reviewed minimal summary for the copied prompt. Remove names, contacts and private details; do not paste your full vault. / 请仅输入供复制提示词使用的已审核最小摘要。删除姓名、联系方式和私密细节，不要粘贴完整档案库。", "");
+  if (!reviewed || !reviewed.trim()) return;
+  const notes = reviewed.trim();
+  copyText(t("distillPrompt") + notes, "analyzeMsg");
+}
+
+/* --------------------------------------------------- automated matching */
+function loadIdentity() {
+  if (state.localClient && state.identityReviewRequired) return {};
+  const key = state.localClient ? "sm_identity::" + vaultId : "sm_identity";
+  try { return JSON.parse(localStorage.getItem(key) || "{}"); }
+  catch (_e) { return {}; }
+}
+function saveIdentity() {
+  const key = state.localClient ? "sm_identity::" + vaultId : "sm_identity";
+  localStorage.setItem(key, JSON.stringify({
+    pseudonym: document.getElementById("pseudonym").value.trim(),
+    contact: document.getElementById("contact").value.trim(),
+    consent: document.getElementById("consent").checked
+  }));
+  state.identityReviewRequired = false;
+  setMsg("identityMsg", "✔", true);
+  refreshMatchGates();
+}
+function randomPseudonym() {
+  const a = ["quiet", "bright", "calm", "swift", "warm", "clear", "bold", "soft"];
+  const b = ["fox", "pine", "river", "moth", "cloud", "stone", "wren", "fern"];
+  return a[Math.floor(Math.random() * a.length)] + "-"
+    + b[Math.floor(Math.random() * b.length)] + "-"
+    + Math.floor(1000 + Math.random() * 9000);
+}
+function refreshMatchGates() {
+  const identity = loadIdentity();
+  const needSetup = !identity.contact || !identity.consent;
+  document.getElementById("matchSetupHint").classList.toggle("hidden", !needSetup);
+  document.getElementById("matchModelHint").classList.toggle("hidden", !!state.savedCard);
+  document.getElementById("startMatchBtn").classList.toggle("hidden", !!state.matchTimer);
+  document.getElementById("stopMatchBtn").classList.toggle("hidden", !state.matchTimer);
+  renderLog();
+}
+
+function loadMatchLog() {
+  try { return JSON.parse(sessionStorage.getItem("sm_matchlog") || "[]"); }
+  catch (_e) { return []; }
+}
+function logEvent(text) {
+  const log = loadMatchLog();
+  log.unshift({ time: new Date().toTimeString().slice(0, 8), text: text });
+  sessionStorage.setItem("sm_matchlog", JSON.stringify(log.slice(0, 50)));
+  renderLog();
+}
+function renderLog() {
+  const log = loadMatchLog();
+  document.getElementById("matchLog").textContent = log.length
+    ? log.map(entry => entry.time + "  " + entry.text).join("\n")
+    : t("logEmpty");
+  renderMatchWidget();
+}
+
+function resolveLocation() {
+  const locatingGeneration = vaultGeneration;
+  return new Promise(resolve => {
+    if (state.geohash) { resolve(true); return; }
+    if (window.isSecureContext && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          if (vaultGeneration !== locatingGeneration) { resolve(false); return; }
+          setBucket(pos.coords.latitude, pos.coords.longitude); resolve(true);
+        },
+        () => resolve(false),
+        { enableHighAccuracy: false, timeout: 10000 }
+      );
+    } else { resolve(false); }
+  });
+}
+
+async function startMatching() {
+  const matchingGeneration = vaultGeneration;
+  const identity = loadIdentity();
+  const age = intOrNull("age");
+  if (!Number.isInteger(age) || age < 18 || age > 120) {
+    setMsg("registerMsg", "Enter an adult age (18–120). / 请填写成年年龄（18–120）。", false); return;
+  }
+  if (!state.savedCard) { setMsg("registerMsg", t("needModel"), false); refreshMatchGates(); return; }
+  if (!identity.contact || !identity.consent) {
+    setMsg("registerMsg", t("matchNeedSetup"), false);
+    refreshMatchGates();
+    return;
+  }
+  if (!(await resolveLocation())) {
+    setMsg("registerMsg", t("geoDenied") + " " + t("matchNeedSetup"), false);
+    return;
+  }
+  if (vaultGeneration !== matchingGeneration) return;
+  if (!identity.pseudonym) {
+    identity.pseudonym = randomPseudonym();
+    document.getElementById("pseudonym").value = identity.pseudonym;
+    localStorage.setItem("sm_identity", JSON.stringify(identity));
+  }
+  if (!state.registered) {
+    const seeking = document.getElementById("seekEveryone").checked
+      ? null
+      : Array.from(document.querySelectorAll(".seekGender:checked")).map(cb => cb.value);
+    try {
+      const result = await post(mm("/matchmaking/register"), {
+        pseudonym: identity.pseudonym,
+        geohash: state.geohash,
+        contact: identity.contact,
+        consent_confirmed: true,
+        age: intOrNull("age"),
+        seeking_age_min: intOrNull("seekAgeMin"),
+        seeking_age_max: intOrNull("seekAgeMax"),
+        gender: document.getElementById("gender").value || null,
+        seeking_genders: seeking && seeking.length ? seeking : null
+      });
+      enterRegistered(identity.pseudonym, result.token);
+      logEvent(t("registered") + " " + identity.pseudonym);
+      await autoAttest();
+    } catch (err) {
+      if (/already registered/i.test(err.message) || /已注册/.test(err.message)) {
+        const ownToken = sessionStorage.getItem("sm_pseudonym") === identity.pseudonym
+          ? sessionStorage.getItem("sm_token") : null;
+        if (ownToken) { enterRegistered(identity.pseudonym, ownToken); await autoAttest(); }
+        else { setMsg("registerMsg", t("alreadyRegistered"), false); return; }
+      } else { setMsg("registerMsg", err.message, false); return; }
+    }
+  }
+  if (!state.attested) { setMsg("registerMsg", t("needModel"), false); return; }
+  setMsg("registerMsg", "", true);
+  state.introduced = new Set(loadMatchLog().filter(e => e.kind === "intro").map(e => e.who));
+  if (state.matchTimer) clearInterval(state.matchTimer);
+  state.matchTimer = setInterval(matchTick, 12000);
+  logEvent(t("matchingStarted"));
+  refreshMatchGates();
+  matchTick();
+}
+
+function stopMatching() {
+  if (state.matchTimer) clearInterval(state.matchTimer);
+  state.matchTimer = null;
+  logEvent(t("matchingStopped"));
+  refreshMatchGates();
+}
+
+async function matchTick() {
+  // Auto-discovery + auto-introductions. Accepting stays a human decision.
+  if (!state.registered || !state.attested) return;
+  const precision = document.getElementById("distanceSel").value;
+  try {
+    const result = await api(mm(authed("/matchmaking/nearby/" + encodeURIComponent(state.pseudonym)))
+      + "&precision=" + precision);
+    for (const candidate of result.candidates) {
+      if (state.introduced.has(candidate.pseudonym)) continue;
+      state.introduced.add(candidate.pseudonym);
+      try {
+        await post(mm("/matchmaking/introduce"), {
+          initiator: state.pseudonym, token: state.token, recipient: candidate.pseudonym
+        });
+        const log = loadMatchLog();
+        log.unshift({ time: new Date().toTimeString().slice(0, 8),
+          text: t("introSentTo") + " " + candidate.pseudonym, kind: "intro", who: candidate.pseudonym });
+        sessionStorage.setItem("sm_matchlog", JSON.stringify(log.slice(0, 50)));
+        renderLog();
+      } catch (_err) { /* pair already live/declined; server enforces the rules */ }
+    }
+  } catch (err) {
+    if (/Unknown pseudonym/i.test(err.message)) { stopMatching(); resetSession(t("sessionLost")); }
+  }
+}
+
+/* ------------------------------------------------------------------ step 4: inbox */
+function startPolling() {
+  if (state.pollTimer) clearInterval(state.pollTimer);
+  refreshInbox();
+  state.pollTimer = setInterval(refreshInbox, 5000);
+}
+
+async function refreshInbox() {
+  if (!state.registered) return;
+  const seq = ++state.inboxSeq;  // drop out-of-order responses (poller vs post-respond)
+  try {
+    const result = await api(mm(authed("/matchmaking/introductions/" + encodeURIComponent(state.pseudonym))));
+    if (seq !== state.inboxSeq || !state.registered) return;  // a newer request superseded this one
+    const json = JSON.stringify(result.introductions);
+    if (json === state.lastInboxJson) return;  // unchanged: don't wipe DOM mid-click
+    state.lastInboxJson = json;
+    state.lastInbox = result.introductions;
+    renderInbox(result.introductions);
+  } catch (err) {
+    // In-memory node restarted or this pseudonym was deleted: stale Accept/Match
+    // buttons would only ever error. Reset honestly instead of pretending.
+    if (/Unknown pseudonym/i.test(err.message)) resetSession(t("sessionLost"));
+  }
+}
+
+function renderInbox(entries) {
+  const list = document.getElementById("introList");
+  list.innerHTML = "";
+  if (!entries.length) {
+    const p = document.createElement("p");
+    p.className = "fine";
+    p.textContent = t("introEmpty");
+    list.appendChild(p);
+    return;
+  }
+  entries.forEach(entry => {
+    const row = document.createElement("div");
+    row.className = "intro-entry";
+    const info = document.createElement("div");
+    const dir = entry.direction === "sent" ? t("dirSent") : t("dirReceived");
+    const name = document.createElement("span");
+    name.innerHTML = dir + " <b></b>";
+    name.querySelector("b").textContent = entry.counterpart_pseudonym;
+    info.appendChild(name);
+    row.appendChild(info);
+
+    const right = document.createElement("div");
+    const badge = document.createElement("span");
+    badge.className = "badge " + entry.status;
+    badge.textContent = t("status" + entry.status.charAt(0).toUpperCase() + entry.status.slice(1));
+    right.appendChild(badge);
+
+    if (entry.awaiting_you) {
+      const acceptBtn = document.createElement("button");
+      acceptBtn.className = "ghost small"; acceptBtn.style.marginLeft = "8px";
+      acceptBtn.textContent = t("accept");
+      acceptBtn.onclick = () => respond(entry.introduction_id, true);
+      const declineBtn = document.createElement("button");
+      declineBtn.className = "ghost small"; declineBtn.style.marginLeft = "6px";
+      declineBtn.textContent = t("decline");
+      declineBtn.onclick = () => respond(entry.introduction_id, false);
+      right.appendChild(acceptBtn); right.appendChild(declineBtn);
+    }
+    if (entry.direction === "sent" && entry.status === "pending") {
+      // Initiator taking back their own request — server treats it as a
+      // withdrawal, not a decline, so the pair is not poisoned.
+      const withdrawBtn = document.createElement("button");
+      withdrawBtn.className = "ghost small"; withdrawBtn.style.marginLeft = "8px";
+      withdrawBtn.textContent = t("withdraw");
+      withdrawBtn.onclick = () => respond(entry.introduction_id, false);
+      right.appendChild(withdrawBtn);
+    }
+    if (entry.status === "matched") {
+      const openBtn = document.createElement("button");
+      openBtn.className = "ghost small"; openBtn.style.marginLeft = "8px";
+      openBtn.textContent = t("openMatch");
+      openBtn.onclick = () => openMatch(entry.introduction_id);
+      right.appendChild(openBtn);
+    }
+    row.appendChild(right);
+    list.appendChild(row);
+  });
+}
+
+async function respond(introductionId, accept) {
+  try {
+    const result = await post(mm("/matchmaking/respond"), {
+      pseudonym: state.pseudonym, token: state.token,
+      introduction_id: introductionId, accept: accept
+    });
+    const entry = (state.lastInbox || []).find(e => e.introduction_id === introductionId);
+    const who = entry ? entry.counterpart_pseudonym : "";
+    if (result.status === "matched") logEvent(t("statusMatched") + " · " + who);
+    else if (result.status === "declined") logEvent(t("statusDeclined") + " · " + who);
+    state.lastInboxJson = "";  // force a re-render with the new status
+    refreshInbox();
+    if (result.status === "matched") openMatch(introductionId);
+  } catch (err) { setMsg("introMsg", err.message, false); }
+}
+
+/* ------------------------------------------------------------------ step 5: match */
+async function openMatch(introductionId) {
+  try {
+    const packet = await api(mm(authed(
+      "/matchmaking/match/" + encodeURIComponent(introductionId) + "/" + encodeURIComponent(state.pseudonym)
+    )));
+    state.activeMatchIntro = introductionId;
+    state.activeMatchPacket = packet;
+    const section = document.getElementById("stepMatch");
+    section.classList.remove("hidden");
+    const box = document.getElementById("matchPacket");
+    box.innerHTML = "";
+    const name = document.createElement("p");
+    name.innerHTML = "<b></b>";
+    name.querySelector("b").textContent = packet.counterpart_pseudonym;
+    box.appendChild(name);
+    const contact = document.createElement("p");
+    contact.textContent = t("contactIs") + " " + packet.counterpart_contact;
+    box.appendChild(contact);
+    const fp = document.createElement("p");
+    fp.className = "mono";
+    fp.textContent = t("lockedFp") + " " + packet.locked_fingerprint;
+    box.appendChild(fp);
+    const how = document.createElement("p");
+    how.className = "fine";
+    how.textContent = t("howVerify");
+    box.appendChild(how);
+    section.scrollIntoView({ behavior: "smooth" });
+  } catch (err) { setMsg("introMsg", err.message, false); }
+}
+
+function exportMyCard() {
+  const card = loadMyCard();
+  if (!card) { setMsg("verifyMsg", t("noMyCard"), false); return; }
+  try { validateCompatibilityCard(card); }
+  catch (error) { setMsg("verifyMsg", error.message, false); return; }
+  const text = JSON.stringify(card, null, 2);
+  const blob = new Blob([text], { type: "application/json" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "compatibility-card-" + state.pseudonym + ".json";
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(link.href), 2000);  // don't yank the URL mid-download
+  copyText(text, "verifyMsg");
+}
+
+async function verifyTheirCard() {
+  if (!state.activeMatchIntro) return;
+  let theirCard;
+  try {
+    theirCard = JSON.parse(document.getElementById("theirCardInput").value);
+  } catch (_e) { setMsg("verifyMsg", t("invalidJson"), false); return; }
+  try {
+    let valid;
+    if (canHashLocally() && state.activeMatchPacket) {
+      // Preferred: sha256(canonical card) compared to the locked fingerprint,
+      // entirely on this device — their card content never goes to the server.
+      valid = (await cardFingerprint(theirCard)) === state.activeMatchPacket.locked_fingerprint;
+    } else {
+      const result = await post(mm("/matchmaking/verify-card"), {
+        pseudonym: state.pseudonym, token: state.token,
+        introduction_id: state.activeMatchIntro,
+        fingerprint: await cardFingerprint(theirCard)
+      });
+      valid = result.valid;
+    }
+    if (valid) {
+      setMsg("verifyMsg", t("verifyOk"), true);
+      logEvent(t("verifyOk"));
+      renderComparison(theirCard);
+      aiReflection(theirCard);
+    } else {
+      setMsg("verifyMsg", t("verifyBad"), false);
+      logEvent(t("verifyBad"));
+      document.getElementById("comparison").innerHTML = "";
+    }
+  } catch (err) { setMsg("verifyMsg", err.message, false); }
+}
+
+async function aiReflection(theirCard) {
+  // The person confirms purpose-specific consent before model analysis.
+  if (!state.localClient || !state.aiName) return;
+  if (!confirm("Have both people explicitly agreed to this AI comparison? / 双方是否都明确同意此次 AI 比较？")) return;
+  const box = document.getElementById("comparison");
+  const holder = document.createElement("div");
+  holder.className = "notice";
+  holder.textContent = t("reflecting");
+  box.insertBefore(holder, box.firstChild);
+  try {
+    const result = await post("/local/ai/compare", {
+      their_card: theirCard, counterpart_consent_confirmed: true,
+      language: lang === "zh" ? "Simplified Chinese" : "English"
+    });
+    holder.innerHTML = "";
+    const title = document.createElement("b");
+    title.textContent = t("aiReflectionTitle") + " (" + result.backend + ")";
+    holder.appendChild(title);
+    const body = document.createElement("p");
+    body.style.whiteSpace = "pre-wrap";
+    body.textContent = result.reflection;
+    holder.appendChild(body);
+  } catch (err) {
+    holder.textContent = t("aiReflectionTitle") + ": " + err.message;
+  }
+}
+
+/* ---------------------------------------------- local, non-scoring comparison */
+function renderComparison(theirCard) {
+  validateCompatibilityCard(theirCard);
+  const myCard = loadMyCard();
+  const box = document.getElementById("comparison");
+  box.innerHTML = "";
+  if (!myCard) { box.textContent = t("noMyCard"); return; }
+
+  const title = document.createElement("h2");
+  title.textContent = t("comparisonTitle");
+  title.style.marginTop = "18px";
+  box.appendChild(title);
+
+  const mine = myCard.tier2_summary || {};
+  const theirs = theirCard.tier2_summary || {};
+  const myValues = (mine.values || []).map(v => String(v).toLowerCase());
+  const theirValues = (theirs.values || []).map(v => String(v).toLowerCase());
+  const shared = myValues.filter(v => theirValues.includes(v));
+  const onlyOne = myValues.filter(v => !theirValues.includes(v))
+    .concat(theirValues.filter(v => !myValues.includes(v)));
+
+  const sharedP = document.createElement("p");
+  sharedP.innerHTML = "<b>" + t("sharedValues") + ":</b> ";
+  sharedP.appendChild(document.createTextNode(shared.length ? shared.join(", ") : "—"));
+  box.appendChild(sharedP);
+  const diffP = document.createElement("p");
+  diffP.innerHTML = "<b>" + t("differentValues") + ":</b> ";
+  diffP.appendChild(document.createTextNode(onlyOne.length ? onlyOne.join(", ") : "—"));
+  box.appendChild(diffP);
+
+  const grid = document.createElement("div");
+  grid.className = "compare-grid";
+  [["myCol", mine], ["theirCol", theirs]].forEach(([colKey, summary]) => {
+    const col = document.createElement("div");
+    col.className = "col";
+    const h = document.createElement("h4");
+    h.textContent = t(colKey);
+    col.appendChild(h);
+    [["goals", "life_goals"], ["comm", "communication_style"],
+     ["boundaries", "boundaries"], ["uncertainty", "uncertainty_notes"]].forEach(([labelKey, field]) => {
+      const p = document.createElement("p");
+      p.className = "fine";
+      p.innerHTML = "<b>" + t(labelKey) + ":</b> ";
+      p.appendChild(document.createTextNode(summary[field] || "—"));
+      col.appendChild(p);
+    });
+    grid.appendChild(col);
+  });
+  box.appendChild(grid);
+
+  const talkTitle = document.createElement("p");
+  talkTitle.innerHTML = "<b>" + t("talkAbout") + ":</b>";
+  box.appendChild(talkTitle);
+  const ul = document.createElement("ul");
+  ul.className = "plain";
+  t("talkPrompts").forEach(promptText => {
+    const li = document.createElement("li");
+    li.textContent = promptText;
+    ul.appendChild(li);
+  });
+  box.appendChild(ul);
+
+  const copyBtn = document.createElement("button");
+  copyBtn.className = "ghost small";
+  copyBtn.textContent = t("copyCompare");
+  copyBtn.onclick = () => {
+    const promptText = t("comparePrompt")
+      .replace("{A}", JSON.stringify(myCard, null, 2))
+      .replace("{B}", JSON.stringify(theirCard, null, 2));
+    copyText(promptText, "verifyMsg");
+  };
+  box.appendChild(copyBtn);
+}
+
+/* ------------------------------------------------------------------ delete */
+async function deleteMe() {
+  try {
+    await api(mm(authed("/matchmaking/register/" + encodeURIComponent(state.pseudonym))),
+      { method: "DELETE" });
+    resetSession(null);  // fully re-lock the UI; no half-alive buttons left behind
+    setMsg("deleteMsg", t("deleted"), true);
+  } catch (err) { setMsg("deleteMsg", err.message, false); }
+}
+
+/* ------------------------------------------------------------------ util */
+function copyText(text, msgId) {
+  const finish = () => setMsg(msgId, t("copied"), true);
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(finish, () => fallbackCopy(text, finish));
+  } else {
+    fallbackCopy(text, finish);
+  }
+}
+function fallbackCopy(text, done) {
+  const area = document.createElement("textarea");
+  area.value = text;
+  area.style.position = "fixed"; area.style.opacity = "0";
+  document.body.appendChild(area);
+  area.select();
+  try { document.execCommand("copy"); } catch (_e) { /* best effort */ }
+  document.body.removeChild(area);
+  done();
+}
+
+/* ------------------------------------------------------------------ boot */
+applyI18n();
+onBackendChange();
+document.getElementById("nodeUrl").value = state.nodeUrl;
+
+// First run -> setup wizard; afterwards -> last view (or Home).
+if (!localStorage.getItem("sm_setup_done")) {
+  document.getElementById("setupWizard").classList.remove("hidden");
+} else {
+  showView(sessionStorage.getItem("sm_view") || "home");
+}
+
+// Detect the packaged local app: /local/* exists only there. On a plain node,
+// connected-AI features degrade to the manual + copy-prompt path.
+(async () => {
+  try {
+    const status = await api("/local/status");
+    state.localClient = !!status.local_client;
+    const previousVault = sessionStorage.getItem("sm_vault_id");
+    if (state.localClient && previousVault !== vaultId) {
+      archiveVaultSession(previousVault);
+      clearActiveVaultSession();
+    }
+    if (state.localClient) sessionStorage.setItem("sm_vault_id", vaultId);
+    if (state.localClient) {
+      const identity = loadIdentity();
+      document.getElementById("pseudonym").value = identity.pseudonym || "";
+      document.getElementById("contact").value = identity.contact || "";
+      document.getElementById("consent").checked = !!identity.consent;
+    }
+    // Prefill Settings > AI from the persisted (non-secret) choice.
+    const saved = status.settings || {};
+    if (saved.backend && !["codex", "gemini"].includes(saved.backend)) {
+      document.getElementById("aiBackend").value = saved.backend;
+      if (saved.base_url) document.getElementById("aiBaseUrl").value = saved.base_url;
+      onBackendChange();
+      // Re-populate the dropdown with the persisted choice once localClient is
+      // known (onBackendChange's fetch may have raced the status probe).
+      await refreshModelOptions(saved.model || "");
+    }
+    if (saved.data_dir) document.getElementById("dataDir").value = saved.data_dir;
+    if (status.vault_dir) document.getElementById("vaultDir").value = status.vault_dir;
+  } catch (_e) {
+    state.localClient = false;
+  }
+  if (state.localClient) {
+    try {
+      // Reconnect the persisted backend (keyless kinds only; Anthropic re-asks).
+      const restored = await post("/local/ai/restore", {});
+      if (restored.restored) {
+        state.aiName = restored.backend;
+        setMsg("aiMsg", "✔ " + t("chatUsing") + " " + restored.backend, true);
+      }
+    } catch (_e) { /* backend not reachable right now */ }
+    try {
+      const stored = await api("/local/profile/load");
+      if (stored.profile) {
+        state.savedCard = validateCompatibilityCard(stored.profile);
+        state.savedFingerprint = stored.fingerprint;
+        if (!loadMyCard()) saveMyCard(stored.profile);
+      }
+    } catch (error) { genMsg(error.message, false); }
+  } else {
+    document.getElementById("notLocalNotice").classList.remove("hidden");
+    document.getElementById("aiControls").classList.add("hidden");
+    document.querySelector("button[onclick='testAI()']").classList.add("hidden");
+    document.getElementById("chatgptZip").classList.add("hidden");
+    // Restore a locally kept card so matching still works against a node.
+    const device = loadMyCard();
+    if (device) {
+      state.savedCard = device;
+      if (canHashLocally()) {
+        cardFingerprint(device).then(fp => { state.savedFingerprint = fp; renderReport(); });
+      }
+    }
+  }
+  refreshDashboard();
+})();
+
+// Restore matching identity (pseudonym/contact/consent live in Settings > Matching).
+const identity = loadIdentity();
+if (identity.pseudonym) document.getElementById("pseudonym").value = identity.pseudonym;
+if (identity.contact) document.getElementById("contact").value = identity.contact;
+document.getElementById("consent").checked = !!identity.consent;
+
+if (micSupported()) document.getElementById("micBtn").classList.remove("hidden");
+
+if (state.registered && state.pseudonym && state.token) {
+  enterRegistered(state.pseudonym, state.token);
+} else if (state.registered) {
+  // Stale flags without a token (e.g. cleared mid-session): start clean.
+  resetSession(null);
+}
+updateSourceCount();
+renderChat();
+refreshMatchGates();
+</script>
+</body>
+</html>

@@ -56,7 +56,9 @@ class ProfileViewPage(QWidget):
         layout.addLayout(buttons)
 
         self.output = QTextEdit()
-        self.output.setPlaceholderText(bi("Profile JSON will appear here.", "档案 JSON 将显示在此处。"))
+        self.output.setPlaceholderText(
+            bi("Profile JSON will appear here.", "档案 JSON 将显示在此处。")
+        )
         layout.addWidget(self.output)
 
     def _generate_profile(self) -> None:

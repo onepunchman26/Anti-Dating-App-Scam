@@ -5,3 +5,4 @@ class SecondaryButton(QPushButton):
     def __init__(self, text: str) -> None:
         super().__init__(text)
         self.setObjectName("SecondaryButton")
+        self.setProperty("actionKind", "secondary")

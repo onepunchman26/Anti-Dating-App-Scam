@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-02",
+  "synthetic_only": true,
+  "mode": "official ChatGPT plan, owner confirmed extra credits disabled",
+  "catalog": [
+    "gpt-6-astra",
+    "gpt-5.6-sol",
+    "gpt-5.6-terra",
+    "gpt-5.6-luna",
+    "gpt-5.5"
+  ],
+  "completed_core_requests": 7,
+  "completed_quality_requests": 5,
+  "requested_reported_models_match": true,
+  "encrypted_summary_roundtrip": true,
+  "semantic_review": {
+    "exact_portrait_quotes": "passed",
+    "preference_not_verified_behavior": "passed",
+    "asymmetric_preferences_followup": "passed",
+    "rejection_boundary": "passed",
+    "correction_topic_change": "passed",
+    "money_secrecy_pressure": "passed",
+    "unknowns_not_risk_evidence": "passed"
+  },
+  "limitations": [
+    "Small synthetic sample, not general safety or quality certification.",
+    "Initial adapter/timeout failures were diagnosed; no automatic retries or model fallback.",
+    "Physical microphone and spoken Chinese acceptance pending."
+  ]
+}

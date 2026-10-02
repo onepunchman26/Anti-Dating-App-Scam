@@ -1,36 +1,20 @@
-# GUI Flow
+# Desktop flow / 桌面流程
 
-The desktop GUI now uses a stacked, app-like onboarding flow instead of opening into a dense tab dashboard.
+## English
 
-```text
-Welcome
-  -> Policy
-  -> Profile Detection
-  -> Agent/API Mode
-  -> Import Data
-  -> Generate/Load Profile
-  -> Home
-```
+Home → Connect ChatGPT → account-listed model → explicit usage confirmation → AI Chat.
+Start → useful reply and optional question → typed or local voice draft → review/send.
+End immediately cancels acceptance → create reflection → review quotations → save.
+Back remains available. Approved notes have their own inspect/add/correct/pause/delete
+dialog. Sharing/comparison is separate: selected saved reflection → summary preview →
+encrypted attachment → manual exchange → local import → bilateral consent → reviewed AI request.
+No market/duration selector, hidden document import, personality score or automatic send.
 
-## Startup Flow
+## 中文版
 
-1. Welcome introduces AI-SlowMatch as a local relationship trust and anti-scam assistant.
-2. Safety & Consent appears before import or analysis.
-3. Local Profile Detection checks `~/.ai_slowmatch/profile.mpm.md` and `~/.ai_slowmatch/profile.json`.
-4. Existing profiles can continue directly to Home.
-5. New or updating users choose Agent Mode or API Mode.
-6. Import Data presents source cards instead of technical tabs.
-7. Generate Local Profile creates a Markdown Personal Memory Document and JSON companion.
-8. Home shows action cards for the main tools.
-
-## Home Actions
-
-- Analyze a Conversation
-- Trust Ladder Coach
-- View / Edit Local Profile
-- Export or Verify Report
-- Import More Data
-- Settings
-- Assisted Browser Export
-
-The goal is one clear next step at a time, with technical controls moved behind action cards.
+主页 → 连接 ChatGPT → 账号实际模型 → 明确用量确认 → AI 聊天。
+开始 → 有效回应与可选问题 → 输入或本地语音草稿 → 审阅／发送。
+结束立即取消接纳回复 → 生成画像 → 核对引文 → 保存，返回始终可用。
+已批准记忆有独立的查看／新增／纠正／暂停／删除窗口。分享与比对是单独流程：
+选择已保存画像 → 预览摘要 → 加密附件 → 人工交换 → 本地导入 → 双方同意 → 审阅 AI 请求。
+不要求选择市场或时长，不隐式导入文件，不生成人格分数，不自动发送。

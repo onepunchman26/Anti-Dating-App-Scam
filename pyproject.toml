@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "anti-dating-scam"
-version = "0.1.0"
+version = "0.2.1"
 description = "AI-SlowMatch prototype for dating scam risk analysis and trust-ladder support."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -18,18 +18,36 @@ dependencies = [
 [project.optional-dependencies]
 desktop = [
     "PySide6>=6.7",
+    "PyJWT[crypto]>=2.10,<3",
+    "vosk==0.3.45",
 ]
 browser = [
     "playwright>=1.45",
 ]
 dev = [
+    "build>=1.2",
     "httpx>=0.27",
     "pytest>=8.0",
     "ruff>=0.5",
 ]
 
+[project.scripts]
+slowmatch = "anti_dating_scam.launchers:desktop_main"
+slowmatch-web = "anti_dating_scam.launchers:web_main"
+
+[tool.setuptools.package-dir]
+"" = "src"
+anti_dating_scam_desktop = "apps/desktop_pyqt/anti_dating_scam_desktop"
+rendezvous_web = "apps/rendezvous_web"
+
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["src", "apps/desktop_pyqt", "apps"]
+include = ["anti_dating_scam*", "rendezvous_web"]
+namespaces = false
+
+[tool.setuptools.package-data]
+anti_dating_scam = ["schemas/*.json", "licenses/*.txt"]
+rendezvous_web = ["*.html"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -41,3 +59,7 @@ target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+# This owner-authored prompt explicitly requires verbatim preservation.
+"src/anti_dating_scam/ai/analysis_contract.py" = ["E501"]

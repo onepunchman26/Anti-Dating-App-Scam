@@ -1,0 +1,25 @@
+name: build-apps
+
+# Remote compute is explicitly started by a human. Local release is automatic per command.
+on: [workflow_dispatch]
+
+jobs:
+  windows-desktop:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -c packaging/constraints-windows-py312.txt ".[desktop,dev]" pyinstaller
+      - run: python scripts/release_manager.py build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AI-SlowMatch-desktop
+          path: |
+            AI-SlowMatch.exe
+            releases/current.json
+            releases/*/manifest.json
+          if-no-files-found: error

@@ -27,16 +27,15 @@ class AnalysisModeScreen(QWidget):
             AppCard(
                 bi("Agent Mode", "代理模式"),
                 bi(
-                    "Connect a desktop agent (Claude Code / Cowork). The app sets up your "
-                    "vault as a shared workspace and writes an AGENTS.md / CLAUDE.md guide, "
-                    "so your agent can open the folder and help. You control what is shared.",
-                    "连接桌面代理（Claude Code / Cowork）。应用会把您的档案库设置为共享工作区，"
-                    "并写入 AGENTS.md / CLAUDE.md 说明文件，让代理可以打开该文件夹来协助您。"
-                    "分享哪些内容由您掌控。",
+                    "Prepare a manual handoff for an independently isolated local model. "
+                    "Desktop agents may use cloud inference. For external AI, use Connect AI "
+                    "and review the disclosure inside the app instead of granting vault access.",
+                    "为已独立隔离的本地模型准备手动交接。桌面代理也可能使用云端推理。"
+                    "外部 AI 请通过「连接 AI」在应用内审核披露内容，不要授予档案库访问权。",
                 ),
                 bi("Use Agent Mode", "使用代理模式"),
                 lambda: self._select("agent", on_next),
-                status=bi("Recommended for current prototype.", "当前原型推荐使用。"),
+                status=bi("Advanced local-only handoff.", "仅供本地模型的高级交接。"),
             )
         )
         cards.addWidget(
@@ -72,10 +71,10 @@ class AnalysisModeScreen(QWidget):
                 bi("Agent workspace ready", "代理工作区已就绪"),
                 f"{bi('Vault folder', '档案库文件夹')}:\n{self.profile_store.base_dir}\n\n"
                 + bi(
-                    "An AGENTS.md / CLAUDE.md guide was written here. Open this folder in "
-                    "Claude Code or Cowork to let your agent help with the profile.",
-                    "已在此处写入 AGENTS.md / CLAUDE.md 说明文件。在 Claude Code 或 Cowork 中"
-                    "打开此文件夹，即可让代理协助处理档案。",
+                    "Local-agent instructions were written here. They cannot enforce isolation. "
+                    "For external AI, use the app's reviewed disclosure workflow.",
+                    "已写入本地代理说明，但说明文件本身无法强制隔离。"
+                    "使用外部 AI 时，请通过应用内的披露审核流程。",
                 ),
             )
         on_next()

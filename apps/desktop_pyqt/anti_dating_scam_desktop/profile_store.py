@@ -1,4 +1,6 @@
 import json
+import os
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -24,9 +26,14 @@ AGENT_INSTRUCTIONS = """# AI-SlowMatch Vault - Agent Instructions
 
 This folder is a personal, local-first **vault** created by the AI-SlowMatch desktop
 app. It holds one person's self-reflection profile plus the source material it was
-built from. A desktop agent (Claude Code, Cowork, Codex, etc.) can open this folder
-to help the user read, reflect on, and improve the profile - using only the files in
-this vault.
+built from. Manual agent access is intended only for an independently isolated
+local model. A desktop CLI can still send inference or logs to remote services:
+stop before reading vault files if that applies. Use the application's reviewed
+disclosure workflow for external AI instead. These instructions are not a sandbox.
+
+手动代理访问仅供已独立隔离的本地模型。桌面 CLI 也可能向远程服务发送推理内容或日志；
+若存在这种情况，请在读取档案前停止。外部 AI 应使用应用内的披露审核流程。
+说明文件本身不是隔离沙箱。
 
 ## Structure
 
@@ -99,6 +106,16 @@ class ProfileStore:
         self.json_path = self.profile_dir / "profile.json"
         self.agents_md_path = self.base_dir / "AGENTS.md"
         self.claude_md_path = self.base_dir / "CLAUDE.md"
+        self.analysis_request_path = self.base_dir / "ANALYSIS_REQUEST.md"
+        self.self_portrait_request_path = self.base_dir / "SELF_PORTRAIT_REQUEST.md"
+        self.self_portrait_path = self.reports_dir / "self_portrait.md"
+        self.self_portrait_detailed_path = self.reports_dir / "self_portrait.detailed.md"
+        self.self_portrait_json_path = self.reports_dir / "self_portrait.json"
+        self.self_portrait_html_path = self.reports_dir / "self_portrait.html"
+        self.criteria_interview_request_path = self.base_dir / "CRITERIA_INTERVIEW_REQUEST.md"
+        self.mate_criteria_path = self.reports_dir / "mate_criteria.md"
+        self.mate_criteria_json_path = self.reports_dir / "mate_criteria.json"
+        self.ideal_profiles_json_path = self.reports_dir / "ideal_partner_profiles.json"
 
     def create_default_directories(self) -> None:
         for directory in (self.base_dir, self.profile_dir, self.reports_dir, self.imports_dir):
@@ -116,9 +133,60 @@ class ProfileStore:
 
     def use_existing_vault(self, vault_dir: Path) -> None:
         """Point the store at an existing vault folder and remember it."""
-        self.set_base_dir(vault_dir)
-        self.create_default_directories()
-        self.remember_vault()
+        candidate = ProfileStore(Path(vault_dir), config_path=self.config_path)
+        if candidate.has_legacy_profile() and not candidate.detect_existing_profile():
+            raise ValueError(
+                "Review and confirm legacy profile migration first. / 请先复核并确认旧版档案迁移。"
+            )
+        candidate.create_default_directories()
+        candidate.remember_vault()
+        self.set_base_dir(candidate.base_dir)
+
+    def has_legacy_profile(self, path: Path | None = None) -> bool:
+        """Recognise fixed historical root files without loading or copying them."""
+        root = Path(path) if path is not None else self.base_dir
+        return any(os.path.lexists(root / name) for name in ("profile.mpm.md", "profile.json"))
+
+    def is_vault(self, path: Path) -> bool:
+        """Whether ``path`` looks like an AI-SlowMatch vault folder.
+
+        A vault is recognised by its structure (a ``profile/`` subfolder or the
+        agent instruction files we drop in), or by already holding a profile -
+        not just by existing. This lets the UI tell "an empty-but-real vault"
+        apart from "any random folder".
+        """
+        path = Path(path)
+        if not path.is_dir():
+            return False
+        if self.has_legacy_profile(path):
+            return True
+        if (path / "profile" / "profile.mpm.md").exists():
+            return True
+        if (path / "profile" / "profile.json").exists():
+            return True
+        if (path / "profile").is_dir():
+            return True
+        return (path / "AGENTS.md").exists() or (path / "CLAUDE.md").exists()
+
+    def resolve_vault(self, path: Path) -> Path | None:
+        """Map a user-picked folder to the actual vault folder, or ``None``.
+
+        Handles the common mistake of picking the *parent* directory the vault
+        was created under (which contains ``AI-SlowMatch-Vault/``) instead of
+        the vault folder itself. Returns ``None`` when nothing vault-like is
+        found so the caller can offer to initialise the folder as a vault.
+        """
+        path = Path(path)
+        if self.is_vault(path):
+            return path
+        named_child = path / DEFAULT_VAULT_NAME
+        if self.is_vault(named_child):
+            return named_child
+        if path.is_dir():
+            vault_children = [child for child in path.iterdir() if self.is_vault(child)]
+            if len(vault_children) == 1:
+                return vault_children[0]
+        return None
 
     def write_agent_instructions(self) -> Path:
         """Write the agent instruction file (AGENTS.md + CLAUDE.md) into the vault."""
@@ -138,9 +206,18 @@ class ProfileStore:
 
     def remember_vault(self) -> None:
         self.config_path.parent.mkdir(parents=True, exist_ok=True)
-        self.config_path.write_text(
-            json.dumps({"vault_path": str(self.base_dir)}, indent=2), encoding="utf-8"
+        descriptor, temporary = tempfile.mkstemp(
+            prefix=".vault-pointer-", suffix=".tmp", dir=self.config_path.parent,
         )
+        try:
+            with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
+                stream.write(json.dumps({"vault_path": str(self.base_dir)}, indent=2))
+                stream.flush()
+                os.fsync(stream.fileno())
+            os.replace(temporary, self.config_path)
+        finally:
+            if os.path.exists(temporary):
+                os.unlink(temporary)
 
     # ------------------------------------------------------------- profile I/O
     def detect_existing_profile(self) -> bool:
@@ -150,7 +227,7 @@ class ProfileStore:
         return (path or self.markdown_path).read_text(encoding="utf-8")
 
     def load_json_profile(self, path: Path | None = None) -> dict[str, Any]:
-        return json.loads((path or self.json_path).read_text(encoding="utf-8"))
+        return json.loads((path or self.json_path).read_text(encoding="utf-8-sig"))
 
     def save_markdown_profile(self, markdown: str, path: Path | None = None) -> Path:
         self.create_default_directories()
@@ -173,3 +250,105 @@ class ProfileStore:
     def get_imports_dir(self) -> Path:
         self.create_default_directories()
         return self.imports_dir
+
+    # --------------------------------------------------- agent-mode handoff I/O
+    def save_import_text(self, text: str, filename: str) -> Path:
+        """Save user-provided text (e.g. a conversation to review) into imports/."""
+        self.create_default_directories()
+        output_path = self.imports_dir / filename
+        output_path.write_text(text, encoding="utf-8")
+        return output_path
+
+    def write_analysis_request(self, text: str) -> Path:
+        """Write the ANALYSIS_REQUEST.md contract into the vault root."""
+        self.base_dir.mkdir(parents=True, exist_ok=True)
+        self.analysis_request_path.write_text(text, encoding="utf-8")
+        return self.analysis_request_path
+
+    def write_self_portrait_request(self, text: str) -> Path:
+        """Write the SELF_PORTRAIT_REQUEST.md contract into the vault root."""
+        self.base_dir.mkdir(parents=True, exist_ok=True)
+        self.self_portrait_request_path.write_text(text, encoding="utf-8")
+        return self.self_portrait_request_path
+
+    def has_self_portrait(self) -> bool:
+        return self.self_portrait_path.exists() or self.self_portrait_json_path.exists()
+
+    def load_self_portrait(self) -> str | None:
+        """The simple, user-facing self-portrait Markdown the agent wrote, if any."""
+        active = self.read_active_report("self_portrait")
+        if active is not None:
+            return active.markdown
+        return self.load_original_self_portrait()
+
+    def read_active_report(self, kind: str):
+        """Resolve a verified selected snapshot; errors never trigger original fallback."""
+        from anti_dating_scam.services.active_reports import ActiveReportService
+
+        return ActiveReportService(self.base_dir).resolve(kind)
+
+    def load_original_self_portrait(self) -> str | None:
+        """Legacy original content, used only after resolving the no-selection default."""
+        if self.self_portrait_path.exists():
+            return self.self_portrait_path.read_text(encoding="utf-8")
+        return None
+
+    def load_self_portrait_json(self) -> dict[str, Any] | None:
+        """The structured self-portrait the agent wrote, if any (drives the HTML)."""
+        active = self.read_active_report("self_portrait")
+        if active is not None:
+            return active.canonical["report"]
+        return self.load_original_self_portrait_json()
+
+    def load_original_self_portrait_json(self) -> dict[str, Any] | None:
+        if self.self_portrait_json_path.exists():
+            try:
+                return json.loads(self.self_portrait_json_path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                return None
+        return None
+
+    def write_self_portrait_html(self, html: str) -> Path:
+        """Save the rendered visual (HTML) self-portrait into reports/."""
+        self.create_default_directories()
+        self.self_portrait_html_path.write_text(html, encoding="utf-8")
+        return self.self_portrait_html_path
+
+    def write_criteria_interview_request(self, text: str) -> Path:
+        """Write the CRITERIA_INTERVIEW_REQUEST.md contract into the vault root."""
+        self.base_dir.mkdir(parents=True, exist_ok=True)
+        self.criteria_interview_request_path.write_text(text, encoding="utf-8")
+        return self.criteria_interview_request_path
+
+    def has_mate_criteria(self) -> bool:
+        return self.mate_criteria_path.exists() or self.mate_criteria_json_path.exists()
+
+    def load_mate_criteria(self) -> str | None:
+        """The user-facing mate-criteria Markdown the agent wrote, if any."""
+        active = self.read_active_report("mate_criteria")
+        if active is not None:
+            return active.markdown
+        return self.load_original_mate_criteria()
+
+    def load_original_mate_criteria(self) -> str | None:
+        if self.mate_criteria_path.exists():
+            return self.mate_criteria_path.read_text(encoding="utf-8")
+        return None
+
+    def find_latest_report(self) -> Path | None:
+        """Most recently modified report file in reports/, or ``None``.
+
+        Prefers the standard ``risk_report.md`` the agent is asked to write, but
+        falls back to any Markdown/JSON the agent left behind.
+        """
+        if not self.reports_dir.is_dir():
+            return None
+        candidates = [path for path in self.reports_dir.glob("*") if path.is_file()]
+        if not candidates:
+            return None
+
+        def sort_key(path: Path) -> tuple[int, float]:
+            preferred = 1 if path.name == "risk_report.md" else 0
+            return (preferred, path.stat().st_mtime)
+
+        return max(candidates, key=sort_key)

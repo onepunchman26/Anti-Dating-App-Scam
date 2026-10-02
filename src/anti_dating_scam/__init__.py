@@ -1,3 +1,5 @@
 """AI-SlowMatch prototype package."""
 
-__version__ = "0.1.0"
+from anti_dating_scam.version import build_info
+
+__version__ = build_info()["version"]

@@ -1,29 +1,44 @@
 # Agent Mode Vs API Mode
 
-AI-SlowMatch currently supports two user-facing analysis modes in the onboarding flow.
+Both modes are now fully wired (2026-07-06) behind one interface:
+`apps/desktop_pyqt/anti_dating_scam_desktop/ai_backend.py`, selected in the GUI's
+**Connect AI** screen and used by every AI feature (self-portrait, live criteria
+interview). The manual copy-paste prompt flow remains as an advanced fallback.
 
-## Agent Mode
+## Agent Mode (Claude Code CLI) — automated
 
-Agent Mode is the recommended prototype mode.
+- The app launches the user's installed Claude Code CLI headlessly
+  (`claude -p <prompt> --permission-mode acceptEdits`) with the **vault as the
+  working directory**.
+- The agent itself reads vault files and writes the reports — the strongest mode,
+  because nothing has to be inlined into a context window.
+- Chat (the live interview) uses `claude -p --output-format json` with `--resume`
+  to keep one conversation session.
+- Requires Claude Code on PATH; availability is detected and reported in the UI.
 
-In Agent Mode:
+## API Mode — automated
 
-- the app does not make automatic provider API calls;
-- the user manually controls what files are shared with Codex or another AI/coding agent;
-- local exported documents can be reviewed, redacted, and selectively provided;
-- the mode is good for development, testing, and iterative profile improvement.
+Two providers, both orchestrated *by the app*: it inlines size-capped vault data,
+sends the same contracts Agent Mode uses, parses delimited output, and saves the
+report files itself.
 
-Agent Mode keeps responsibility visible: the user chooses what to import, export, and share.
+- **Ollama (local, recommended default):** `/api/chat` on `localhost:11434`.
+  Nothing leaves the device. Connection test lists installed models.
+- **Anthropic API (explicit opt-in cloud):** `/v1/messages`. The privacy note in
+  the UI states plainly that size-capped vault text is sent per task. The API key
+  lives in **process memory only** (or `ANTHROPIC_API_KEY`); it is never written
+  to disk — `ai_settings.py` persists only non-secret fields and asserts on it.
 
-## API Mode
+## Manual Mode — fallback
 
-API Mode is a future direct-provider integration path.
+The original flow: the app writes the request contract into the vault and shows a
+copyable prompt. Always available; useful when no backend is reachable.
 
-In API Mode:
+## Shared properties
 
-- the user supplies their own provider API key;
-- provider calls must remain opt-in;
-- the app must not upload data without explicit consent;
-- OpenAI, Anthropic, Gemini, Ollama, and local model adapters can be added later.
-
-In the current MVP, API Mode is selectable but only shows a placeholder warning. No real API call is made unless provider code is explicitly configured in a future task.
+- One interface (`check()` / `chat()` / `run_task()`), injectable transports and
+  CLI runners so tests never touch the network or a real CLI.
+- All AI work runs on background threads (`workers.py`); the GUI stays responsive.
+- Consent, safety boundaries, and the anti-sycophancy interview contract are
+  identical in every mode — the mode changes *where* the model runs, never the
+  rules it follows.

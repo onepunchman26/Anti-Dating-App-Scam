@@ -85,14 +85,20 @@ class ProfileGenerationScreen(QWidget):
         )
         names = [source.name for source in self.state.import_sources]
         sources_text = (
-            ", ".join(names) if names else bi("manual text only or none yet", "目前仅有手动文本或暂无来源")
+            ", ".join(names)
+            if names
+            else bi("manual text only or none yet", "目前仅有手动文本或暂无来源")
+        )
+        privacy_note = bi(
+            "Privacy warning: review and redact sensitive content before sharing.",
+            "隐私提醒：分享前请检查并删除敏感内容。",
         )
         self.summary.setText(
             f"{bi('Vault folder', '档案库文件夹')}: {self.profile_store.base_dir}\n"
             f"{bi('Imported source count', '已导入的数据来源数量')}: {len(names)}\n"
             f"{bi('Sources', '来源')}: {sources_text}\n"
             f"{bi('Analysis mode', '分析模式')}: {mode}\n"
-            f"{bi('Privacy warning: review and redact sensitive content before sharing.', '隐私提醒：分享前请检查并删除敏感内容。')}\n"
+            f"{privacy_note}\n"
             f"{mode_note}"
         )
 

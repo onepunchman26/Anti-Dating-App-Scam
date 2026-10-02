@@ -20,18 +20,23 @@ class ImportDataScreen(QWidget):
         layout.setContentsMargins(48, 48, 48, 48)
         layout.addWidget(
             StepHeader(
-                bi("Import Data to Build Your Local Profile", "导入数据以建立您的本地档案"),
+                bi("Add Your Own Data", "添加你自己的数据"),
                 bi(
-                    "Choose one or more local sources. Nothing is uploaded by this screen.",
-                    "选择一个或多个本地数据来源。本界面不会上传任何内容。",
+                    "Your own chat history and notes. The AI uses these to understand "
+                    "you. Nothing is uploaded by this screen.",
+                    "你自己的聊天记录与笔记。AI 将据此了解你。本界面不会上传任何内容。",
                 ),
             )
         )
-        self.banner = StatusBanner(bi("No sources imported yet.", "尚未导入任何数据来源。"))
+        self.banner = StatusBanner(bi("No sources added yet.", "尚未添加任何数据来源。"))
         layout.addWidget(self.banner)
         self.notes = QTextEdit()
         self.notes.setPlaceholderText(
-            bi("Paste Manual Markdown / Notes here.", "在此粘贴手动 Markdown / 笔记。")
+            bi(
+                "Write or paste notes about yourself — your values, how you communicate, "
+                "what you want in a relationship.",
+                "写下或粘贴关于你自己的笔记——你的价值观、你的沟通方式、你想要怎样的关系。",
+            )
         )
         layout.addWidget(self.notes)
         grid = QGridLayout()
@@ -85,7 +90,9 @@ class ImportDataScreen(QWidget):
         for index, card in enumerate(cards):
             grid.addWidget(card, index // 2, index % 2)
         layout.addLayout(grid)
-        next_button = PrimaryButton(bi("Continue to Generate Profile", "继续生成档案"))
+        next_button = PrimaryButton(
+            bi("Continue to Understand Yourself", "继续了解你自己")
+        )
         next_button.clicked.connect(on_generation)
         back = SecondaryButton(bi("Back", "返回"))
         back.clicked.connect(on_back)
@@ -111,7 +118,10 @@ class ImportDataScreen(QWidget):
 
     def _import_chatgpt_export(self) -> None:
         path, _ = QFileDialog.getOpenFileName(
-            self, bi("Load ChatGPT export", "加载 ChatGPT 导出文件"), "", "ChatGPT export (*.zip *.json)"
+            self,
+            bi("Load ChatGPT export", "加载 ChatGPT 导出文件"),
+            "",
+            "ChatGPT export (*.zip *.json)",
         )
         if not path:
             return

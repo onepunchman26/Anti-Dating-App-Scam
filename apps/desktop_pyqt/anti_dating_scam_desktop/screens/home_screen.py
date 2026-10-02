@@ -1,114 +1,79 @@
-from PySide6.QtWidgets import QGridLayout, QVBoxLayout, QWidget
+from PySide6.QtWidgets import QVBoxLayout, QWidget
 
+from anti_dating_scam_desktop import ai_backend
 from anti_dating_scam_desktop.i18n import bi
-from anti_dating_scam_desktop.widgets.app_card import AppCard
+from anti_dating_scam_desktop.widgets.primary_button import PrimaryButton
+from anti_dating_scam_desktop.widgets.secondary_button import SecondaryButton
 from anti_dating_scam_desktop.widgets.status_banner import StatusBanner
 from anti_dating_scam_desktop.widgets.step_header import StepHeader
 
 
 class HomeScreen(QWidget):
+    """Minimal hub.
+
+    Self-understanding first: the primary step is reflecting on your *own* data.
+    Analyzing a conversation with someone else (scam/risk) is a secondary tool.
+    Rule-based tools live behind "Offline tools".
+    """
+
     def __init__(self, state, on_routes: dict[str, callable]) -> None:
         super().__init__()
         self.state = state
         self.on_routes = on_routes
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(48, 48, 48, 48)
+        layout.setContentsMargins(64, 56, 64, 56)
+        layout.setSpacing(16)
         layout.addWidget(
             StepHeader(
                 bi("AI-SlowMatch", "AI-SlowMatch"),
                 bi(
-                    "Local relationship trust and anti-scam assistant.",
-                    "本地关系信任与反诈骗助手。",
+                    "Talk about how you relate. Start and end whenever you choose.",
+                    "聊聊你在关系中的相处方式，随时开始，随时结束。",
                 ),
             )
         )
-        self.profile_status = StatusBanner()
-        layout.addWidget(self.profile_status)
-        grid = QGridLayout()
-        cards = [
-            (
-                bi("Analyze a Conversation", "分析一段对话"),
-                bi("Create a local Risk Report.", "生成本地风险报告。"),
-                bi("Open", "打开"),
-                "risk",
-            ),
-            (
-                bi("Trust Ladder Coach", "信任阶梯教练"),
-                bi(
-                    "Decide whether to stay, slow down, or step back.",
-                    "决定是继续、放慢节奏，还是退一步。",
-                ),
-                bi("Open", "打开"),
-                "trust",
-            ),
-            (
-                bi("View / Edit Local Profile", "查看 / 编辑本地档案"),
-                bi(
-                    "Review your MPMD Profile and JSON companion.",
-                    "查看您的 MPMD 档案及对应的 JSON 文件。",
-                ),
-                bi("Open", "打开"),
-                "profile",
-            ),
-            (
-                bi("Export or Verify Report", "导出或验证报告"),
-                bi(
-                    "Export, sign, or verify local report files.",
-                    "导出、签名或验证本地报告文件。",
-                ),
-                bi("Open", "打开"),
-                "report",
-            ),
-            (
-                bi("Import More Data", "导入更多数据"),
-                bi("Add notes, exports, or AI chat files.", "添加笔记、导出文件或 AI 聊天记录。"),
-                bi("Open", "打开"),
-                "import",
-            ),
-            (
-                bi("Settings", "设置"),
-                bi(
-                    "Provider settings and API-mode placeholders.",
-                    "提供方设置与 API 模式占位功能。",
-                ),
-                bi("Open", "打开"),
-                "settings",
-            ),
-            (
-                bi("Assisted Browser Export", "辅助浏览器导出"),
-                bi(
-                    "User-assisted local export of your own AI chats.",
-                    "用户辅助的本地导出，导出您自己的 AI 聊天记录。",
-                ),
-                bi("Open", "打开"),
-                "browser",
-            ),
-        ]
-        for index, (title, description, button, route) in enumerate(cards):
-            grid.addWidget(
-                AppCard(title, description, button, self.on_routes[route]),
-                index // 2,
-                index % 2,
-            )
-        layout.addLayout(grid)
+
+        self.vault_status = StatusBanner()
+        layout.addWidget(self.vault_status)
+
+        self.connect_button = SecondaryButton(bi("Connect ChatGPT", "连接 ChatGPT"))
+        self.connect_button.clicked.connect(on_routes["connect_ai"])
+        layout.addWidget(self.connect_button)
+
+        self.chat_button = PrimaryButton(bi("AI Chat", "AI 聊天"))
+        self.chat_button.clicked.connect(on_routes["reflection_chat"])
+        layout.addWidget(self.chat_button)
+
+        portrait = SecondaryButton(bi("My reflections", "我的相处画像"))
+        portrait.clicked.connect(on_routes["reflection_chat"])
+        layout.addWidget(portrait)
+
+        exchange = SecondaryButton(bi("Share or compare reflections", "分享或比对相处画像"))
+        exchange.setObjectName("home_relationship_exchange")
+        exchange.clicked.connect(on_routes.get("exchange", on_routes["advanced"]))
+        layout.addWidget(exchange)
+
+        tools = SecondaryButton(bi("More tools", "更多工具"))
+        tools.clicked.connect(on_routes["advanced"])
+        layout.addWidget(tools)
+
+        layout.addStretch()
 
     def on_enter(self) -> None:
-        profile_path = self.state.profile_path or bi(
-            "No Markdown Profile saved yet", "尚未保存任何 Markdown 档案"
+        vault = self.state.vault_path or bi("not selected", "未选择")
+        backend_name = ai_backend.active_name()
+        ai_line = (
+            f"AI: {backend_name} ✓"
+            if backend_name
+            else bi("Connect ChatGPT to start chatting.", "连接 ChatGPT 后即可开始聊天。")
         )
-        updated = bi("Unknown", "未知")
-        if self.state.profile_path and self.state.profile_path.exists():
-            updated = self.state.profile_path.stat().st_mtime_ns
-        profile_loaded = (
-            bi("yes", "是")
-            if self.state.profile_exists or self.state.current_profile_markdown
-            else bi("not yet", "尚未")
-        )
-        mode = self.state.analysis_mode or bi("not selected", "未选择")
-        self.profile_status.set_text(
-            f"{bi('Profile loaded', '档案已加载')}: "
-            f"{profile_loaded}\n"
-            f"{bi('Path', '路径')}: {profile_path}\n"
-            f"{bi('Last updated marker', '最后更新标记')}: {updated}\n"
-            f"{bi('Analysis mode', '分析模式')}: {mode}"
+        if backend_name:
+            self.connect_button.setText(
+                f"{bi('AI connection', 'AI 连接')}: {backend_name}"
+            )
+        else:
+            self.connect_button.setText(bi("Connect ChatGPT", "连接 ChatGPT"))
+        self.vault_status.set_text(
+            f"{ai_line}\n"
+            f"{bi('Local folder', '本地文件夹')}: {vault}"
         )
