@@ -2,14 +2,26 @@
 
 ## English
 
-October 2, 2026. Execute the approved S0–S4 correction on `codex/standards-correction`.
+October 2, 2026. Autonomous work on the approved correction is complete; physical
+voice and subjective owner acceptance remain open. Source is synchronized to
+`codex/standards-correction` on GitHub. Hourly automation remains paused.
 Use the fixed root `AI-SlowMatch.exe`. The current local release receipt is
 `releases/current.json`; archived manifests, source hashes, dependency versions and
 package audit live under its build ID. About shows the embedded version and identity.
 
-The first 0.2.0 build passed 2,131 tests (10 skips), compilation, lint, embedded-module,
-native dependency and isolated startup checks. That establishes the release pipeline;
-the later AI/memory changes require their own final build. Final verification is in progress.
+The final 0.2.1 build passed 2,154 tests (10 skips, one upstream deprecation warning),
+compilation, lint, embedded-module/native dependency checks and isolated startup.
+Build `40deb7267e84476fab4a2879decf421b` uses source commit `409098d9cc4d`;
+subsequent commits only record acceptance. Its SHA-256 is
+`1b4b0aed5454d322c142a5e1bf61208c9100cfff8ed29f86fa9d2a06c2587429`.
+The earlier verified 0.2.0 is retained for rollback. Root still has one user EXE.
+The development/dirty flag honestly includes the pre-existing untracked `.vscode/`
+and `paper/` directories; neither was uploaded or included in the source snapshot.
+
+Native Computer Use confirmed Start/End and Back in an isolated synthetic chat,
+the first-use voice model prompt, and the packaged program's startup/About identity.
+The test environment enumerated zero microphone inputs. Automated voice tests and
+the visible dialog therefore do not establish physical capture or spoken-Chinese accuracy.
 
 Actual ChatGPT-plan tests now use only fictional examples, following the owner's
 extra-credit confirmation. A complete seven-request run used GPT-5.6-Luna, with matching
@@ -35,12 +47,21 @@ Continue from [Progress](PROGRESS_TRACKER.md); pending human actions are in
 
 ## 中文版
 
-2026 年 10 月 2 日。在 `codex/standards-correction` 分支执行已批准的 S0–S4 整改。
+2026 年 10 月 2 日。已批准整改中的自主工作完成，实体语音及所有者主观验收仍待完成。
+源码已同步到 GitHub 的 `codex/standards-correction` 分支，小时自动任务保持暂停。
 使用根目录固定的 `AI-SlowMatch.exe`。当前本地发布记录为 `releases/current.json`；
 对应构建编号目录内保留清单、源码哈希、依赖版本及程序包核验结果。“关于”显示内嵌版本与编号。
 
-首个 0.2.0 构建通过 2,131 项测试（10 项跳过）、编译、静态检查、嵌入模块、原生依赖及
-隔离启动检查。这证明发布流程有效，后续 AI／记忆改动仍需最终新构建，目前正在验证。
+最终 0.2.1 构建通过 2,154 项测试（10 项跳过、1 项上游弃用警告）、编译、静态检查、
+嵌入模块／原生依赖及隔离启动检查。构建编号 `40deb7267e84476fab4a2879decf421b`，
+源码提交 `409098d9cc4d`；后续提交仅记录验收。SHA-256 为
+`1b4b0aed5454d322c142a5e1bf61208c9100cfff8ed29f86fa9d2a06c2587429`。
+此前验证的 0.2.0 保留供回滚，根目录仍只有一个用户 EXE。开发／脏工作区标记如实包含
+原有未跟踪的 `.vscode/` 及 `paper/` 目录，二者均未上传，也未进入源码快照。
+
+通过原生 Computer Use 检查了隔离合成聊天的开始／结束／返回、首次语音模型提示，
+以及打包程序启动和“关于”中的身份。测试环境检测到零个麦克风输入，因此自动语音测试及
+可见弹窗不能证明实体录音或中文口述准确性。
 
 所有者确认额外积分关闭后，真实 ChatGPT 套餐测试只使用虚构案例。一次完整七请求流程
 使用 GPT-5.6-Luna，请求及返回模型标识一致，涵盖双方聊天／画像、加密导出／导入及比较。
