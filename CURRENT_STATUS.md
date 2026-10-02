@@ -2,8 +2,8 @@
 
 ## English
 
-October 2, 2026. S6 local implementation is complete; **0.4.0 release verification is
-in progress**. Until promotion succeeds, the root EXE remains the previous 0.3.0 build.
+October 2, 2026. **S6 local delivery is complete: open the single root AI-SlowMatch.exe,
+version 0.4.0.** External-service deployment and physical-device acceptance remain open.
 Hourly automation `ai-slowmatch` stays PAUSED; only an owner instruction starts work.
 
 Home → **Introductions & invitations** connects selected approved memory to editable
@@ -16,8 +16,14 @@ voice and optional minimal encrypted-file exchange remain. Runtime Skill is vers
 Forty-one new focused cases pass, including real local HTTP, DPAPI persistence, worker
 startup, English/Chinese Qt journeys, evidence/permission failures and concurrency.
 Native Computer Use verified the source desktop Home entry, tabs and Back without
-submitting age declarations or consent. The source backup exclusion test now covers
-new private directories. Full frozen-source suite and EXE checks are still pending.
+submitting age declarations or consent. The source backup exclusion test covers new private directories. The frozen-source
+release passed **2,228 tests, 10 skips**, one upstream warning, compilation, lint, package
+resource/code/native checks and isolated EXE startup including actual node authorization.
+Native Computer Use also verified packaged startup and About (0.4.0/source 672af5b31331).
+Build: `128f74a6841c4712a2d491034cdaf9db`; SHA-256: `2be136607a7ce54bc176f8f7448611d6cdc00688a00ab3317b8de9eb16d3d170`.
+Full receipts are in `releases/current.json` and its build archive. The honest dirty flag
+reflects the preserved unrelated untracked folders. Retention deferred safely; verified
+older releases remain for rollback. Source backups are outside the repo and restore-verified.
 
 Five real ChatGPT-plan calls used synthetic data, extra credits disabled and no retries.
 The first two introductions were structurally valid but empty: a functional failure,
@@ -49,8 +55,8 @@ Original unrelated `.vscode/` and `paper/` work is preserved and excluded from d
 
 ## 中文版
 
-2026 年 10 月 2 日。S6 本机实现已完成，**0.4.0 发布验证进行中**。替换成功前，根目录
-EXE 仍为原 0.3.0 构建。`ai-slowmatch` 小时自动任务保持暂停，只按所有者指令开始工作。
+2026 年 10 月 2 日。**S6 本机交付完成：打开根目录唯一的 AI-SlowMatch.exe，版本 0.4.0。**
+外部服务部署和实体设备验收仍待完成。`ai-slowmatch` 小时自动任务保持暂停，只按所有者指令开始工作。
 
 主页 → **介绍与邀请**连接选定已批准记忆、可编辑成年人介绍、独立公开批准、有限版本化
 匹配资料、双向城市发现、私密偏好排序、到期邀请、双方版本／云端批准、AI 比较及撤回。
@@ -59,8 +65,12 @@ EXE 仍为原 0.3.0 构建。`ai-slowmatch` 小时自动任务保持暂停，只
 
 新增 41 项定向案例通过，包括真实本机 HTTP、DPAPI 持久化、工作进程启动、中英文 Qt
 流程、引用／权限失败和并发。Computer Use 验证源码桌面的主页入口、标签和返回，没有
-代为提交成年声明或同意。源码备份排除测试也覆盖新增私人目录；冻结源码全套和 EXE
-检查尚待完成。
+代为提交成年声明或同意。源码备份排除测试覆盖新增私人目录。冻结源码发布通过 **2,228 项测试，10 项跳过**，
+一项上游警告，编译、静态、打包代码／资源／原生依赖及隔离 EXE 启动检查均通过，
+包含实际节点鉴权检查。Computer Use 另验证打包版启动与关于页（0.4.0／源码 672af5b31331）。
+构建：`128f74a6841c4712a2d491034cdaf9db`；SHA-256：`2be136607a7ce54bc176f8f7448611d6cdc00688a00ab3317b8de9eb16d3d170`。
+完整凭据在 `releases/current.json` 及对应构建归档。未提交标记如实反映保留的无关未跟踪
+目录；清理安全延后，已验证旧版本保留供回滚。源码备份位于仓库外，恢复已验证。
 
 关闭额外积分后，以合成资料真实调用 ChatGPT 套餐五次，无自动重试。最初两次介绍结构
 有效但为空白，属于功能失败，不能算成功样本。传入应用已检查的成年自述声明后，中英文

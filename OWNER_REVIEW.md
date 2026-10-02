@@ -3,7 +3,7 @@
 ## English
 
 Open the single root **AI-SlowMatch.exe**. [Current release status](CURRENT_STATUS.md)
-is authoritative; the target is 0.4.0. Hourly task execution stays paused. This work
+is authoritative; About should show 0.4.0. Hourly task execution stays paused. This work
 uses the architecture and synthetic included-plan tests already authorized.
 
 1. **Introduction:** AI Chat → My approved notes: enable and approve a few fictional
@@ -48,7 +48,7 @@ three final useful samples do not validate personality science or guaranteed suc
 ## 中文版
 
 打开根目录唯一的 **AI-SlowMatch.exe**；以[当前发布状态](CURRENT_STATUS.md)为准，目标
-版本为 0.4.0。小时任务继续暂停，本轮使用已经授权的架构及合成资料套餐测试。
+版本为已交付的 0.4.0。小时任务继续暂停，本轮使用已经授权的架构及合成资料套餐测试。
 
 1. **介绍：**在 AI 聊天 → 我批准的记忆中启用并批准几条虚构兴趣／偏好。主页 → 介绍与
    邀请 → 我的介绍：声明年满 18 岁，选择条目并生成。核对事实、缺项、措辞和修改，再批准、
