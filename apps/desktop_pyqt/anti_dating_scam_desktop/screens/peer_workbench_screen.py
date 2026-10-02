@@ -26,7 +26,6 @@ from PySide6.QtWidgets import (
     QListWidgetItem,
     QPlainTextEdit,
     QPushButton,
-    QScrollArea,
     QSpinBox,
     QTableWidget,
     QTableWidgetItem,
@@ -47,6 +46,7 @@ from anti_dating_scam.services.peer_ai import (
 from anti_dating_scam.services.reviewed_ai import isinstance_local
 from anti_dating_scam_desktop import ai_backend
 from anti_dating_scam_desktop.i18n import bi, current_language
+from anti_dating_scam_desktop.navigation import _ScreenViewport
 from anti_dating_scam_desktop.peer_labels import error_text, label
 from anti_dating_scam_desktop.peer_runtime import (
     LocalPeerNode,
@@ -177,9 +177,7 @@ class PeerWorkbenchScreen(QWidget):
     def _tab(self, en, zh):
         page = QWidget()
         layout = QVBoxLayout(page)
-        scroll = QScrollArea()
-        scroll.setWidgetResizable(True)
-        scroll.setWidget(page)
+        scroll = _ScreenViewport(page)
         self.tabs.addTab(scroll, bi(en, zh))
         return layout
 
@@ -767,6 +765,9 @@ class PeerWorkbenchScreen(QWidget):
                     "持有公开链接的任何人均可阅读此文字。公开链接不授权私密比较，与邀请链接不同。\n\n",
                 )
                 + self.origin.text()
+                + "\n"
+                + bi("Public pseudonym: ", "公开化名：")
+                + member["alias"]
                 + "\n\n"
                 + text,
             )
@@ -774,7 +775,8 @@ class PeerWorkbenchScreen(QWidget):
                 return
             # Check selected private sources again after the publication review.
             try:
-                self._approved_text()
+                if self._approved_text() != text:
+                    raise ValueError("source_changed")
             except Exception as exc:
                 self._error(exc)
                 return
@@ -782,6 +784,7 @@ class PeerWorkbenchScreen(QWidget):
                 "/peer/public",
                 {
                     "expected_version": member["public_version"],
+                    "alias": member["alias"],
                     "text": text,
                     "publish": True,
                     "approved": True,

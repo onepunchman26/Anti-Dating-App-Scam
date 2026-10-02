@@ -51,9 +51,30 @@ def _desktop_run(*, smoke_test: bool = False) -> int:
             QTimer.singleShot(750, self.quit)
 
     app.QApplication = SmokeApplication
+    node = None
     try:
+        if os.name == "nt":
+            from anti_dating_scam_desktop.peer_runtime import LocalPeerNode
+
+            from anti_dating_scam.matchmaking.peer_client import PeerClient, PeerClientError
+
+            # Exercise bundled HTTP, SQLite, crypto and worker dependencies with
+            # an empty disposable node. Never open a real vault or call an AI.
+            node = LocalPeerNode(port=0)
+            node.start()
+            try:
+                PeerClient(node.origin, "x" * 43).call("/peer/me")
+            except PeerClientError as exc:
+                if str(exc) != "unauthorized":
+                    raise
+            else:
+                raise RuntimeError("Packaged node failed its authorization check.")
         return app.run()
     finally:
+        if node:
+            node.stop()
+            if node.thread:
+                node.thread.join(5)
         app.QApplication = original_application
 
 
@@ -61,7 +82,8 @@ def desktop_main(argv: list[str] | None = None) -> int:
     _configure_console()
     parser = argparse.ArgumentParser(description="AI-SlowMatch desktop / 桌面应用")
     parser.add_argument(
-        "--smoke-test", action="store_true",
+        "--smoke-test",
+        action="store_true",
         help="start with temporary data and exit automatically / 临时数据启动检查后自动退出",
     )
     parser.add_argument("--invitation", help="Open an invitation for review / 打开邀请供审阅")
@@ -76,9 +98,12 @@ def desktop_main(argv: list[str] | None = None) -> int:
     # Set isolation before importing any module that resolves the user's vault.
     with tempfile.TemporaryDirectory(prefix="slowmatch-desktop-smoke-") as home:
         environment = {
-            "HOME": home, "USERPROFILE": home,
-            "APPDATA": home, "LOCALAPPDATA": home,
-            "ADS_NO_AUTOCONNECT": "1", "QT_QPA_PLATFORM": "offscreen",
+            "HOME": home,
+            "USERPROFILE": home,
+            "APPDATA": home,
+            "LOCALAPPDATA": home,
+            "ADS_NO_AUTOCONNECT": "1",
+            "QT_QPA_PLATFORM": "offscreen",
         }
         previous = {key: os.environ.get(key) for key in environment}
         os.environ.update(environment)
@@ -115,15 +140,21 @@ def web_main(argv: list[str] | None = None) -> int:
     from anti_dating_scam.api.rendezvous_app import create_client_app
 
     url = f"http://127.0.0.1:{args.port}/"
-    server = uvicorn.Server(uvicorn.Config(
-        create_client_app(), host="127.0.0.1", port=args.port, access_log=False,
-    ))
+    server = uvicorn.Server(
+        uvicorn.Config(
+            create_client_app(),
+            host="127.0.0.1",
+            port=args.port,
+            access_log=False,
+        )
+    )
     print(f"AI-SlowMatch: {url}")
     print("Local app; remote AI and matching require your explicit choices.")
     print("本地应用；远程 AI 与匹配服务需要你明确选择。")
     print("Keep this window open. Ctrl+C to quit. / 请保留此窗口，按 Ctrl+C 退出。")
 
     if not args.no_browser:
+
         def open_when_ready():
             for _ in range(100):
                 if server.started:

@@ -140,6 +140,7 @@ def test_start_send_end_and_separate_save_are_explicit_and_leave_existing_report
                 "AI Chat",
                 "My reflections",
                 "Share or compare reflections",
+                "Introductions & invitations",
                 "More tools",
             ]
             if language == "en"
@@ -148,6 +149,7 @@ def test_start_send_end_and_separate_save_are_explicit_and_leave_existing_report
                 "AI 聊天",
                 "我的相处画像",
                 "分享或比对相处画像",
+                "介绍与邀请",
                 "更多工具",
             ]
         )

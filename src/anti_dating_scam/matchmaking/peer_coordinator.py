@@ -201,14 +201,14 @@ class PeerCoordinator:
 
     def public_update(self, token, request: PublicUpdate):
         request = PublicUpdate.model_validate(request.model_dump())
-        if request.publish and not request.text.strip():
+        if request.publish and (not request.text.strip() or not request.alias.strip()):
             raise PeerError("empty")
         with self.transaction() as state:
             user = self._actor(state, token)
             if user["public_version"] != request.expected_version:
                 raise PeerError("stale")
             user["public"], user["public_enabled"] = request.text, request.publish
-            user["public_alias"] = user["alias"] if request.publish else ""
+            user["public_alias"] = request.alias if request.publish else ""
             user["public_version"] += 1
             return {"public_version": user["public_version"], "member_id": user["id"]}
 

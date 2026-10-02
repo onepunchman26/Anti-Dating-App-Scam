@@ -112,6 +112,7 @@ class InviteAction(Contract):
 
 class PublicUpdate(Contract):
     expected_version: int = Field(ge=0)
+    alias: str = Field(default="", max_length=40)
     text: str = Field(default="", max_length=1500)
     publish: bool = False
     approved: Literal[True]

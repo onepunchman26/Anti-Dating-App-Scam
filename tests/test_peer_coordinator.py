@@ -114,11 +114,30 @@ def test_public_alias_does_not_silently_follow_matching_changes(node):
     a = member(node, "Approved public alias")
     node.public_update(
         a["token"],
-        PublicUpdate(expected_version=0, text="Approved text", publish=True, approved=True),
+        PublicUpdate(
+            expected_version=0,
+            alias="Approved public alias",
+            text="Approved text",
+            publish=True,
+            approved=True,
+        ),
     )
     node.update_profile(
         a["token"],
         ProfileUpdate(expected_version=1, profile=profile("Private new alias"), approved=True),
+    )
+    assert node.public_read(a["member_id"])["alias"] == "Approved public alias"
+    # A later public save uses the reviewed alias even if another session already
+    # changed the matching alias before that save reaches the node.
+    node.public_update(
+        a["token"],
+        PublicUpdate(
+            expected_version=1,
+            alias="Approved public alias",
+            text="Reviewed second text",
+            publish=True,
+            approved=True,
+        ),
     )
     assert node.public_read(a["member_id"])["alias"] == "Approved public alias"
 
@@ -322,7 +341,11 @@ def test_publication_is_separate_and_delete_revokes_everything(node):
     node.public_update(
         a["token"],
         PublicUpdate(
-            expected_version=0, text="Approved synthetic intro", publish=True, approved=True
+            expected_version=0,
+            alias="Synthetic A",
+            text="Approved synthetic intro",
+            publish=True,
+            approved=True,
         ),
     )
     assert node.public_read(a["member_id"])["text"] == "Approved synthetic intro"
