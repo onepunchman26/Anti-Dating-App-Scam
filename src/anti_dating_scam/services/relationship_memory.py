@@ -2,14 +2,21 @@
 
 from __future__ import annotations
 
+import hashlib
 import os
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Literal
 from uuid import uuid4
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from anti_dating_scam.services.personal_model import (
+    INFERRED_KINDS,
+    EvaluatedMemory,
+    Evidence,
+    MemoryKind,
+)
 from anti_dating_scam.services.report_review import ReportReviewService, _decode, _encode
 
 
@@ -17,19 +24,47 @@ class MemoryEntry(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
     id: str = Field(pattern=r"^[a-f0-9]{32}$")
     text: str = Field(min_length=1, max_length=250, pattern=r"\S")
-    kind: Literal["preference", "self_report", "interpretation"]
+    kind: MemoryKind
     source: str = Field(pattern=r"^(manual|session:[a-f0-9]{32})$")
     approved_at: datetime
     supersedes: str | None = Field(default=None, pattern=r"^[a-f0-9]{32}$")
-    confidence: Literal["unverified"] = "unverified"
+    confidence: Literal["unverified", "tentative"] = "unverified"
+    origin: Literal["user_report", "ai_inference"] = "user_report"
+    context: str = Field(default="", max_length=250)
+    basis: str = Field(default="", max_length=350)
+    uncertainty: str = Field(default="", max_length=250)
+    alternatives: list[str] = Field(default_factory=list, max_length=3)
+    evidence: list[Evidence] = Field(default_factory=list, max_length=3)
+    depends_on: list[str] = Field(default_factory=list, max_length=4)
+    review_status: Literal["confirmed", "questioned", "rejected", "corrected"] = "confirmed"
+    sensitive: bool = False
+    reviewed_at: datetime | None = None
+
+    @model_validator(mode="before")
+    @classmethod
+    def migrate_origin(cls, data):
+        if isinstance(data, dict) and "origin" not in data:
+            data = dict(data)
+            data["origin"] = "ai_inference" if data.get("kind") in INFERRED_KINDS else "user_report"
+        return data
+
+
+class MemoryChange(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+    revision: int
+    action: str
+    entry_ids: list[str]
+    at: datetime
 
 
 class MemoryState(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
-    schema_version: Literal["1"] = "1"
+    schema_version: Literal["1", "2"] = "2"
     revision: int = Field(default=0, ge=0)
     enabled: bool = False
     entries: list[MemoryEntry] = Field(default_factory=list, max_length=20)
+    changes: list[MemoryChange] = Field(default_factory=list, max_length=100)
+    applied: list[str] = Field(default_factory=list, max_length=200)
 
 
 class RelationshipMemory:
@@ -43,6 +78,10 @@ class RelationshipMemory:
     def store(self):
         return ReportReviewService(self.vault)
 
+    @property
+    def scope(self) -> str:
+        return hashlib.sha256(os.path.normcase(str(self.vault.resolve())).encode()).hexdigest()
+
     def read(self) -> MemoryState:
         try:
             self.vault.lstat()
@@ -54,9 +93,122 @@ class RelationshipMemory:
             return MemoryState()
         path = self.directory / "state.json"
         try:
-            return MemoryState.model_validate(_decode(self.store._read(path, 100_000)))
+            return MemoryState.model_validate(_decode(self.store._read(path, 300_000)))
         except FileNotFoundError:
             return MemoryState()
+
+    @staticmethod
+    def _remove_dependents(entries, removed):
+        removed = set(removed)
+        while True:
+            more = {e.id for e in entries if set(e.depends_on) & removed}
+            if more <= removed:
+                return [e for e in entries if e.id not in removed]
+            removed |= more
+
+    def _commit(self, state, entries, *, enabled, action, ids, operation_id=None):
+        updated = MemoryState(
+            revision=state.revision + 1,
+            enabled=enabled,
+            entries=entries,
+            changes=(
+                state.changes
+                + [
+                    MemoryChange(
+                        revision=state.revision + 1,
+                        action=action,
+                        entry_ids=ids,
+                        at=datetime.now(UTC),
+                    )
+                ]
+            )[-100:],
+            applied=(state.applied + ([operation_id] if operation_id else []))[-200:],
+        )
+        path = self.directory / "state.json"
+        if path.exists() or path.is_symlink():
+            self.store._check(path, directory=False)
+        temporary = self.directory / (uuid4().hex + ".tmp")
+        try:
+            self.store._write_new(temporary, _encode(updated.model_dump(mode="json")))
+            os.replace(temporary, path)
+        finally:
+            temporary.unlink(missing_ok=True)
+        return updated
+
+    def approve(self, evaluated: EvaluatedMemory, index: int, *, confirmed: bool, reject=False):
+        """One explicit approval is atomic; stale batches must be re-evaluated."""
+        evaluated = EvaluatedMemory.model_validate(evaluated.model_dump())
+        if confirmed is not True or evaluated.scope != self.scope:
+            raise ValueError("Approval or selected user scope does not match.")
+        if not 0 <= index < len(evaluated.evaluation.candidates):
+            raise ValueError("Select a candidate.")
+        candidate = evaluated.evaluation.candidates[index]
+        operation = evaluated.operation_id(candidate)
+        self.store._check(self.directory, directory=True)
+        with self.store._writer(self.directory):
+            state = self.read()
+            if operation in state.applied:
+                return state  # A retry must not resurrect a subsequently deleted record.
+            if state.revision != evaluated.revision or not state.enabled:
+                raise ValueError("Memory changed or is disabled; evaluate again.")
+            if reject:
+                return self._commit(
+                    state,
+                    state.entries,
+                    enabled=True,
+                    action="reject_candidate",
+                    ids=[],
+                    operation_id=operation,
+                )
+            if candidate.action == "add" and any(
+                old.text.casefold().strip() == candidate.text.casefold().strip()
+                for old in state.entries
+            ):
+                return self._commit(
+                    state,
+                    state.entries,
+                    enabled=True,
+                    action="unchanged",
+                    ids=[],
+                    operation_id=operation,
+                )
+            known = {e.id for e in state.entries if e.review_status != "rejected"}
+            if (candidate.target_id and candidate.target_id not in known) or any(
+                dep not in known for dep in candidate.depends_on
+            ):
+                raise ValueError("The referenced memory no longer exists.")
+            entry = MemoryEntry(
+                id=uuid4().hex,
+                text=candidate.text,
+                kind=candidate.kind,
+                source="session:" + evaluated.session_id,
+                approved_at=datetime.now(UTC),
+                supersedes=candidate.target_id,
+                origin=("ai_inference" if candidate.kind in INFERRED_KINDS else "user_report"),
+                confidence="tentative" if candidate.kind in INFERRED_KINDS else "unverified",
+                context=candidate.context,
+                basis=candidate.basis,
+                uncertainty=candidate.uncertainty,
+                alternatives=candidate.alternatives,
+                evidence=candidate.evidence,
+                depends_on=candidate.depends_on,
+                sensitive=candidate.sensitive,
+                review_status="corrected" if candidate.target_id else "confirmed",
+            )
+            entries = self._remove_dependents(
+                state.entries,
+                [candidate.target_id] if candidate.target_id else [],
+            )
+            if not set(entry.depends_on) <= {e.id for e in entries}:
+                raise ValueError("Correction invalidated a required dependency.")
+            return self._commit(
+                state,
+                entries + [entry],
+                enabled=True,
+                action=candidate.action,
+                ids=[entry.id] + ([candidate.target_id] if candidate.target_id else []),
+                operation_id=operation,
+            )
 
     def change(
         self,
@@ -95,12 +247,27 @@ class RelationshipMemory:
                     source=source,
                     approved_at=datetime.now(UTC),
                     supersedes=entry_id if action == "correct" else None,
+                    origin="ai_inference" if kind in INFERRED_KINDS else "user_report",
+                    confidence="tentative" if kind in INFERRED_KINDS else "unverified",
+                    review_status="corrected" if action == "correct" else "confirmed",
                 )
-                entries = [item for item in entries if item.id != entry_id] + [entry]
+                entries = self._remove_dependents(entries, [entry_id] if entry_id else []) + [entry]
             elif action == "delete":
                 if entry_id not in {item.id for item in entries}:
                     raise ValueError("Select an existing memory.")
-                entries = [item for item in entries if item.id != entry_id]
+                entries = self._remove_dependents(entries, [entry_id])
+            elif action in {"reject", "question"}:
+                if entry_id not in {item.id for item in entries}:
+                    raise ValueError("Select an existing memory.")
+                selected = next(e for e in entries if e.id == entry_id)
+                entries = self._remove_dependents(entries, [entry_id]) + [
+                    selected.model_copy(
+                        update={
+                            "review_status": "rejected" if action == "reject" else "questioned",
+                            "reviewed_at": datetime.now(UTC),
+                        }
+                    )
+                ]
             elif action == "enable":
                 enabled = True
             elif action in {"pause", "revoke"}:
@@ -109,17 +276,13 @@ class RelationshipMemory:
                 entries, enabled = [], False
             else:
                 raise ValueError("Unknown memory action.")
-            updated = MemoryState(revision=revision + 1, enabled=enabled, entries=entries)
-            path = self.directory / "state.json"
-            if path.exists() or path.is_symlink():
-                self.store._check(path, directory=False)
-            temporary = self.directory / (uuid4().hex + ".tmp")
-            try:
-                self.store._write_new(temporary, _encode(updated.model_dump(mode="json")))
-                os.replace(temporary, path)
-            finally:
-                temporary.unlink(missing_ok=True)
-            return updated
+            return self._commit(
+                state,
+                entries,
+                enabled=enabled,
+                action=action,
+                ids=[entry_id] if entry_id else [],
+            )
 
     def export(self, destination: Path, *, confirmed: bool) -> None:
         if confirmed is not True:

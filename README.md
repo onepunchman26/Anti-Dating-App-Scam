@@ -18,12 +18,21 @@ archives under `releases/` are for recovery. See About for the version and build
 3. **Voice input** uses the selected microphone and a local English/Chinese speech
    model. Review the recognized draft and press Send yourself. Speech-model download
    is explicit and free; missing devices or models are shown instead of simulated speech.
+   **Read latest reply** uses an installed local system voice; **Stop playback**, Send,
+   Voice input, End and leaving the screen interrupt it. A Chinese system voice must
+   be installed to read Chinese. Playback never switches to a paid cloud service.
 4. After End, choose **Create my reflection**, review the original quotations and
    both languages, then separately choose Save. This is a low-confidence interpretation,
    not a diagnosis or verified personality model.
-5. **My approved notes** starts empty. Add or correct up to 20 short notes explicitly;
-   enable reuse only if wanted. You can pause/revoke, export or delete them. Notes
-   appear in the sending review and are never portrait evidence.
+5. **My approved notes** starts empty and disabled. Enable it only if you want an
+   evolving personal model. Chat can then suggest up to three changes: **Review proposed
+   updates** shows the text, original quotes, context, alternatives and uncertainty.
+   Nothing is saved until you approve that individual item. “No update” is valid.
+   Distinguish your reports from AI hypotheses; correct, question, reject, export or
+   delete stored items. Deletion/correction also removes dependent interpretations.
+   Up to 20 short entries are retained; only relevant notes appear in the sending
+   review. **Session only** ignores the saved model and disables new proposals.
+   Approved memory provides background, never fresh evidence for a separate portrait.
 6. **Share or compare reflections** previews a minimal summary and saves a password-
    encrypted `.slowmatch` attachment. Send it yourself, with the password separately.
    Import both participants' voluntarily shared files, obtain both permissions, and
@@ -56,10 +65,16 @@ launches source; `./release.ps1 build` backs up, tests, builds and updates the f
    将要联网处理的内容。**结束**会立即停止接纳待处理回复。
 3. **语音输入**使用所选麦克风及本地中／英文语音模型。核对识别草稿后，自行点击发送。
    下载语音模型需要主动选择且免费；缺少设备或模型时会明确提示，不用模拟语音冒充成功。
+   **朗读最新回复**使用已安装的本机系统声音；**停止朗读**、发送、语音输入、结束或离开页面
+   都会打断播放。中文朗读需要已安装中文系统声音，不会转用付费云端语音。
 4. 结束后选择**生成我的相处画像**，核对原文引用和中英表达，再单独选择保存。
    画像是低置信度解读，不是诊断或已验证的人格模型。
-5. **我批准的记忆**初始为空。最多逐项新增或纠正 20 条简短记忆，按需启用复用，
-   可暂停／撤销、导出或删除。发送前会展示这些条目，记忆不能作为新画像的证据。
+5. **我批准的记忆**初始为空并关闭。如果希望逐渐建立个人模型，可以主动启用。聊天随后
+   可提出最多三条更新，点击**审核建议更新**查看文字、原话、情境、其他解释及不确定性；
+   每条都需要明确批准才保存，“无需更新”也是有效结果。区分自己的陈述和 AI 假设，可纠正、
+   质疑、拒绝、导出或删除；纠正／删除也会移除依赖它的解释。最多保留 20 条简短条目，
+   仅相关记忆出现在发送审核中。**仅本次会话**忽略已存模型并关闭新候选。
+   已批准记忆只作背景，不能作为另行生成画像的新证据。
 6. **分享或比对相处画像**会先预览最小摘要，再生成密码加密的 `.slowmatch` 附件。
    邮件由你自行发送，密码另行告知。导入双方自愿提供的文件、取得双方许可并审阅待发摘要后，
    可请 AI 讨论相处契合度，不生成人格或匹配分数。

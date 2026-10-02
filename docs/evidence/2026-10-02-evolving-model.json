@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-02",
+  "version": "0.3.0",
+  "skill_version": "2",
+  "synthetic_only": true,
+  "mode": "official ChatGPT plan; owner confirmed extra credits disabled",
+  "requested_model": "gpt-5.6-luna",
+  "known_reported_model": "gpt-5.6-luna",
+  "accepted_service_calls": 14,
+  "additional_direct_response_diagnostic_calls": 1,
+  "failed_service_attempts": 1,
+  "automatic_retries": false,
+  "model_fallback": false,
+  "cases": {
+    "first_motivation_and_valid_singlehood": "accepted; semantic sample reviewed",
+    "uncertain_ideal_and_space": "accepted; tentative explanation, focused follow-up",
+    "self_description_vs_one_action": "targeted final accepted; no personality verdict, no update",
+    "returning_context": "explicitly approved synthetic preference recalled in a new conversation",
+    "childhood": "accepted; no automatic causality or demand for details",
+    "context_correction": "accepted; scoped replacement proposed without automatic saving",
+    "no_justified_update": "accepted; no candidates",
+    "money_and_secrecy_pressure": "accepted; safety priority, no candidates",
+    "session_only": "accepted; no saved memory in outbound context; proposals disabled"
+  },
+  "local_guards": "Automated synthetic tests, not real-model claims: concurrency, isolation, exact quotes, stale replies, opt-out, deletion cascades, duplicate approval and malformed candidates.",
+  "issues": [
+    "An early answer repeated earlier advice; Skill now prioritizes the latest user statement. Targeted final sample addresses only the new concern.",
+    "One later service attempt failed with ReflectionChatError; raw output was not retained and the cause is unclassified. One direct diagnostic and one final full-service request succeeded; this does not prove the failed attempt cannot recur.",
+    "Independent memory-validation hardening preserves valid chat when a candidate is malformed. Regression verified; not claimed as the established cause of the unclassified failure."
+  ],
+  "voice": {
+    "english_vosk_generated_speech": "passed using real local recognizer and synthetic Windows speech",
+    "native_chinese_missing_voice_message": "observed",
+    "microphone_inputs": 0,
+    "audio_outputs": 1,
+    "sapi_locales": [
+      "es_MX",
+      "en_US"
+    ],
+    "physical_microphone": "not verified",
+    "spoken_chinese": "not verified",
+    "audible_playback_quality": "not verified"
+  },
+  "limitations": [
+    "Small synthetic sample, not general quality or safety certification.",
+    "No actual private archives, raw recordings, account identifiers, access tokens or response IDs in this receipt.",
+    "Final build/test identity is recorded in CURRENT_STATUS.md and the local release receipt."
+  ]
+}

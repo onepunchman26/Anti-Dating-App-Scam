@@ -4,6 +4,7 @@ import pytest
 from fastapi import HTTPException
 
 from anti_dating_scam.api import routes_local_ai as mod
+from anti_dating_scam.services.coaching_policy import COACHING_POLICY
 
 
 class FakeBackend:
@@ -95,7 +96,7 @@ def test_coach_chat_grounds_in_knowledge_and_forbids_manipulation(sandbox, monke
     assert result["reply"] == "coach reply"
     assert "KNOWLEDGE_MARKER" not in backend.last_system
     assert "KNOWLEDGE_MARKER" not in backend.last_messages[0]["content"]
-    assert "Do not assign MBTI" in backend.last_messages[0]["content"]
+    assert COACHING_POLICY in backend.last_messages[0]["content"]
     assert "no PUA tactics" in backend.last_system
     assert "Consent-first" in backend.last_system
 
@@ -107,7 +108,7 @@ def test_coach_chat_works_without_skill_pack(sandbox, monkeypatch) -> None:
     result = mod.coach_chat(mod.ChatRequest(messages=[{"role": "user", "content": "hi"}]))
 
     assert result["reply"] == "still helpful"
-    assert "Do not assign MBTI" in backend.last_messages[0]["content"]
+    assert COACHING_POLICY in backend.last_messages[0]["content"]
 
 
 def test_generate_plan_saves_files_and_rejects_empty(sandbox, monkeypatch) -> None:

@@ -2,6 +2,10 @@
 
 ## English
 
+This document preserves the September 30 design and observations. Current 0.3.0
+implementation, memory and live-test evidence are in [the architecture update](32_standards_correction.md)
+and [current handoff](../CURRENT_STATUS.md); they supersede historical verification gaps below.
+
 ### Product intent
 
 AI-SlowMatch helps a person understand how they relate to others, discuss an
@@ -158,6 +162,10 @@ real-person matching are not completed by this local milestone.
 For the wider product direction, see [conversation-first product design](30_conversation_first_product.md).
 
 ## 中文版
+
+本文保留 9 月 30 日的设计和观察。当前 0.3.0 的实现、记忆和真实测试依据以
+[架构更新](32_standards_correction.md)和[当前交接](../CURRENT_STATUS.md)为准，
+下文历史验证缺口不代表今天仍然存在。
 
 ### 产品意图
 

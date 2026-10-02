@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "anti-dating-scam"
-version = "0.2.1"
+version = "0.3.0"
 description = "AI-SlowMatch prototype for dating scam risk analysis and trust-ladder support."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -46,7 +46,7 @@ include = ["anti_dating_scam*", "rendezvous_web"]
 namespaces = false
 
 [tool.setuptools.package-data]
-anti_dating_scam = ["schemas/*.json", "licenses/*.txt"]
+anti_dating_scam = ["schemas/*.json", "licenses/*.txt", "skills/*/SKILL.md"]
 rendezvous_web = ["*.html"]
 
 [tool.pytest.ini_options]

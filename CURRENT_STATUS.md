@@ -2,6 +2,10 @@
 
 ## English
 
+**New request in progress:** version 0.3.0 adds evolving personal-model review and local
+speech playback. Implementation and targeted real samples are complete; final frozen-source
+release gates are pending. The 0.2.1 evidence below is the previous released baseline.
+
 October 2, 2026. Autonomous work on the approved correction is complete; physical
 voice and subjective owner acceptance remain open. Source is synchronized to
 `codex/standards-correction` on GitHub. Hourly automation remains paused.
@@ -46,6 +50,9 @@ Continue from [Progress](PROGRESS_TRACKER.md); pending human actions are in
 [history](docs/history/2026-10-01-before-standards-correction/CURRENT_STATUS.md).
 
 ## 中文版
+
+**追加任务进行中：**0.3.0 加入持续个人模型审核及本机朗读。实现及定向真实样本已完成，
+正在准备最终冻结源码发布检查。下方 0.2.1 依据属于此前已交付基线。
 
 2026 年 10 月 2 日。已批准整改中的自主工作完成，实体语音及所有者主观验收仍待完成。
 源码已同步到 GitHub 的 `codex/standards-correction` 分支，小时自动任务保持暂停。

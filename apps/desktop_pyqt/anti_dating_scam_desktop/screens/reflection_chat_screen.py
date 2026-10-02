@@ -1,11 +1,13 @@
 """A user-controlled conversation and separately reviewed private reflection."""
 
 import copy
+import json
 import threading
 from dataclasses import dataclass, field
 from pathlib import Path
 
 from PySide6.QtWidgets import (
+    QCheckBox,
     QDialog,
     QDialogButtonBox,
     QHBoxLayout,
@@ -29,8 +31,13 @@ from anti_dating_scam.services.relationship_memory import RelationshipMemory
 from anti_dating_scam.services.reviewed_ai import isinstance_local
 from anti_dating_scam_desktop import ai_backend
 from anti_dating_scam_desktop.i18n import bi, current_language
+from anti_dating_scam_desktop.speech_playback import SpeechPlayback
 from anti_dating_scam_desktop.widgets.primary_button import PrimaryButton
-from anti_dating_scam_desktop.widgets.relationship_memory_dialog import RelationshipMemoryDialog
+from anti_dating_scam_desktop.widgets.relationship_memory_dialog import (
+    MemoryCandidateDialog,
+    RelationshipMemoryDialog,
+    describe_memory,
+)
 from anti_dating_scam_desktop.widgets.secondary_button import SecondaryButton
 from anti_dating_scam_desktop.widgets.status_banner import StatusBanner
 from anti_dating_scam_desktop.widgets.step_header import StepHeader
@@ -67,19 +74,22 @@ def review_reflection_request(parent, backend, prepared, service):
     layout.addWidget(note)
     viewer = QPlainTextEdit()
     viewer.setReadOnly(True)
-    parts = [
-        f"{item.source}:\n{item.content}" for item in service.transcript if item.role == "user"
-    ]
-    questions = [item for item in service.transcript if item.role == "assistant"][-2:]
+    context = json.loads(prepared.request.messages[0].content)
+    sources = json.loads(prepared.request.messages[1].content)["USER_STATEMENTS"]
+    parts = [f"{item['id']}:\n{item['text']}" for item in sources]
+    questions = context.get("ASSISTANT_CONTEXT", [])
     parts.extend(
         f"{bi('Earlier AI question (context)', '先前 AI 问题（背景）')}:\n"
-        f"{item.content_en}\n{item.content_zh}"
+        f"{item['en']}\n{item['zh']}"
         for item in questions
     )
-    if service._memory.enabled:
+    if context.get("APPROVED_MEMORY"):
+        from anti_dating_scam.services.relationship_memory import MemoryEntry
+
         parts.extend(
-            bi("Approved note (unverified context): ", "已批准记忆（未经核实的背景）：") + item.text
-            for item in service._memory.entries
+            bi("Relevant approved context: ", "相关已批准背景：")
+            + describe_memory(MemoryEntry.model_validate(item))
+            for item in context["APPROVED_MEMORY"]
         )
     viewer.setPlainText(
         "\n\n".join(parts)
@@ -138,6 +148,8 @@ class ReflectionChatScreen(QWidget):
         self._cancel_event = None
         self._vault = None
         self.service = None
+        self.playback = SpeechPlayback(self)
+        self.playback.status_changed.connect(self._speech_status)
         layout = QVBoxLayout(self)
         layout.setContentsMargins(48, 32, 48, 32)
         layout.setSpacing(10)
@@ -162,6 +174,9 @@ class ReflectionChatScreen(QWidget):
         self.end_button.clicked.connect(self._end)
         row.addWidget(self.start_button)
         row.addWidget(self.end_button)
+        back = SecondaryButton(bi("Back", "返回"))
+        back.clicked.connect(lambda: (self._end(), self.on_back()))
+        row.addWidget(back)
         layout.addLayout(row)
         self.chat_view = QTextBrowser()
         self.chat_view.setOpenExternalLinks(False)
@@ -189,6 +204,31 @@ class ReflectionChatScreen(QWidget):
         self.send_button.clicked.connect(self._send)
         send_row.addWidget(self.send_button)
         layout.addLayout(send_row)
+        speech_row = QHBoxLayout()
+        self.speak_button = SecondaryButton(bi("Read latest reply", "朗读最新回复"))
+        self.speak_button.clicked.connect(self._speak)
+        speech_row.addWidget(self.speak_button)
+        self.stop_speech_button = SecondaryButton(bi("Stop playback", "停止朗读"))
+        self.stop_speech_button.clicked.connect(self.playback.stop)
+        speech_row.addWidget(self.stop_speech_button)
+        layout.addLayout(speech_row)
+        self.speech_status = QLabel(bi("Playback is optional and local.", "可选朗读在本机进行。"))
+        self.speech_status.setWordWrap(True)
+        layout.addWidget(self.speech_status)
+        self.session_only = QCheckBox(
+            bi(
+                "Session only — ignore saved personal model",
+                "仅本次会话——不使用已存个人模型",
+            )
+        )
+        self.session_only.toggled.connect(self._session_mode)
+        layout.addWidget(self.session_only)
+        self.memory_status = QLabel()
+        self.memory_status.setWordWrap(True)
+        layout.addWidget(self.memory_status)
+        self.candidates_button = SecondaryButton(bi("Review suggested updates", "审核建议更新"))
+        self.candidates_button.clicked.connect(self._candidates)
+        layout.addWidget(self.candidates_button)
         self.retry_button = SecondaryButton(bi("Try this reply again", "重新请求回复"))
         self.retry_button.clicked.connect(self._retry)
         self.retry_button.setVisible(False)
@@ -216,14 +256,12 @@ class ReflectionChatScreen(QWidget):
             exchange = SecondaryButton(bi("Share or compare reflections", "分享或比对相处画像"))
             exchange.clicked.connect(on_exchange)
             layout.addWidget(exchange)
-        back = SecondaryButton(bi("Back", "返回"))
-        back.clicked.connect(lambda: (self._end(), self.on_back()))
-        layout.addWidget(back)
         self.on_enter()
 
     def on_enter(self):
         vault = Path(self.profile_store.base_dir)
         if vault != self._vault:
+            self.playback.stop()
             old = self.holder.current_vault
             if old is not None and old != vault and old in self.holder.services:
                 self.holder.services[old].stop()
@@ -266,6 +304,12 @@ class ReflectionChatScreen(QWidget):
         self.connect_button.setVisible(not connected)
         self.history_button.setEnabled(not self._busy)
         self.memory_button.setEnabled(not self._busy)
+        self.session_only.setEnabled(not self._busy)
+        self.candidates_button.setEnabled(not self._busy)
+        self.candidates_button.setVisible(self.service.memory_evaluation is not None)
+        self.speak_button.setEnabled(
+            not self._busy and any(item.role == "assistant" for item in self.service.transcript)
+        )
         self.save_button.setEnabled(not self._busy and self._vault not in self.holder.saved)
 
     def _render(self):
@@ -302,7 +346,11 @@ class ReflectionChatScreen(QWidget):
 
     def _sync_memory(self):
         try:
-            self.service.set_memory(RelationshipMemory(self._vault).read())
+            self.service.bind_memory(
+                RelationshipMemory(self._vault),
+                session_only=self.session_only.isChecked(),
+            )
+            self._memory_status()
             return True
         except (OSError, ValueError):
             self.banner.set_text(
@@ -319,6 +367,70 @@ class ReflectionChatScreen(QWidget):
             self._sync_memory()
         except (OSError, ValueError):
             self.banner.set_text(bi("Notes could not be opened safely.", "无法安全打开记忆。"))
+
+    def _session_mode(self, _checked):
+        if self.service and self._vault:
+            self.playback.stop()
+            self._sync_memory()
+
+    def _memory_status(self):
+        evaluation = self.service.memory_evaluation
+        if not self.service._memory.enabled:
+            text = bi(
+                "Session only: no memory proposals or automatic saving.",
+                "仅本次会话：不产生记忆候选，也不自动保存。",
+            )
+        elif evaluation:
+            text = (
+                evaluation.evaluation.reason
+                + "\n"
+                + bi(
+                    f"{len(evaluation.evaluation.candidates)} proposed updates awaiting review.",
+                    f"有 {len(evaluation.evaluation.candidates)} 条建议更新待审阅。",
+                )
+            )
+        else:
+            text = bi(
+                "Approved model enabled. New updates always need your review.",
+                "已启用批准模型，新增更新始终需要你审核。",
+            )
+        self.memory_status.setText(text)
+
+    def _candidates(self):
+        if not self._sync_memory():
+            return
+        evaluated = self.service.memory_evaluation
+        if evaluated is not None:
+            MemoryCandidateDialog(self._vault, evaluated, self).exec()
+            self._sync_memory()
+
+    def _speech_status(self, state):
+        messages = {
+            "speaking": (
+                "Speaking… You can stop or start voice input.",
+                "正在朗读……可停止或开始语音输入。",
+            ),
+            "ready": ("Playback finished.", "朗读结束。"),
+            "stopped": ("Playback stopped.", "朗读已停止。"),
+            "error": (
+                "Playback unavailable. Check the output device and installed language voice; "
+                "you can still read and type.",
+                "无法朗读，请检查输出设备和已安装的语言语音；仍可阅读及打字。",
+            ),
+        }
+        if hasattr(self, "speech_status"):
+            self.speech_status.setText(bi(*messages[state]))
+
+    def _speak(self):
+        replies = [m for m in self.service.transcript if m.role == "assistant"]
+        if replies and not self._busy:
+            self.playback.say(
+                getattr(replies[-1], "content_" + current_language()), current_language()
+            )
+
+    def hideEvent(self, event):
+        self.playback.stop()
+        super().hideEvent(event)
 
     def _start(self):
         if self._busy or ai_backend.get_active() is None or self.service.running:
@@ -339,6 +451,7 @@ class ReflectionChatScreen(QWidget):
                 return
         if not self._sync_memory():
             return
+        self.playback.stop()
         self.holder.saved.pop(self._vault, None)
         self._retry_available = False
         self._call(self.service.begin())
@@ -349,6 +462,7 @@ class ReflectionChatScreen(QWidget):
             return
         if not self._sync_memory():
             return
+        self.playback.stop()
         try:
             prepared = self.service.propose_turn(text)
         except ValueError:
@@ -364,6 +478,8 @@ class ReflectionChatScreen(QWidget):
     def _voice(self):
         if self._busy or not self.service.running:
             return
+        self.playback.stop()
+        self.service.voice_mode = True
         dialog = VoiceInputDialog(self, language=current_language())
         dialog.transcript_ready.connect(self._voice_draft)
         dialog.exec()
@@ -385,6 +501,8 @@ class ReflectionChatScreen(QWidget):
     def _retry(self):
         if self._busy or not self.service.running:
             return
+        if not self._sync_memory():
+            return
         try:
             self._call(self.service.question_request())
         except ValueError:
@@ -393,6 +511,7 @@ class ReflectionChatScreen(QWidget):
             )
 
     def _end(self):
+        self.playback.stop()
         if self._cancel_event is not None:
             self._cancel_event.set()
         self._busy = False
@@ -406,6 +525,7 @@ class ReflectionChatScreen(QWidget):
             )
         )
         self._controls()
+        self._memory_status()
 
     def _portrait(self):
         if self._busy:
@@ -492,6 +612,7 @@ class ReflectionChatScreen(QWidget):
                     )
                 )
             self._controls()
+            self._memory_status()
 
         def error(_message):
             if cancel.is_set() or cancel is not self._cancel_event or vault != self._vault:

@@ -41,6 +41,7 @@ $arguments = @(
     "--paths", (Join-Path $repo "apps\desktop_pyqt"),
     "--add-data", ((Join-Path $repo "src\anti_dating_scam\schemas") + ";anti_dating_scam/schemas"),
     "--add-data", ((Join-Path $repo "src\anti_dating_scam\licenses") + ";anti_dating_scam/licenses"),
+    "--add-data", ((Join-Path $repo "src\anti_dating_scam\skills") + ";anti_dating_scam/skills"),
     "--add-data", ((Join-Path $repo "apps\rendezvous_web\index.html") + ";rendezvous_web"),
     "--hidden-import", "rendezvous_web",
     "--hidden-import", "uvicorn.logging",
@@ -60,6 +61,7 @@ if ($Target -eq "Desktop") {
         "--hidden-import", "vosk",
         "--collect-binaries", "vosk",
         "--hidden-import", "PySide6.QtMultimedia",
+        "--hidden-import", "PySide6.QtTextToSpeech",
         "--add-data", ((Join-Path $MetadataDirectory "build_info.json") + ";anti_dating_scam"),
         "--version-file", (Join-Path $MetadataDirectory "version-resource.txt")
     )

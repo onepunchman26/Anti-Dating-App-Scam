@@ -44,6 +44,9 @@ def audit_package(root: Path, executable: Path, metadata: dict) -> dict:
         ).read_bytes():
             raise ReleaseError("Coaching attribution license missing or changed.")
     pyz = archive.open_embedded_archive("PYZ.pyz")
+    skill = "anti_dating_scam/skills/relationship-reflection/SKILL.md"
+    if skill not in names or archive.extract(names[skill]) != (root / "src" / skill).read_bytes():
+        raise ReleaseError("Runtime conversational skill missing or changed.")
     verified = {}
     for name in pyz.toc:
         if name == "anti_dating_scam" or name.startswith("anti_dating_scam."):
@@ -71,6 +74,8 @@ def audit_package(root: Path, executable: Path, metadata: dict) -> dict:
         "anti_dating_scam.services.relationship_comparison",
         "anti_dating_scam.ai.chatgpt_backend",
         "anti_dating_scam.services.voice_input",
+        "anti_dating_scam.services.personal_model",
+        "anti_dating_scam_desktop.speech_playback",
     ):
         if required not in verified:
             raise ReleaseError("Missing required application module: " + required)
@@ -103,6 +108,10 @@ def audit_package(root: Path, executable: Path, metadata: dict) -> dict:
         "/plugins/multimedia/" in name for name in names
     ):
         raise ReleaseError("Audio capture plugin missing.")
+    if "PySide6/QtTextToSpeech.pyd" not in names or not any(
+        name.endswith("texttospeech/qtexttospeech_sapi.dll") for name in names
+    ):
+        raise ReleaseError("Local Windows speech playback plugin missing.")
     if any("speech_models/" in name or "vosk-model-small" in name for name in names):
         raise ReleaseError("Unexpected downloaded speech model in package.")
     return {

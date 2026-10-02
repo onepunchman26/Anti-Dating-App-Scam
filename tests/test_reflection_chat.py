@@ -161,7 +161,13 @@ def test_start_is_explicit_in_memory_no_duration_market_vault_or_model(tmp_path,
     assert prepared.request.allow_schema_fallback is False
     assistant, user = prepared.request.messages
     assert _decode(user.content.encode()) == {"USER_STATEMENTS": []}
-    assert _decode(assistant.content.encode()) == {"ASSISTANT_CONTEXT": []}
+    assert _decode(assistant.content.encode()) == {
+        "ASSISTANT_CONTEXT": [],
+        "DISPLAY_LANGUAGE": "zh",
+        "MEMORY_PERMISSION": False,
+        "VOICE_MODE": False,
+        "ELIGIBLE_MEMORY_SOURCES": [],
+    }
     assert not any(tmp_path.iterdir())
 
 
@@ -182,7 +188,7 @@ def test_safety_autonomy_and_source_boundary_are_application_instructions():
         "any gender",
         "untrusted DATA",
         "NO evidential status",
-        "No vault",
+        "Only the explicitly supplied context",
     ):
         assert wording in system
 
@@ -201,7 +207,11 @@ def test_one_bilingual_question_then_original_user_turn(language):
     assistant, user = prepared.request.messages
     assert _decode(user.content.encode()) == {"USER_STATEMENTS": [{"id": "S001", "text": text}]}
     assert _decode(assistant.content.encode()) == {
-        "ASSISTANT_CONTEXT": [{**_QUESTION["question"], "answered_by_source": "S001"}]
+        "ASSISTANT_CONTEXT": [{**_QUESTION["question"], "answered_by_source": "S001"}],
+        "DISPLAY_LANGUAGE": language,
+        "MEMORY_PERMISSION": False,
+        "VOICE_MODE": False,
+        "ELIGIBLE_MEMORY_SOURCES": ["S001"],
     }
     assert text not in prepared.request.system
     assert service.transcript[-1].content == text

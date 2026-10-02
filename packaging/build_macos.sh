@@ -30,6 +30,8 @@ python3 -m PyInstaller \
   --hidden-import rendezvous_web \
   --add-data "apps/rendezvous_web/index.html:rendezvous_web" \
   --add-data "src/anti_dating_scam/schemas:anti_dating_scam/schemas" \
+  --add-data "src/anti_dating_scam/skills:anti_dating_scam/skills" \
+  --add-data "src/anti_dating_scam/licenses:anti_dating_scam/licenses" \
   --workpath "${TMPDIR:-/tmp}/slowmatch-build" \
   --specpath "${TMPDIR:-/tmp}/slowmatch-build" \
   "${EXTRA[@]}" \
