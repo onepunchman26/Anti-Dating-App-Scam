@@ -1,0 +1,213 @@
+{
+  "at": "2026-10-02T16:01:41.984594+00:00",
+  "synthetic_model_input_only": true,
+  "automatic_retries": 0,
+  "public_deployment": false,
+  "calls": [
+    {
+      "provenance": {
+        "provider": "chatgpt_plan",
+        "requested_model": "gpt-5.6-luna",
+        "reported_model": "gpt-5.6-luna",
+        "input_tokens": 629,
+        "output_tokens": 478,
+        "completion": "completed"
+      },
+      "model_agreement": "exact",
+      "output": {
+        "summary": {
+          "en": "The video demonstrates using shadows and leading lines in street-photography composition. The user annotated that it was saved for its visual style and clarified they are not a photographer.",
+          "zh": "该视频演示了在街头摄影构图中使用阴影和引导线。用户注释说明收藏该视频是因为喜欢其视觉风格，并澄清自己不是摄影师。"
+        },
+        "topics": [
+          {
+            "broad": {
+              "en": "Street photography",
+              "zh": "街头摄影"
+            },
+            "specific": {
+              "en": "Composition using shadows and leading lines",
+              "zh": "使用阴影和引导线进行构图"
+            }
+          }
+        ],
+        "creator_claims": [
+          {
+            "en": "Shadows and leading lines can be used in street-photography composition.",
+            "zh": "阴影和引导线可以用于街头摄影构图。"
+          }
+        ],
+        "evidence": [
+          {
+            "video_id": "ea29a8c5ce744e9a8142f669bd0ebed6f52b7824d874dfebb5187f207e63a0e7",
+            "origin": "transcript",
+            "quote": "The creator explains using shadows and leading lines in street photographs."
+          },
+          {
+            "video_id": "ea29a8c5ce744e9a8142f669bd0ebed6f52b7824d874dfebb5187f207e63a0e7",
+            "origin": "transcript",
+            "quote": "This segment demonstrates composition, without discussing the viewer's habits."
+          },
+          {
+            "video_id": "ea29a8c5ce744e9a8142f669bd0ebed6f52b7824d874dfebb5187f207e63a0e7",
+            "origin": "user_annotation",
+            "quote": "I saved this because I like the visual style; I am not a photographer."
+          }
+        ],
+        "sensitive": false
+      }
+    },
+    {
+      "provenance": {
+        "provider": "chatgpt_plan",
+        "requested_model": "gpt-5.6-luna",
+        "reported_model": "gpt-5.6-luna",
+        "input_tokens": 623,
+        "output_tokens": 542,
+        "completion": "completed"
+      },
+      "model_agreement": "exact",
+      "output": {
+        "summary": {
+          "en": "The selected video appears to concern sparse interior styling, with lighting as a notable element. An existing summary says it advocates buying less, but the user annotation says that advice was not the reason for saving it.",
+          "zh": "该视频似乎涉及简约的室内布置，灯光是其中一个突出元素。现有摘要称其提倡少买东西，但用户注释说明，保存该视频并不是因为这条建议。"
+        },
+        "topics": [
+          {
+            "broad": {
+              "en": "Interior design",
+              "zh": "室内设计"
+            },
+            "specific": {
+              "en": "Sparse-room styling and lighting",
+              "zh": "简约空间布置与灯光"
+            }
+          }
+        ],
+        "creator_claims": [
+          {
+            "en": "According to the existing summary, the creator shows sparse rooms and advocates buying less.",
+            "zh": "根据现有摘要，创作者展示简约空间，并提倡少买东西。"
+          }
+        ],
+        "evidence": [
+          {
+            "video_id": "4377b3783c4b0dcd2220d7fc61eab14986dda3fbc27d19e3ddc17ba986c7d441",
+            "origin": "existing_summary",
+            "quote": "An existing summary: the creator shows sparse rooms and advocates buying less."
+          },
+          {
+            "video_id": "4377b3783c4b0dcd2220d7fc61eab14986dda3fbc27d19e3ddc17ba986c7d441",
+            "origin": "user_annotation",
+            "quote": "I saved it for a work mood board. I like the lighting, not the consumption advice."
+          },
+          {
+            "video_id": "4377b3783c4b0dcd2220d7fc61eab14986dda3fbc27d19e3ddc17ba986c7d441",
+            "origin": "title",
+            "quote": "Minimal interior styling"
+          }
+        ],
+        "sensitive": false
+      }
+    },
+    {
+      "provenance": {
+        "provider": "chatgpt_plan",
+        "requested_model": "gpt-5.6-luna",
+        "reported_model": "gpt-5.6-luna",
+        "input_tokens": 567,
+        "output_tokens": 238,
+        "completion": "completed"
+      },
+      "model_agreement": "exact",
+      "output": {
+        "summary": {
+          "en": "The selected video is titled “Mountain hiking equipment.”",
+          "zh": "所选视频标题为《Mountain hiking equipment》（山地徒步装备）。"
+        },
+        "topics": [
+          {
+            "broad": {
+              "en": "Hiking",
+              "zh": "徒步"
+            },
+            "specific": {
+              "en": "Mountain hiking equipment (tentative, based on the title only)",
+              "zh": "山地徒步装备（仅根据标题的暂定判断）"
+            }
+          }
+        ],
+        "creator_claims": [],
+        "evidence": [
+          {
+            "video_id": "4220a3d3509abebf4c0c35d9492cf101acbb3b4c4262c7b7b5fd8404afb77b54",
+            "origin": "title",
+            "quote": "Mountain hiking equipment"
+          }
+        ],
+        "sensitive": false
+      }
+    },
+    {
+      "provenance": {
+        "provider": "chatgpt_plan",
+        "requested_model": "gpt-5.6-luna",
+        "reported_model": "gpt-5.6-luna",
+        "input_tokens": 1403,
+        "output_tokens": 1079,
+        "completion": "completed"
+      },
+      "model_agreement": "exact",
+      "output": {
+        "findings": [
+          {
+            "kind": "interest",
+            "group_ids": [
+              "G01"
+            ],
+            "text": {
+              "en": "Visual interest in shadows and leading lines as compositional elements in street-photography imagery.",
+              "zh": "对街头摄影影像中作为构图元素的阴影和引导线感兴趣。"
+            },
+            "explanation": {
+              "en": "The supplied transcript says, “The creator explains using shadows and leading lines in street photographs.” The supplied annotation also says the video was saved for its visual style, not because the user is a photographer.",
+              "zh": "所提供的文字稿称：“The creator explains using shadows and leading lines in street photographs.” 所提供的注释还说明，收藏该视频是因为其视觉风格，而不是因为用户是摄影师。"
+            },
+            "uncertainty": {
+              "en": "This supports interest in the visual treatment rather than participation in photography or a broader photography identity.",
+              "zh": "这支持对视觉表现方式的兴趣，但不能说明用户参与摄影活动或具有更广泛的摄影身份。"
+            },
+            "pattern": "recurring"
+          }
+        ],
+        "questions": []
+      }
+    }
+  ],
+  "metadata": [
+    {
+      "source": "youtube",
+      "public_documentation_example": true,
+      "title_returned": true
+    },
+    {
+      "source": "tiktok",
+      "public_documentation_example": true,
+      "title_returned": false,
+      "error_type": "HTTPError"
+    }
+  ],
+  "functional_success": false,
+  "error_type": "ValueError",
+  "counts": {
+    "imported": 4,
+    "pending": 0,
+    "full": 1,
+    "partial": 2,
+    "skipped": 1,
+    "failed": 0,
+    "duplicates": 1,
+    "invalid": 0,
+    "reused": 0
+  }
+}

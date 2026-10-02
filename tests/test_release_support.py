@@ -169,6 +169,7 @@ def seed_source(root):
         ".peer-session",
         ".dating-introduction",
         ".relationship-memory",
+        ".video-context",
         "matching-node",
     ):
         folder = root / "src" / private

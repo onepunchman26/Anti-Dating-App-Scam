@@ -1,0 +1,115 @@
+{
+  "at": "2026-10-02T16:06:42.096009+00:00",
+  "synthetic_model_input_only": true,
+  "automatic_retries": 0,
+  "public_deployment": false,
+  "calls": [
+    {
+      "provenance": {
+        "provider": "chatgpt_plan",
+        "requested_model": "gpt-5.6-luna",
+        "reported_model": "gpt-5.6-luna",
+        "input_tokens": 1764,
+        "output_tokens": 1331,
+        "completion": "completed"
+      },
+      "model_agreement": "exact",
+      "output": {
+        "findings": [
+          {
+            "kind": "interest",
+            "group_ids": [
+              "G01"
+            ],
+            "text": {
+              "en": "Possible interest in street-photography visual composition, especially shadows and leading lines.",
+              "zh": "可能对街头摄影的视觉构图感兴趣，尤其是阴影和引导线的运用。"
+            },
+            "explanation": {
+              "en": "The transcript covers shadows and leading lines, while your annotation says: “I saved this because I like the visual style; I am not a photographer.” Evidence: transcript, video_id ea29a8c5ce744e9a8142f669bd0ebed6f52b7824d874dfebb5187f207e63a0e7; user_annotation, same video_id.",
+              "zh": "转录内容涉及阴影和引导线；你的注释写道：“I saved this because I like the visual style; I am not a photographer.” 证据：transcript，video_id ea29a8c5ce744e9a8142f669bd0ebed6f52b7824d874dfebb5187f207e63a0e7；user_annotation，同一 video_id。"
+            },
+            "uncertainty": {
+              "en": "This supports appreciation of the visual style, not photography practice or participation.",
+              "zh": "这支持对视觉风格的欣赏，但不能说明你在进行摄影实践或参与摄影活动。"
+            },
+            "pattern": "possible"
+          },
+          {
+            "kind": "interest",
+            "group_ids": [
+              "G02"
+            ],
+            "text": {
+              "en": "Possible interest in mountain-hiking equipment.",
+              "zh": "可能对山地徒步装备感兴趣。"
+            },
+            "explanation": {
+              "en": "The only supplied evidence is the title: “Mountain hiking equipment.” Evidence: title, video_id 4220a3d3509abebf4c0c35d9492cf101acbb3b4c4262c7b7b5fd8404afb77b54.",
+              "zh": "唯一提供的证据是标题：“Mountain hiking equipment”。证据：title，video_id 4220a3d3509abebf4c0c35d9492cf101acbb3b4c4262c7b7b5fd8404afb77b54。"
+            },
+            "uncertainty": {
+              "en": "The topic is tentative because no transcript or annotation is supplied; the save does not establish hiking activity or expertise.",
+              "zh": "由于没有提供转录或用户注释，该主题仅属暂定判断；收藏本身不能说明你参与徒步或具备相关经验。"
+            },
+            "pattern": "possible"
+          },
+          {
+            "kind": "interest",
+            "group_ids": [
+              "G03"
+            ],
+            "text": {
+              "en": "Possible interest in sparse interior styling and lighting, particularly as a visual reference.",
+              "zh": "可能对简约室内布置与灯光感兴趣，尤其是将其作为视觉参考。"
+            },
+            "explanation": {
+              "en": "The title is “Minimal interior styling,” and your annotation says: “I saved it for a work mood board. I like the lighting, not the consumption advice.” Evidence: title and user_annotation, video_id 4377b3783c4b0dcd2220d7fc61eab14986dda3fbc27d19e3ddc17ba986c7d441.",
+              "zh": "标题为“Minimal interior styling”，你的注释写道：“I saved it for a work mood board. I like the lighting, not the consumption advice.” 证据：title 和 user_annotation，video_id 4377b3783c4b0dcd2220d7fc61eab14986dda3fbc27d19e3ddc17ba986c7d441。"
+            },
+            "uncertainty": {
+              "en": "The material supports interest in lighting and visual styling, not endorsement of the creator’s buying-less advice. The work reference suggests a task-related use, not necessarily a personal interior-design practice.",
+              "zh": "材料支持对灯光和视觉布置的兴趣，但不支持认同创作者“少买东西”的建议。工作参考说明可能用于任务，不一定表示你亲自进行室内设计。"
+            },
+            "pattern": "possible"
+          },
+          {
+            "kind": "interest",
+            "group_ids": [
+              "G03"
+            ],
+            "text": {
+              "en": "Possible task-related interest in using interior lighting as a work mood-board reference.",
+              "zh": "可能出于任务需要，对将室内灯光用作工作情绪板参考感兴趣。"
+            },
+            "explanation": {
+              "en": "Your annotation explicitly says: “I saved it for a work mood board. I like the lighting.” Evidence: user_annotation, video_id 4377b3783c4b0dcd2220d7fc61eab14986dda3fbc27d19e3ddc17ba986c7d441.",
+              "zh": "你的注释明确写道：“I saved it for a work mood board. I like the lighting.” 证据：user_annotation，video_id 4377b3783c4b0dcd2220d7fc61eab14986dda3fbc27d19e3ddc17ba986c7d441。"
+            },
+            "uncertainty": {
+              "en": "This indicates a stated work-use context for this saved item, but does not establish a broader or lasting professional interest.",
+              "zh": "这表明该收藏具有明确的工作用途，但不能说明存在更广泛或长期的职业兴趣。"
+            },
+            "pattern": "task_related"
+          }
+        ],
+        "questions": []
+      }
+    }
+  ],
+  "metadata": [],
+  "reused_source_receipt": "2026-10-02-video-batch-plan.json",
+  "functional_success": false,
+  "error_type": "ValueError",
+  "counts": {
+    "imported": 4,
+    "pending": 0,
+    "full": 1,
+    "partial": 2,
+    "skipped": 1,
+    "failed": 0,
+    "duplicates": 1,
+    "invalid": 0,
+    "reused": 3
+  }
+}

@@ -40,9 +40,15 @@ archives under `releases/` are for recovery. See About for the version and build
    encrypted `.slowmatch` attachment. Send it yourself, with the password separately.
    Import both participants' voluntarily shared files, obtain both permissions, and
    review the selected summaries before an AI discussion of fit. No match score is produced.
+8. **Saved videos & interests** imports a collection in one operation: a prepared export,
+   URL list, or selected notes folder. Filter the preview, approve the batch's AI scope,
+   and review separate interest groups and reflection drafts. Confirm, edit, merge or
+   reject groups; only adopted wording enters enabled memory. Pause/resume, manual retry
+   and Undo import are available. Start with the [synthetic sample](examples/video_batch/mixed.json)
+   and read the [batch guide and supported sources](docs/36_saved_video_batches.md).
 
 ChatGPT processing is online and does not read existing ChatGPT conversations. Local
-saved chat/reflection/notes files are **not encrypted**; sharing attachments and the new approved-snapshot coordinator are encrypted.
+saved chat/reflection/notes and video-batch files are **not encrypted**; sharing attachments and the new approved-snapshot coordinator are encrypted.
 Deleting notes cannot retract exported or already transmitted copies. No paid API
 fallback, automatic email, public deployment or hourly work is enabled.
 
@@ -83,8 +89,12 @@ launches source; `./release.ps1 build` backs up, tests, builds and updates the f
 7. **分享或比对相处画像**是此前可选文件流程，会先预览最小摘要，再生成密码加密的 `.slowmatch` 附件。
    邮件由你自行发送，密码另行告知。导入双方自愿提供的文件、取得双方许可并审阅待发摘要后，
    可请 AI 讨论相处契合度，不生成人格或匹配分数。
+8. **收藏视频与兴趣**一次导入整个集合：已准备的导出、链接列表或选定笔记文件夹。
+   先筛选预览，批准整批 AI 范围，再分别审阅兴趣分组和反思草稿；可采纳、编辑、合并或拒绝。
+   只有明确采纳的表述进入已启用记忆。支持暂停／继续、手动重试及撤销导入。
+   可从[合成样例](examples/video_batch/mixed.json)开始，操作与平台限制见[批量指南](docs/36_saved_video_batches.md)。
 
-ChatGPT 在线处理，但不会读取原有 ChatGPT 聊天记录。本地保存的对话、画像和记忆
+ChatGPT 在线处理，但不会读取原有 ChatGPT 聊天记录。本地保存的对话、画像、记忆和视频批次
 **未加密**，分享附件和新增批准快照协调库经过加密。删除记忆不能撤回已导出或发送的副本。
 未启用付费 API 后备、自动邮件、公开部署或每小时任务。
 

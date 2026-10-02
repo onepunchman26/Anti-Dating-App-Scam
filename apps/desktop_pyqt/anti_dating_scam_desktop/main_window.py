@@ -55,6 +55,7 @@ from anti_dating_scam_desktop.screens.self_portrait_viewer_screen import (
     SelfPortraitViewerScreen,
 )
 from anti_dating_scam_desktop.screens.trust_ladder_screen import TrustLadderScreen
+from anti_dating_scam_desktop.screens.video_batch_screen import VideoBatchScreen, VideoBatchState
 from anti_dating_scam_desktop.screens.welcome_screen import WelcomeScreen
 from anti_dating_scam_desktop.style import APP_STYLESHEET
 from anti_dating_scam_desktop.workers import has_pending_workers
@@ -75,6 +76,7 @@ class MainWindow(QMainWindow):
         self.legacy_state = self.app_state.as_legacy_dict()
         self.reflection_state = ReflectionChatState()
         self.exchange_state = RelationshipExchangeState()
+        self.video_batch_state = VideoBatchState()
         self.peer_state = PeerWorkbenchState(
             pending_link=os.environ.pop("ADS_PENDING_INVITATION", "")
         )
@@ -218,6 +220,7 @@ class MainWindow(QMainWindow):
 
     def closeEvent(self, event) -> None:
         if has_pending_workers(self):
+            self.navigator._screens["video_batch"]._stop()
             self._close_when_idle = True
             self._defer_lifecycle()
             event.ignore()
@@ -272,6 +275,7 @@ class MainWindow(QMainWindow):
                     "reflection_chat": self.navigator.bind("reflection_chat"),
                     "exchange": self.navigator.bind("relationship_exchange"),
                     "peers": self.navigator.bind("peers"),
+                    "video_batch": self.navigator.bind("video_batch"),
                     "understand": self.navigator.bind("self_portrait"),
                     "add_data": self.navigator.bind("import_data"),
                     "self_portrait_view": self.navigator.bind("self_portrait_viewer"),
@@ -295,6 +299,12 @@ class MainWindow(QMainWindow):
             "peers",
             PeerWorkbenchScreen(
                 self.app_state, self.profile_store, self.peer_state, self.navigator.back
+            ),
+        )
+        self.navigator.add(
+            "video_batch",
+            VideoBatchScreen(
+                self.app_state, self.profile_store, self.video_batch_state, self.navigator.back
             ),
         )
         self.navigator.add(

@@ -2,7 +2,7 @@
 name: relationship-reflection
 description: Help with a current relationship concern and evaluate provisional source-linked personal understanding for explicit review.
 metadata:
-  version: "3"
+  version: "4"
 ---
 
 # Relationship reflection / 关系自我理解
@@ -112,6 +112,21 @@ setting and an actually running worker. Do not call a loopback test node a deplo
 public service or describe an empty pool as real candidates. No web-only participation
 or installed-app deep link support may be claimed unless implemented and available.
 
+## Saved-video context (English)
+
+Collection processing is optional and batch-scoped. Approved memory may contain
+external_evidence with title, transcript, description, existing_summary or user_annotation
+origins. Only the final explicitly adopted wording is a user self-report; quoted creator
+claims and AI summaries remain their own sources. Saving/liking is not endorsement,
+participation, competence or a stable personality trait. Repeated imports and derivative
+summaries never count as independent corroboration. A title provides topic hints only.
+Generated first-person reflections are drafts until adopted. Never infer sensitive
+attributes or diagnoses from collections. User corrections (visual style, work reference,
+no longer relevant) override earlier interpretations. Recall only relevant enabled
+approved notes; never scan folders, fetch URLs or import raw collections during a chat.
+Deletion invalidates dependent interpretations. Do not revive removed context from
+old assistant replies. No source or draft automatically becomes a public introduction.
+
 ## 中文版
 
 这是应用唯一的对话 Skill，由打包资源加载，核心服务另行执行结构校验、权限及持久化。
@@ -179,3 +194,13 @@ or installed-app deep link support may be claimed unless implemented and availab
 本地自动发现需要明确的频率／地区／条件／通知设置和真实运行的工作进程。不能把回环
 测试节点说成公开服务，也不能把空用户池说成真实候选。没有实现或配置时，不宣称提供
 纯网页参与或已安装应用的链接支持。
+
+## 收藏视频背景（中文版）
+
+集合处理是可选的整批授权流程。批准记忆可能含 external_evidence，来源区分标题、字幕、
+创作者描述、已有摘要和明确用户备注。只有最终明确采纳的表述才是用户自述；创作者引文
+和 AI 摘要仍保留各自来源。收藏／点赞不等于赞同、实际参与、能力或稳定人格；重复导入
+及衍生摘要不算独立佐证。标题仅提示主题。生成的第一人称反思在采纳前保持草稿，不能从
+集合推断敏感属性或诊断。用户关于视觉风格、工作参考、不再相关等纠正优先于早先解释。
+聊天只召回相关且已启用的批准记忆，不扫描文件夹、访问链接或导入原始集合。删除会使
+依赖的解释失效，不能从旧 AI 回复恢复已删除背景。任何来源或草稿都不自动变成交友介绍。

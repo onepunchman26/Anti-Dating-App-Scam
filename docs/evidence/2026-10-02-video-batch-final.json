@@ -1,0 +1,316 @@
+{
+  "at": "2026-10-02T16:08:58.282397+00:00",
+  "synthetic_model_input_only": true,
+  "automatic_retries": 0,
+  "public_deployment": false,
+  "calls": [
+    {
+      "provenance": {
+        "provider": "chatgpt_plan",
+        "requested_model": "gpt-5.6-luna",
+        "reported_model": "gpt-5.6-luna",
+        "input_tokens": 1977,
+        "output_tokens": 1162,
+        "completion": "completed"
+      },
+      "model_agreement": "exact",
+      "output": {
+        "findings": [
+          {
+            "kind": "interest",
+            "group_ids": [
+              "G01"
+            ],
+            "text": {
+              "en": "Possible interest in visual composition, especially using shadows and leading lines in street-photography imagery; this does not imply being a photographer.",
+              "zh": "可能对视觉构图感兴趣，尤其是街头摄影中的阴影与引导线；这不代表本人是摄影师。"
+            },
+            "explanation": {
+              "en": "The transcript says, “The creator explains using shadows and leading lines in street photographs.” The user annotation says, “I saved this because I like the visual style; I am not a photographer.”",
+              "zh": "转录文本称：“The creator explains using shadows and leading lines in street photographs.” 用户注释称：“I saved this because I like the visual style; I am not a photographer.”"
+            },
+            "uncertainty": {
+              "en": "This is based on one saved video and indicates appreciation of visual style, not photography practice or sustained interest.",
+              "zh": "这一判断基于一个收藏视频，体现的是对视觉风格的欣赏，不代表摄影实践或持续性兴趣。"
+            },
+            "pattern": "possible"
+          },
+          {
+            "kind": "interest",
+            "group_ids": [
+              "G02"
+            ],
+            "text": {
+              "en": "Possible interest in mountain hiking equipment, tentatively inferred from the selected video's title.",
+              "zh": "可能对山地徒步装备感兴趣，但这一判断仅暂定基于所选视频标题。"
+            },
+            "explanation": {
+              "en": "The only supplied evidence is the title: “Mountain hiking equipment.”",
+              "zh": "唯一提供的证据是标题：“Mountain hiking equipment”。"
+            },
+            "uncertainty": {
+              "en": "The title alone does not establish interest in hiking, equipment use, or participation in hiking.",
+              "zh": "仅凭标题无法确认对徒步、装备使用或徒步活动参与的兴趣。"
+            },
+            "pattern": "possible"
+          },
+          {
+            "kind": "interest",
+            "group_ids": [
+              "G03"
+            ],
+            "text": {
+              "en": "Possible interest in sparse interior styling and lighting, particularly as visual material for a work mood board.",
+              "zh": "可能对简约室内布置与灯光感兴趣，尤其是将其作为工作情绪板的视觉素材。"
+            },
+            "explanation": {
+              "en": "The title is “Minimal interior styling,” and the user annotation says, “I saved it for a work mood board. I like the lighting, not the consumption advice.”",
+              "zh": "标题为“Minimal interior styling”，用户注释称：“I saved it for a work mood board. I like the lighting, not the consumption advice.”"
+            },
+            "uncertainty": {
+              "en": "The evidence supports interest in the lighting and work-related visual reference, but not endorsement of the creator's consumption advice or a broad interior-design preference.",
+              "zh": "证据支持对灯光和工作相关视觉参考的兴趣，但不支持认同创作者的消费建议，也不代表广泛的室内设计偏好。"
+            },
+            "pattern": "possible"
+          }
+        ],
+        "reflection_drafts": [
+          {
+            "kind": "reflection",
+            "group_ids": [
+              "G01",
+              "G03"
+            ],
+            "text": {
+              "en": "I may be drawn to lighting, framing, and visual composition as references, even when I am not interested in practicing the activity or adopting the video's advice.",
+              "zh": "我可能会被灯光、构图和视觉组织方式吸引，把它们作为参考，即使我并不想实践相关活动或接受视频中的建议。"
+            },
+            "explanation": {
+              "en": "This draft combines the annotations “I saved this because I like the visual style; I am not a photographer.” and “I saved it for a work mood board. I like the lighting, not the consumption advice.”",
+              "zh": "这份草稿结合了两条注释：“I saved this because I like the visual style; I am not a photographer.”以及“I saved it for a work mood board. I like the lighting, not the consumption advice.”"
+            },
+            "uncertainty": {
+              "en": "This is an AI-authored possibility, not an established user belief or recurring pattern.",
+              "zh": "这是一种由人工智能拟写的可能性，不是已确认的用户信念或反复出现的模式。"
+            },
+            "pattern": "possible"
+          }
+        ],
+        "questions": []
+      }
+    }
+  ],
+  "metadata": [],
+  "reused_source_receipt": "2026-10-02-video-batch-plan.json",
+  "counts": {
+    "imported": 4,
+    "pending": 0,
+    "full": 1,
+    "partial": 2,
+    "skipped": 1,
+    "failed": 0,
+    "duplicates": 1,
+    "invalid": 0,
+    "reused": 3
+  },
+  "findings": [
+    {
+      "id": "95cdbd51ddd94ade88c12b67617133af",
+      "kind": "interest",
+      "broad": {
+        "en": "Street photography",
+        "zh": "街头摄影"
+      },
+      "specific": {
+        "en": "Composition using shadows and leading lines",
+        "zh": "使用阴影和引导线进行构图"
+      },
+      "text": {
+        "en": "Possible interest in visual composition, especially using shadows and leading lines in street-photography imagery; this does not imply being a photographer.",
+        "zh": "可能对视觉构图感兴趣，尤其是街头摄影中的阴影与引导线；这不代表本人是摄影师。"
+      },
+      "explanation": {
+        "en": "The transcript says, “The creator explains using shadows and leading lines in street photographs.” The user annotation says, “I saved this because I like the visual style; I am not a photographer.”",
+        "zh": "转录文本称：“The creator explains using shadows and leading lines in street photographs.” 用户注释称：“I saved this because I like the visual style; I am not a photographer.”"
+      },
+      "uncertainty": {
+        "en": "This is based on one saved video and indicates appreciation of visual style, not photography practice or sustained interest.",
+        "zh": "这一判断基于一个收藏视频，体现的是对视觉风格的欣赏，不代表摄影实践或持续性兴趣。"
+      },
+      "pattern": "possible",
+      "evidence": [
+        {
+          "video_id": "ea29a8c5ce744e9a8142f669bd0ebed6f52b7824d874dfebb5187f207e63a0e7",
+          "origin": "transcript",
+          "quote": "The creator explains using shadows and leading lines in street photographs."
+        },
+        {
+          "video_id": "ea29a8c5ce744e9a8142f669bd0ebed6f52b7824d874dfebb5187f207e63a0e7",
+          "origin": "transcript",
+          "quote": "This segment demonstrates composition, without discussing the viewer's habits."
+        },
+        {
+          "video_id": "ea29a8c5ce744e9a8142f669bd0ebed6f52b7824d874dfebb5187f207e63a0e7",
+          "origin": "user_annotation",
+          "quote": "I saved this because I like the visual style; I am not a photographer."
+        }
+      ],
+      "video_ids": [
+        "ea29a8c5ce744e9a8142f669bd0ebed6f52b7824d874dfebb5187f207e63a0e7"
+      ],
+      "status": "draft",
+      "edited_text": ""
+    },
+    {
+      "id": "2ddc03fe34df48b09feab01a5aca5001",
+      "kind": "interest",
+      "broad": {
+        "en": "Hiking",
+        "zh": "徒步"
+      },
+      "specific": {
+        "en": "Mountain hiking equipment (tentative, based on the title only)",
+        "zh": "山地徒步装备（仅根据标题的暂定判断）"
+      },
+      "text": {
+        "en": "Possible interest in mountain hiking equipment, tentatively inferred from the selected video's title.",
+        "zh": "可能对山地徒步装备感兴趣，但这一判断仅暂定基于所选视频标题。"
+      },
+      "explanation": {
+        "en": "The only supplied evidence is the title: “Mountain hiking equipment.”",
+        "zh": "唯一提供的证据是标题：“Mountain hiking equipment”。"
+      },
+      "uncertainty": {
+        "en": "The title alone does not establish interest in hiking, equipment use, or participation in hiking.",
+        "zh": "仅凭标题无法确认对徒步、装备使用或徒步活动参与的兴趣。"
+      },
+      "pattern": "possible",
+      "evidence": [
+        {
+          "video_id": "4220a3d3509abebf4c0c35d9492cf101acbb3b4c4262c7b7b5fd8404afb77b54",
+          "origin": "title",
+          "quote": "Mountain hiking equipment"
+        }
+      ],
+      "video_ids": [
+        "4220a3d3509abebf4c0c35d9492cf101acbb3b4c4262c7b7b5fd8404afb77b54"
+      ],
+      "status": "draft",
+      "edited_text": ""
+    },
+    {
+      "id": "05aed488612c4ddba38e532f3fb80672",
+      "kind": "interest",
+      "broad": {
+        "en": "Interior design",
+        "zh": "室内设计"
+      },
+      "specific": {
+        "en": "Sparse-room styling and lighting",
+        "zh": "简约空间布置与灯光"
+      },
+      "text": {
+        "en": "Possible interest in sparse interior styling and lighting, particularly as visual material for a work mood board.",
+        "zh": "可能对简约室内布置与灯光感兴趣，尤其是将其作为工作情绪板的视觉素材。"
+      },
+      "explanation": {
+        "en": "The title is “Minimal interior styling,” and the user annotation says, “I saved it for a work mood board. I like the lighting, not the consumption advice.”",
+        "zh": "标题为“Minimal interior styling”，用户注释称：“I saved it for a work mood board. I like the lighting, not the consumption advice.”"
+      },
+      "uncertainty": {
+        "en": "The evidence supports interest in the lighting and work-related visual reference, but not endorsement of the creator's consumption advice or a broad interior-design preference.",
+        "zh": "证据支持对灯光和工作相关视觉参考的兴趣，但不支持认同创作者的消费建议，也不代表广泛的室内设计偏好。"
+      },
+      "pattern": "possible",
+      "evidence": [
+        {
+          "video_id": "4377b3783c4b0dcd2220d7fc61eab14986dda3fbc27d19e3ddc17ba986c7d441",
+          "origin": "existing_summary",
+          "quote": "An existing summary: the creator shows sparse rooms and advocates buying less."
+        },
+        {
+          "video_id": "4377b3783c4b0dcd2220d7fc61eab14986dda3fbc27d19e3ddc17ba986c7d441",
+          "origin": "user_annotation",
+          "quote": "I saved it for a work mood board. I like the lighting, not the consumption advice."
+        },
+        {
+          "video_id": "4377b3783c4b0dcd2220d7fc61eab14986dda3fbc27d19e3ddc17ba986c7d441",
+          "origin": "title",
+          "quote": "Minimal interior styling"
+        }
+      ],
+      "video_ids": [
+        "4377b3783c4b0dcd2220d7fc61eab14986dda3fbc27d19e3ddc17ba986c7d441"
+      ],
+      "status": "draft",
+      "edited_text": ""
+    },
+    {
+      "id": "4688a456c49d46a48b7816373cec3ba1",
+      "kind": "reflection",
+      "broad": {
+        "en": "Street photography",
+        "zh": "街头摄影"
+      },
+      "specific": {
+        "en": "Composition using shadows and leading lines",
+        "zh": "使用阴影和引导线进行构图"
+      },
+      "text": {
+        "en": "I may be drawn to lighting, framing, and visual composition as references, even when I am not interested in practicing the activity or adopting the video's advice.",
+        "zh": "我可能会被灯光、构图和视觉组织方式吸引，把它们作为参考，即使我并不想实践相关活动或接受视频中的建议。"
+      },
+      "explanation": {
+        "en": "This draft combines the annotations “I saved this because I like the visual style; I am not a photographer.” and “I saved it for a work mood board. I like the lighting, not the consumption advice.”",
+        "zh": "这份草稿结合了两条注释：“I saved this because I like the visual style; I am not a photographer.”以及“I saved it for a work mood board. I like the lighting, not the consumption advice.”"
+      },
+      "uncertainty": {
+        "en": "This is an AI-authored possibility, not an established user belief or recurring pattern.",
+        "zh": "这是一种由人工智能拟写的可能性，不是已确认的用户信念或反复出现的模式。"
+      },
+      "pattern": "possible",
+      "evidence": [
+        {
+          "video_id": "ea29a8c5ce744e9a8142f669bd0ebed6f52b7824d874dfebb5187f207e63a0e7",
+          "origin": "transcript",
+          "quote": "The creator explains using shadows and leading lines in street photographs."
+        },
+        {
+          "video_id": "ea29a8c5ce744e9a8142f669bd0ebed6f52b7824d874dfebb5187f207e63a0e7",
+          "origin": "transcript",
+          "quote": "This segment demonstrates composition, without discussing the viewer's habits."
+        },
+        {
+          "video_id": "ea29a8c5ce744e9a8142f669bd0ebed6f52b7824d874dfebb5187f207e63a0e7",
+          "origin": "user_annotation",
+          "quote": "I saved this because I like the visual style; I am not a photographer."
+        },
+        {
+          "video_id": "4377b3783c4b0dcd2220d7fc61eab14986dda3fbc27d19e3ddc17ba986c7d441",
+          "origin": "existing_summary",
+          "quote": "An existing summary: the creator shows sparse rooms and advocates buying less."
+        },
+        {
+          "video_id": "4377b3783c4b0dcd2220d7fc61eab14986dda3fbc27d19e3ddc17ba986c7d441",
+          "origin": "user_annotation",
+          "quote": "I saved it for a work mood board. I like the lighting, not the consumption advice."
+        },
+        {
+          "video_id": "4377b3783c4b0dcd2220d7fc61eab14986dda3fbc27d19e3ddc17ba986c7d441",
+          "origin": "title",
+          "quote": "Minimal interior styling"
+        }
+      ],
+      "video_ids": [
+        "ea29a8c5ce744e9a8142f669bd0ebed6f52b7824d874dfebb5187f207e63a0e7",
+        "4377b3783c4b0dcd2220d7fc61eab14986dda3fbc27d19e3ddc17ba986c7d441"
+      ],
+      "status": "draft",
+      "edited_text": ""
+    }
+  ],
+  "functional_success": true,
+  "draft_did_not_write_memory": true,
+  "approved_memory_count": 3,
+  "undo_removed_memory_and_batch": true
+}

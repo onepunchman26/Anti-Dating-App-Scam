@@ -20,12 +20,22 @@ from anti_dating_scam.services.personal_model import (
 from anti_dating_scam.services.report_review import ReportReviewService, _decode, _encode
 
 
+class ExternalEvidence(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+    batch_id: str = Field(pattern=r"^[a-f0-9]{32}$")
+    video_id: str = Field(pattern=r"^[a-f0-9]{64}$")
+    origin: str = Field(
+        pattern=r"^(title|transcript|description|existing_summary|user_annotation)$"
+    )
+    quote: str = Field(min_length=1, max_length=200)
+
+
 class MemoryEntry(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
     id: str = Field(pattern=r"^[a-f0-9]{32}$")
     text: str = Field(min_length=1, max_length=250, pattern=r"\S")
     kind: MemoryKind
-    source: str = Field(pattern=r"^(manual|session:[a-f0-9]{32})$")
+    source: str = Field(pattern=r"^(manual|(?:session|batch):[a-f0-9]{32})$")
     approved_at: datetime
     supersedes: str | None = Field(default=None, pattern=r"^[a-f0-9]{32}$")
     confidence: Literal["unverified", "tentative"] = "unverified"
@@ -39,6 +49,17 @@ class MemoryEntry(BaseModel):
     review_status: Literal["confirmed", "questioned", "rejected", "corrected"] = "confirmed"
     sensitive: bool = False
     reviewed_at: datetime | None = None
+    batch_ids: list[str] = Field(default_factory=list, max_length=100)
+    external_key: str = Field(default="", max_length=64)
+    external_evidence: list[ExternalEvidence] = Field(default_factory=list, max_length=600)
+
+    def context_payload(self):
+        """Import copies are bookkeeping, never extra corroboration in future AI context."""
+        data = self.model_dump(mode="json")
+        data.pop("batch_ids")
+        refs = [r.model_dump(exclude={"batch_id"}) for r in self.external_evidence]
+        data["external_evidence"] = list({tuple(r.values()): r for r in refs}.values())[:6]
+        return data
 
     @model_validator(mode="before")
     @classmethod
@@ -93,7 +114,7 @@ class RelationshipMemory:
             return MemoryState()
         path = self.directory / "state.json"
         try:
-            return MemoryState.model_validate(_decode(self.store._read(path, 300_000)))
+            return MemoryState.model_validate(_decode(self.store._read(path, 16_000_000)))
         except FileNotFoundError:
             return MemoryState()
 
@@ -128,8 +149,11 @@ class RelationshipMemory:
         if path.exists() or path.is_symlink():
             self.store._check(path, directory=False)
         temporary = self.directory / (uuid4().hex + ".tmp")
+        encoded = _encode(updated.model_dump(mode="json"))
+        if len(encoded) > 16_000_000:
+            raise ValueError("memory_storage_limit")
         try:
-            self.store._write_new(temporary, _encode(updated.model_dump(mode="json")))
+            self.store._write_new(temporary, encoded)
             os.replace(temporary, path)
         finally:
             temporary.unlink(missing_ok=True)
@@ -291,3 +315,98 @@ class RelationshipMemory:
         # Never overwrite existing files, including another app's data.
         with Path(destination).open("xb") as target:
             target.write(_encode(state.model_dump(mode="json")))
+
+    def approve_batch(self, revision, proposals, *, confirmed):
+        """Explicit grouped adoption into the existing model, atomic and duplicate-aware."""
+        if confirmed is not True:
+            raise ValueError("batch_consent_required")
+        proposals = [MemoryEntry.model_validate(p.model_dump()) for p in proposals]
+        self.store._mkdir(self.directory)
+        with self.store._writer(self.directory):
+            state = self.read()
+            if state.revision != revision or not state.enabled:
+                raise ValueError("memory_changed_or_disabled")
+            entries, changed = list(state.entries), []
+            for proposal in proposals:
+                if not proposal.external_key or not proposal.batch_ids:
+                    raise ValueError("batch_sources_required")
+                previous = next(
+                    (e for e in entries if e.external_key == proposal.external_key), None
+                )
+                if (
+                    previous
+                    and previous.text == proposal.text
+                    and previous.review_status
+                    in {
+                        "confirmed",
+                        "corrected",
+                    }
+                ):
+                    sources = list(dict.fromkeys(previous.batch_ids + proposal.batch_ids))
+                    refs = {
+                        tuple(r.model_dump().values()): r
+                        for r in previous.external_evidence + proposal.external_evidence
+                    }
+                    entries = [
+                        e.model_copy(
+                            update={
+                                "batch_ids": sources,
+                                "external_evidence": list(refs.values()),
+                            }
+                        )
+                        if e.id == previous.id
+                        else e
+                        for e in entries
+                    ]
+                    continue
+                if not previous and any(
+                    e.text.casefold() == proposal.text.casefold() for e in entries
+                ):
+                    continue
+                if previous:
+                    entries = self._remove_dependents(entries, [previous.id])
+                    proposal = proposal.model_copy(
+                        update={"supersedes": previous.id, "review_status": "corrected"}
+                    )
+                entries.append(proposal)
+                changed.append(proposal.id)
+            if len(entries) > 20:
+                raise ValueError("memory_full_20")
+            return self._commit(state, entries, enabled=True, action="approve_batch", ids=changed)
+
+    def remove_batch(self, batch_id, *, keys=None, confirmed):
+        """Recalculate remaining explicit approvals; cascade when the last support is removed."""
+        if confirmed is not True:
+            raise ValueError("batch_consent_required")
+        state = self.read()
+        if not any(batch_id in e.batch_ids for e in state.entries):
+            return state
+        with self.store._writer(self.directory):
+            state = self.read()
+            entries, removed = [], []
+            for entry in state.entries:
+                if batch_id not in entry.batch_ids or (
+                    keys is not None and entry.external_key not in keys
+                ):
+                    entries.append(entry)
+                    continue
+                remaining = [key for key in entry.batch_ids if key != batch_id]
+                refs = [r for r in entry.external_evidence if r.batch_id != batch_id]
+                if not remaining or not refs:
+                    # No surviving exact evidence: remove rather than preserve a stale assertion.
+                    removed.append(entry.id)
+                else:
+                    entries.append(
+                        entry.model_copy(
+                            update={
+                                "batch_ids": remaining,
+                                "external_evidence": refs,
+                                "source": "batch:" + remaining[0],
+                                "reviewed_at": datetime.now(UTC),
+                            }
+                        )
+                    )
+            entries = self._remove_dependents(entries, removed)
+            return self._commit(
+                state, entries, enabled=state.enabled, action="remove_batch", ids=removed
+            )

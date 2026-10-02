@@ -135,6 +135,7 @@ def source_files(root: Path) -> list[str]:
                     ".peer-session",
                     ".dating-introduction",
                     ".relationship-memory",
+                    ".video-context",
                     "matching-node",
                 }
             )

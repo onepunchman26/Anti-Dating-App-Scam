@@ -633,7 +633,7 @@ class ReflectionChatService:
             )
             if self._retrieved:
                 context_data["APPROVED_MEMORY"] = [
-                    item.model_dump(mode="json") for item in self._retrieved
+                    item.context_payload() for item in self._retrieved
                 ]
         messages = (
             ChatMessage(role="assistant", content=_encode(context_data).decode()),

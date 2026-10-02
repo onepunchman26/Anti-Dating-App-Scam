@@ -2,99 +2,84 @@
 
 ## English
 
-October 2, 2026. **S6 local delivery is complete: open the single root AI-SlowMatch.exe,
-version 0.4.0.** External-service deployment and physical-device acceptance remain open.
-Hourly automation `ai-slowmatch` stays PAUSED; only an owner instruction starts work.
+October 2, 2026. **S7 implementation is complete; the 0.5.0 release gates are running.**
+Until promotion succeeds, root `AI-SlowMatch.exe` remains the verified 0.4.0.
+Hourly automation `ai-slowmatch` stays PAUSED; owner instructions start further work.
+The [S6 handoff](docs/history/2026-10-02-before-video-batches/CURRENT_STATUS.md)
+retains earlier release, invitation and voice evidence.
 
-Home → **Introductions & invitations** connects selected approved memory to editable
-adult introductions, independent public approval, limited versioned matching profiles,
-reciprocal city discovery, private priority ordering, expiring invitations, mutual
-version/cloud approval, AI comparison and withdrawal. Existing chat, evolving memory,
-voice and optional minimal encrypted-file exchange remain. Runtime Skill is version 3.
-[Complete bilingual workflow and architecture](docs/35_adult_peer_workflow.md).
+Home → **Saved videos & interests** supports bulk exports/lists/prepared notes,
+selection by platform/collection/date, canonical deduplication, optional public-title
+lookup, batch-scoped AI approval, checkpointed processing, pause/resume/manual retry,
+separate interests/reflections, grouped editing/merging/adoption into existing memory,
+source inspection and reversible imports. No second personality database was added.
+The packaged conversation Skill is version 4. Start with the
+[synthetic sample](examples/video_batch/mixed.json) and [bilingual guide](docs/36_saved_video_batches.md).
 
-Forty-one new focused cases pass, including real local HTTP, DPAPI persistence, worker
-startup, English/Chinese Qt journeys, evidence/permission failures and concurrency.
-Native Computer Use verified the source desktop Home entry, tabs and Back without
-submitting age declarations or consent. The source backup exclusion test covers new private directories. The frozen-source
-release passed **2,228 tests, 10 skips**, one upstream warning, compilation, lint, package
-resource/code/native checks and isolated EXE startup including actual node authorization.
-Native Computer Use also verified packaged startup and About (0.4.0/source 672af5b31331).
-Build: `128f74a6841c4712a2d491034cdaf9db`; SHA-256: `2be136607a7ce54bc176f8f7448611d6cdc00688a00ab3317b8de9eb16d3d170`.
-Full receipts are in `releases/current.json`, its build archive and the [sanitized release record](docs/evidence/2026-10-02-peer-release.json).
-The native inspection wrapper reached its 240-second deadline while About was being reviewed;
-that manual session is not counted as a clean-exit test. The separate release smoke exit passed.
-Source and bilingual handoff were synchronized to `codex/standards-correction`; the EXE
-and private runtime data are not uploaded. The honest dirty flag
-reflects the preserved unrelated untracked folders. Retention deferred safely; verified
-older releases remain for rollback. Source backups are outside the repo and restore-verified.
+**Evidence:** 88 focused cases pass, including connected English/Chinese Qt journeys,
+failure/restart/late-reply handling, scope changes, duplicate evidence, grouped correction,
+merge, surviving support and cascading deletion. Six real ChatGPT-plan calls used only
+synthetic materials with extra credits disabled and no automatic retries: three item
+calls and three synthesis attempts. The first claimed recurring interest from one item;
+the second duplicated a theme. Both were rejected and retained as failures. The final
+result contains three interests and one separate reflection draft with exact quotes
+and tentative wording; memory adoption and undo passed. All six requested/reported
+GPT-5.6-Luna IDs agreed. This small sample does not establish psychological validity.
+[Initial receipt](docs/evidence/2026-10-02-video-batch-plan.json) ·
+[Second attempt](docs/evidence/2026-10-02-video-batch-corrected.json) ·
+[Successful synthesis](docs/evidence/2026-10-02-video-batch-final.json).
 
-Five real ChatGPT-plan calls used synthetic data, extra credits disabled and no retries.
-The first two introductions were structurally valid but empty: a functional failure,
-not a successful sample. After conveying the app's checked adult self-declaration,
-English and Chinese drafts were useful and evidence-linked. A real bilingual comparison
-passed private-cache and withdrawal checks. All five requested/reported IDs agreed on
-GPT-5.6-Luna. [Initial receipt](docs/evidence/2026-10-02-peer-plan.json) ·
-[Corrected drafts](docs/evidence/2026-10-02-peer-introductions-final.json).
-This small sample does not establish psychological validity or universal reliability.
+The synthetic counts are **4 unique imported, 1 full supplied-text, 2 partial,
+1 skipped, 0 failed, 1 duplicate**. Final synthesis reused three validated item results.
+“Full” describes supplied text, not watching or verifying an entire video. Public
+YouTube example-title lookup passed; TikTok returned HTTPError. Bilibili and generic
+sources need prepared input. No private account export or vault was read.
+The 1,000-video bound, excerpt/synthesis limits and omitted-theme counts are disclosed.
 
-The built-in node runs only at `127.0.0.1:8766` after explicit Start, and stops with the
-app. Its verified local worker supports optional intervals; it is not an always-on
-public service. Cross-device links still require a managed HTTPS deployment, public
-origin controls, appropriate age/identity assurance, recovery and operational policy.
-No provider, hosting charge, public deployment, email delivery or real-data import was
-chosen. [Owner review](OWNER_REVIEW.md) records these exact external integration gaps.
+Batch checkpoints and adopted memory are unencrypted local files, excluded from Git
+and source backups. Only selected minimized excerpts and derived groups reach the
+approved AI recipient. Repeated imports add no evidence weight; drafts do not silently
+become beliefs. Undo removes batch support and dependent interpretations, not originals
+or earlier disclosures. Source was backed up and restore-verified before edits.
+Existing unrelated `.vscode/` and `paper/` are preserved and excluded.
 
-Private chat, memory and approved local introduction files remain unencrypted. Node
-snapshots/results are encrypted with AES-GCM and Windows-protected key; per-folder
-credentials use DPAPI. Only explicitly approved disclosed fields enter comparison.
-Profile updates/revocation invalidate future access; they cannot recall screenshots,
-exports or earlier cloud disclosures. No private-data backup or analytics was added.
-
-Physical voice remains a separate owner check: this environment previously exposed
-zero microphones and no Chinese system voice. Existing English synthetic recognition
-and playback-state checks do not prove physical capture or audible Chinese playback.
-Prior 0.3.0 receipts and evidence are preserved in the [previous handoff](docs/history/2026-10-02-before-peer-workflow/CURRENT_STATUS.md).
-Original unrelated `.vscode/` and `paper/` work is preserved and excluded from delivery.
+Physical microphone/Chinese playback remain owner checks: previously zero microphones
+and no Chinese system voice were exposed. The adult invitation node remains local-only;
+managed HTTPS hosting, eligibility/identity assurance and operations policy are unresolved
+external integrations. No spending, paid API, deployment, email, recruitment or recurring
+task was added. See [owner review](OWNER_REVIEW.md).
 
 ## 中文版
 
-2026 年 10 月 2 日。**S6 本机交付完成：打开根目录唯一的 AI-SlowMatch.exe，版本 0.4.0。**
-外部服务部署和实体设备验收仍待完成。`ai-slowmatch` 小时自动任务保持暂停，只按所有者指令开始工作。
+2026 年 10 月 2 日。**S7 功能实现完成，正在运行 0.5.0 发布检查。** 替换成功前，根目录
+`AI-SlowMatch.exe` 仍是已验证的 0.4.0。`ai-slowmatch` 小时任务继续暂停，只按所有者指令
+开始后续工作。[S6 交接](docs/history/2026-10-02-before-video-batches/CURRENT_STATUS.md)保留此前发布、邀请和语音证据。
 
-主页 → **介绍与邀请**连接选定已批准记忆、可编辑成年人介绍、独立公开批准、有限版本化
-匹配资料、双向城市发现、私密偏好排序、到期邀请、双方版本／云端批准、AI 比较及撤回。
-保留现有聊天、持续模型、语音及可选最小加密文件交换。运行时 Skill 更新为版本 3。
-[完整双语操作及架构](docs/35_adult_peer_workflow.md)。
+主页 → **收藏视频与兴趣**支持整批导出／链接／已准备笔记，按平台／集合／日期筛选，规范化
+去重，可选公开标题查询，整批 AI 范围批准，逐项进度保存，暂停／继续／手动重试，独立兴趣
+与反思分组，分组编辑／合并／采纳到现有记忆，查看来源及撤销导入。没有另建人格数据库，
+应用内对话 Skill 更新为版本 4。可从[合成样例](examples/video_batch/mixed.json)和
+[完整双语指南](docs/36_saved_video_batches.md)开始。
 
-新增 41 项定向案例通过，包括真实本机 HTTP、DPAPI 持久化、工作进程启动、中英文 Qt
-流程、引用／权限失败和并发。Computer Use 验证源码桌面的主页入口、标签和返回，没有
-代为提交成年声明或同意。源码备份排除测试覆盖新增私人目录。冻结源码发布通过 **2,228 项测试，10 项跳过**，
-一项上游警告，编译、静态、打包代码／资源／原生依赖及隔离 EXE 启动检查均通过，
-包含实际节点鉴权检查。Computer Use 另验证打包版启动与关于页（0.4.0／源码 672af5b31331）。
-构建：`128f74a6841c4712a2d491034cdaf9db`；SHA-256：`2be136607a7ce54bc176f8f7448611d6cdc00688a00ab3317b8de9eb16d3d170`。
-完整凭据在 `releases/current.json`、对应构建归档及[脱敏发布记录](docs/evidence/2026-10-02-peer-release.json)。
-人工界面检查的包装进程在审阅关于页时达到 240 秒期限，未把该会话算作正常退出测试；
-独立的发布启动／退出检查已通过。源码与双语交接同步到 `codex/standards-correction`，
-EXE 和私人运行数据没有上传。未提交标记如实反映保留的无关未跟踪
-目录；清理安全延后，已验证旧版本保留供回滚。源码备份位于仓库外，恢复已验证。
+**验证依据：**88 项定向检查通过，包括完整中英文 Qt 流程、失败／重启／迟到回复、范围变化、
+证据去重、分组纠正、合并、保留仍有效支持及联动删除。关闭额外积分后，仅用合成材料真实
+调用 ChatGPT 套餐六次，无自动重试：三次条目分析、三次集合综合。第一次从单项推断反复
+兴趣，第二次重复主题；均被拒绝并保留失败记录。最终得到三组兴趣、一份独立反思，具有
+原文来源及暂定措辞，记忆采纳／撤销通过。六次请求／返回 GPT-5.6-Luna 均一致，少量样本
+不能证明心理科学效度。[初次记录](docs/evidence/2026-10-02-video-batch-plan.json) ·
+[第二次尝试](docs/evidence/2026-10-02-video-batch-corrected.json) ·
+[成功综合](docs/evidence/2026-10-02-video-batch-final.json)。
 
-关闭额外积分后，以合成资料真实调用 ChatGPT 套餐五次，无自动重试。最初两次介绍结构
-有效但为空白，属于功能失败，不能算成功样本。传入应用已检查的成年自述声明后，中英文
-介绍均可用且有引用。真实双语比较通过私密缓存和撤销检查，五次请求／返回均为一致的
-GPT-5.6-Luna。[初次记录](docs/evidence/2026-10-02-peer-plan.json) ·
-[修正介绍](docs/evidence/2026-10-02-peer-introductions-final.json)。少量样本不证明心理效度
-或普遍可靠性。
+合成计数为 **4 项不同导入、1 项完整处理所供文本、2 项部分处理、1 项跳过、0 项失败、
+1 项重复**，最终综合复用三项验证过的分析。“完整”只指所供文本，不表示观看或核实完整
+视频。YouTube 公开示例标题获取成功，TikTok 返回 HTTPError；Bilibili 和通用来源需要准备
+好的输入。未读取私人账户导出或资料库。单批 1,000 项、片段／综合限制和遗漏主题均已披露。
 
-内置节点仅在明确启动后运行于 `127.0.0.1:8766`，退出应用即停止。已验证本机可选间隔
-工作进程，不是全天公开服务。跨电脑链接仍需受管理 HTTPS 部署、公共来源控制、适当的
-年龄／身份核验、恢复及运营策略。没有选择供应商、购买托管、公开部署、发送邮件或导入
-真实数据。[人工审阅](OWNER_REVIEW.md)记录确切外部整合缺口。
+批次进度及采纳记忆是未加密本地文件，从 Git 和源码备份排除。只有选定最小片段及衍生分组
+发送到批准的 AI 接收方。重复导入不增加证据权重，草稿不会默认为信念；撤销移除本批支持
+及依赖解释，不删除原文件或收回先前披露。修改前已备份源码并验证恢复，保留无关
+`.vscode/` 和 `paper/`，不纳入交付。
 
-本机私人聊天、记忆和批准介绍仍未加密；节点快照／结果使用 AES-GCM 与 Windows 保护密钥，
-每个资料文件夹的凭据使用 DPAPI。比较仅发送明确批准且可披露字段。资料更新／撤销会
-阻止后续访问，但不能撤回截图、导出或先前云端披露。未加入私人备份或分析埋点。
-
-实体语音仍须人工检查：此前环境检测到零个麦克风且无中文系统声音。已有英文合成音频
-识别与播放状态检查不等于实体采集或可听中文朗读。[上轮交接](docs/history/2026-10-02-before-peer-workflow/CURRENT_STATUS.md)
-保留 0.3.0 的发布记录和证据。原有无关 `.vscode/` 与 `paper/` 工作均保留，不纳入交付。
+实体麦克风／中文播放仍需所有者验收：此前检测到零个麦克风且无中文系统声音。成年人邀请
+节点仍仅本机使用；受管理 HTTPS 托管、资格／身份核验和运营规则是待定外部整合。没有消费、
+付费 API、公开部署、邮件、招募或新增周期任务，见[人工审阅](OWNER_REVIEW.md)。

@@ -53,6 +53,12 @@ class HomeScreen(QWidget):
         exchange.clicked.connect(on_routes.get("exchange", on_routes["advanced"]))
         layout.addWidget(exchange)
 
+        if "video_batch" in on_routes:
+            videos = SecondaryButton(bi("Saved videos & interests", "收藏视频与兴趣"))
+            videos.setObjectName("home_video_batch")
+            videos.clicked.connect(on_routes["video_batch"])
+            layout.addWidget(videos)
+
         if "peers" in on_routes:
             peers = SecondaryButton(bi("Introductions & invitations", "介绍与邀请"))
             peers.setObjectName("home_peers")

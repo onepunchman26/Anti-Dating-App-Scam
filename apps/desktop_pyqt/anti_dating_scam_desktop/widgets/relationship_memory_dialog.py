@@ -225,6 +225,12 @@ def describe_memory(item):
         lines.append(bi("Alternative: ", "其他解释：") + alternative)
     for evidence in item.evidence:
         lines.append(bi("User quote ", "用户原话 ") + evidence.source + ": " + evidence.quote)
+    for evidence in getattr(item, "external_evidence", []):
+        lines.append(
+            bi("Adopted collection context (not automatically a user quote): ",
+               "已采纳的收藏背景（不自动视为用户原话）：")
+            + evidence.origin + " · " + evidence.video_id[:10] + ": " + evidence.quote
+        )
     if item.depends_on:
         lines.append(bi("Depends on notes: ", "依赖记忆：") + ", ".join(item.depends_on))
     if item.sensitive:

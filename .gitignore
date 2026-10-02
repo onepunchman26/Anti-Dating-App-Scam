@@ -24,6 +24,7 @@ pip/cache/
 *.pem
 *.sqlite3
 .peer-session/
+.video-context/
 .dating-introduction/
 .relationship-memory/
 matching-node/
