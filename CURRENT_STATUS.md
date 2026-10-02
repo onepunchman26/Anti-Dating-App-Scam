@@ -21,7 +21,11 @@ release passed **2,228 tests, 10 skips**, one upstream warning, compilation, lin
 resource/code/native checks and isolated EXE startup including actual node authorization.
 Native Computer Use also verified packaged startup and About (0.4.0/source 672af5b31331).
 Build: `128f74a6841c4712a2d491034cdaf9db`; SHA-256: `2be136607a7ce54bc176f8f7448611d6cdc00688a00ab3317b8de9eb16d3d170`.
-Full receipts are in `releases/current.json` and its build archive. The honest dirty flag
+Full receipts are in `releases/current.json`, its build archive and the [sanitized release record](docs/evidence/2026-10-02-peer-release.json).
+The native inspection wrapper reached its 240-second deadline while About was being reviewed;
+that manual session is not counted as a clean-exit test. The separate release smoke exit passed.
+Source and bilingual handoff were synchronized to `codex/standards-correction`; the EXE
+and private runtime data are not uploaded. The honest dirty flag
 reflects the preserved unrelated untracked folders. Retention deferred safely; verified
 older releases remain for rollback. Source backups are outside the repo and restore-verified.
 
@@ -69,7 +73,10 @@ Original unrelated `.vscode/` and `paper/` work is preserved and excluded from d
 一项上游警告，编译、静态、打包代码／资源／原生依赖及隔离 EXE 启动检查均通过，
 包含实际节点鉴权检查。Computer Use 另验证打包版启动与关于页（0.4.0／源码 672af5b31331）。
 构建：`128f74a6841c4712a2d491034cdaf9db`；SHA-256：`2be136607a7ce54bc176f8f7448611d6cdc00688a00ab3317b8de9eb16d3d170`。
-完整凭据在 `releases/current.json` 及对应构建归档。未提交标记如实反映保留的无关未跟踪
+完整凭据在 `releases/current.json`、对应构建归档及[脱敏发布记录](docs/evidence/2026-10-02-peer-release.json)。
+人工界面检查的包装进程在审阅关于页时达到 240 秒期限，未把该会话算作正常退出测试；
+独立的发布启动／退出检查已通过。源码与双语交接同步到 `codex/standards-correction`，
+EXE 和私人运行数据没有上传。未提交标记如实反映保留的无关未跟踪
 目录；清理安全延后，已验证旧版本保留供回滚。源码备份位于仓库外，恢复已验证。
 
 关闭额外积分后，以合成资料真实调用 ChatGPT 套餐五次，无自动重试。最初两次介绍结构

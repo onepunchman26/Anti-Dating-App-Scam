@@ -6,7 +6,7 @@ Updated / 更新：2026-10-02。Agent-maintained; change both languages together
 
 - ✅ S6 local implementation: adult introductions, separate snapshots, persistent invitation permissions, reciprocal discovery/private ordering, local worker and integrated Qt/API/model flow. Real HTTP/Qt tests and three useful real model samples verified; first two empty introduction replies preserved as functional failures.
 - ✅ S6 release: fixed 0.4.0 EXE; 2,228 tests passed, 10 skips; compile/lint/package/isolated node startup passed. Native packaged About verified. Restore-verified source backup exists; older releases retained.
-- 🟦 S6 handoff: final bilingual acceptance record and GitHub source sync in progress.
+- ✅ S6 handoff: bilingual acceptance record, verified source backup and GitHub source delivery completed; hourly task remains paused for owner review.
 - ⬜ S6 external service: no deployed HTTPS coordinator, verified identity/age or email integration. See owner review; do not claim cross-device/public readiness.
 
 - ✅ S5 implementation: runtime Skill v2, evidence-linked model candidates, relevant retrieval, explicit approvals, session-only mode, cascading correction/deletion, and interruptible local playback in the existing architecture.
@@ -27,7 +27,7 @@ Hourly automation stays paused. No purchase, paid API key, real private archive,
 
 - ✅ S6 本机实现：成年人介绍、独立快照、持久化邀请权限、双向发现／私密排序、本机工作进程与 Qt／API／模型整合。真实 HTTP／Qt 流程和三个可用真实模型样本已验证；最初两次空白介绍作为功能失败保留。
 - ✅ S6 发布：固定 0.4.0 EXE；2,228 项通过、10 项跳过；编译／静态／打包／隔离节点启动通过，实际打包关于页已验证。源码备份恢复通过，旧版本保留。
-- 🟦 S6 交接：最终双语验收记录及 GitHub 源码同步进行中。
+- ✅ S6 交接：双语验收记录、已验证源码备份和 GitHub 源码交付完成；小时任务继续暂停，等待所有者审阅。
 - ⬜ S6 外部服务：尚未部署 HTTPS 协调节点、身份／年龄核验或邮件整合，见人工审阅；不可宣称跨设备／公开服务已就绪。
 
 - ✅ S5 实现：在现有架构加入运行时 Skill v2、带证据的个人模型候选、相关检索、明确批准、仅本次会话、联动纠正／删除及可中断本机朗读。

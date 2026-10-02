@@ -1,0 +1,42 @@
+{
+  "acceptance": "development; real AI and microphone acceptance separate",
+  "build_id": "128f74a6841c4712a2d491034cdaf9db",
+  "checks": {
+    "compile": "passed",
+    "lint": "passed",
+    "package": "passed",
+    "pytest": "passed",
+    "smoke": "passed"
+  },
+  "created_at": "2026-10-02T13:33:16.203723+00:00",
+  "dirty": true,
+  "executable": "AI-SlowMatch.exe",
+  "git_commit": "672af5b313318ea5e841b36dd5f4ede2c4489172",
+  "schema_version": "1",
+  "sha256": "2be136607a7ce54bc176f8f7448611d6cdc00688a00ab3317b8de9eb16d3d170",
+  "source_digest": "464494a3a38eae95cbb4ff0e5b09b692a788bcbc654865af243abb8b048aa998",
+  "version": "0.4.0",
+  "tests": {
+    "passed": 2228,
+    "skipped": 10,
+    "warnings": 1
+  },
+  "new_focused_cases": 41,
+  "packaged_node_authorization": "passed in isolated release smoke",
+  "native_ui": {
+    "source_home_tabs_back": "observed",
+    "packaged_startup_about": "observed 0.4.0 / 672af5b31331",
+    "manual_review_harness": "240-second wrapper deadline elapsed during inspection; clean automatic exit not claimed. Release smoke exit separately passed."
+  },
+  "public_deployment": false,
+  "private_real_data_used": false,
+  "paid_api_used": false,
+  "real_plan_calls": {
+    "total": 5,
+    "initial_empty_introductions": 2,
+    "useful_final_introductions": 2,
+    "useful_comparison": 1,
+    "automatic_retries": 0
+  },
+  "retention": "deferred; prior releases preserved"
+}
