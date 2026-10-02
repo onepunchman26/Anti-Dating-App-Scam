@@ -387,6 +387,8 @@ class PeerWorkbenchScreen(QWidget):
         vault = Path(self.profile_store.base_dir)
         if vault != self.vault:
             self._stop()
+            if self.vault:
+                self.holder.edited[str(self.vault)] = self._edited_fields()
             self.vault = vault
             self.intro = self.holder.introductions.setdefault(
                 str(vault), IntroductionService(vault)
@@ -397,6 +399,18 @@ class PeerWorkbenchScreen(QWidget):
             self.invites.clear()
             self.sources.clear()
             self.fields.setRowCount(0)
+            self.alias.clear()
+            self.member_info.clear()
+            self.candidate_detail.clear()
+            self.evidence.clear()
+            self.link.clear()
+            self.age.setValue(0)
+            self.adult.setChecked(False)
+            self.reconfirm.setChecked(False)
+            self.format_fields.setText(bi("About me; What I value", "关于我; 我重视什么"))
+            self.audience.setText(bi("Consenting adults", "自愿参与的成年人"))
+            self.length.setValue(800)
+            self.tone.setCurrentIndex(0)
         if self.intro.draft:
             self._show_draft(self.intro.draft)
         if self.holder.pending_link:

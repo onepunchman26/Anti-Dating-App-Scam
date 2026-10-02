@@ -164,6 +164,28 @@ def test_multiple_attribute_values_preserved_in_dialog(application):
     dialog.close()
 
 
+def test_folder_switch_clears_identity_eligibility_and_remote_views(application, tmp_path):
+    store = SimpleNamespace(base_dir=tmp_path / "first")
+    screen = ui.PeerWorkbenchScreen(SimpleNamespace(), store, ui.PeerWorkbenchState(), lambda: None)
+    screen.on_enter()
+    screen.alias.setText("Synthetic previous person")
+    screen.member_info.setText("Previous member")
+    screen.age.setValue(30)
+    screen.adult.setChecked(True)
+    screen.evidence.setPlainText("Previous evidence")
+    screen.candidate_detail.setPlainText("Previous candidate")
+    screen.link.setText("Previous invitation")
+    store.base_dir = tmp_path / "second"
+    screen.on_enter()
+    assert screen.age.value() == 0 and not screen.adult.isChecked()
+    assert not screen.alias.text() and not screen.member_info.text() and not screen.link.text()
+    assert not screen.evidence.toPlainText() and not screen.candidate_detail.toPlainText()
+    assert screen.intro.vault == store.base_dir
+    screen.close()
+    screen.deleteLater()
+    application.processEvents()
+
+
 def test_worker_lifespan_real_tick_and_scoped_session(server, tmp_path):
     for _ in range(100):
         if server.server.config.app.state.peer_worker_status == "running_local":

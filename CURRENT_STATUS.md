@@ -13,7 +13,7 @@ version/cloud approval, AI comparison and withdrawal. Existing chat, evolving me
 voice and optional minimal encrypted-file exchange remain. Runtime Skill is version 3.
 [Complete bilingual workflow and architecture](docs/35_adult_peer_workflow.md).
 
-Forty new focused cases pass, including real local HTTP, DPAPI persistence, worker
+Forty-one new focused cases pass, including real local HTTP, DPAPI persistence, worker
 startup, English/Chinese Qt journeys, evidence/permission failures and concurrency.
 Native Computer Use verified the source desktop Home entry, tabs and Back without
 submitting age declarations or consent. The source backup exclusion test now covers
@@ -57,7 +57,7 @@ EXE 仍为原 0.3.0 构建。`ai-slowmatch` 小时自动任务保持暂停，只
 保留现有聊天、持续模型、语音及可选最小加密文件交换。运行时 Skill 更新为版本 3。
 [完整双语操作及架构](docs/35_adult_peer_workflow.md)。
 
-新增 40 项定向案例通过，包括真实本机 HTTP、DPAPI 持久化、工作进程启动、中英文 Qt
+新增 41 项定向案例通过，包括真实本机 HTTP、DPAPI 持久化、工作进程启动、中英文 Qt
 流程、引用／权限失败和并发。Computer Use 验证源码桌面的主页入口、标签和返回，没有
 代为提交成年声明或同意。源码备份排除测试也覆盖新增私人目录；冻结源码全套和 EXE
 检查尚待完成。
