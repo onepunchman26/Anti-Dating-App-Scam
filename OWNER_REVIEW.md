@@ -2,7 +2,7 @@
 
 ## English
 
-**October 15 real-chat repair:** 0.5.2 is being verified. Use Connect ChatGPT →
+**October 15 real-chat repair:** 0.5.2 passed verification; close the old app to finish replacement. Use Connect ChatGPT →
 Try local Codex connection → Connect through local Codex. A separate login is saved
 for this app; confirm Codex extra credits/top-ups remain off, select the suggested
 `gpt-6-luna` candidate, enter AI Chat and press Start. Real synthetic service and Qt
@@ -77,7 +77,7 @@ example returned an error. Bilibili and unrecognized sources use prepared input 
 
 ## 中文版
 
-**10 月 15 日真实聊天修复：**0.5.2 正在验收。操作为“连接 ChatGPT → 尝试本机 Codex
+**10 月 15 日真实聊天修复：**0.5.2 已通过验收，请关闭旧版完成替换。操作为“连接 ChatGPT → 尝试本机 Codex
 兼容连接 → 通过本机 Codex 连接”。本应用保存独立登录；确认 Codex 额外积分／自动充值
 仍关闭，选择建议的 `gpt-6-luna` 候选，进入 AI 聊天并点击开始。服务层及 Qt 界面的真实
 合成访谈已通过，包括相关追问、要求不再提问、结束与返回。打开固定 EXE 前请查看

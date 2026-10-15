@@ -2,14 +2,21 @@
 
 ## English
 
-October 15, 2026 (UTC): **0.5.2 real-chat recovery is in verification; the fixed
-root EXE is still 0.5.1 until promotion.** The separate official local Codex connection
+October 15, 2026 (UTC): **0.5.2 has passed verification; replacement awaits closing
+the running 0.5.1 app.** The separate official local Codex connection
 completed a real three-turn synthetic interview with relevant follow-ups, using the
 owner-confirmed included allowance. The original SIWC route still returns HTTP 520.
 The new adapter isolates its home/workspace/tools and persists only its own managed
 login. Model catalogs are candidates; upstream reported model IDs remain unknown.
-61 focused checks pass. Full frozen-source gates and packaged real Qt acceptance
-remain pending. See [integration and evidence boundaries](docs/38_codex_chat_recovery.md).
+61 focused checks pass. Frozen-source compile/lint, **2,296 tests (10 skips)**, package
+audit and isolated startup passed. The actual packaged EXE completed four real
+synthetic Qt turns: model selection, displayed answers, relevant follow-ups, requested
+pause, End without inference and Back all passed. Native Computer Use observed the
+packaged conversation with a real reply. [Packaged receipt](docs/evidence/2026-10-15-codex-packaged-gui.json).
+Build `52ee54e439524476859e85d98c69144c`, source `bdb1a44e8062`, SHA-256
+`1d30faf1821a3a90c88e7020a2aa3c2f23a2a2a6660bf4c3f48b707c0d964f8a`.
+Windows blocked replacement while the old app remained open; the old EXE is intact.
+No process was forcibly closed. See [integration and evidence boundaries](docs/38_codex_chat_recovery.md).
 
 Previous delivery, October 14, 2026: **0.5.1 at the fixed root `AI-SlowMatch.exe`.** Real account catalog
 requests reproduced HTTP 520 after successful authorization; no real inference was
@@ -90,11 +97,17 @@ task was added. See [owner review](OWNER_REVIEW.md).
 
 ## 中文版
 
-2026 年 10 月 15 日（UTC）：**0.5.2 真实聊天修复正在验收；正式替换前，根目录 EXE
-仍为 0.5.1。**独立的官方本机 Codex 连接已用所有者确认的套餐额度完成三轮真实合成
+2026 年 10 月 15 日（UTC）：**0.5.2 已通过验收；正在等待关闭运行中的 0.5.1 后替换。**
+独立的官方本机 Codex 连接已用所有者确认的套餐额度完成三轮真实合成
 访谈并作相关追问；原 SIWC 通道仍返回 HTTP 520。新适配器隔离目录、工作区及工具，
 保存本应用自己的独立登录。模型列表是候选目录，上游返回模型 ID 仍未知。
-61 项定向检查通过，冻结源码全量检查和打包版真实 Qt 验收尚未完成。
+61 项定向检查通过；冻结源码编译／静态检查、**2,296 项测试（10 项跳过）**、嵌入包
+审计及隔离启动均通过。实际打包 EXE 完成四轮真实合成 Qt 访谈：模型选择、显示回答、
+相关追问、要求暂停、结束且不额外推理及返回均通过。Computer Use 观察到打包界面中的
+真实回复，见[打包验收记录](docs/evidence/2026-10-15-codex-packaged-gui.json)。
+构建 `52ee54e439524476859e85d98c69144c`，源码 `bdb1a44e8062`，SHA-256
+`1d30faf1821a3a90c88e7020a2aa3c2f23a2a2a6660bf4c3f48b707c0d964f8a`。
+旧版仍在运行，Windows 阻止替换；旧 EXE 完好保留，未强制关闭程序。
 详见[集成与证据边界](docs/38_codex_chat_recovery.md)。
 
 上次交付，2026 年 10 月 14 日：**0.5.1 交付至根目录固定 `AI-SlowMatch.exe`。**真实账号在授权成功后读取模型列表时
