@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-14",
+  "version": "0.5.1",
+  "source_commit": "f41e56152c2d50a1ff4a3417afd289342c936acb",
+  "live_catalog": {
+    "method": "GET",
+    "endpoint": "https://api.openai.com/v1/models",
+    "authorization_source": "application_owned_windows_protected_store",
+    "failed_phase": "loading_models",
+    "http_status": 520,
+    "category": "network",
+    "independent_clients": ["urllib", "httpx"],
+    "anonymous_control_status": 401,
+    "raw_response_or_credentials_recorded": false,
+    "real_inference_attempted": false,
+    "service_recovery_verified": false
+  },
+  "focused_synthetic_tests": {"passed": 94, "failed": 0},
+  "native_source_window": {
+    "tool": "Computer Use",
+    "language": "zh",
+    "http_520_displayed": true,
+    "manual_reload_clicked": true,
+    "authorization_preserved": true,
+    "chat_remained_disabled": true,
+    "closed_normally": true
+  },
+  "private_conversations_or_profiles_read": false,
+  "paid_api_used": false,
+  "automation_resumed": false
+}

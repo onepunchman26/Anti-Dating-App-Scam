@@ -4,7 +4,10 @@ Updated / 更新：2026-10-14。Agent-maintained; change both languages together
 
 ## English
 
-- 🔄 ChatGPT connection fix: investigating the empty account model picker after successful authorization; repairing catalog recovery and chat readiness, with regression and synthetic plan checks.
+- ✅ ChatGPT connection fix: reproduced authenticated catalog HTTP 520; added safe diagnostics, manual catalog retry, placeholders and valid-selection gating. 94 focused synthetic checks and native source-window error/retry inspection passed.
+- ✅ 0.5.1 verification: frozen-source compile/lint, 2,270 tests (10 skipped), package audit and isolated EXE startup passed.
+- ✅ 0.5.1 replacement: owner closed the old app; the fixed root EXE was atomically updated and its SHA-256 matches the verified build. No forced termination.
+- ⬜ Live chat recovery: the authenticated official model endpoint still returns HTTP 520. No real inference was attempted; synthetic recovery checks are not live success.
 
 - ✅ S7 implementation: collection import/filter/deduplication, supplied-content analysis, bounded interest/reflection synthesis, grouped review and reversible existing-memory adoption. Official source capabilities recorded; 88 focused checks pass. Six real synthetic plan calls produced a final useful collection result; two failed syntheses are preserved.
 - ✅ S7 release: fixed 0.5.0 EXE, 2,257 tests passed/10 skipped; compile, lint, package and isolated startup passed. Native completed-result/source and packaged About inspection passed; old releases retained.
@@ -31,7 +34,10 @@ Hourly automation stays paused. No purchase, paid API key, real private archive,
 
 ## 中文版
 
-- 🔄 ChatGPT 连接修复：排查授权成功后账号模型选择器为空的问题，修复模型列表恢复与聊天就绪状态，并进行回归及合成套餐验证。
+- ✅ ChatGPT 连接修复：复现带授权的模型接口 HTTP 520，增加安全诊断、手动重载、占位提示及有效模型选择检查。94 项定向合成测试及原生源码窗口的错误／重试检查通过。
+- ✅ 0.5.1 验证：冻结源码编译／静态检查、2,270 项测试（10 项跳过）、打包审计及隔离 EXE 启动均通过。
+- ✅ 0.5.1 替换：所有者关闭旧版后，固定根目录 EXE 已原子更新，SHA-256 与验证构建一致；未强行终止程序。
+- ⬜ 真实聊天恢复：官方带授权的模型接口仍返回 HTTP 520；本轮未尝试真实推理，合成恢复验证不代表真实成功。
 
 - ✅ S7 实现：集合导入／筛选／去重、所供正文分析、有限兴趣／反思综合、分组审阅与可撤销的现有记忆采纳。已记录官方平台能力，88 项定向检查通过；六次真实合成套餐调用最终得到可用结果，保留两次综合失败。
 - ✅ S7 发布：固定 0.5.0 EXE，2,257 项通过／10 项跳过；编译、静态、打包及隔离启动通过。实际结果源码界面和打包关于页检查通过，旧版本保留。

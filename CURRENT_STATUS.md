@@ -2,14 +2,22 @@
 
 ## English
 
-October 14, 2026: **0.5.1 connection repair is being validated.** Real account catalog
+October 14, 2026: **0.5.1 is delivered at the fixed root `AI-SlowMatch.exe`.** Real account catalog
 requests reproduced HTTP 520 after successful authorization; no real inference was
 attempted in this repair. This is an account-authorized endpoint failure, not evidence
 of a universal outage or an obsolete model name. The UI now exposes the status and a
 manual Reload models action without repeating OAuth. It refuses unavailable/stale model
 selections and clears the success badge if token renewal invalidates the connection.
 94 focused synthetic checks pass, including failure → retry → model → chat in both
-languages. Full release gates and replacement of the fixed EXE are pending.
+languages. Full frozen-source checks passed: **2,270 tests, 10 skips**, one upstream
+Starlette/httpx warning, compilation, lint, embedded package audit and isolated startup.
+The owner closed the old app before atomic replacement; the root hash matches the
+verified candidate. Native packaged About shows 0.5.1 and source `f41e56152c2d`.
+Build: `3cd7f492a310496ca5e1a51c8ad3de3d`; SHA-256:
+`5475356223774595e087d82ee7acb1b3a005d091aeba8134bef4b8ed43699e41`.
+The [release receipt](docs/evidence/2026-10-14-catalog-release.json) and
+[live failure record](docs/evidence/2026-10-14-catalog-diagnosis.json) distinguish local
+repair from still-blocked real chat. The dirty flag is from preserved unrelated folders.
 See the [diagnosis and verification boundaries](docs/37_chatgpt_catalog_recovery.md).
 
 Previous delivery, October 2, 2026: **S7, root `AI-SlowMatch.exe`, version 0.5.0.**
@@ -73,12 +81,19 @@ task was added. See [owner review](OWNER_REVIEW.md).
 
 ## 中文版
 
-2026 年 10 月 14 日：**0.5.1 连接修复正在验证。**真实账号在授权成功后读取模型列表时
+2026 年 10 月 14 日：**0.5.1 已交付至根目录固定 `AI-SlowMatch.exe`。**真实账号在授权成功后读取模型列表时
 复现 HTTP 520；本轮未尝试真实推理。这说明带账号授权的接口请求失败，并不能证明全网
 故障或模型名称过旧。界面现已显示具体状态，并提供无需重复 OAuth 的“重新加载模型”。
 模型失效或未选中时不会启用聊天；续期导致连接失效时会清除成功标识。
-94 项定向合成测试通过，包括中英文“失败 → 重试 → 选模型 → 聊天”流程；完整发布检查
-及固定 EXE 更新待完成。详见[诊断与验证边界](docs/37_chatgpt_catalog_recovery.md)。
+94 项定向合成测试通过，包括中英文“失败 → 重试 → 选模型 → 聊天”流程。冻结源码的
+完整检查通过：**2,270 项测试、10 项跳过**，一项上游 Starlette/httpx 警告，编译、
+静态检查、嵌入包审计及隔离启动均通过。所有者关闭旧版后完成原子替换，根目录文件
+哈希与已验证构建一致；原生打包关于页显示 0.5.1，源码 `f41e56152c2d`。
+构建：`3cd7f492a310496ca5e1a51c8ad3de3d`；SHA-256：
+`5475356223774595e087d82ee7acb1b3a005d091aeba8134bef4b8ed43699e41`。
+[发布记录](docs/evidence/2026-10-14-catalog-release.json)与
+[真实失败记录](docs/evidence/2026-10-14-catalog-diagnosis.json)分别记录本地修复和仍受阻的
+真实聊天；dirty 标记来自保留的无关文件夹。详见[诊断与验证边界](docs/37_chatgpt_catalog_recovery.md)。
 
 上次交付为 2026 年 10 月 2 日：**S7，根目录 `AI-SlowMatch.exe`，版本 0.5.0。**`ai-slowmatch` 小时任务继续暂停，只按所有者指令
 开始后续工作。[S6 交接](docs/history/2026-10-02-before-video-batches/CURRENT_STATUS.md)保留此前发布、邀请和语音证据。

@@ -1,0 +1,29 @@
+{
+  "acceptance": "development; real AI and microphone acceptance separate",
+  "build_id": "3cd7f492a310496ca5e1a51c8ad3de3d",
+  "checks": {
+    "compile": "passed",
+    "lint": "passed",
+    "package": "passed",
+    "pytest": "passed",
+    "smoke": "passed"
+  },
+  "created_at": "2026-10-15T02:00:41.090549+00:00",
+  "dirty": true,
+  "executable": "AI-SlowMatch.exe",
+  "git_commit": "f41e56152c2d50a1ff4a3417afd289342c936acb",
+  "schema_version": "1",
+  "sha256": "5475356223774595e087d82ee7acb1b3a005d091aeba8134bef4b8ed43699e41",
+  "source_digest": "70f86e24ceb3a3ae732ea853114a5b44e3441cf8a118af54663c4b38128c1307",
+  "version": "0.5.1",
+  "pytest_passed": 2270,
+  "pytest_skipped": 10,
+  "pytest_warnings": 1,
+  "root_promoted": true,
+  "live_chat_recovered": false,
+  "live_catalog_status": 520,
+  "native_source_error_reload_verified": true,
+  "native_packaged_about_verified": true,
+  "native_packaged_version": "0.5.1",
+  "native_packaged_inspection_closed_normally": true
+}

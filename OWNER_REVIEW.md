@@ -2,8 +2,17 @@
 
 ## English
 
+**October 14 connection repair:** 0.5.1 has replaced the fixed EXE; use the current-status record
+for the exact delivery state. Open Connect ChatGPT and use **Reload models** without
+repeating browser authorization. When the catalog succeeds, choose a model, confirm
+extra credits are disabled, enter AI Chat and press Start. Current live checks return
+HTTP 520 from the authorized model endpoint, so real chatting remains blocked.
+The native source screen correctly shows that error and offers retry; simulated
+success-path checks do not mean the live service has recovered. Details and validation
+boundaries are in the [connection repair record](docs/37_chatgpt_catalog_recovery.md).
+
 Open the single root **AI-SlowMatch.exe**. [Current release status](CURRENT_STATUS.md)
-is authoritative; About shows the delivered version 0.5.0. Hourly task execution stays paused. This work
+is authoritative; About shows version 0.5.1. Hourly task execution stays paused. This work
 uses the architecture and synthetic included-plan tests already authorized.
 
 1. **Saved-video batch:** Home → Saved videos & interests → choose
@@ -59,8 +68,15 @@ example returned an error. Bilibili and unrecognized sources use prepared input 
 
 ## 中文版
 
-打开根目录唯一的 **AI-SlowMatch.exe**；以[当前发布状态](CURRENT_STATUS.md)为准，目标
-已交付版本为 0.5.0。小时任务继续暂停，本轮使用已经授权的架构及合成资料套餐测试。
+**10 月 14 日连接修复：**固定 EXE 已更新到 0.5.1，具体交付状态以当前交接为准。进入连接
+ChatGPT 页面，点击**重新加载模型**，无需重复浏览器授权。模型列表成功出现后，
+选择模型、确认额外积分已关闭、进入 AI 聊天并点击开始。目前带授权的模型接口在
+真实检查中返回 HTTP 520，因此真实聊天仍受阻。原生源码界面已正确显示该错误并
+提供重试；模拟成功路径通过不代表真实服务已恢复。
+详见[连接修复记录](docs/37_chatgpt_catalog_recovery.md)。
+
+打开根目录唯一的 **AI-SlowMatch.exe**；以[当前发布状态](CURRENT_STATUS.md)为准，
+关于页应显示 0.5.1。小时任务继续暂停，本轮使用已经授权的架构及合成资料套餐测试。
 
 1. **视频集合：**主页 → 收藏视频与兴趣，选择 `examples/video_batch/mixed.json`。预览／筛选，
    导入后一次批准整批 AI 范围。样例应有四个不同视频（一个重复），一项所供字幕、两项部分／
