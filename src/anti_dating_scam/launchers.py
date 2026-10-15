@@ -87,7 +87,25 @@ def desktop_main(argv: list[str] | None = None) -> int:
         help="start with temporary data and exit automatically / 临时数据启动检查后自动退出",
     )
     parser.add_argument("--invitation", help="Open an invitation for review / 打开邀请供审阅")
+    parser.add_argument(
+        "--synthetic-chat-check",
+        metavar="NEW_RECEIPT_PATH",
+        help="Opt-in real Codex/GUI check with fixed synthetic data / 合成资料真实聊天界面验收",
+    )
+    parser.add_argument(
+        "--confirm-included-plan",
+        action="store_true",
+        help="Confirm Codex extra credits and top-ups are off / 确认关闭 Codex 额外积分与自动充值",
+    )
     args = parser.parse_args(argv)
+    if args.synthetic_chat_check:
+        if not args.confirm_included_plan or args.smoke_test or args.invitation:
+            parser.error("Confirm included-plan-only use; do not combine checks or invitations.")
+        from pathlib import Path
+
+        from anti_dating_scam_desktop.synthetic_acceptance import run
+
+        return run(Path(args.synthetic_chat_check))
     if args.invitation:
         # Carry opaque text to the review field only. Never connect, claim or consent here.
         if len(args.invitation) > 2048:

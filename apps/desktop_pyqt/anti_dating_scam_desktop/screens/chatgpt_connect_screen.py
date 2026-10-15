@@ -25,6 +25,8 @@ class ChatGPTConnectScreen(QWidget):
     def __init__(self, state, profile_store, on_done, on_back, *, connection=None):
         super().__init__()
         self.connection = connection or ChatGPTConnectionService()
+        self._direct_connection = self.connection
+        self._compat_connection = None
         self.preferences = ModelPreferences()
         self.state = state
         self.on_done = on_done
@@ -49,7 +51,7 @@ class ChatGPTConnectScreen(QWidget):
                 ),
             )
         )
-        note = QLabel(
+        self.connection_note = note = QLabel(
             bi(
                 "ChatGPT runs online. Only the conversation you approve in this app is sent. "
                 "This connection cannot read your existing ChatGPT chats.",
@@ -71,6 +73,12 @@ class ChatGPTConnectScreen(QWidget):
         self.connect_button = PrimaryButton(bi("Continue with ChatGPT", "继续使用 ChatGPT"))
         self.connect_button.clicked.connect(self._connect)
         layout.addWidget(self.connect_button)
+        self.compat_button = SecondaryButton(
+            bi("Try local Codex connection", "尝试本机 Codex 兼容连接")
+        )
+        self.compat_button.setObjectName("chatgptCompatibilityConnection")
+        self.compat_button.clicked.connect(self._switch_connection)
+        layout.addWidget(self.compat_button)
         model_label = QLabel(bi("Chat model", "聊天模型"))
         layout.addWidget(model_label)
         self.model_picker = QComboBox()
@@ -166,6 +174,7 @@ class ChatGPTConnectScreen(QWidget):
 
     def _controls(self):
         self.connect_button.setEnabled(not self._busy)
+        self.compat_button.setEnabled(not self._busy)
         self.disconnect_button.setEnabled(not self._busy)
         self.reload_button.setEnabled(self._sharing and not self._busy)
         self.use_button.setEnabled(
@@ -177,12 +186,78 @@ class ChatGPTConnectScreen(QWidget):
         self.model_picker.setEnabled(bool(self._models) and not self._busy)
         self.progress.setVisible(self._busy)
 
+    def _switch_connection(self):
+        if self._busy:
+            return
+        from anti_dating_scam.ai.codex_connection import CodexConnectionService
+
+        compatibility = not getattr(self.connection, "compatibility", False)
+        if compatibility:
+            if self._compat_connection is None:
+                self._compat_connection = CodexConnectionService()
+            self.connection = self._compat_connection
+        else:
+            self.connection = self._direct_connection
+        # Billing confirmation and an active provider never silently cross routes.
+        ai_backend.set_active(None)
+        self.plan_consent.setChecked(False)
+        self.compat_button.setText(
+            bi("Use standard ChatGPT connection", "使用标准 ChatGPT 连接")
+            if compatibility
+            else bi("Try local Codex connection", "尝试本机 Codex 兼容连接")
+        )
+        self.connect_button.setText(
+            bi("Connect through local Codex", "通过本机 Codex 连接")
+            if compatibility
+            else bi("Continue with ChatGPT", "继续使用 ChatGPT")
+        )
+        self.connection_note.setText(
+            bi(
+                "Uses your Codex plan allowance through the installed official Codex runtime. "
+                "Sign in separately; existing Codex chats and files are not read. "
+                "Model names are candidates; actual access is verified when chatting.",
+                "通过已安装的官方 Codex 程序使用 Codex 套餐额度。需要单独登录，"
+                "不会读取已有 Codex 聊天或文件。列表是候选模型，实际访问以聊天结果验证。",
+            )
+            if compatibility
+            else bi(
+                "ChatGPT runs online. Only the conversation you approve in this app is sent. "
+                "This connection cannot read your existing ChatGPT chats.",
+                "ChatGPT 在线运行。仅发送你在本应用中同意发送的对话；"
+                "此连接无法读取你已有的 ChatGPT 聊天记录。",
+            )
+        )
+        self.plan_consent.setText(
+            bi(
+                "I have disabled Codex extra credits and automatic top-ups. "
+                "Use only my included Codex plan allowance.",
+                "我已关闭 Codex 额外积分和自动充值，仅使用已有 Codex 套餐额度。",
+            )
+            if compatibility
+            else bi(
+                "I have disabled extra-credit use for this app in ChatGPT settings. "
+                "Use only my existing plan allowance.",
+                "我已在 ChatGPT 设置中关闭本应用的额外积分使用，仅使用现有套餐额度。",
+            )
+        )
+        self.on_enter()
+
     def _show_phase(self):
         diagnostic = getattr(self.connection, "diagnostic", None)
         if not self._busy or not callable(diagnostic):
             return
         phase = diagnostic().phase
         labels = {
+            "runtime_missing": (
+                "The compatible local Codex program was not found. "
+                "Install or repair Codex, then reconnect.",
+                "未找到兼容的本机 Codex 程序，请安装或修复 Codex 后重新连接。",
+            ),
+            "runtime_version": (
+                "The installed Codex version has changed. AI-SlowMatch needs a compatibility "
+                "update before this connection can run.",
+                "已安装的 Codex 版本发生变化，需要更新 AI-SlowMatch 的兼容支持后再连接。",
+            ),
             "waiting_callback": (
                 "Waiting for your browser authorization…",
                 "正在等待你完成浏览器授权……",
@@ -299,11 +374,17 @@ class ChatGPTConnectScreen(QWidget):
                 self.model_picker.setPlaceholderText(bi("Choose a model", "请选择模型"))
                 self.model_picker.setCurrentIndex(0)
             active = ai_backend.get_active()
-            if getattr(active, "provider_id", "") == "chatgpt_plan":
+            if getattr(active, "connection", None) is self.connection:
                 selected = self.model_picker.findData(getattr(active, "model", None))
                 if selected >= 0:
                     self.model_picker.setCurrentIndex(selected)
-            remembered = self.preferences.load(self.connection.status().client_id)
+            remembered = self.preferences.load(
+                getattr(
+                    self.connection,
+                    "preference_key",
+                    self.connection.status().client_id,
+                )
+            )
             if remembered:
                 self.model_picker.setCurrentIndex(self.model_picker.findData(remembered))
                 if self.model_picker.currentIndex() < 0:
@@ -329,6 +410,15 @@ class ChatGPTConnectScreen(QWidget):
                     "然后重新加载模型。",
                 )
             )
+            if getattr(self.connection, "compatibility", False) and self._models:
+                self.banner.set_text(
+                    bi(
+                        "Signed in through local Codex. Choose a candidate model and confirm "
+                        "Codex extra credits are off before chatting.",
+                        "已通过本机 Codex 登录。请选择候选模型，"
+                        "并确认 Codex 额外积分已关闭后开始聊天。",
+                    )
+                )
             self._controls()
 
         def error(_message):
@@ -430,7 +520,14 @@ class ChatGPTConnectScreen(QWidget):
         def prepare():
             backend = self.connection.create_backend(slug, included_plan_confirmed=True)
             if self.connection.status().client_id:
-                self.preferences.save(self.connection.status().client_id, slug)
+                self.preferences.save(
+                    getattr(
+                        self.connection,
+                        "preference_key",
+                        self.connection.status().client_id,
+                    ),
+                    slug,
+                )
             return backend
 
         def done(backend):
@@ -442,7 +539,7 @@ class ChatGPTConnectScreen(QWidget):
                 return
             ai_backend.set_active(backend)
             if self.state is not None:
-                self.state.provider_name = "ChatGPT plan"
+                self.state.provider_name = getattr(backend, "name", "ChatGPT plan")
                 self.state.model_name = slug
             self.success.confirm(chat_ready=True)
             self._controls()
@@ -472,7 +569,7 @@ class ChatGPTConnectScreen(QWidget):
         self._controls()
 
         active = ai_backend.get_active()
-        if getattr(active, "provider_id", None) == "chatgpt_plan":
+        if getattr(active, "connection", None) is self.connection:
             ai_backend.set_active(None)
 
         def done(revoked):
@@ -488,7 +585,7 @@ class ChatGPTConnectScreen(QWidget):
             )
             self.plan_consent.setChecked(False)
             active = ai_backend.get_active()
-            if getattr(active, "provider_id", None) == "chatgpt_plan":
+            if getattr(active, "connection", None) is self.connection:
                 ai_backend.set_active(None)
             self.banner.set_text(
                 bi("Disconnected.", "已断开。")

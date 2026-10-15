@@ -14,7 +14,8 @@ def test_bilingual_launcher_help_survives_ansi_output_encoding():
         [sys.executable, "run_local_app.py", "--help"],
         cwd=Path(__file__).resolve().parents[1],
         env={**os.environ, "PYTHONIOENCODING": "cp1252"},
-        capture_output=True, timeout=15,
+        capture_output=True,
+        timeout=15,
     )
     assert result.returncode == 0, result.stderr
     assert "本地网页应用" in result.stdout.decode("utf-8")
@@ -66,3 +67,40 @@ def test_desktop_smoke_isolates_home_and_disables_auto_connection(monkeypatch):
     assert os.environ.get("USERPROFILE") == prior_home
     assert os.environ.get("ADS_NO_AUTOCONNECT") == prior_auto
     assert not captured["home"].exists()
+
+
+@pytest.mark.parametrize(
+    "args",
+    [
+        [],
+        ["--smoke-test", "--confirm-included-plan"],
+        ["--invitation", "synthetic", "--confirm-included-plan"],
+    ],
+)
+def test_real_synthetic_check_needs_explicit_plan_confirmation(tmp_path, args):
+    receipt = tmp_path / "unused.json"
+    with pytest.raises(SystemExit) as failure:
+        launchers.desktop_main(["--synthetic-chat-check", str(receipt), *args])
+    assert failure.value.code == 2
+    assert not receipt.exists()
+
+
+def test_real_synthetic_check_isolates_profiles_but_not_owned_auth(tmp_path, monkeypatch):
+    from anti_dating_scam_desktop import synthetic_acceptance
+
+    old = {key: os.environ.get(key) for key in ("HOME", "USERPROFILE", "LOCALAPPDATA")}
+
+    def fake_gui(receipt, save):
+        assert os.environ["HOME"] == os.environ["USERPROFILE"] != old["USERPROFILE"]
+        assert os.environ.get("LOCALAPPDATA") == old["LOCALAPPDATA"]
+        assert not list(Path(os.environ["HOME"]).iterdir())
+        receipt["status"] = "synthetic-test"
+        save()
+        return 0
+
+    monkeypatch.setattr(synthetic_acceptance, "_run_gui", fake_gui)
+    path = tmp_path / "receipt.json"
+    assert synthetic_acceptance.run(path) == 0
+    assert {key: os.environ.get(key) for key in old} == old
+    with pytest.raises(FileExistsError):
+        synthetic_acceptance.run(path)

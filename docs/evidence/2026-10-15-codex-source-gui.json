@@ -1,0 +1,20 @@
+{
+  "at": "2026-10-15T03:28:05.455356+00:00",
+  "synthetic_only": true,
+  "status": "failed",
+  "stage": "connect",
+  "turns": [],
+  "model_options": [
+    "gpt-6-luna",
+    "gpt-6.1-sol",
+    "gpt-6-astra",
+    "gpt-6-sol",
+    "gpt-6-luna",
+    "gpt-5.6-sol",
+    "gpt-5.6-terra",
+    "gpt-5.6-luna"
+  ],
+  "packaged_executable": false,
+  "error_type": "AssertionError",
+  "check_failure": "Chat navigation failed"
+}

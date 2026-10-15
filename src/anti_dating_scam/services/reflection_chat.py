@@ -88,8 +88,14 @@ _QUESTION_INSTRUCTIONS = (
     + """
 Give a brief, useful response in English and Simplified Chinese, addressing the
 latest user statement, question or correction. With no user statements, offer a
-warm invitation to choose a topic. Do not invent feelings or repeat a skipped topic. Ask at most one
-optional follow-up; use null when the user wants advice, a pause, or no questions.
+warm invitation to choose a topic. After a substantive relationship statement,
+normally ask one gentle follow-up grounded in what the user just said, so the
+interview helps them explore rather than only repeating their words. Do not invent
+feelings or repeat a skipped topic. Ask at most one optional follow-up; use null
+when the user asks for advice without questions, to pause THIS AI conversation,
+or to receive no questions. Describing a pause during a relationship disagreement
+is interview content, not a request to pause this interview. After an ordinary
+answer about their needs or communication, include exactly one relevant question.
 Return ONLY JSON {"reply":{"en":"...","zh":"..."},"question":null,
 "memory_evaluation":{"outcome":"no_update","reason":"...","candidates":[]}}
 or the same object with question = {"en":"... ?","zh":"...？"}.

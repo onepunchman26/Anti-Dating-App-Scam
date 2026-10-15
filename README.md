@@ -16,6 +16,11 @@ archives under `releases/` are for recovery. See About for the version and build
    If authorization succeeds but models are unavailable, use **Reload models** on the
    same page. HTTP errors are shown separately from sign-in success. Chat stays disabled
    until an account-listed model is selected and the usage confirmation is checked.
+   If that route still fails, use **Try local Codex connection → Connect through local
+   Codex**. It uses a separate login and included Codex allowance; confirm that Codex
+   extra credits and top-ups are off. The lightweight candidate default is currently
+   `gpt-6-luna`. This route requires the audited installed Codex version; see the
+   [connection guide](docs/38_codex_chat_recovery.md) for limits and real evidence.
 2. Enter **AI Chat → Start**. Answer, ask for advice, correct, skip or change topics.
    Review what goes online before sending. **End** stops accepting pending replies immediately.
 3. **Voice input** uses the selected microphone and a local English/Chinese speech
@@ -75,6 +80,10 @@ launches source; `./release.ps1 build` backs up, tests, builds and updates the f
    ChatGPT 用量管理中关闭此应用的额外积分。应用只记住模型选择，不保存或冒认费用确认。
    如果授权成功但模型不可用，请在同一页面点击**重新加载模型**。HTTP 错误会与登录成功
    分别显示。只有选中账号实际提供的模型并勾选用量确认后，才可启用聊天。
+   如果标准通道仍失败，选择**尝试本机 Codex 兼容连接 → 通过本机 Codex 连接**。
+   此方式单独登录并使用 Codex 套餐额度，请确认关闭 Codex 额外积分及自动充值。
+   当前轻量候选默认是 `gpt-6-luna`，需要已通过兼容检查的本机 Codex 版本；限制及真实
+   验证依据见[连接指南](docs/38_codex_chat_recovery.md)。
 2. 进入 **AI 聊天 → 开始**。可以回答、求建议、纠正、跳过或换话题；发送前审阅
    将要联网处理的内容。**结束**会立即停止接纳待处理回复。
 3. **语音输入**使用所选麦克风及本地中／英文语音模型。核对识别草稿后，自行点击发送。

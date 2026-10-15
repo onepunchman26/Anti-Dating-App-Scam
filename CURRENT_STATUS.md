@@ -2,7 +2,16 @@
 
 ## English
 
-October 14, 2026: **0.5.1 is delivered at the fixed root `AI-SlowMatch.exe`.** Real account catalog
+October 15, 2026 (UTC): **0.5.2 real-chat recovery is in verification; the fixed
+root EXE is still 0.5.1 until promotion.** The separate official local Codex connection
+completed a real three-turn synthetic interview with relevant follow-ups, using the
+owner-confirmed included allowance. The original SIWC route still returns HTTP 520.
+The new adapter isolates its home/workspace/tools and persists only its own managed
+login. Model catalogs are candidates; upstream reported model IDs remain unknown.
+61 focused checks pass. Full frozen-source gates and packaged real Qt acceptance
+remain pending. See [integration and evidence boundaries](docs/38_codex_chat_recovery.md).
+
+Previous delivery, October 14, 2026: **0.5.1 at the fixed root `AI-SlowMatch.exe`.** Real account catalog
 requests reproduced HTTP 520 after successful authorization; no real inference was
 attempted in this repair. This is an account-authorized endpoint failure, not evidence
 of a universal outage or an obsolete model name. The UI now exposes the status and a
@@ -81,7 +90,14 @@ task was added. See [owner review](OWNER_REVIEW.md).
 
 ## 中文版
 
-2026 年 10 月 14 日：**0.5.1 已交付至根目录固定 `AI-SlowMatch.exe`。**真实账号在授权成功后读取模型列表时
+2026 年 10 月 15 日（UTC）：**0.5.2 真实聊天修复正在验收；正式替换前，根目录 EXE
+仍为 0.5.1。**独立的官方本机 Codex 连接已用所有者确认的套餐额度完成三轮真实合成
+访谈并作相关追问；原 SIWC 通道仍返回 HTTP 520。新适配器隔离目录、工作区及工具，
+保存本应用自己的独立登录。模型列表是候选目录，上游返回模型 ID 仍未知。
+61 项定向检查通过，冻结源码全量检查和打包版真实 Qt 验收尚未完成。
+详见[集成与证据边界](docs/38_codex_chat_recovery.md)。
+
+上次交付，2026 年 10 月 14 日：**0.5.1 交付至根目录固定 `AI-SlowMatch.exe`。**真实账号在授权成功后读取模型列表时
 复现 HTTP 520；本轮未尝试真实推理。这说明带账号授权的接口请求失败，并不能证明全网
 故障或模型名称过旧。界面现已显示具体状态，并提供无需重复 OAuth 的“重新加载模型”。
 模型失效或未选中时不会启用聊天；续期导致连接失效时会清除成功标识。

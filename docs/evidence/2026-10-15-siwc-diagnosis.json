@@ -1,0 +1,14 @@
+{
+  "synthetic_only": true,
+  "provider": "chatgpt_plan",
+  "authenticated_models_http_status": 520,
+  "authenticated_synthetic_responses_http_status": 520,
+  "after_reauthorization_models_http_status": 520,
+  "anonymous_control_http_status": 401,
+  "invalid_synthetic_bearer_control_http_status": 401,
+  "verified_checks": ["signature_using_official_jwks", "issuer", "audience", "expiry", "app_registration_binding"],
+  "root_cause": "unknown",
+  "credentials_or_account_identifiers_saved": false,
+  "real_siwc_chat_succeeded": false,
+  "not_evidence_of_global_outage": true
+}

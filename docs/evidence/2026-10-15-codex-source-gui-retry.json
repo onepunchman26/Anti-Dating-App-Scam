@@ -1,0 +1,33 @@
+{
+  "at": "2026-10-15T03:28:26.964066+00:00",
+  "synthetic_only": true,
+  "status": "failed",
+  "stage": "interview",
+  "turns": [
+    {
+      "synthetic_answer": null,
+      "rendered_reply": "今天是什么让你想来聊聊？我们可以谈一段关系中的困扰、对你重要的事，或任何你想探索的话题。",
+      "provenance": {
+        "provider": "codex_chatgpt",
+        "requested_model": "gpt-6-luna",
+        "reported_model": null,
+        "input_tokens": null,
+        "output_tokens": null,
+        "completion": "completed"
+      }
+    }
+  ],
+  "model_options": [
+    "gpt-6-luna",
+    "gpt-6.1-sol",
+    "gpt-6-astra",
+    "gpt-6-sol",
+    "gpt-6-luna",
+    "gpt-5.6-sol",
+    "gpt-5.6-terra",
+    "gpt-5.6-luna"
+  ],
+  "packaged_executable": false,
+  "error_type": "AssertionError",
+  "check_failure": "Relevant follow-up or requested pause was not respected"
+}

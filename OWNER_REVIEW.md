@@ -2,7 +2,16 @@
 
 ## English
 
-**October 14 connection repair:** 0.5.1 has replaced the fixed EXE; use the current-status record
+**October 15 real-chat repair:** 0.5.2 is being verified. Use Connect ChatGPT →
+Try local Codex connection → Connect through local Codex. A separate login is saved
+for this app; confirm Codex extra credits/top-ups remain off, select the suggested
+`gpt-6-luna` candidate, enter AI Chat and press Start. Real synthetic service and Qt
+interviews now pass, including follow-up questions, a request to stop asking, End and
+Back. Review the [current delivery state](CURRENT_STATUS.md) before opening the fixed
+EXE. No further billing approval is needed; the existing confirmation remains valid.
+The standard SIWC route still returns HTTP 520. See the [connection guide](docs/38_codex_chat_recovery.md).
+
+**Previous October 14 repair:** 0.5.1 replaced the fixed EXE; use the current-status record
 for the exact delivery state. Open Connect ChatGPT and use **Reload models** without
 repeating browser authorization. When the catalog succeeds, choose a model, confirm
 extra credits are disabled, enter AI Chat and press Start. Current live checks return
@@ -67,6 +76,13 @@ science or guaranteed success. Public YouTube example-title retrieval passed; Ti
 example returned an error. Bilibili and unrecognized sources use prepared input only.
 
 ## 中文版
+
+**10 月 15 日真实聊天修复：**0.5.2 正在验收。操作为“连接 ChatGPT → 尝试本机 Codex
+兼容连接 → 通过本机 Codex 连接”。本应用保存独立登录；确认 Codex 额外积分／自动充值
+仍关闭，选择建议的 `gpt-6-luna` 候选，进入 AI 聊天并点击开始。服务层及 Qt 界面的真实
+合成访谈已通过，包括相关追问、要求不再提问、结束与返回。打开固定 EXE 前请查看
+[当前交付状态](CURRENT_STATUS.md)。无需再次批准费用设置，已有确认继续有效。
+原 SIWC 通道仍返回 HTTP 520，详见[连接指南](docs/38_codex_chat_recovery.md)。
 
 **10 月 14 日连接修复：**固定 EXE 已更新到 0.5.1，具体交付状态以当前交接为准。进入连接
 ChatGPT 页面，点击**重新加载模型**，无需重复浏览器授权。模型列表成功出现后，

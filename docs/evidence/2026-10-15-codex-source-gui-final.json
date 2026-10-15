@@ -1,0 +1,8 @@
+{
+  "at": "2026-10-15T03:30:20.682539+00:00",
+  "synthetic_only": true,
+  "status": "aborted_test_harness",
+  "stage": "disclosure_dialog",
+  "turns": [],
+  "reason": "One timer could not approve a nested modal while its own callback was blocked. Fixed with a separate timer."
+}
