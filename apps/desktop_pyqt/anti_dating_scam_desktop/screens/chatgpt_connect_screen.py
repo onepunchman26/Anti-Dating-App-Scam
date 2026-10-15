@@ -81,6 +81,10 @@ class ChatGPTConnectScreen(QWidget):
         self.model_picker.setEnabled(False)
         self.model_picker.currentIndexChanged.connect(self._controls)
         layout.addWidget(self.model_picker)
+        self.reload_button = SecondaryButton(bi("Reload models", "重新加载模型"))
+        self.reload_button.setObjectName("chatgptReloadModels")
+        self.reload_button.clicked.connect(self._load_models)
+        layout.addWidget(self.reload_button)
         self.model_hint = QLabel(
             bi(
                 "Available models come from your account. The default favors a lighter chat model.",
@@ -135,6 +139,9 @@ class ChatGPTConnectScreen(QWidget):
             self._sharing = status.connected and status.sharing
             self._models = ()
             self.model_picker.clear()
+            self.model_picker.setPlaceholderText(
+                bi("Sign in to load your models", "登录后显示可用模型")
+            )
             if status.connected:
                 self.success.confirm()
                 if self._sharing:
@@ -160,10 +167,11 @@ class ChatGPTConnectScreen(QWidget):
     def _controls(self):
         self.connect_button.setEnabled(not self._busy)
         self.disconnect_button.setEnabled(not self._busy)
+        self.reload_button.setEnabled(self._sharing and not self._busy)
         self.use_button.setEnabled(
             self._sharing
             and self.plan_consent.isChecked()
-            and bool(self._models)
+            and self.model_picker.currentData() in {choice.slug for choice in self._models}
             and not self._busy
         )
         self.model_picker.setEnabled(bool(self._models) and not self._busy)
@@ -188,7 +196,9 @@ class ChatGPTConnectScreen(QWidget):
 
     def _failure(self, fallback_en, fallback_zh):
         diagnostic = getattr(self.connection, "diagnostic", None)
-        code = diagnostic().code if callable(diagnostic) else ""
+        detail = diagnostic() if callable(diagnostic) else None
+        code = getattr(detail, "code", "")
+        http_status = getattr(detail, "http_status", None)
         labels = {
             "invalid_grant": (
                 "This authorization expired. Sign in again; no model request was made.",
@@ -210,13 +220,51 @@ class ChatGPTConnectScreen(QWidget):
                 "ChatGPT could not check the plan allowance. Try again later.",
                 "ChatGPT 暂时无法核查套餐额度，请稍后重试。",
             ),
+            "catalog_invalid": (
+                "ChatGPT returned an unreadable model list. "
+                "Reload models; no chat request was sent.",
+                "ChatGPT 返回的模型列表格式无法识别。请重新加载模型；尚未发送聊天请求。",
+            ),
         }
-        self.banner.set_text(bi(*labels.get(code, (fallback_en, fallback_zh))))
+        if code in labels:
+            message = bi(*labels[code])
+        elif getattr(detail, "failed_phase", "") in {"checking_model_access", "loading_models"}:
+            if isinstance(http_status, int) and 500 <= http_status <= 599:
+                message = bi(
+                    "ChatGPT could not load your models. Your saved authorization is preserved. "
+                    "Click Reload models to retry; chatting is not ready yet.",
+                    "ChatGPT 暂时无法加载可用模型，已保留你的授权。请点击“重新加载模型”重试；"
+                    "目前尚不能开始聊天。",
+                )
+            elif http_status in {401, 403}:
+                message = bi(
+                    "ChatGPT did not allow model access. "
+                    "Reconnect and review this app's plan access.",
+                    "ChatGPT 未允许读取模型。请重新连接，并检查本应用的套餐授权。",
+                )
+            elif http_status == 429:
+                message = bi(
+                    "ChatGPT limited this request. Check usage settings and reload models later.",
+                    "ChatGPT 限制了本次请求。请检查用量设置，稍后重新加载模型。",
+                )
+            elif not self._sharing:
+                message = bi("Sign in again to load models.", "请重新登录以加载模型。")
+            else:
+                message = bi(fallback_en, fallback_zh)
+        else:
+            message = bi(fallback_en, fallback_zh)
+        if isinstance(http_status, int) and 100 <= http_status <= 599:
+            message += f" (HTTP {http_status})"
+        self.banner.set_text(message)
 
     def _load_models(self):
         if self._busy or not self._sharing:
             return
         self._busy = True
+        self._models = ()
+        self._recommended = None
+        self.model_picker.clear()
+        self.model_picker.setPlaceholderText(bi("Loading models…", "正在加载模型……"))
         epoch, cancel = self._epoch, self._cancel
         self._controls()
         self.banner.set_text(
@@ -247,6 +295,9 @@ class ChatGPTConnectScreen(QWidget):
                 )
             for choice in self._models:
                 self.model_picker.addItem(choice.display_name, choice.slug)
+            if self._models:
+                self.model_picker.setPlaceholderText(bi("Choose a model", "请选择模型"))
+                self.model_picker.setCurrentIndex(0)
             active = ai_backend.get_active()
             if getattr(active, "provider_id", "") == "chatgpt_plan":
                 selected = self.model_picker.findData(getattr(active, "model", None))
@@ -263,6 +314,8 @@ class ChatGPTConnectScreen(QWidget):
                         )
                     )
             self.model_picker.blockSignals(False)
+            if not self._models:
+                self.model_picker.setPlaceholderText(bi("No available models", "暂无可用模型"))
             self.banner.set_text(
                 bi(
                     "Models ready. Choose one, confirm extra credits are off, then enter AI Chat.",
@@ -270,8 +323,10 @@ class ChatGPTConnectScreen(QWidget):
                 )
                 if self._models
                 else bi(
-                    "Account connected, but ChatGPT returned no available model.",
-                    "账号已连接，但 ChatGPT 没有返回可用模型。",
+                    "Account connected, but ChatGPT returned no available model. "
+                    "Check plan access in usage settings, then reload models.",
+                    "账号已连接，但 ChatGPT 没有返回可用模型。请在用量设置中检查套餐授权，"
+                    "然后重新加载模型。",
                 )
             )
             self._controls()
@@ -281,9 +336,20 @@ class ChatGPTConnectScreen(QWidget):
                 return
             self._busy = False
             self._models = ()
+            self.model_picker.clear()
+            self.model_picker.setPlaceholderText(
+                bi("Models unavailable — reload to retry", "模型未就绪，请重新加载")
+            )
+            try:
+                status = self.connection.status()
+                self._sharing = status.connected and status.sharing
+            except Exception:
+                self._sharing = False
+            if not self._sharing:
+                self.success.hide()
             self._failure(
-                "Account connected, but the model list could not load. Try again later.",
-                "账号已连接，但模型列表未加载成功，请稍后重试。",
+                "The model list could not load. Click Reload models to try again.",
+                "模型列表未加载成功，请点击“重新加载模型”重试。",
             )
             self._controls()
 
@@ -296,6 +362,9 @@ class ChatGPTConnectScreen(QWidget):
         self._epoch += 1
         epoch, cancel = self._epoch, self._cancel
         self._busy = True
+        self._models = ()
+        self.model_picker.clear()
+        self.model_picker.setPlaceholderText(bi("Waiting for sign-in…", "正在等待登录……"))
         self._phase_timer.start()
         self._controls()
         self.banner.set_text(
@@ -354,6 +423,7 @@ class ChatGPTConnectScreen(QWidget):
         slug = self.model_picker.currentData()
         if slug not in {choice.slug for choice in self._models}:
             self._busy = False
+            self.banner.set_text(bi("Choose an available model first.", "请先选择一个可用模型。"))
             self._controls()
             return
 
@@ -413,6 +483,9 @@ class ChatGPTConnectScreen(QWidget):
             self._models = ()
             self.success.hide()
             self.model_picker.clear()
+            self.model_picker.setPlaceholderText(
+                bi("Sign in to load your models", "登录后显示可用模型")
+            )
             self.plan_consent.setChecked(False)
             active = ai_backend.get_active()
             if getattr(active, "provider_id", None) == "chatgpt_plan":

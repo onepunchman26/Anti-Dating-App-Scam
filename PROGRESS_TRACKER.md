@@ -1,8 +1,10 @@
 # Progress tracker / 进度追踪
 
-Updated / 更新：2026-10-02。Agent-maintained; change both languages together / 代理维护，状态须同步更新双语。
+Updated / 更新：2026-10-14。Agent-maintained; change both languages together / 代理维护，状态须同步更新双语。
 
 ## English
+
+- 🔄 ChatGPT connection fix: investigating the empty account model picker after successful authorization; repairing catalog recovery and chat readiness, with regression and synthetic plan checks.
 
 - ✅ S7 implementation: collection import/filter/deduplication, supplied-content analysis, bounded interest/reflection synthesis, grouped review and reversible existing-memory adoption. Official source capabilities recorded; 88 focused checks pass. Six real synthetic plan calls produced a final useful collection result; two failed syntheses are preserved.
 - ✅ S7 release: fixed 0.5.0 EXE, 2,257 tests passed/10 skipped; compile, lint, package and isolated startup passed. Native completed-result/source and packaged About inspection passed; old releases retained.
@@ -28,6 +30,8 @@ Updated / 更新：2026-10-02。Agent-maintained; change both languages together
 Hourly automation stays paused. No purchase, paid API key, real private archive, email delivery or public deployment was used. The [prior tracker](docs/history/2026-10-01-before-standards-correction/PROGRESS_TRACKER.md) is historical, not an extra backlog. Current evidence belongs in [CURRENT_STATUS](CURRENT_STATUS.md).
 
 ## 中文版
+
+- 🔄 ChatGPT 连接修复：排查授权成功后账号模型选择器为空的问题，修复模型列表恢复与聊天就绪状态，并进行回归及合成套餐验证。
 
 - ✅ S7 实现：集合导入／筛选／去重、所供正文分析、有限兴趣／反思综合、分组审阅与可撤销的现有记忆采纳。已记录官方平台能力，88 项定向检查通过；六次真实合成套餐调用最终得到可用结果，保留两次综合失败。
 - ✅ S7 发布：固定 0.5.0 EXE，2,257 项通过／10 项跳过；编译、静态、打包及隔离启动通过。实际结果源码界面和打包关于页检查通过，旧版本保留。

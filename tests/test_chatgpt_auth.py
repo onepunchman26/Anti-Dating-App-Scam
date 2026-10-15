@@ -290,6 +290,68 @@ def test_model_catalog_filters_server_choices_and_check_never_infers(service):
     assert len([call for call in transport.calls if call[0] == "POST"]) == 1
 
 
+def test_catalog_http_520_is_diagnosed_without_discarding_login_or_retrying(service, monkeypatch):
+    connection, transport = service
+    pending = begin(service)
+    connection.complete_login(pending, callback(pending))
+    saved = connection.store.load()
+    original = transport.get_json
+    attempts = []
+
+    def unavailable(url, headers, timeout):
+        attempts.append(url)
+        raise ChatGPTConnectionError("Safe server failure", code="http_error", http_status=520)
+
+    monkeypatch.setattr(transport, "get_json", unavailable)
+    with pytest.raises(ChatGPTConnectionError):
+        connection.list_models()
+    diagnostic = connection.diagnostic()
+    assert diagnostic.phase == "failed" and diagnostic.failed_phase == "loading_models"
+    assert diagnostic.http_status == 520 and diagnostic.category == "network"
+    assert attempts == [MODELS_URL]  # No automatic login, refresh or inference retry.
+    assert connection.store.load() == saved
+    assert "synthetic-access" not in diagnostic.model_dump_json()
+    monkeypatch.setattr(transport, "get_json", original)
+    assert connection.list_models()[0].slug == "synthetic-model"
+    diagnostic = connection.diagnostic()
+    assert diagnostic.phase == "models_ready" and diagnostic.http_status is None
+    assert diagnostic.code == diagnostic.failed_phase == diagnostic.category == ""
+
+
+@pytest.mark.parametrize(
+    "entries",
+    [
+        None,
+        [{"visibility": "list"}],
+        [
+            {"slug": "duplicate", "display_name": "Duplicate", "visibility": "list"},
+            {"slug": "duplicate", "display_name": "Duplicate", "visibility": "list"},
+        ],
+    ],
+)
+def test_malformed_catalog_has_own_safe_diagnostic(service, entries):
+    connection, transport = service
+    pending = begin(service)
+    connection.complete_login(pending, callback(pending))
+    transport.models = entries
+    with pytest.raises(ChatGPTConnectionError):
+        connection.list_models()
+    assert connection.diagnostic().code == "catalog_invalid"
+    assert connection.diagnostic().failed_phase == "loading_models"
+
+
+def test_network_catalog_failure_has_safe_typed_error(monkeypatch):
+    class Unavailable:
+        def open(self, *args, **kwargs):
+            raise urllib.error.URLError("synthetic-private-transport-detail")
+
+    monkeypatch.setattr(urllib.request, "build_opener", lambda *args: Unavailable())
+    with pytest.raises(ChatGPTConnectionError) as caught:
+        OfficialChatGPTHttpTransport().get_json(MODELS_URL, {}, 20)
+    assert caught.value.code == "network_unavailable" and caught.value.category == "network"
+    assert "synthetic-private" not in str(caught.value)
+
+
 def test_refresh_rotates_atomically_and_retains_verified_hint(service):
     connection, transport = service
     credential = ChatGPTCredential(

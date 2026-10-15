@@ -66,7 +66,9 @@ class ChatGPTConnectionError(BackendError):
             else "auth"
             if http_status in {401, 403}
             else "network"
-            if http_status == 503
+            if code == "network_unavailable"
+            or http_status is not None
+            and 500 <= http_status <= 599
             else "unknown"
         )
         super().__init__(message, category=category)
@@ -89,6 +91,9 @@ class ChatGPTConnectionDiagnostic(BaseModel):
         "identity_verification",
         "credential_save",
         "connected",
+        "checking_model_access",
+        "loading_models",
+        "models_ready",
         "cancelled",
         "failed",
     ] = "idle"
@@ -97,6 +102,8 @@ class ChatGPTConnectionDiagnostic(BaseModel):
     browser_opened: bool = False
     callback_received: bool = False
     failed_phase: str = ""
+    http_status: int | None = Field(default=None, ge=100, le=599)
+    category: str = ""
 
 
 _OAUTH_TERMINAL_REFRESH_ERRORS = frozenset(
@@ -169,7 +176,7 @@ def _safe_http_error(error: urllib.error.HTTPError) -> ChatGPTConnectionError:
         message = "ChatGPT access was not accepted. Check the selected account and granted access."
     elif error.code == 403:
         message = "ChatGPT restricted this app or account. Review plan access and availability."
-    elif error.code == 503:
+    elif 500 <= error.code <= 599:
         message = "ChatGPT is temporarily unavailable. Your connection was preserved."
     else:
         message = f"ChatGPT request failed (HTTP {error.code}). No retry was made."
@@ -217,8 +224,8 @@ class OfficialChatGPTHttpTransport:
         except urllib.error.HTTPError as exc:
             raise _safe_http_error(exc) from None
         except (urllib.error.URLError, TimeoutError, OSError):
-            raise BackendError(
-                "Could not reach ChatGPT. Your request was not retried.", category="network"
+            raise ChatGPTConnectionError(
+                "Could not reach ChatGPT. Your request was not retried.", code="network_unavailable"
             ) from None
 
     @staticmethod
@@ -522,7 +529,13 @@ class ChatGPTConnectionService:
         previous = self._diagnostic.phase
         code = error.code if isinstance(error, ChatGPTConnectionError) else "connection_failed"
         cancelled = "cancelled" in str(error).lower()
-        self._progress("cancelled" if cancelled else "failed", code=code, failed_phase=previous)
+        self._progress(
+            "cancelled" if cancelled else "failed",
+            code=code,
+            failed_phase=previous,
+            http_status=error.http_status if isinstance(error, ChatGPTConnectionError) else None,
+            category=error.category,
+        )
 
     @staticmethod
     def _status(credential: ChatGPTCredential | None, now: float) -> ChatGPTConnectionStatus:
@@ -928,21 +941,38 @@ class ChatGPTConnectionService:
             return refreshed.access_token.get_secret_value()
 
     def list_models(self) -> tuple[ChatGPTModelChoice, ...]:
-        token = self.access_token()
-        data = self.transport.get_json(MODELS_URL, {"Authorization": f"Bearer {token}"}, 20)
-        entries = data.get("models")
-        if not isinstance(entries, list) or len(entries) > 500:
-            raise BackendError("ChatGPT returned an invalid account model catalog.")
+        # Catalog errors must not leave the last successful OAuth diagnostic visible.
+        # Retrying discovery is an explicit action, never an inference or login retry.
+        self._progress(
+            "checking_model_access", code="", failed_phase="", http_status=None, category=""
+        )
         try:
-            choices = tuple(
-                ChatGPTModelChoice(slug=item["slug"], display_name=item["display_name"])
-                for item in entries
-                if isinstance(item, dict) and item.get("visibility") == "list"
-            )
-        except (KeyError, ValueError, TypeError):
-            raise BackendError("ChatGPT returned an invalid account model catalog.") from None
-        if len({choice.slug for choice in choices}) != len(choices):
-            raise BackendError("ChatGPT returned duplicate account model choices.")
+            token = self.access_token()
+            self._progress("loading_models")
+            data = self.transport.get_json(MODELS_URL, {"Authorization": f"Bearer {token}"}, 20)
+            entries = data.get("models")
+            if not isinstance(entries, list) or len(entries) > 500:
+                raise ChatGPTConnectionError(
+                    "ChatGPT returned an invalid account model catalog.", code="catalog_invalid"
+                )
+            try:
+                choices = tuple(
+                    ChatGPTModelChoice(slug=item["slug"], display_name=item["display_name"])
+                    for item in entries
+                    if isinstance(item, dict) and item.get("visibility") == "list"
+                )
+            except (KeyError, ValueError, TypeError):
+                raise ChatGPTConnectionError(
+                    "ChatGPT returned an invalid account model catalog.", code="catalog_invalid"
+                ) from None
+            if len({choice.slug for choice in choices}) != len(choices):
+                raise ChatGPTConnectionError(
+                    "ChatGPT returned duplicate account model choices.", code="catalog_invalid"
+                )
+        except BackendError as error:
+            self._failed(error)
+            raise
+        self._progress("models_ready", code="" if choices else "catalog_empty")
         return choices
 
     def create_backend(self, model: str, *, included_plan_confirmed: bool = False):

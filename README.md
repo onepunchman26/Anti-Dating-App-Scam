@@ -13,6 +13,9 @@ archives under `releases/` are for recovery. See About for the version and build
 1. Choose **Connect ChatGPT**, authorize in your browser, choose an account-listed
    model and confirm that this app's extra credits are disabled in ChatGPT Manage usage.
    The app remembers the model choice, but never remembers or asserts billing consent.
+   If authorization succeeds but models are unavailable, use **Reload models** on the
+   same page. HTTP errors are shown separately from sign-in success. Chat stays disabled
+   until an account-listed model is selected and the usage confirmation is checked.
 2. Enter **AI Chat → Start**. Answer, ask for advice, correct, skip or change topics.
    Review what goes online before sending. **End** stops accepting pending replies immediately.
 3. **Voice input** uses the selected microphone and a local English/Chinese speech
@@ -70,6 +73,8 @@ launches source; `./release.ps1 build` backs up, tests, builds and updates the f
 
 1. 选择**连接 ChatGPT**，在浏览器授权，从账号实际提供的模型中选择，并确认已在
    ChatGPT 用量管理中关闭此应用的额外积分。应用只记住模型选择，不保存或冒认费用确认。
+   如果授权成功但模型不可用，请在同一页面点击**重新加载模型**。HTTP 错误会与登录成功
+   分别显示。只有选中账号实际提供的模型并勾选用量确认后，才可启用聊天。
 2. 进入 **AI 聊天 → 开始**。可以回答、求建议、纠正、跳过或换话题；发送前审阅
    将要联网处理的内容。**结束**会立即停止接纳待处理回复。
 3. **语音输入**使用所选麦克风及本地中／英文语音模型。核对识别草稿后，自行点击发送。

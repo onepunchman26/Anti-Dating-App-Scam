@@ -11,7 +11,11 @@ from PySide6.QtCore import QAbstractAnimation, QPoint, QSize, Qt
 from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QApplication, QPushButton, QStackedWidget
 
-from anti_dating_scam.ai.chatgpt_auth import ChatGPTConnectionStatus, ChatGPTModelChoice
+from anti_dating_scam.ai.chatgpt_auth import (
+    ChatGPTConnectionDiagnostic,
+    ChatGPTConnectionStatus,
+    ChatGPTModelChoice,
+)
 
 
 class Deferred:
@@ -82,6 +86,7 @@ def test_reopened_picker_restores_choice_or_requires_reselection(
         else:
             assert page.model_picker.currentIndex() == -1
             page.plan_consent.setChecked(True)
+            assert not page.use_button.isEnabled()
             page._use()
             assert activated == [] and connection.created == []
     finally:
@@ -239,6 +244,66 @@ def test_catalog_failure_preserves_identity_success_and_never_claims_ready(
         stack.close()
 
 
+@pytest.mark.parametrize("language", ["en", "zh"])
+@pytest.mark.parametrize("http_status", [520, 403, 429])
+def test_catalog_error_exposes_safe_status_and_manual_recovery(
+    application, monkeypatch, language, http_status
+):
+    connection = FakeConnection(catalog_error=True)
+    connection.diagnostic = lambda: ChatGPTConnectionDiagnostic(
+        phase="failed", failed_phase="loading_models", code="http_error", http_status=http_status
+    )
+    stack, _, page, deferred, activated, actions, _ = screen(
+        monkeypatch, language=language, connection=connection
+    )
+    try:
+        deferred.finish()
+        assert f"HTTP {http_status}" in page.banner.label.text()
+        assert page.model_picker.placeholderText() and page.model_picker.count() == 0
+        assert page.reload_button.isEnabled()
+        assert connection.catalog_calls == 1 and connection.connect_calls == 0
+        connection.catalog_error = False
+        page.reload_button.click()
+        page.reload_button.click()  # Busy requests cannot be duplicated.
+        assert len(deferred.pending) == 1 and not page.reload_button.isEnabled()
+        deferred.finish()
+        assert connection.catalog_calls == 2 and connection.connect_calls == 0
+        assert page.model_picker.currentData() == "synthetic-luna"
+        assert "HTTP" not in page.banner.label.text()
+        assert not page.use_button.isEnabled() and connection.inference_calls == 0
+        page.plan_consent.setChecked(True)
+        page.use_button.click()
+        deferred.finish()
+        assert activated[0].model == "synthetic-luna" and actions == ["done"]
+    finally:
+        stack.close()
+
+
+def test_expired_connection_during_catalog_load_removes_success_badge(application, monkeypatch):
+    connection = FakeConnection(catalog_error=True)
+    stack, _, page, deferred, _, _, _ = screen(monkeypatch, connection=connection)
+    try:
+        connection.current = ChatGPTConnectionStatus()
+        deferred.finish()
+        assert not page.success.isVisible() and not page.reload_button.isEnabled()
+        assert page.connect_button.isEnabled() and not page.use_button.isEnabled()
+    finally:
+        stack.close()
+
+
+def test_empty_catalog_has_placeholder_and_retry_but_no_chat(application, monkeypatch):
+    connection = FakeConnection()
+    connection.models = ()
+    stack, _, page, deferred, _, _, _ = screen(monkeypatch, connection=connection)
+    try:
+        deferred.finish()
+        page.plan_consent.setChecked(True)
+        assert page.model_picker.placeholderText() == "No available models"
+        assert page.reload_button.isEnabled() and not page.use_button.isEnabled()
+    finally:
+        stack.close()
+
+
 def test_back_discards_late_catalog_and_never_activates(application, monkeypatch):
     stack, _, page, deferred, activated, actions, _ = screen(monkeypatch)
     try:
@@ -385,7 +450,14 @@ def test_primary_window_path_connects_then_enters_chat_and_private_exchange(
         assert window.navigator.current_name == "ai_connect"
         connection_page.connect_button.click()
         deferred.finish()
+        connection.catalog_error = True
         deferred.finish()
+        assert connection_page.reload_button.isEnabled()
+        assert not connection_page.use_button.isEnabled() and requests == []
+        connection.catalog_error = False
+        connection_page.reload_button.click()
+        deferred.finish()
+        assert connection.connect_calls == 1 and connection.catalog_calls == 2
         assert connection_page.success.isVisible()
         assert connection_page.model_picker.currentData() == "synthetic-luna"
         assert requests == [] and connection.created == []
