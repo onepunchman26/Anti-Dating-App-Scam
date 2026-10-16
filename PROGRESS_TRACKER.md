@@ -5,14 +5,14 @@ Updated / 更新：2026-10-16。Agent-maintained; change both languages together
 ## English
 
 - ✅ 0.5.3 implementation: compact connection handoff, recoverable chat setup, active-route preservation, exact duplicate-question display fix, current-runtime isolation and bilingual source credits. 176 focused checks (3 skips) and four real synthetic Qt turns passed. Old 0.5.1 exited normally.
-- 🔄 0.5.3 delivery: full frozen-source gates, actual packaged conversation and root replacement pending.
+- ✅ 0.5.3 delivery: 2,305 tests (10 skips), compile/lint, package/startup checks and four real packaged Qt turns passed. The fixed root EXE was atomically replaced and its hash/About verified. GitHub description and bilingual README/About credits updated; source handoff complete.
 
 - ✅ ChatGPT connection fix: reproduced authenticated catalog HTTP 520; added safe diagnostics, manual catalog retry, placeholders and valid-selection gating. 94 focused synthetic checks and native source-window error/retry inspection passed.
 - ✅ 0.5.1 verification: frozen-source compile/lint, 2,270 tests (10 skipped), package audit and isolated EXE startup passed.
 - ✅ 0.5.1 replacement: owner closed the old app; the fixed root EXE was atomically updated and its SHA-256 matches the verified build. No forced termination.
 - ✅ Live interview implementation: the direct SIWC endpoint still returns HTTP 520 after reauthorization. An isolated official Codex connection completed three real synthetic service turns and four real Qt turns, including relevant follow-ups, requested pause, End and Back. Earlier failures are retained. 61 focused checks and runtime tool isolation pass.
 - ✅ 0.5.2 verification: frozen-source compile/lint, 2,296 tests (10 skips), embedded package audit and isolated startup passed. The packaged EXE completed four real synthetic Qt turns; native inspection observed a real displayed reply.
-- ⏸ 0.5.2 replacement: Windows rejected replacing the running old app. Verified candidate and previous EXE are preserved; owner has been asked to close the old window. Bilingual handoff is in progress.
+- ✅ 0.5.2 replacement superseded: its previously blocked candidate is historical; 0.5.3 is now the delivered root executable.
 
 - ✅ S7 implementation: collection import/filter/deduplication, supplied-content analysis, bounded interest/reflection synthesis, grouped review and reversible existing-memory adoption. Official source capabilities recorded; 88 focused checks pass. Six real synthetic plan calls produced a final useful collection result; two failed syntheses are preserved.
 - ✅ S7 release: fixed 0.5.0 EXE, 2,257 tests passed/10 skipped; compile, lint, package and isolated startup passed. Native completed-result/source and packaged About inspection passed; old releases retained.
@@ -40,14 +40,14 @@ Hourly automation stays paused. No purchase, paid API key, real private archive,
 ## 中文版
 
 - ✅ 0.5.3 实现：集中连接步骤、可用聊天设置入口、保持已选通道、去除完全相同追问的重复显示、新版运行程序隔离及双语来源致谢。176 项定向检查（3 项跳过）和四轮真实合成 Qt 访谈通过；旧版 0.5.1 正常退出。
-- 🔄 0.5.3 交付：冻结源码完整检查、实际打包聊天及根目录替换待完成。
+- ✅ 0.5.3 交付：2,305 项测试（10 项跳过）、编译／静态、打包／启动及四轮真实打包 Qt 访谈通过。固定根目录 EXE 已原子替换并核对哈希／关于页；GitHub 简介及双语 README／关于致谢已更新，源码交接完成。
 
 - ✅ ChatGPT 连接修复：复现带授权的模型接口 HTTP 520，增加安全诊断、手动重载、占位提示及有效模型选择检查。94 项定向合成测试及原生源码窗口的错误／重试检查通过。
 - ✅ 0.5.1 验证：冻结源码编译／静态检查、2,270 项测试（10 项跳过）、打包审计及隔离 EXE 启动均通过。
 - ✅ 0.5.1 替换：所有者关闭旧版后，固定根目录 EXE 已原子更新，SHA-256 与验证构建一致；未强行终止程序。
 - ✅ 真实访谈实现：标准 SIWC 接口重新授权后仍返回 HTTP 520。隔离的官方 Codex 连接完成三轮真实合成服务测试及四轮真实 Qt 测试，包括相关追问、要求暂停、结束与返回；保留早期失败。61 项定向检查及实际运行程序的工具隔离检查通过。
 - ✅ 0.5.2 验证：冻结源码编译／静态、2,296 项测试（10 项跳过）、嵌入包审计及隔离启动通过。打包 EXE 完成四轮真实合成 Qt 访谈，原生检查观察到实际回复。
-- ⏸ 0.5.2 替换：Windows 拒绝替换仍运行的旧版，已保留验证构建及旧 EXE，并请求所有者关闭旧窗口；双语交接正在完成。
+- ✅ 0.5.2 替换已由新版完成：此前受阻候选保留为历史，根目录现已交付 0.5.3。
 
 - ✅ S7 实现：集合导入／筛选／去重、所供正文分析、有限兴趣／反思综合、分组审阅与可撤销的现有记忆采纳。已记录官方平台能力，88 项定向检查通过；六次真实合成套餐调用最终得到可用结果，保留两次综合失败。
 - ✅ S7 发布：固定 0.5.0 EXE，2,257 项通过／10 项跳过；编译、静态、打包及隔离启动通过。实际结果源码界面和打包关于页检查通过，旧版本保留。

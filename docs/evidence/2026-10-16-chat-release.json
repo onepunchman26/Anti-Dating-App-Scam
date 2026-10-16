@@ -1,0 +1,38 @@
+{
+  "acceptance": "development; real AI and microphone acceptance separate",
+  "build_id": "327aa8c8aba44ae884dd75666a497037",
+  "checks": {
+    "compile": "passed",
+    "lint": "passed",
+    "package": "passed",
+    "pytest": "passed",
+    "smoke": "passed"
+  },
+  "created_at": "2026-10-16T05:12:30.592253+00:00",
+  "dirty": true,
+  "executable": "AI-SlowMatch.exe",
+  "git_commit": "daf91b78c9982d43b609c4c837c43a1899657cab",
+  "schema_version": "1",
+  "sha256": "9280e8b464d91b85249c6af26b9e5390e9a358dbe3e7ccbc3b8494d919fb2978",
+  "source_digest": "fa0463d70145ba47058a6488dbeda36392fb5f6aa1a73229a6d7567b637e4b80",
+  "version": "0.5.3",
+  "root_hash_matches_verified_candidate": true,
+  "native_root_about_verified": true,
+  "native_credits_details_expanded": true,
+  "old_app_closed_normally": true,
+  "root_inspection_exited_normally": true,
+  "tests_passed": 2305,
+  "tests_skipped": 10,
+  "warnings": [
+    "upstream Starlette/httpx deprecation"
+  ],
+  "real_gui_turns": 4,
+  "real_gui_evidence": "2026-10-16-codex-packaged-gui.json",
+  "requested_model": "gpt-6-luna",
+  "reported_model": null,
+  "runtime": "codex-cli 0.163.0-alpha.10.2",
+  "synthetic_data_only": true,
+  "new_browser_login_required": false,
+  "github_description_credits_updated": true,
+  "not_public_release": true
+}

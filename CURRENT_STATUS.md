@@ -2,20 +2,39 @@
 
 ## English
 
-October 16, 2026: **0.5.3 verification in progress.** The running old 0.5.1 window
-was closed normally. Native inspection found a loaded model list but an unchecked
-allowance confirmation, a repeated-login primary button, and no active chat backend.
-The updated Codex runtime 0.163.0-alpha.10.2 passed real-process loopback tool isolation.
-Connection setup is now compact and actionable; active route/model survive navigation
-and language rebuilds. Route/model preferences persist without billing consent.
-176 focused checks pass (3 skips). Four real synthetic Qt turns passed using the
-app-owned saved Codex login, with no new browser authorization. One earlier run exposed
-a duplicated question and is retained; exact repeated suffixes now display once.
-[Successful source GUI receipt](docs/evidence/2026-10-16-codex-source-gui-retry.json).
-[Sources, licenses and thanks](docs/39_open_source_credits.md) are in README and About.
-Full frozen-source/package checks and replacement of the fixed root EXE are pending.
+October 16, 2026: **0.5.3 delivered to the fixed root `AI-SlowMatch.exe`.**
+The old 0.5.1 app exited normally; atomic replacement succeeded. The root SHA-256
+matches the verified candidate, and native About displays 0.5.3, source `daf91b78c998`
+and expandable open-source credits. Build `327aa8c8aba44ae884dd75666a497037`, SHA-256
+`9280e8b464d91b85249c6af26b9e5390e9a358dbe3e7ccbc3b8494d919fb2978`.
+Frozen-source compile/lint, **2,305 tests (10 skips)**, package audit and isolated
+startup passed; one upstream Starlette/httpx deprecation warning remains.
+The actual EXE completed **four real synthetic Qt turns**, relevant follow-ups,
+requested pause, End without inference, Back and reopening chat with Start enabled.
+Native Computer Use observed a real displayed reply. The app-owned saved Codex login
+was reused without new browser authorization. Requested model: `gpt-6-luna`; upstream
+actual model and token usage remain unreported. The current Codex runtime
+0.163.0-alpha.10.2 also passed loopback-only hostile-tool isolation (not real inference).
 
-October 15, 2026 (UTC): **0.5.2 has passed verification; replacement awaits closing
+The compact setup keeps model, allowance confirmation and Enter AI Chat visible;
+login is hidden once authorized. Unconfigured chat offers an enabled setup action.
+Route/model survive navigation and language rebuild; billing consent does not persist
+across processes or transfer between routes. Ten real synthetic turns were completed
+across this repair's three runs: an initial two-turn run exposed a duplicated follow-up,
+then corrected source and packaged four-turn runs passed. Failed evidence is retained;
+exact repeated question suffixes now render once. No real private archive was read.
+[Release receipt](docs/evidence/2026-10-16-chat-release.json) ·
+[Packaged real chat](docs/evidence/2026-10-16-codex-packaged-gui.json) ·
+[Source real chat](docs/evidence/2026-10-16-codex-source-gui-retry.json).
+
+[Sources, licenses and thanks](docs/39_open_source_credits.md) are in README and About;
+GitHub's bilingual description also thanks goutoujunshi, CodexMonitor, Pi, Chatbox and
+OpenAI Codex. Hourly automation stays paused. Physical microphone/Chinese playback
+remain separate owner checks. No spending, paid API key, email, recruitment or public
+software deployment occurred. This is a local functional text-chat acceptance, not
+psychological validation or verification of every available model.
+
+Historical October 15, 2026 (UTC): **0.5.2 has passed verification; replacement awaits closing
 the running 0.5.1 app.** The separate official local Codex connection
 completed a real three-turn synthetic interview with relevant follow-ups, using the
 owner-confirmed included allowance. The original SIWC route still returns HTTP 520.
@@ -110,17 +129,32 @@ task was added. See [owner review](OWNER_REVIEW.md).
 
 ## 中文版
 
-2026 年 10 月 16 日：**0.5.3 正在验收。**旧版 0.5.1 窗口已正常关闭。原生检查发现
-模型已经加载，但套餐确认未勾选，主按钮会重复登录，聊天后端尚未启用。
-新 Codex 0.163.0-alpha.10.2 已通过实际进程的回环工具隔离检查。连接设置已集中显示
-可执行下一步，导航和切换语言保持已选通道／模型；只持久保存通道／模型，不保存费用确认。
-176 项定向检查通过（3 项跳过）。复用本应用自己的 Codex 登录完成四轮真实合成 Qt
-访谈，无需再次浏览器授权。此前一次暴露追问重复的问题，失败记录保留；完全相同的
-末尾问题现在仅显示一次。[成功源码 GUI 记录](docs/evidence/2026-10-16-codex-source-gui-retry.json)。
-[来源、许可与致谢](docs/39_open_source_credits.md)已加入 README 及软件关于页。
-冻结源码完整检查、打包验收和固定根目录 EXE 替换待完成。
+2026 年 10 月 16 日：**0.5.3 已交付至固定根目录 `AI-SlowMatch.exe`。**旧版 0.5.1
+正常退出，原子替换成功。根目录 SHA-256 与验证构建一致，原生关于页显示 0.5.3、
+源码 `daf91b78c998`，并可展开开源来源。构建 `327aa8c8aba44ae884dd75666a497037`，
+SHA-256：`9280e8b464d91b85249c6af26b9e5390e9a358dbe3e7ccbc3b8494d919fb2978`。
+冻结源码编译／静态检查、**2,305 项测试（10 项跳过）**、打包审计及隔离启动通过；
+保留一项上游 Starlette/httpx 弃用警告。实际 EXE 完成**四轮真实合成 Qt 访谈**，
+包括相关追问、要求暂停、结束且不额外推理、返回和重新进入后可开始。
+Computer Use 观察到实际显示的真实回复。本应用专属 Codex 登录直接复用，无需再次
+浏览器授权。请求模型为 `gpt-6-luna`；上游实际模型和 token 用量仍未提供。
+本机新 Codex 0.163.0-alpha.10.2 另通过仅回环模拟服务的恶意工具隔离检查，
+该隔离检查不等于真实推理。
 
-2026 年 10 月 15 日（UTC）：**0.5.2 已通过验收；正在等待关闭运行中的 0.5.1 后替换。**
+设置页将模型、套餐确认与进入聊天集中显示，授权后隐藏重复登录按钮。未配置的聊天
+提供可用设置入口；导航和切换语言保留通道／模型，费用确认不跨进程保存或跨通道转移。
+本轮三次测试共完成十轮真实合成推理：最初两轮发现追问重复，修正后源码与打包各四轮
+通过。失败记录保留，完全相同的末尾追问只显示一次，未读取真实私人档案。
+[发布记录](docs/evidence/2026-10-16-chat-release.json) ·
+[打包真实聊天](docs/evidence/2026-10-16-codex-packaged-gui.json) ·
+[源码真实聊天](docs/evidence/2026-10-16-codex-source-gui-retry.json)。
+
+[来源、许可与致谢](docs/39_open_source_credits.md)已加入 README 和关于页，GitHub
+双语简介也致谢狗头军师、CodexMonitor、Pi、Chatbox 与 OpenAI Codex。小时任务继续
+暂停，实体麦克风／中文播放仍需单独人工验收。未消费、使用付费 API key、发送邮件、
+招募或公开部署软件。这是本地文字聊天功能验收，不是心理学效度或全部模型的验证。
+
+历史记录，2026 年 10 月 15 日（UTC）：**0.5.2 已通过验收；正在等待关闭运行中的 0.5.1 后替换。**
 独立的官方本机 Codex 连接已用所有者确认的套餐额度完成三轮真实合成
 访谈并作相关追问；原 SIWC 通道仍返回 HTTP 520。新适配器隔离目录、工作区及工具，
 保存本应用自己的独立登录。模型列表是候选目录，上游返回模型 ID 仍未知。
