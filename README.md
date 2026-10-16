@@ -6,21 +6,26 @@ A Windows relationship copilot: start or end a conversation whenever you choose,
 explore your needs and boundaries, and review a private, tentative self-reflection.
 Optional adult discovery uses private stated priorities. There are no public personality scores or automatic messages.
 
+Thanks to [goutoujunshi](https://github.com/powerycy/goutoujunshi) for coaching ideas,
+[CodexMonitor](https://github.com/Dimillian/CodexMonitor) and
+[Pi](https://github.com/earendil-works/pi) for integration design references,
+[Chatbox](https://github.com/chatboxai/chatbox) for product-flow comparison, and
+[OpenAI Codex](https://github.com/openai/codex) for the external app-server runtime.
+[Sources, revisions, licenses and exact reuse scope](docs/39_open_source_credits.md)
+are also available offline in About. Client code from these reference projects is not bundled.
+
 **Open `AI-SlowMatch.exe` in this repository's root folder.** This fixed filename is
 the current Desktop entry. Copies under `dist/` are older development artifacts;
 archives under `releases/` are for recovery. See About for the version and build ID.
 
-1. Choose **Connect ChatGPT**, authorize in your browser, choose an account-listed
-   model and confirm that this app's extra credits are disabled in ChatGPT Manage usage.
-   The app remembers the model choice, but never remembers or asserts billing consent.
-   If authorization succeeds but models are unavailable, use **Reload models** on the
-   same page. HTTP errors are shown separately from sign-in success. Chat stays disabled
-   until an account-listed model is selected and the usage confirmation is checked.
-   If that route still fails, use **Try local Codex connection → Connect through local
-   Codex**. It uses a separate login and included Codex allowance; confirm that Codex
-   extra credits and top-ups are off. The lightweight candidate default is currently
-   `gpt-6-luna`. This route requires the audited installed Codex version; see the
-   [connection guide](docs/38_codex_chat_recovery.md) for limits and real evidence.
+1. Choose **Connect ChatGPT**. The installed Codex connection is suggested on first
+   setup; it reuses this app's own login when available. Select a model, confirm
+   Codex extra credits/top-ups are off, then click **Enter AI Chat**. The default
+   favors a lighter model (`gpt-6-luna` in the verified catalog). **Connection options
+   & help** contains model reload and the alternative standard ChatGPT route.
+   Each route uses its own allowance confirmation. The app remembers the route and
+   model, never billing consent across restarts. A login badge alone is not a chat
+   test. See the [connection and repair evidence](docs/39_open_source_credits.md).
 2. Enter **AI Chat → Start**. Answer, ask for advice, correct, skip or change topics.
    Review what goes online before sending. **End** stops accepting pending replies immediately.
 3. **Voice input** uses the selected microphone and a local English/Chinese speech
@@ -73,17 +78,22 @@ launches source; `./release.ps1 build` backs up, tests, builds and updates the f
 这是一款 Windows 恋爱军师：用户随时开始或结束聊天，探索自己的需要与边界，
 再审阅私密、暂定的相处画像。成年人可按需启用发现，使用私密明确偏好排序，不设公开人格分数，不自动发消息。
 
+感谢 [goutoujunshi／狗头军师](https://github.com/powerycy/goutoujunshi) 的军师理念、
+[CodexMonitor](https://github.com/Dimillian/CodexMonitor) 与
+[Pi](https://github.com/earendil-works/pi) 的集成设计参考、
+[Chatbox](https://github.com/chatboxai/chatbox) 的产品流程参考，以及
+[OpenAI Codex](https://github.com/openai/codex) 的外部 app-server 程序。
+[来源、版本、许可与确切借鉴范围](docs/39_open_source_credits.md)也可在软件“关于”离线查看，
+没有打包上述参考客户端的源码。
+
 **打开本仓库根目录的 `AI-SlowMatch.exe`。** 固定文件名就是当前桌面入口。
 `dist/` 中是较早的开发产物，`releases/` 中的归档用于恢复；“关于”页面显示版本和构建编号。
 
-1. 选择**连接 ChatGPT**，在浏览器授权，从账号实际提供的模型中选择，并确认已在
-   ChatGPT 用量管理中关闭此应用的额外积分。应用只记住模型选择，不保存或冒认费用确认。
-   如果授权成功但模型不可用，请在同一页面点击**重新加载模型**。HTTP 错误会与登录成功
-   分别显示。只有选中账号实际提供的模型并勾选用量确认后，才可启用聊天。
-   如果标准通道仍失败，选择**尝试本机 Codex 兼容连接 → 通过本机 Codex 连接**。
-   此方式单独登录并使用 Codex 套餐额度，请确认关闭 Codex 额外积分及自动充值。
-   当前轻量候选默认是 `gpt-6-luna`，需要已通过兼容检查的本机 Codex 版本；限制及真实
-   验证依据见[连接指南](docs/38_codex_chat_recovery.md)。
+1. 选择**连接 ChatGPT**。首次设置建议已安装的 Codex 通道；存在本应用专属登录时
+   可复用。选好模型，确认 Codex 额外积分／自动充值已关闭，再点击**进入 AI 聊天**。
+   默认优先轻量模型（已验证目录中为 `gpt-6-luna`）。**连接选项与帮助**中可重新加载
+   模型或改用标准 ChatGPT 通道；不同通道需要各自的套餐确认。应用记住通道与模型，
+   不跨重启保存费用确认。登录成功标识不等于已验证聊天，见[连接修复与证据](docs/39_open_source_credits.md)。
 2. 进入 **AI 聊天 → 开始**。可以回答、求建议、纠正、跳过或换话题；发送前审阅
    将要联网处理的内容。**结束**会立即停止接纳待处理回复。
 3. **语音输入**使用所选麦克风及本地中／英文语音模型。核对识别草稿后，自行点击发送。

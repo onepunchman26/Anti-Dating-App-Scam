@@ -293,7 +293,10 @@ class ReflectionChatScreen(QWidget):
         connected = ai_backend.get_active() is not None
         running = bool(self.service and self.service.running)
         ended = bool(self.service and self.service.session_id and not running)
-        self.start_button.setEnabled(connected and not running and not self._busy)
+        self.start_button.setEnabled(not running and not self._busy)
+        self.start_button.setText(
+            bi("Start", "开始") if connected else bi("Set up AI Chat", "设置 AI 聊天")
+        )
         # End always invalidates a pending reply, even during a network request.
         self.end_button.setEnabled(running or self._busy)
         self.send_button.setEnabled(connected and running and not self._busy)
@@ -305,7 +308,10 @@ class ReflectionChatScreen(QWidget):
         )
         self.retry_button.setVisible(running and self._retry_available)
         self.retry_button.setEnabled(connected and running and not self._busy)
-        self.connect_button.setVisible(not connected)
+        self.connect_button.setVisible(True)
+        self.connect_button.setEnabled(not self._busy)
+        self.connect_button.setText(bi("Change AI connection", "更换 AI 连接") if connected
+                                    else bi("Connect ChatGPT", "连接 ChatGPT"))
         self.history_button.setEnabled(not self._busy)
         self.memory_button.setEnabled(not self._busy)
         self.session_only.setEnabled(not self._busy)
@@ -437,7 +443,10 @@ class ReflectionChatScreen(QWidget):
         super().hideEvent(event)
 
     def _start(self):
-        if self._busy or ai_backend.get_active() is None or self.service.running:
+        if self._busy or self.service.running:
+            return
+        if ai_backend.get_active() is None:
+            self.on_connect()
             return
         if self.service.session_id and self._vault not in self.holder.saved:
             answer = QMessageBox.question(

@@ -170,9 +170,10 @@ class MainWindow(QMainWindow):
                         "私人相处理解，不是诊断或兼容性判决。",
                     ),
                     bi(
-                        "Coaching ideas adapted from goutoujunshi (MIT). "
-                        "Details include the license.",
-                        "部分军师理念改编自 goutoujunshi（MIT），许可全文见详情。",
+                        "Thanks to goutoujunshi, CodexMonitor, Pi, Chatbox and OpenAI Codex. "
+                        "Details list sources, reuse scope and licenses.",
+                        "感谢狗头军师、CodexMonitor、Pi、Chatbox 与 OpenAI Codex。"
+                        "详情列出来源、借鉴范围和许可。",
                     ),
                 ]
             )
@@ -180,7 +181,9 @@ class MainWindow(QMainWindow):
         notice.setDetailedText(
             "\n\n".join(
                 files("anti_dating_scam").joinpath("licenses", name).read_text(encoding="utf-8")
-                for name in ("goutoujunshi-MIT.txt", "goutoujunshi-MIT-zh.txt")
+                for name in (
+                    "open-source-credits.txt", "goutoujunshi-MIT.txt", "goutoujunshi-MIT-zh.txt",
+                )
             )
         )
         notice.exec()

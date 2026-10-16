@@ -1,0 +1,80 @@
+Open-source sources and thanks / 开源来源与致谢
+
+English
+
+Thank you to these authors and communities. References are not endorsements.
+
+goutoujunshi — powerycy — MIT
+https://github.com/powerycy/goutoujunshi
+Reviewed revision: 6db7354a4002dc7c448a9c87ffdad8132570c9d3
+Relationship-coaching ideas informed our independently constrained conversation
+policy. AI-SlowMatch removes scores, fixed personality labels and manipulative
+tactics, and requires evidence and individual memory approval. The original MIT
+notice is included with this application; see the following license text.
+
+CodexMonitor — Thomas Ricouard and contributors — MIT
+https://github.com/Dimillian/CodexMonitor
+Reviewed revision: dd61b9abd37de5ded86e82b9fe8a83fd49d46fa5
+Connection/model/account lifecycle design reference (useModels.ts and
+useAccountSwitching.ts). We wrote our own Python/Qt implementation. No source,
+assets or runtime from this project is bundled.
+
+Pi — Mario Zechner and contributors — MIT
+https://github.com/earendil-works/pi
+Reviewed AI README: 8ce69e9d2b171d173fe4b6b2b6256f1f4411e69d
+License rechecked at: 4954d760504c11df9b2cbdc040346107b6a8153d
+Typed provider-interface and model-catalog design reference. No Pi code or Node
+runtime is bundled.
+
+Chatbox Community Edition — Chatbox contributors — GPL-3.0
+https://github.com/chatboxai/chatbox
+Reviewed revision: 0ac6385ae1ff5bf778777826da3c5edcd55b61b8
+README/product-flow comparison only; no GPL source or assets were copied or bundled.
+
+OpenAI Codex — OpenAI and contributors — upstream Apache-2.0
+https://github.com/openai/codex
+Upstream license checked at: a45b8ccb016fb74f63a6bc29e701568e387cbe38
+The separately installed official runtime provides the app-server protocol. It is
+not bundled or modified here. Its installation and service terms apply separately.
+Audited runtime versions: 0.162.0-alpha.17.2 and 0.163.0-alpha.10.2.
+
+Our other runtime/build dependencies are declared in pyproject.toml and the Windows
+constraints file; their own licenses apply. This credits register describes the
+named borrowed ideas and integration references, not a license replacement or a
+claim of public-distribution legal clearance.
+
+中文版
+
+感谢以下作者与开源社区。引用不代表上游为本软件背书。
+
+goutoujunshi（狗头军师）— powerycy — MIT
+https://github.com/powerycy/goutoujunshi
+审阅版本：6db7354a4002dc7c448a9c87ffdad8132570c9d3
+借鉴关系沟通理念，并另行约束应用内对话策略：去除人格评分、固定标签与操控手段，
+要求证据与逐项记忆批准。软件保留原 MIT 许可全文，见后续许可文本。
+
+CodexMonitor — Thomas Ricouard 及贡献者 — MIT
+https://github.com/Dimillian/CodexMonitor
+审阅版本：dd61b9abd37de5ded86e82b9fe8a83fd49d46fa5
+参考 useModels.ts 和 useAccountSwitching.ts 的连接、模型及账号生命周期设计。
+Python／Qt 实现由本项目编写，没有复制或打包该项目的源码、素材或运行程序。
+
+Pi — Mario Zechner 及贡献者 — MIT
+https://github.com/earendil-works/pi
+审阅 AI README 版本：8ce69e9d2b171d173fe4b6b2b6256f1f4411e69d
+许可复核版本：4954d760504c11df9b2cbdc040346107b6a8153d
+参考类型化提供方接口与模型目录设计，没有打包 Pi 源码或 Node 运行程序。
+
+Chatbox 社区版 — Chatbox 贡献者 — GPL-3.0
+https://github.com/chatboxai/chatbox
+审阅版本：0ac6385ae1ff5bf778777826da3c5edcd55b61b8
+仅比较 README 与产品流程，没有复制或打包 GPL 源码及素材。
+
+OpenAI Codex — OpenAI 及贡献者 — 上游 Apache-2.0
+https://github.com/openai/codex
+上游许可核对版本：a45b8ccb016fb74f63a6bc29e701568e387cbe38
+使用另行安装的官方程序提供的 app-server 协议，本软件不打包或修改该程序；
+其安装与服务条款独立适用。已审核运行版本为 0.162.0-alpha.17.2 和 0.163.0-alpha.10.2。
+
+其他运行／构建依赖列在 pyproject.toml 及 Windows 约束文件中，各自许可独立适用。
+本登记记录上述借鉴与集成来源，不替代原许可，也不表示已完成公开分发的法律审核。

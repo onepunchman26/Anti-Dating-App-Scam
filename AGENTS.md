@@ -36,6 +36,7 @@ Anti-Dating-App-Scam is an AI-SlowMatch prototype for scam awareness and relatio
 - Technical/internal docs in `docs/` (architecture, ADRs, schemas, taxonomy) are agent-facing and may stay English-only unless a human-facing doc references them directly.
 - `PROGRESS_TRACKER.md` is agent-maintained: whenever a task in this project changes status (started, blocked, done), update its checklist in both languages in the same edit — don't let it drift out of sync with actual work.
 - **No real name in any file.** Never write the project owner's real/legal name into any file in this repo (code, docs, commit messages, filenames). If a name must appear (e.g., "reading copy for ___"), use the pseudonyms only: **onepuchman** (English) and **观澜击水** (Chinese).
+- Record borrowed code, prompts, policy ideas and design references in `docs/39_open_source_credits.md` and the packaged credits. Include source, revision, license, actual reuse scope and thanks; preserve required notices. Keep the bilingual README/GitHub introduction and About credits current. Never imply a design reference is bundled code.
 
 ## Privacy-First Rule
 

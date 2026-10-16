@@ -21,6 +21,15 @@ class ModelPreferences:
             raise ValueError("A connected app registration is required.")
         return self.directory / (hashlib.sha256(client_id.encode()).hexdigest() + ".json")
 
+    def load_route(self) -> str | None:
+        route = self.load("selected-connection-route")
+        return route if route in {"chatgpt", "codex"} else None
+
+    def save_route(self, route: str) -> None:
+        if route not in {"chatgpt", "codex"}:
+            raise ValueError("Unsupported connection route")
+        self.save("selected-connection-route", route)
+
     def load(self, client_id: str) -> str | None:
         try:
             path = self._path(client_id)

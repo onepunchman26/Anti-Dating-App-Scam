@@ -231,13 +231,16 @@ class _QuestionReply(_Model):
     def display(self):
         if self.reply is None:
             return self.question
-        return BilingualResponse(
-            **{
-                lang: getattr(self.reply, lang)
-                + ("\n\n" + getattr(self.question, lang) if self.question else "")
-                for lang in ("en", "zh")
-            }
-        )
+        displayed = {}
+        for lang in ("en", "zh"):
+            text = getattr(self.reply, lang).strip()
+            question = getattr(self.question, lang).strip() if self.question else ""
+            # Some real models repeat the separate question at the end of reply.
+            # Render that exact suffix once; never rewrite or invent model content.
+            if question and not text.endswith(question):
+                text += "\n\n" + question
+            displayed[lang] = text
+        return BilingualResponse(**displayed)
 
 
 def _question_schema() -> dict:

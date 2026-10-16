@@ -2,7 +2,16 @@
 
 ## English
 
-**October 15 real-chat repair:** 0.5.2 passed verification; close the old app to finish replacement. Use Connect ChatGPT →
+**October 16, 0.5.3:** compact setup and four real synthetic turns pass in source;
+final EXE verification/replacement is in progress. After current status confirms
+delivery, open the fixed root EXE → Connect ChatGPT → Connect through local Codex
+(saved app login is reused) → select a model → confirm extra credits and top-ups
+are off → Enter AI Chat → Start. A valid saved app login needs no repeated browser
+login. Review response usefulness and your physical voice device separately.
+[Sources and thanks](docs/39_open_source_credits.md) are also in About. No new payment
+or deployment approval is requested.
+
+**Historical October 15 repair:** 0.5.2 passed verification; close the old app to finish replacement. Use Connect ChatGPT →
 Try local Codex connection → Connect through local Codex. A separate login is saved
 for this app; confirm Codex extra credits/top-ups remain off, select the suggested
 `gpt-6-luna` candidate, enter AI Chat and press Start. Real synthetic service and Qt
@@ -21,7 +30,7 @@ success-path checks do not mean the live service has recovered. Details and vali
 boundaries are in the [connection repair record](docs/37_chatgpt_catalog_recovery.md).
 
 Open the single root **AI-SlowMatch.exe**. [Current release status](CURRENT_STATUS.md)
-is authoritative; About shows version 0.5.1. Hourly task execution stays paused. This work
+is authoritative; About identifies the installed build. Hourly task execution stays paused. This work
 uses the architecture and synthetic included-plan tests already authorized.
 
 1. **Saved-video batch:** Home → Saved videos & interests → choose
@@ -76,6 +85,12 @@ science or guaranteed success. Public YouTube example-title retrieval passed; Ti
 example returned an error. Bilibili and unrecognized sources use prepared input only.
 
 ## 中文版
+
+**10 月 16 日，0.5.3：**集中设置流程及四轮真实合成源码访谈通过，正在进行最终 EXE
+验收与替换。当前状态确认交付后，打开固定根目录 EXE → 连接 ChatGPT → 通过本机
+Codex 连接（复用本应用已存登录）→ 选模型 → 确认额外积分与自动充值关闭 → 进入 AI
+聊天 → 开始。有效登录无需反复浏览器授权。回答实用性与实体语音设备请分别审阅。
+[来源与致谢](docs/39_open_source_credits.md)也在关于页，不需要新的付款或部署审批。
 
 **10 月 15 日真实聊天修复：**0.5.2 已通过验收，请关闭旧版完成替换。操作为“连接 ChatGPT → 尝试本机 Codex
 兼容连接 → 通过本机 Codex 连接”。本应用保存独立登录；确认 Codex 额外积分／自动充值

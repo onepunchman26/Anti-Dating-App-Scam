@@ -1,0 +1,10 @@
+{
+  "runtime": "codex-cli 0.163.0-alpha.10.2",
+  "loopback_only": true,
+  "real_model_inference": false,
+  "tool_catalog_empty": true,
+  "injected_shell_call_rejected": true,
+  "private_canary_not_disclosed": true,
+  "no_auth_file": true,
+  "requests": 2
+}

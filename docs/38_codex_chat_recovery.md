@@ -2,6 +2,9 @@
 
 ## English
 
+Historical October 15 record. For the current compact flow and audited runtime update,
+see [the October 16 repair and credits](39_open_source_credits.md).
+
 October 15, 2026 (UTC). The original Sign in with ChatGPT (SIWC) connection still
 returned HTTP 520 for authenticated model-list and synthetic inference requests,
 including after reauthorization. Anonymous controls returned normal 401 JSON.
@@ -84,6 +87,9 @@ Official sources: [SIWC models and inference](https://developers.openai.com/siwc
 [configuration schema](https://learn.chatgpt.com/docs/config-schema.json).
 
 ## 中文版
+
+本页为 10 月 15 日历史记录。最新集中流程与运行版本更新见
+[10 月 16 日修复与来源说明](39_open_source_credits.md)。
 
 2026 年 10 月 15 日（UTC）。原有 Sign in with ChatGPT（SIWC）连接在重新授权后，
 带授权的模型列表及合成推理请求仍返回 HTTP 520；匿名对照正常返回 401 JSON。

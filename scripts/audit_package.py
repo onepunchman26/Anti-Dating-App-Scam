@@ -37,7 +37,7 @@ def audit_package(root: Path, executable: Path, metadata: dict) -> dict:
     info = json.loads(archive.extract(names["anti_dating_scam/build_info.json"]))
     if info != metadata:
         raise ReleaseError("Embedded build provenance mismatch.")
-    for name in ("goutoujunshi-MIT.txt", "goutoujunshi-MIT-zh.txt"):
+    for name in ("open-source-credits.txt", "goutoujunshi-MIT.txt", "goutoujunshi-MIT-zh.txt"):
         resource = "anti_dating_scam/licenses/" + name
         if resource not in names or archive.extract(names[resource]) != (
             root / "src" / resource

@@ -21,13 +21,36 @@ from anti_dating_scam_desktop.workers import run_async
 USAGE_URL = MANAGE_USAGE_URL
 
 
+def default_connection(preferences):
+    """Remember the route, never credentials or billing consent in preferences."""
+    from anti_dating_scam.ai.codex_connection import CodexConnectionService, find_codex
+    from anti_dating_scam.ai.privacy import BackendError
+
+    route = preferences.load_route()
+    if route == "codex":
+        return CodexConnectionService()
+    if route is None:
+        try:
+            find_codex()
+        except BackendError:
+            pass
+        else:
+            return CodexConnectionService()
+    return ChatGPTConnectionService()
+
+
 class ChatGPTConnectScreen(QWidget):
     def __init__(self, state, profile_store, on_done, on_back, *, connection=None):
         super().__init__()
-        self.connection = connection or ChatGPTConnectionService()
-        self._direct_connection = self.connection
-        self._compat_connection = None
         self.preferences = ModelPreferences()
+        active_connection = getattr(ai_backend.get_active(), "connection", None)
+        self.connection = connection or active_connection or default_connection(self.preferences)
+        self._direct_connection = (
+            self.connection if not getattr(self.connection, "compatibility", False) else None
+        )
+        self._compat_connection = (
+            self.connection if getattr(self.connection, "compatibility", False) else None
+        )
         self.state = state
         self.on_done = on_done
         self._cancel = threading.Event()
@@ -40,14 +63,14 @@ class ChatGPTConnectScreen(QWidget):
         self._phase_timer.setInterval(250)
         self._phase_timer.timeout.connect(self._show_phase)
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(48, 40, 48, 40)
-        layout.setSpacing(14)
+        layout.setContentsMargins(36, 24, 36, 24)
+        layout.setSpacing(10)
         layout.addWidget(
             StepHeader(
                 bi("Connect ChatGPT", "连接 ChatGPT"),
                 bi(
-                    "Use an eligible Plus or Pro plan. Sign in and authorize in your browser.",
-                    "使用符合条件的 Plus 或 Pro 套餐，在浏览器中登录并授权。",
+                    "Sign in, choose a model, then enter your conversation.",
+                    "登录、选择模型，然后进入聊天。",
                 ),
             )
         )
@@ -60,7 +83,10 @@ class ChatGPTConnectScreen(QWidget):
             )
         )
         note.setWordWrap(True)
-        layout.addWidget(note)
+        details = QWidget()
+        details_layout = QVBoxLayout(details)
+        details_layout.setContentsMargins(0, 0, 0, 0)
+        details_layout.addWidget(note)
         self.banner = StatusBanner(bi("Not connected", "尚未连接"))
         layout.addWidget(self.banner)
         self.success = ConnectionSuccessBadge(self)
@@ -78,7 +104,7 @@ class ChatGPTConnectScreen(QWidget):
         )
         self.compat_button.setObjectName("chatgptCompatibilityConnection")
         self.compat_button.clicked.connect(self._switch_connection)
-        layout.addWidget(self.compat_button)
+        details_layout.addWidget(self.compat_button)
         model_label = QLabel(bi("Chat model", "聊天模型"))
         layout.addWidget(model_label)
         self.model_picker = QComboBox()
@@ -92,7 +118,7 @@ class ChatGPTConnectScreen(QWidget):
         self.reload_button = SecondaryButton(bi("Reload models", "重新加载模型"))
         self.reload_button.setObjectName("chatgptReloadModels")
         self.reload_button.clicked.connect(self._load_models)
-        layout.addWidget(self.reload_button)
+        details_layout.addWidget(self.reload_button)
         self.model_hint = QLabel(
             bi(
                 "Available models come from your account. The default favors a lighter chat model.",
@@ -100,10 +126,10 @@ class ChatGPTConnectScreen(QWidget):
             )
         )
         self.model_hint.setWordWrap(True)
-        layout.addWidget(self.model_hint)
+        details_layout.addWidget(self.model_hint)
         usage = SecondaryButton(bi("Open ChatGPT usage settings", "打开 ChatGPT 用量设置"))
         usage.clicked.connect(lambda: webbrowser.open(USAGE_URL))
-        layout.addWidget(usage)
+        details_layout.addWidget(usage)
         self.plan_consent = WrappedCheckBox(
             bi(
                 "I have disabled extra-credit use for this app in ChatGPT settings. "
@@ -122,18 +148,29 @@ class ChatGPTConnectScreen(QWidget):
             )
         )
         limit_note.setWordWrap(True)
-        layout.addWidget(limit_note)
-        self.use_button = PrimaryButton(bi("Use ChatGPT for AI Chat", "用 ChatGPT 开始 AI 聊天"))
+        details_layout.addWidget(limit_note)
+        self.next_step = QLabel()
+        self.next_step.setWordWrap(True)
+        self.next_step.setObjectName("chatgptNextStep")
+        layout.addWidget(self.next_step)
+        self.use_button = PrimaryButton(bi("Enter AI Chat", "进入 AI 聊天"))
         self.use_button.clicked.connect(self._use)
         self.use_button.setEnabled(False)
         layout.addWidget(self.use_button)
         self.disconnect_button = SecondaryButton(bi("Disconnect this account", "断开此账号"))
         self.disconnect_button.clicked.connect(self._disconnect)
-        layout.addWidget(self.disconnect_button)
+        details_layout.addWidget(self.disconnect_button)
         back = SecondaryButton(bi("Back", "返回"))
         back.clicked.connect(lambda: (self._cancel.set(), self._phase_timer.stop(), on_back()))
         layout.addWidget(back)
+        self.details_button = SecondaryButton(bi("Connection options & help", "连接选项与帮助"))
+        self.details_button.setCheckable(True)
+        self.details_button.toggled.connect(details.setVisible)
+        layout.addWidget(self.details_button)
+        layout.addWidget(details)
+        details.hide()
         layout.addStretch()
+        self._route_labels()
 
     def on_enter(self):
         # Merely constructing the window never reads other apps' account data.
@@ -142,6 +179,11 @@ class ChatGPTConnectScreen(QWidget):
         self._epoch += 1
         self._busy = False
         self._phase_timer.stop()
+        active = ai_backend.get_active()
+        if getattr(active, "connection", None) is self.connection:
+            # Preserve the already-activated route and consent within this process,
+            # including language rebuilds; never carry it to another account/route.
+            self.plan_consent.setChecked(True)
         try:
             status = self.connection.status()
             self._sharing = status.connected and status.sharing
@@ -174,6 +216,7 @@ class ChatGPTConnectScreen(QWidget):
 
     def _controls(self):
         self.connect_button.setEnabled(not self._busy)
+        self.connect_button.setVisible(not self._sharing)
         self.compat_button.setEnabled(not self._busy)
         self.disconnect_button.setEnabled(not self._busy)
         self.reload_button.setEnabled(self._sharing and not self._busy)
@@ -185,6 +228,30 @@ class ChatGPTConnectScreen(QWidget):
         )
         self.model_picker.setEnabled(bool(self._models) and not self._busy)
         self.progress.setVisible(self._busy)
+        if self._busy:
+            self.next_step.setText(bi("Please wait…", "请稍候……"))
+        elif not self._sharing:
+            self.next_step.setText(bi(
+                "First, connect your account above.", "请先点击上方按钮连接账号。",
+            ))
+        elif not self._models:
+            self.next_step.setText(bi(
+                "Models could not load. Open Connection options & help "
+                "to retry or change connection.",
+                "模型未加载，请打开“连接选项与帮助”重试或切换连接。",
+            ))
+        elif self.model_picker.currentData() not in {choice.slug for choice in self._models}:
+            self.next_step.setText(bi("Choose a model above.", "请在上方选择模型。"))
+        elif not self.plan_consent.isChecked():
+            self.next_step.setText(bi(
+                "Next: tick the allowance confirmation above, then Enter AI Chat.",
+                "下一步：勾选上方套餐确认，再点击“进入 AI 聊天”。",
+            ))
+        else:
+            self.next_step.setText(bi(
+                "Setup complete. Enter AI Chat, then press Start.",
+                "设置完成。点击“进入 AI 聊天”，然后点击“开始”。",
+            ))
 
     def _switch_connection(self):
         if self._busy:
@@ -197,10 +264,17 @@ class ChatGPTConnectScreen(QWidget):
                 self._compat_connection = CodexConnectionService()
             self.connection = self._compat_connection
         else:
+            if self._direct_connection is None:
+                self._direct_connection = ChatGPTConnectionService()
             self.connection = self._direct_connection
         # Billing confirmation and an active provider never silently cross routes.
         ai_backend.set_active(None)
         self.plan_consent.setChecked(False)
+        self._route_labels()
+        self.on_enter()
+
+    def _route_labels(self):
+        compatibility = getattr(self.connection, "compatibility", False)
         self.compat_button.setText(
             bi("Use standard ChatGPT connection", "使用标准 ChatGPT 连接")
             if compatibility
@@ -240,7 +314,6 @@ class ChatGPTConnectScreen(QWidget):
                 "我已在 ChatGPT 设置中关闭本应用的额外积分使用，仅使用现有套餐额度。",
             )
         )
-        self.on_enter()
 
     def _show_phase(self):
         diagnostic = getattr(self.connection, "diagnostic", None)
@@ -275,6 +348,15 @@ class ChatGPTConnectScreen(QWidget):
         code = getattr(detail, "code", "")
         http_status = getattr(detail, "http_status", None)
         labels = {
+            "runtime_missing": (
+                "Install or repair the official Codex app, "
+                "or choose the standard connection in options.",
+                "请安装或修复官方 Codex 应用，或在连接选项中切换标准连接。",
+            ),
+            "runtime_version": (
+                "Codex has updated. This AI-SlowMatch version needs a compatibility update.",
+                "Codex 已更新，当前 AI-SlowMatch 需要更新兼容支持。",
+            ),
             "invalid_grant": (
                 "This authorization expired. Sign in again; no model request was made.",
                 "本次授权已过期，请重新登录；尚未调用模型。",
@@ -331,6 +413,7 @@ class ChatGPTConnectScreen(QWidget):
         if isinstance(http_status, int) and 100 <= http_status <= 599:
             message += f" (HTTP {http_status})"
         self.banner.set_text(message)
+        self.details_button.setChecked(True)
 
     def _load_models(self):
         if self._busy or not self._sharing:
@@ -397,6 +480,7 @@ class ChatGPTConnectScreen(QWidget):
             self.model_picker.blockSignals(False)
             if not self._models:
                 self.model_picker.setPlaceholderText(bi("No available models", "暂无可用模型"))
+                self.details_button.setChecked(True)
             self.banner.set_text(
                 bi(
                     "Models ready. Choose one, confirm extra credits are off, then enter AI Chat.",
@@ -447,6 +531,9 @@ class ChatGPTConnectScreen(QWidget):
 
     def _connect(self):
         if self._busy:
+            return
+        if self._sharing:
+            self._load_models()
             return
         self._cancel = threading.Event()
         self._epoch += 1
@@ -538,6 +625,12 @@ class ChatGPTConnectScreen(QWidget):
                 self._controls()
                 return
             ai_backend.set_active(backend)
+            try:
+                self.preferences.save_route(
+                    "codex" if getattr(self.connection, "compatibility", False) else "chatgpt"
+                )
+            except OSError:
+                pass  # A preferences write must not discard a usable connection.
             if self.state is not None:
                 self.state.provider_name = getattr(backend, "name", "ChatGPT plan")
                 self.state.model_name = slug

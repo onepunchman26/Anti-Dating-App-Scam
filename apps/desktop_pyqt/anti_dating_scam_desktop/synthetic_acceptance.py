@@ -116,7 +116,8 @@ def _run_gui(receipt, save):
                 screens["policy"].checkbox.setChecked(True)
                 screens["policy"].next_button.click()
                 screens["profile_detection"].build_button.click()
-                connect._switch_connection()
+                if not getattr(connect.connection, "compatibility", False):
+                    connect._switch_connection()
                 screens["home"].connect_button.click()
                 stage = "connect"
                 connect.connect_button.click()
@@ -177,11 +178,17 @@ def _run_gui(receipt, save):
                     stage = "ended"
             elif stage == "ended":
                 assert len(chat.service.ai_receipts) == ending_count, "End triggered inference"
+                screens["home"].chat_button.click()
+                assert window.navigator.current_name == "reflection_chat"
+                assert chat.start_button.isEnabled(), "Reopened chat lost its active connection"
+                assert chat.connect_button.isEnabled(), "Connection recovery was inaccessible"
+                assert len(chat.service.ai_receipts) == ending_count
                 receipt.update(
                     end_triggered_inference=False,
                     back_verified=True,
                     real_qt_journey=True,
                     requested_pause_respected=True,
+                    reopened_chat_ready=True,
                 )
                 finish("passed")
         except Exception as error:

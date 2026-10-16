@@ -2,6 +2,19 @@
 
 ## English
 
+October 16, 2026: **0.5.3 verification in progress.** The running old 0.5.1 window
+was closed normally. Native inspection found a loaded model list but an unchecked
+allowance confirmation, a repeated-login primary button, and no active chat backend.
+The updated Codex runtime 0.163.0-alpha.10.2 passed real-process loopback tool isolation.
+Connection setup is now compact and actionable; active route/model survive navigation
+and language rebuilds. Route/model preferences persist without billing consent.
+176 focused checks pass (3 skips). Four real synthetic Qt turns passed using the
+app-owned saved Codex login, with no new browser authorization. One earlier run exposed
+a duplicated question and is retained; exact repeated suffixes now display once.
+[Successful source GUI receipt](docs/evidence/2026-10-16-codex-source-gui-retry.json).
+[Sources, licenses and thanks](docs/39_open_source_credits.md) are in README and About.
+Full frozen-source/package checks and replacement of the fixed root EXE are pending.
+
 October 15, 2026 (UTC): **0.5.2 has passed verification; replacement awaits closing
 the running 0.5.1 app.** The separate official local Codex connection
 completed a real three-turn synthetic interview with relevant follow-ups, using the
@@ -96,6 +109,16 @@ external integrations. No spending, paid API, deployment, email, recruitment or 
 task was added. See [owner review](OWNER_REVIEW.md).
 
 ## 中文版
+
+2026 年 10 月 16 日：**0.5.3 正在验收。**旧版 0.5.1 窗口已正常关闭。原生检查发现
+模型已经加载，但套餐确认未勾选，主按钮会重复登录，聊天后端尚未启用。
+新 Codex 0.163.0-alpha.10.2 已通过实际进程的回环工具隔离检查。连接设置已集中显示
+可执行下一步，导航和切换语言保持已选通道／模型；只持久保存通道／模型，不保存费用确认。
+176 项定向检查通过（3 项跳过）。复用本应用自己的 Codex 登录完成四轮真实合成 Qt
+访谈，无需再次浏览器授权。此前一次暴露追问重复的问题，失败记录保留；完全相同的
+末尾问题现在仅显示一次。[成功源码 GUI 记录](docs/evidence/2026-10-16-codex-source-gui-retry.json)。
+[来源、许可与致谢](docs/39_open_source_credits.md)已加入 README 及软件关于页。
+冻结源码完整检查、打包验收和固定根目录 EXE 替换待完成。
 
 2026 年 10 月 15 日（UTC）：**0.5.2 已通过验收；正在等待关闭运行中的 0.5.1 后替换。**
 独立的官方本机 Codex 连接已用所有者确认的套餐额度完成三轮真实合成

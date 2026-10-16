@@ -1045,3 +1045,20 @@ def test_repeated_explicit_questions_are_bounded_without_silent_history_truncati
     with pytest.raises(ReflectionChatError):
         service.question_request()
     assert len(service.transcript) == 201
+
+
+@pytest.mark.parametrize("repeated", [True, False])
+def test_render_exact_followup_once_without_changing_model_words(repeated):
+    from anti_dating_scam.services.reflection_chat import _QuestionReply
+
+    question = {"en": "What helps you resume?", "zh": "什么能让你继续交流？"}
+    original = {"en": "A pause can help.", "zh": "暂停可能有帮助。"}
+    supplied = {lang: text + (" " + question[lang] if repeated else "")
+                for lang, text in original.items()}
+    reply = _QuestionReply(reply=supplied, question=question)
+    displayed = reply.display()
+    for lang in ("en", "zh"):
+        text = getattr(displayed, lang)
+        assert text.count(question[lang]) == 1
+        assert text.startswith(original[lang])
+        assert text == (supplied[lang] if repeated else supplied[lang] + "\n\n" + question[lang])

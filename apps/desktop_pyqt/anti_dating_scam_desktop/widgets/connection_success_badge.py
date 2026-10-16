@@ -30,7 +30,8 @@ class ConnectionSuccessBadge(QFrame):
     def confirm(self, *, chat_ready=False, animate=True):
         self.label.setText(bi("✓ ChatGPT connected · ready to chat", "✓ ChatGPT 已连接 · 可以聊天")
                            if chat_ready else bi(
-                               "✓ ChatGPT account connected", "✓ ChatGPT 账号连接成功",
+                               "✓ ChatGPT account connected · finish setup below",
+                               "✓ ChatGPT 账号连接成功 · 请完成下方设置",
                            ))
         self.show()
         if animate:

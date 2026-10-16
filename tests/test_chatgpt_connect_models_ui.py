@@ -62,7 +62,7 @@ class FakeConnection:
     def create_backend(self, slug, *, included_plan_confirmed):
         self.created.append((slug, included_plan_confirmed))
         assert included_plan_confirmed is True
-        return SimpleNamespace(provider_id="chatgpt_plan", model=slug)
+        return SimpleNamespace(provider_id="chatgpt_plan", model=slug, connection=self)
 
 
 @pytest.mark.parametrize("remembered", ["synthetic-large", "synthetic-removed"])
@@ -399,7 +399,7 @@ def test_primary_window_path_connects_then_enters_chat_and_private_exchange(
     store.create_default_directories()
     monkeypatch.setattr(main_window, "ProfileStore", lambda: store)
     connection = FakeConnection(connected=False, sharing=False)
-    monkeypatch.setattr(chatgpt_connect_screen, "ChatGPTConnectionService", lambda: connection)
+    monkeypatch.setattr(chatgpt_connect_screen, "default_connection", lambda _: connection)
     monkeypatch.setattr(chatgpt_connect_screen.ai_backend, "_active", None)
     deferred, requests = Deferred(), []
     monkeypatch.setattr(chatgpt_connect_screen, "run_async", deferred.run)
@@ -509,3 +509,71 @@ def test_primary_window_path_connects_then_enters_chat_and_private_exchange(
         assert len(requests) == 1
     finally:
         window.close()
+
+
+@pytest.mark.parametrize("language", ["en", "zh"])
+def test_setup_next_step_is_visible_without_repeated_login(application, monkeypatch, language):
+    stack, navigator, page, deferred, _, _, _ = screen(monkeypatch, language=language)
+    try:
+        deferred.finish()
+        settle(application)
+        assert not page.connect_button.isVisible()
+        assert ("tick" if language == "en" else "勾选") in page.next_step.text()
+        assert not page.details_button.isChecked()
+        viewport = navigator._viewports["connect"].viewport()
+        for control in (page.model_picker, page.plan_consent, page.use_button):
+            point = control.mapTo(viewport, QPoint(control.width() // 2, control.height() // 2))
+            assert viewport.rect().contains(point)
+        page._connect()  # An old queued sign-in action refreshes models, not OAuth.
+        deferred.finish()
+        assert page.connection.connect_calls == 0
+    finally:
+        stack.close()
+
+
+@pytest.mark.parametrize("language", ["en", "zh"])
+def test_rebuilt_setup_reuses_active_connection_and_model(application, monkeypatch, language):
+    from anti_dating_scam_desktop import ai_backend
+
+    from anti_dating_scam.ai.chatgpt_preferences import ModelPreferences
+
+    set_language(language, persist=False)
+    connection = FakeConnection()
+    connection.compatibility = True
+    connection.preference_key = "synthetic-rebuilt-connection"
+    active = SimpleNamespace(connection=connection, model="synthetic-large")
+    monkeypatch.setattr(ai_backend, "_active", active)
+    deferred = Deferred()
+    monkeypatch.setattr(chatgpt_connect_screen, "run_async", deferred.run)
+    page = chatgpt_connect_screen.ChatGPTConnectScreen(None, None, lambda: None, lambda: None)
+    try:
+        assert page.connection is connection
+        page.on_enter()
+        deferred.finish()
+        assert page.plan_consent.isChecked()
+        assert page.model_picker.currentData() == "synthetic-large"
+        assert page.use_button.isEnabled()
+        assert "Codex" in page.plan_consent.text()
+        assert connection.connect_calls == 0
+        # Route/model preferences do not carry plan confirmation into a new process.
+        assert ModelPreferences().load_route() in {None, "chatgpt", "codex"}
+    finally:
+        page.close()
+
+
+def test_route_preference_and_default_do_not_connect_or_infer(tmp_path, monkeypatch):
+    from anti_dating_scam.ai import codex_connection
+    from anti_dating_scam.ai.chatgpt_preferences import ModelPreferences
+
+    preferences = ModelPreferences(tmp_path)
+    codex, direct = object(), object()
+    monkeypatch.setattr(codex_connection, "find_codex", lambda: tmp_path / "codex.exe")
+    monkeypatch.setattr(codex_connection, "CodexConnectionService", lambda: codex)
+    monkeypatch.setattr(chatgpt_connect_screen, "ChatGPTConnectionService", lambda: direct)
+    assert chatgpt_connect_screen.default_connection(preferences) is codex
+    preferences.save_route("chatgpt")
+    assert chatgpt_connect_screen.default_connection(ModelPreferences(tmp_path)) is direct
+    preferences.save_route("codex")
+    assert chatgpt_connect_screen.default_connection(preferences) is codex
+    with pytest.raises(ValueError):
+        preferences.save_route("unexpected")

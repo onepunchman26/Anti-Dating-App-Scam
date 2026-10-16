@@ -1,8 +1,11 @@
 # Progress tracker / 进度追踪
 
-Updated / 更新：2026-10-14。Agent-maintained; change both languages together / 代理维护，状态须同步更新双语。
+Updated / 更新：2026-10-16。Agent-maintained; change both languages together / 代理维护，状态须同步更新双语。
 
 ## English
+
+- ✅ 0.5.3 implementation: compact connection handoff, recoverable chat setup, active-route preservation, exact duplicate-question display fix, current-runtime isolation and bilingual source credits. 176 focused checks (3 skips) and four real synthetic Qt turns passed. Old 0.5.1 exited normally.
+- 🔄 0.5.3 delivery: full frozen-source gates, actual packaged conversation and root replacement pending.
 
 - ✅ ChatGPT connection fix: reproduced authenticated catalog HTTP 520; added safe diagnostics, manual catalog retry, placeholders and valid-selection gating. 94 focused synthetic checks and native source-window error/retry inspection passed.
 - ✅ 0.5.1 verification: frozen-source compile/lint, 2,270 tests (10 skipped), package audit and isolated EXE startup passed.
@@ -35,6 +38,9 @@ Updated / 更新：2026-10-14。Agent-maintained; change both languages together
 Hourly automation stays paused. No purchase, paid API key, real private archive, email delivery or public deployment was used. The [prior tracker](docs/history/2026-10-01-before-standards-correction/PROGRESS_TRACKER.md) is historical, not an extra backlog. Current evidence belongs in [CURRENT_STATUS](CURRENT_STATUS.md).
 
 ## 中文版
+
+- ✅ 0.5.3 实现：集中连接步骤、可用聊天设置入口、保持已选通道、去除完全相同追问的重复显示、新版运行程序隔离及双语来源致谢。176 项定向检查（3 项跳过）和四轮真实合成 Qt 访谈通过；旧版 0.5.1 正常退出。
+- 🔄 0.5.3 交付：冻结源码完整检查、实际打包聊天及根目录替换待完成。
 
 - ✅ ChatGPT 连接修复：复现带授权的模型接口 HTTP 520，增加安全诊断、手动重载、占位提示及有效模型选择检查。94 项定向合成测试及原生源码窗口的错误／重试检查通过。
 - ✅ 0.5.1 验证：冻结源码编译／静态检查、2,270 项测试（10 项跳过）、打包审计及隔离 EXE 启动均通过。

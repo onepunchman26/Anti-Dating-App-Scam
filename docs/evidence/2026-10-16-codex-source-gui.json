@@ -1,0 +1,45 @@
+{
+  "at": "2026-10-16T04:46:57.571297+00:00",
+  "synthetic_only": true,
+  "status": "failed",
+  "stage": "interview",
+  "turns": [
+    {
+      "synthetic_answer": null,
+      "rendered_reply": "今天你想聊聊什么、做些自我反思呢？可以分享一段关系中的困扰、一次沟通经历，或任何此刻挂心的事。",
+      "provenance": {
+        "provider": "codex_chatgpt",
+        "requested_model": "gpt-6-luna",
+        "reported_model": null,
+        "input_tokens": null,
+        "output_tokens": null,
+        "completion": "completed"
+      }
+    },
+    {
+      "synthetic_answer": "我在亲密关系中偏好坦诚沟通，但争执激烈时更喜欢先暂停十分钟。",
+      "rendered_reply": "你在亲密关系中偏好坦诚沟通，争执激烈时更喜欢先暂停十分钟。这样或许能让双方冷静下来，再继续交流。什么会让你觉得自己已经准备好恢复谈话？\n\n什么会让你觉得自己已经准备好恢复谈话？",
+      "provenance": {
+        "provider": "codex_chatgpt",
+        "requested_model": "gpt-6-luna",
+        "reported_model": null,
+        "input_tokens": null,
+        "output_tokens": null,
+        "completion": "completed"
+      }
+    }
+  ],
+  "model_options": [
+    "gpt-6-luna",
+    "gpt-6.1-sol",
+    "gpt-6-astra",
+    "gpt-6-sol",
+    "gpt-6-luna",
+    "gpt-5.6-sol",
+    "gpt-5.6-terra",
+    "gpt-5.6-luna"
+  ],
+  "packaged_executable": false,
+  "error_type": "AssertionError",
+  "check_failure": "Relevant follow-up or requested pause was not respected"
+}

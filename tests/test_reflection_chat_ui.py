@@ -511,3 +511,24 @@ def test_real_window_chat_navigation_language_change_keeps_transcript_and_draft(
         assert window.navigator.current_name == "home"
     finally:
         window.close()
+
+
+@pytest.mark.parametrize("language", ["en", "zh"])
+def test_chat_without_active_backend_has_working_setup_action(
+    application, tmp_path, monkeypatch, language
+):
+    monkeypatch.setattr(reflection_chat_screen.ai_backend, "_active", None)
+    window, _ = _window(tmp_path, monkeypatch, language=language)
+    try:
+        window.navigator.go("reflection_chat")
+        chat = window.navigator._screens["reflection_chat"]
+        assert chat.start_button.isEnabled()
+        assert not chat.send_button.isEnabled()
+        chat.start_button.click()
+        assert window.navigator.current_name == "ai_connect"
+        page = window.navigator._screens["ai_connect"]
+        _button(page, "Back" if language == "en" else "返回").click()
+        assert window.navigator.current_name == "reflection_chat"
+        assert chat.start_button.isEnabled() and chat.service.session_id is None
+    finally:
+        window.close()

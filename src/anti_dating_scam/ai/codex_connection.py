@@ -30,7 +30,8 @@ from anti_dating_scam.ai.chatgpt_auth import (
 from anti_dating_scam.ai.privacy import BackendError, coerce_request, outbound_messages
 from anti_dating_scam.ai.results import AIProvenance, ChatResult
 
-AUDITED_VERSION = "codex-cli 0.162.0-alpha.17.2"
+AUDITED_VERSION = "codex-cli 0.163.0-alpha.10.2"
+AUDITED_VERSIONS = {AUDITED_VERSION, "codex-cli 0.162.0-alpha.17.2"}
 DISABLED_FEATURES = tuple(
     "shell_tool apply_patch_freeform unified_exec view_image apps plugins collab "
     "multi_agent multi_agent_v2 code_mode js_repl memories shell_snapshot remote_models "
@@ -111,7 +112,7 @@ class CodexRPC:
         )
         if (
             version.returncode
-            or version.stdout.decode("utf-8", "replace").strip() != AUDITED_VERSION
+            or version.stdout.decode("utf-8", "replace").strip() not in AUDITED_VERSIONS
         ):
             raise BackendError(
                 "This Codex version needs a compatibility check before use. / "
