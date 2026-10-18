@@ -8,7 +8,7 @@ Updated / 更新：2026-10-17。Agent-maintained; change both languages together
 - ✅ M2 local implementation: versioned profile, provenance/correction/history, selected legacy import, exact approved-summary export and private assessments implemented and tested. Current-chat launcher saved and re-read revision 2 plus a private synthetic assessment. No real private archive read or published.
 - ✅ M3–M4 implementation/private deployment: Worker/D1 summary service, native MCP, bilateral filters, no-score reasons, bounded discovery, pause/delete and revoked-version protection implemented; private Site deployed. Local D1 tests and build/static checks pass.
 - ⛔ M1/M3/M4 actual platform gates: restricted new-chat storage still fails; native remote tool discovered but call blocked by approval policy; real authenticated hosted publication and lifecycle unverified. Two-account acceptance NOT EXERCISED because no second account is available. No bypass or fabricated success.
-- 🔄 M5 delivery: bilingual docs/credits and acceptance record complete; final regression **2,349 passed / 10 skipped / zero failures**, plus Node/D1, compile, lint, typecheck and build passed. Normal Git synchronization is the final operation. Owner actions deferred until tomorrow; existing automation stays paused.
+- ✅ M5 autonomous delivery: bilingual docs/credits and acceptance record complete; final regression **2,349 passed / 10 skipped / zero failures**, plus Node/D1, compile, lint, typecheck and build passed. Implementation `67b0853` synchronized normally to `origin/codex/chatgpt-sites-migration`; preserved unrelated untracked work. External acceptance gates above remain open; owner actions deferred until tomorrow and existing automation stays paused.
 
 - ✅ 0.5.3 implementation: compact connection handoff, recoverable chat setup, active-route preservation, exact duplicate-question display fix, current-runtime isolation and bilingual source credits. 176 focused checks (3 skips) and four real synthetic Qt turns passed. Old 0.5.1 exited normally.
 - ✅ 0.5.3 delivery: 2,305 tests (10 skips), compile/lint, package/startup checks and four real packaged Qt turns passed. The fixed root EXE was atomically replaced and its hash/About verified. GitHub description and bilingual README/About credits updated; source handoff complete.
@@ -49,7 +49,7 @@ Hourly automation stays paused. No purchase, paid API key, real private archive,
 - ✅ M2 本机实现：带版本档案、来源／纠正／历史、选定旧记忆导入、具体批准摘要导出与私人分析均已实现并测试。当前聊天启动器保存后重读版本 2 与合成私人分析，未读取或发布真实私人档案。
 - ✅ M3–M4 实现／私有部署：Worker／D1 摘要服务、原生 MCP、双向条件、无评分解释、有限发现、暂停／删除及撤回版本保护已实现，私有站已部署；本地 D1 测试与构建／静态检查通过。
 - ⛔ M1／M3／M4 实际平台关卡：受限新会话存储仍失败；原生远程工具可发现但审批策略阻止调用；真实认证托管发布与生命周期尚未验证。没有第二账户，双账户验收明确“尚未实测”，未绕过或伪造成功。
-- 🔄 M5 交付：双语文档／致谢及验收记录已完成；最终回归 **2,349 项通过／10 项跳过／零失败**，另有 Node／D1、编译、静态、类型检查与构建通过。最后执行正常 Git 同步，用户操作留到明天，既有自动化继续暂停。
+- ✅ M5 自主交付：双语文档／致谢及验收记录已完成；最终回归 **2,349 项通过／10 项跳过／零失败**，另有 Node／D1、编译、静态、类型检查与构建通过。实现提交 `67b0853` 已正常同步到 `origin/codex/chatgpt-sites-migration`，保留无关未跟踪工作。上方外部验收仍未完成；用户操作留到明天，既有自动化继续暂停。
 
 - ✅ 0.5.3 实现：集中连接步骤、可用聊天设置入口、保持已选通道、去除完全相同追问的重复显示、新版运行程序隔离及双语来源致谢。176 项定向检查（3 项跳过）和四轮真实合成 Qt 访谈通过；旧版 0.5.1 正常退出。
 - ✅ 0.5.3 交付：2,305 项测试（10 项跳过）、编译／静态、打包／启动及四轮真实打包 Qt 访谈通过。固定根目录 EXE 已原子替换并核对哈希／关于页；GitHub 简介及双语 README／关于致谢已更新，源码交接完成。

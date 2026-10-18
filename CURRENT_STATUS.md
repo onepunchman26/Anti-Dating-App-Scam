@@ -89,6 +89,8 @@ branch and use a separate checkout of `78ea405` when old source is needed; do no
 over unrelated work. New private state is separate and must not be copied into Git.
 Necessary source synchronization is tracked in PROGRESS_TRACKER; hourly automation
 remains paused. No purchase, public-audience expansion, contact or real-data publication.
+Implementation commit `67b0853` was pushed normally to `origin/codex/chatgpt-sites-migration`.
+Only the preserved unrelated `.vscode/` and `paper/` folders remain outside tracked work.
 
 ## 中文版 — 10 月 17 日迁移交付（验证延续至 UTC 10 月 18 日）
 
@@ -162,6 +164,8 @@ Sites 项目：`appgprj_6ad4306f79e88191bbbd502f495ec501`。受支持的源码�
 回退：既有功能继续用固定旧 EXE；保留迁移分支，需要旧源码时单独检出 `78ea405`，不能 reset
 覆盖无关工作。新私人状态独立，不得复制进 Git。必要源码同步见 PROGRESS_TRACKER；小时自动化
 保持暂停。本轮未购买、扩大公开受众、联系候选或发布真实资料。
+实现提交 `67b0853` 已正常推送到 `origin/codex/chatgpt-sites-migration`；跟踪文件之外仅保留
+原有无关的 `.vscode/` 与 `paper/` 文件夹。
 
 ---
 

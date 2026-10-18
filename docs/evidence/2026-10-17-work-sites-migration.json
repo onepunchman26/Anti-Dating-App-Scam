@@ -11,7 +11,8 @@
       ".vscode/",
       "paper/"
     ],
-    "source_sync": "ready_for_normal_push"
+    "source_sync": "implementation_commit_verified_on_origin_migration_branch",
+    "implementation_commit": "67b0853642ac56616f565d775ca428e382637485"
   },
   "legacy": {
     "version": "0.5.3",
