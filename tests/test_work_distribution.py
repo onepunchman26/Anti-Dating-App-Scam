@@ -436,3 +436,69 @@ def test_public_allowlist_includes_guides_and_excludes_private_or_developer_stat
         for name in builder.PUBLIC_FILES
     )
     assert "vosk" not in builder.DEPENDENCIES
+
+
+@pytest.mark.skipif(os.name != "nt", reason="Win32 extended path behavior")
+def test_long_private_paths_install_and_core_persistence_without_os_changes(tmp_path, monkeypatch):
+    monkeypatch.setattr(runtime.Distribution, "probe", staticmethod(lambda *_: None))
+    monkeypatch.setattr(runtime, "owner_identity", lambda: "c" * 64)
+    location = tmp_path / ("long-private-owner-directory-" + "x" * 120) / "portable"
+    distribution = runtime.Distribution(location)
+    source = package(tmp_path)
+    distribution.install(source)
+    slot, data = account(distribution)
+    assert len(str(data)) > 260
+    service = WorkProfileService(data)
+    saved = service.update_profile(
+        {
+            "expected_revision": 0,
+            "confirmed": True,
+            "changes": [
+                {
+                    "action": "upsert",
+                    "claim": {
+                        "topic": "values",
+                        "text": "Synthetic long-path check",
+                        "source": {"source_type": "self_report", "reference": "synthetic"},
+                        "confirmation": "confirmed",
+                        "uncertainty": "Synthetic only",
+                    },
+                }
+            ],
+        }
+    )
+    assert saved.revision == 1
+    assert (
+        WorkProfileService(distribution.slot(slot, "d" * 64, "test:synthetic"))
+        .read_profile()
+        .revision
+        == 1
+    )
+    assert distribution.uninstall()["status"] == "runtime_uninstalled"
+    assert service.read_profile().revision == 1
+    # pytest's generic Windows cleanup is not long-path aware. Only remove this
+    # exact synthetic test subtree, using the guarded extended absolute path.
+    cleanup = distribution.home.parent.resolve()
+    assert runtime.logical_path(cleanup).is_relative_to(runtime.logical_path(tmp_path.resolve()))
+    runtime.shutil.rmtree(cleanup)
+
+
+def test_generated_editable_metadata_removed_and_developer_paths_refused(tmp_path):
+    payload = tmp_path / "payload"
+    metadata = payload / "_internal/anti_dating_scam-0.1.0.dist-info"
+    metadata.mkdir(parents=True)
+    (metadata / "direct_url.json").write_text('{"url":"file:///synthetic/developer"}')
+    retained = payload / "_internal/pydantic-2.13.5.dist-info"
+    retained.mkdir()
+    (retained / "METADATA").write_text("Synthetic dependency notice")
+    builder.clean_generated_metadata(payload)
+    assert not metadata.exists()
+    assert retained.exists()
+    root = tmp_path / "source"
+    (payload / "leak.json").write_text(json.dumps({"path": str(root)}))
+    with pytest.raises(runtime.DistributionError, match="developer_path_in_payload"):
+        builder.audit_developer_paths(payload, root)
+    (payload / "leak.json").unlink()
+    (payload / "direct_url.json").write_text("{}")
+    with pytest.raises(runtime.DistributionError, match="developer_install_metadata_in_payload"):
+        builder.audit_developer_paths(payload, root)

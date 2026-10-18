@@ -199,6 +199,45 @@ def package_manifest(payload, version, provenance, dependencies):
     return value
 
 
+def clean_generated_metadata(payload):
+    """Remove only PyInstaller-copied editable project installation metadata.
+
+    Frozen version.py reads generated build_info.json; the developer environment's
+    project dist-info is neither required nor a valid source of release identity.
+    """
+    internal = runtime.check_path(payload / "_internal", directory=True).resolve(strict=True)
+    for child in internal.iterdir():
+        if child.name.lower().startswith("anti_dating_scam-") and child.name.endswith(".dist-info"):
+            child = runtime.check_path(child, directory=True)
+            if child.resolve().parent != internal:
+                raise runtime.DistributionError("unsafe_generated_metadata_path")
+            for path in child.rglob("*"):
+                runtime.check_path(path)
+            # Confirmed absolute target is an immediate generated child of this
+            # exact payload, never the installed developer environment.
+            shutil.rmtree(child)
+
+
+def audit_developer_paths(payload, root):
+    forbidden = set()
+    for value in (root, Path.home(), Path(sys.prefix)):
+        for path in (str(value), str(value.resolve()), str(runtime.logical_path(value))):
+            for variant in (path, path.replace("\\", "/"), path.replace("\\", "\\\\")):
+                if len(variant) > 8:
+                    forbidden.add(variant.casefold().encode())
+                    forbidden.add(variant.casefold().encode("utf-16le"))
+    for file in payload.rglob("*"):
+        if file.is_file():
+            name = file.name.lower()
+            if name in {"direct_url.json", ".python-version"} or name.endswith(
+                (".pth", ".egg-link")
+            ):
+                raise runtime.DistributionError("developer_install_metadata_in_payload")
+            raw = runtime.read_bytes(file, 300_000_000).lower()
+            if any(value in raw for value in forbidden):
+                raise runtime.DistributionError("developer_path_in_payload")
+
+
 def deterministic_zip(payload, destination):
     # Archive only a fully validated manifest; no glob of user/source directories.
     value, _ = runtime.manifest(payload)
@@ -344,11 +383,13 @@ def build(root, output, *, allow_dirty=False):
     if public_sources(root) != provenance:
         raise runtime.DistributionError("build_sources_changed")
     payload = output / "compiled/SlowMatch-Work"
+    clean_generated_metadata(payload)
     audit = audit_embedded_sources(root, payload / runtime.EXECUTABLE)
     copy_public(root, payload)
     copy_notices(payload)
     (payload / "source-provenance.json").write_bytes(runtime.encoded(provenance))
     (payload / "package-audit.json").write_bytes(runtime.encoded(audit))
+    audit_developer_paths(payload, root)
     manifest = package_manifest(payload, project["version"], provenance, dependencies)
     runtime.Distribution.probe(payload, project["version"])
     # A stable archive filename is tied to the version; overwrite is forbidden.

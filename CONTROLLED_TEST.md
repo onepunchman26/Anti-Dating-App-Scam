@@ -10,7 +10,7 @@ unavailable permission instead of editing source.”**
 This is an opt-in synthetic product test, not part of routine installation. The current
 result remains **NOT EXERCISED with a second independent account**. No password, developer
 checkout, Python/Git/Node, maintainer token or client source patch is required by this flow.
-The [validation record](docs/DISTRIBUTION_VALIDATION.md) separates prepared steps from proof.
+The [validation record](https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/main/docs/DISTRIBUTION_VALIDATION.md) separates prepared steps from proof.
 
 ### Before either person starts
 
@@ -79,7 +79,7 @@ INSTALL_WITH_CHATGPT.md 与 CONTROLLED_TEST.md 安装并测试 AI-SlowMatch；�
 
 这是明确选择加入的合成产品测试，不是普通安装的默认行为。当前**第二独立账号仍尚未实测**。
 流程不需要密码、开发仓库、Python／Git／Node、维护者令牌或修改客户端源码。
-[验证记录](docs/DISTRIBUTION_VALIDATION.md)区分准备步骤与实际证明。
+[验证记录](https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/main/docs/DISTRIBUTION_VALIDATION.md)区分准备步骤与实际证明。
 
 ### 双方开始前
 

@@ -40,6 +40,25 @@ class DistributionError(ValueError):
     """Only stable, non-private codes may reach diagnostics."""
 
 
+def logical_path(path):
+    """Normalize extended Win32 prefixes before policy/ownership comparisons."""
+    value = os.path.abspath(path)
+    if os.name == "nt":
+        if value.startswith("\\\\?\\UNC\\"):
+            value = "\\\\" + value[8:]
+        elif value.startswith("\\\\?\\"):
+            value = value[4:]
+    return Path(value)
+
+
+def native_path(path):
+    """Use supported extended paths without changing Windows protection/settings."""
+    value = os.path.abspath(path)
+    if os.name == "nt" and not value.startswith("\\\\?\\"):
+        value = "\\\\?\\UNC\\" + value[2:] if value.startswith("\\\\") else "\\\\?\\" + value
+    return Path(value)
+
+
 def encoded(value):
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
 
@@ -68,7 +87,7 @@ def check_path(path, *, directory=None):
     path = Path(os.path.abspath(path))
     for item in [path, *path.parents]:
         try:
-            info = item.lstat()
+            info = native_path(item).lstat()
         except FileNotFoundError:
             continue
         if stat.S_ISLNK(info.st_mode) or getattr(info, "st_file_attributes", 0) & 0x400:
@@ -77,16 +96,16 @@ def check_path(path, *, directory=None):
             raise DistributionError("unsafe_path")
         if stat.S_ISREG(info.st_mode) and info.st_nlink != 1:
             raise DistributionError("unsafe_path")
-    if path.exists():
-        if directory is True and not path.is_dir():
+    if native_path(path).exists():
+        if directory is True and not native_path(path).is_dir():
             raise DistributionError("unsafe_path")
-        if directory is False and not path.is_file():
+        if directory is False and not native_path(path).is_file():
             raise DistributionError("unsafe_path")
     return path
 
 
 def private_location(path):
-    path = check_path(path, directory=True)
+    path = logical_path(check_path(path, directory=True))
     if any(
         part.lower().startswith("onedrive")
         or part.lower()
@@ -102,20 +121,22 @@ def private_location(path):
     ):
         raise DistributionError("private_directory_required")
     for ancestor in [path, *path.parents]:
-        if (ancestor / ".git").exists():
+        if native_path(ancestor / ".git").exists():
             raise DistributionError("private_directory_required")
     for key in ("OneDrive", "OneDriveConsumer", "OneDriveCommercial"):
         if os.environ.get(key) and path.is_relative_to(Path(os.path.abspath(os.environ[key]))):
             raise DistributionError("private_directory_required")
     if os.name == "nt":
         local = os.environ.get("LOCALAPPDATA")
-        if not local or not path.resolve().is_relative_to(Path(local).resolve()):
+        if not local or not logical_path(native_path(path).resolve()).is_relative_to(
+            logical_path(native_path(local).resolve())
+        ):
             raise DistributionError("local_appdata_directory_required")
-    return path
+    return native_path(path)
 
 
 def mkdir(path):
-    path = check_path(path, directory=True)
+    path = native_path(check_path(path, directory=True))
     missing = []
     parent = path
     while not parent.exists():
@@ -128,7 +149,7 @@ def mkdir(path):
 
 
 def read_bytes(path, limit):
-    path = check_path(path, directory=False)
+    path = native_path(check_path(path, directory=False))
     before = path.stat()
     if before.st_size > limit:
         raise DistributionError("file_limit")
@@ -155,6 +176,7 @@ def read_bytes(path, limit):
 
 
 def atomic(path, value):
+    path = native_path(path)
     check_path(path, directory=False)
     temporary = path.parent / (".pending-" + uuid4().hex)
     try:
