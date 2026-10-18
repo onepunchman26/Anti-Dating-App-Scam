@@ -9,11 +9,11 @@ export const friendship=(changes={})=>{
   void relationship_goal;void accepted_goals;void life_directions;
   return {...common,mode:'friendship',friendship_intent:'activity_companions',accepted_friendship_intents:['activity_companions'],activity_styles:['quiet'],interaction_frequency:'flexible',accepted_frequencies:['flexible'],boundaries:['platonic_only'],...changes};
 };
-export async function fixture(clock=()=>new Date()) {
+export async function fixture(clock=()=>new Date(),{throughMigration=Infinity}={}) {
   const mf=new Miniflare({modules:true,script:'export default {fetch(){return new Response("synthetic")}}',compatibilityDate:'2026-05-15',d1Databases:{DB:'test-db'},cf:false});
   const db=await mf.getD1Database('DB');
   const migrations=new URL('../drizzle/',import.meta.url);
-  for(const file of (await readdir(migrations)).filter(x=>x.endsWith('.sql')).sort()) {
+  for(const file of (await readdir(migrations)).filter(x=>x.endsWith('.sql')&&Number(x.slice(0,4))<=throughMigration).sort()) {
     for(const sql of (await readFile(new URL(file,migrations),'utf8')).split('--> statement-breakpoint').map(x=>x.trim()).filter(Boolean)) await db.prepare(sql).run();
   }
   const call=createService(db,{clock});

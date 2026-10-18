@@ -20,6 +20,7 @@ export const queryLimits = sqliteTable("query_limits", {
 // their authenticated owner next accesses the service.
 export const participations = sqliteTable("participations", {
   owner: text("owner").notNull(),
+  scope: text("scope").notNull().default("production"),
   mode: text("mode").notNull(),
   publicId: text("public_id").notNull().unique(),
   summary: text("summary").notNull(),
@@ -28,12 +29,21 @@ export const participations = sqliteTable("participations", {
   lastSummaryVersion: integer("last_summary_version").notNull().default(0),
   active: integer("active").notNull().default(0),
   updatedAt: text("updated_at").notNull(),
-}, table => [primaryKey({columns:[table.owner,table.mode]}),index("participations_mode_active").on(table.mode,table.active)]);
+}, table => [primaryKey({columns:[table.owner,table.mode]}),index("participations_mode_active").on(table.mode,table.active),index("participations_scope_mode_active").on(table.scope,table.mode,table.active)]);
+
+// Remembers controlled-test enrollment so removing/expiring runtime configuration
+// cannot silently send an existing synthetic workflow into production.
+export const testEnrollments = sqliteTable("test_enrollments", {
+  accountFingerprint: text("account_fingerprint").primaryKey(),
+  scope: text("scope").notNull(),
+  enrolledAt: text("enrolled_at").notNull(),
+});
 
 // One row is the concurrency boundary. Consent changes invalidate the current
 // proposal and both confirmations in the same conditional update.
 export const planningSessions = sqliteTable("planning_sessions", {
   id: text("id").primaryKey(),
+  scope: text("scope").notNull().default("production"),
   pairKey: text("pair_key").notNull().default(""),
   mode: text("mode").notNull(),
   ownerA: text("owner_a").notNull(),

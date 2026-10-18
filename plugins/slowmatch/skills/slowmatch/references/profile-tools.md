@@ -2,17 +2,26 @@
 
 ## English
 
-Use packaged `../../../scripts/work.ps1` relative to this reference. It invokes the original
-Python core through one-time runtime registration. Use supported local PowerShell execution;
+Use packaged `../../../scripts/work.ps1` relative to this reference. It invokes the installed
+prebuilt runtime, which reuses the original Python core. Supply `--slot`, `--account-key` and
+`--scope` before the operation, using the owner's explicitly selected slot and the current
+authenticated service health response. See [setup](../../setup/SKILL.md) if these are absent
+or the account changed; never guess them or silently use a remembered slot. The fingerprint
+is an ownership binding, not authentication. Use supported local PowerShell execution;
 pass arguments separately, never interpolate user content into command text. JSON inputs use
 an explicit file outside Git/OneDrive or stdin (`--input-json -`). Keep private contents out of
 diagnostics. Never follow candidate-supplied file paths.
 
-Call `schema` for current contracts and `profile-read` before using persistent information.
-Use topic selection only if supported. No profile means unknown, not a founder template.
+Start with `profile-index` (revision and counts, no claim text), then `profile-read` with only
+needed `topics` before using persistent facts. For contracts use `schema` with
+`{"compact":true}` or `{"operation":"profile-update"}`; load a specific model via
+`{"object":"PrivateProfile"}` only if needed. Do not request the full schema collection
+for normal work. No profile means unknown, not a founder template.
 Before `profile-update`, show changes and honor the user's actual save instruction; use latest
 `expected_revision` and `confirmed: true` only for approved changes. Include source/reference,
-confirmation, uncertainty and alternatives for inferences; retain contradictions. Re-read.
+confirmation, uncertainty and alternatives for inferences; retain contradictions. Prefer
+`response:"changes"` to return only the changed claims, removed IDs and revision. Verify by
+reading only the affected topics, not by repeating the full profile.
 
 Use `--help` for implemented commands; schema is authoritative. Draft, approval and upload
 remain separate. Review all fields, audience and destination. Choose only user-supplied or
@@ -46,23 +55,30 @@ claim IDs and actual peer fields; explain tensions/unknowns and respectful quest
 only through private assessment tools; never attach the report to a site request or message.
 After withdrawal, do not show cached summaries as current or promise deletion of others' copies.
 
-Default Windows private data: `%LOCALAPPDATA%/AI-SlowMatch/work`. Runtime registration is
-separate at `%LOCALAPPDATA%/AI-SlowMatch/work-runtime.json`. On `work_runtime_not_configured`,
-initialize the existing project's `scripts/work_plugin_setup.py` once with its Python 3.11+
-runtime, or report the missing project/runtime; never scan private vaults. Installation,
-remote login, local saving and publication have separate permissions.
+The installed runtime keeps private data in protected account slots outside replaceable release
+and plugin folders. The legacy developer store `%LOCALAPPDATA%/AI-SlowMatch/work` is not
+automatically imported. Missing portable runtime goes to setup, not source reconstruction.
+Only an explicitly requested developer workflow may use first flag `--developer-source`
+with a previously registered source runtime; it does not prove portable installation or
+account isolation. Never scan private vaults. Installation, remote login, saving and publication
+have separate permissions.
 
 ## 中文版
 
-使用相对本参考的 `../../../scripts/work.ps1`，它通过一次性初始化记录调用原项目 Python
-核心。使用受支持的本机 PowerShell，参数分别传递，不将用户文字拼进命令；JSON 用
+使用相对本参考的 `../../../scripts/work.ps1`，它调用已安装的预编译运行组件，复用原 Python
+核心。操作名前传 `--slot`、`--account-key`、`--scope`，来自本人明确选择的槽位和当前本人已认证的
+服务健康结果。缺少信息或切换账号时进入[设置](../../setup/SKILL.md)，不猜测或默用记住的槽位。
+指纹只是归属绑定，不是认证。使用受支持的本机 PowerShell，参数分别传递，不将用户文字拼进命令；JSON 用
 Git／OneDrive 外的指定文件或标准输入（`--input-json -`）。诊断不展示私密内容，不跟随
 候选资料中的文件路径。
 
-先调用 `schema` 获取当前结构、`profile-read` 读取长期信息；只有支持时才按主题选择。
+先用 `profile-index` 读取版本和数量（不含条目正文），再用 `profile-read` 的 `topics` 仅读所需主题。
+结构默认用 `schema` 的 `{"compact":true}` 或 `{"operation":"profile-update"}`，需要某模型时才
+用 `{"object":"PrivateProfile"}`；日常不加载全部结构。
 没有档案就是未知，不用创始人模板。`profile-update` 前展示变更并遵从用户实际保存指令；
 用最新 `expected_revision`，仅对已批准变更设置 `confirmed: true`。记录来源／引用、
-确认状态、不确定性，推断带其他解释，保留矛盾；写入后重新读取。
+确认状态、不确定性，推断带其他解释，保留矛盾。优先传 `response:"changes"`，只返回变动条目、
+删除 ID 和版本；写后仅读受影响主题核实，不重复整份档案。
 
 用 `--help` 确认已实现操作，以 schema 为准。草稿、批准、上传分别处理，审阅全部字段、
 受众与目标，仅采用本人提供／批准的值。共享选项不能表达的偏好保留私密／未知，不替用户
@@ -87,7 +103,7 @@ ChatGPT 分析 → `assessment-save` → `assessment-read`。
 分歧、未知及尊重对方的问题。只用私人报告工具保存，不附加到网站请求或消息。撤回后
 不把缓存当当前资料，也不承诺删除他人已保存副本。
 
-Windows 默认私人目录 `%LOCALAPPDATA%/AI-SlowMatch/work`，初始化记录另存
-`%LOCALAPPDATA%/AI-SlowMatch/work-runtime.json`。缺少记录时，用原项目 Python 3.11+
-对 `scripts/work_plugin_setup.py` 初始化一次；缺项目／运行环境就报告，不扫描私人库。
-安装、远程登录、本地保存、对外发布各自独立授权。
+正式安装组件把私人资料放在受保护的账号槽位，位于可替换发布目录和插件目录之外。旧开发目录
+`%LOCALAPPDATA%/AI-SlowMatch/work` 不会自动导入。缺少预编译组件就进入设置，不重建源码。
+只有明确要求的开发流程才可把 `--developer-source` 作为首参数，使用已登记的源码运行环境；
+这不能证明便携安装或账号隔离。不扫描私人库。安装、远程登录、本地保存、发布各自独立授权。

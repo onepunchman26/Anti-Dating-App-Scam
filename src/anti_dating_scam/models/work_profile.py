@@ -168,6 +168,7 @@ class ProfileUpdate(WorkModel):
     changes: list[ProfileChange] = Field(min_length=1, max_length=30)
     unknowns: list[ShortText] | None = Field(default=None, max_length=30)
     contradictions: list[ShortText] | None = Field(default=None, max_length=30)
+    response: Literal["full", "changes"] = "full"
 
     @field_validator("confirmed", mode="before")
     @classmethod

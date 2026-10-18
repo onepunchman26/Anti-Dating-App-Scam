@@ -61,7 +61,7 @@ def test_setup_requires_original_core(tmp_path):
 
 
 @pytest.mark.skipif(os.name != "nt", reason="Windows launcher")
-def test_packaged_launcher_uses_registered_core_in_another_process(tmp_path):
+def test_developer_launcher_explicitly_uses_registered_core_in_another_process(tmp_path):
     shell = shutil.which("pwsh") or shutil.which("powershell")
     assert shell
     appdata = tmp_path / "appdata"
@@ -72,6 +72,7 @@ def test_packaged_launcher_uses_registered_core_in_another_process(tmp_path):
             "-NoProfile",
             "-File",
             str(ROOT / "plugins/slowmatch/scripts/work.ps1"),
+            "--developer-source",
             "profile-read",
             "--data-dir",
             str(tmp_path / "private"),

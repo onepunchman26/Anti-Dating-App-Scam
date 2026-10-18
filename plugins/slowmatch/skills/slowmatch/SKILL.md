@@ -21,6 +21,13 @@ Choose only the relevant reference; do not load the whole collection:
 - A shared activity or meeting: [activity planning](references/activity-planning.md).
 - Explaining matching limits or implementing the warning: [Site reminder](references/site-reminder.md).
 
+Installation or a changed account belongs to the separate [setup Skill](../setup/SKILL.md).
+Do not reinstall, scan the repository or launch development agents during ordinary help.
+For persistent facts, start with `profile-index`, then request only relevant topics. Use compact
+or operation-specific schemas and incremental updates; request detailed comparisons only when
+useful to the user. An old report is historical, not an automatic current assessment after a
+correction, withdrawal or relationship event. This plugin does not control model choice or billing.
+
 For private help, read only relevant authorized local topics when long-term information is
 needed. For shared planning, never load private profiles: use only isolated approved planning
 objects as described in the activity reference. Distinguish ordinary
@@ -63,6 +70,11 @@ website deployment or authenticated remote access.
 - 记忆、纠正、分享或匹配：[档案工具](references/profile-tools.md)。
 - 共同活动或见面：[活动安排](references/activity-planning.md)。
 - 解释匹配局限或实现网站提醒：[网站提醒](references/site-reminder.md)。
+
+安装或切换账号使用独立[设置 Skill](../setup/SKILL.md)。日常求助不重装、遍历仓库或启动开发 agent。
+长期信息先读 `profile-index`，再按相关主题读取；用精简／单项结构和增量更新，只有确有帮助时才做
+详细比较。纠正、撤回或关系事件发生后，旧报告只是历史记录，不能自动当作当前判断。
+插件不能控制用户选择的模型或订阅计费。
 
 私人求助需要长期信息时，只读获准的相关本机主题。共同安排不得加载私人档案，只用活动参考要求的
 隔离获准安排对象。普通私聊、本地保存、草稿、具体版本批准、发布、

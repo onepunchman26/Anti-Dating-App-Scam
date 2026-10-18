@@ -1,5 +1,40 @@
 # Approved plan / 已批准计划
 
+## English — distribution supplement, October 18, 2026
+
+The owner-endorsed `New Text Document (2).md` supplements, rather than replaces,
+the full migration below. Publish accurate GitHub About/topics/default-page content
+and a pinned controlled Windows preview release from this exact original repository.
+Provide one short installation entry, a precompiled local runtime, official plugin
+onboarding and bounded deterministic installation/diagnostics. Normal users connect
+to the maintained common service; they never deploy their own database or repair code.
+Keep local ownership explicit on account changes, private data outside replaceable
+installation directories, and synthetic test scopes enforced by the server.
+
+Reuse the current methods and privacy constraints. Reduce repeated context with
+selective schemas, content-free indexes, topic reads and incremental result output;
+measure elapsed time, tool calls and text size without inventing token counts or
+savings percentages. Verify final-package first/repeated installation and failed
+upgrade recovery. Record native client, service login and independent-account proof
+separately. No second account or clean target device is currently available; prepare
+the identical entry/test fixtures and leave that real acceptance unexercised.
+No stable or universal-support claim before evidence. Keep unlicensed project status
+honest and preserve dependency notices; choosing a new license remains an owner decision.
+
+## 中文版 — 2026 年 10 月 18 日分发补充
+
+所有者明确采用的 `New Text Document (2).md` 补充而非替换下方完整迁移要求。在准确原仓库
+实际更新 GitHub 简介／Topics／默认首页，并发布固定版本 Windows 受控预览。提供一个短安装
+入口、预编译本机运行程序、官方插件初始化与有限确定性安装／自检。普通用户连接维护者统一服务，
+不自行部署数据库或修改代码。换账号时明确本机归属，私人数据与可替换安装目录分开，合成测试范围
+由服务端隔离。
+
+复用现有方法与隐私约束，通过按需结构、无正文索引、按主题读取和增量结果减少重复上下文；记录
+耗时、工具调用及文本量，不虚构 token 数或节省比例。验证最终发布包的首次／重复安装及升级失败
+恢复，分别记录原生客户端、本人服务登录和独立账号证明。当前没有第二账号或干净目标设备，先准备
+同入口及测试资料，真实验收保留未实测。有证据前不宣称稳定或普遍支持；如实保留未声明项目许可
+状态与依赖署名，新许可仍由所有者决定。
+
 ## English — full replacement requirement, October 17, 2026
 
 Owner: onepuchman. The owner-authorized **New Text Document (3).md** replaces the

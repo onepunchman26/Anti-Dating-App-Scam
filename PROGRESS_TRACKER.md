@@ -4,6 +4,8 @@ Updated / 更新：2026-10-18。Agent-maintained; change both languages together
 
 ## English
 
+- 🔄 R8 distribution supplement started: confirmed the original public repository and admin access, with no GitHub Releases and an outdated default-branch landing page. Build a pinned precompiled Windows preview, deterministic setup/self-check, short installation entry, owner isolation and server-controlled test scopes. Second-account acceptance remains unexercised; no account is impersonated or contacted.
+
 - ✅ R1–R2: adopted the complete owner-approved replacement requirements in the original repository. Reused 0.6 data/guarded I/O/CLI; added independent dating/friendship summaries and expiry without changing the fixed 0.5.3 EXE or real private data.
 - ✅ R3–R4 implementation: mode-specific bilateral matching, exact visible Site reminder, private observations/reflection/filtering and scoped selected-material lifecycle. 0.7 local plugin installed, 13 files verified against source; actual separate-process workflow preserved correction and independent approvals. Seven synthetic semantic examples were authored/reviewed in the current conversation, not claimed as new-chat integration tests.
 - ✅ R5–R6 executable scope: isolated shared-input generator, individual planning preferences, versioned proposals/confirmations/withdrawal and optional selected feedback. Two public venues actually checked; installed launcher generated/exported/withdrew a synthetic sourced plan. Local UI rendered both source cards and kept preview unuploaded. Selected text/audio correction/retention/deletion passed; actual speech transcription returned unavailable, not a success.
@@ -53,6 +55,8 @@ Updated / 更新：2026-10-18。Agent-maintained; change both languages together
 Hourly automation stays paused. No purchase, paid API key, real private archive, email delivery or public deployment was used. The [prior tracker](docs/history/2026-10-01-before-standards-correction/PROGRESS_TRACKER.md) is historical, not an extra backlog. Current evidence belongs in [CURRENT_STATUS](CURRENT_STATUS.md).
 
 ## 中文版
+
+- 🔄 R8 分发补充已开始：核实原公开仓库及管理权限，当前无 GitHub Release、默认分支首页过时。准备固定版本预编译 Windows 预览包、确定性设置／自检、短安装入口、本人隔离及服务端受控测试范围。第二账户仍未实测，不冒充账号、不联系他人。
 
 - ✅ R1–R2：在原仓库采用所有者批准的完整替代要求，复用 0.6 数据／受保护读写／CLI，增加独立恋爱／交友摘要与期限，固定 0.5.3 EXE 和真实私人数据不变。
 - ✅ R3–R4 实现：分模式双向匹配、准确可见网站提醒、私人观察／复盘／筛选及限定材料生命周期。0.7 本机插件已安装，13 文件与源码核对一致，实际跨进程流程保留纠正及独立批准。七个合成语义样例在当前对话编写／审阅，不冒充新聊天集成测试。

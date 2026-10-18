@@ -6,6 +6,15 @@ Anti-Dating-App-Scam is the authoritative AI-SlowMatch project for relationship 
 
 ## Current Product Direction (2026-10-17)
 
+The owner-endorsed `New Text Document (2).md` distribution supplement additionally
+governs the 0.8 release work. Normal users install a pinned prebuilt Windows preview
+from the exact original GitHub project, connect to the one maintained service, and run
+bounded deterministic setup/diagnostics. They must not need a developer checkout,
+compiler, maintainer credentials or source repairs. Preserve per-account local ownership,
+server-enforced test isolation and honest unverified platform/account gates. A release
+package is not proof of independent-account installation. Never turn normal installation
+into a multi-agent development or full-repository review task.
+
 The owner's full October 17 replacement attachment (`New Text Document (3).md`),
 not the truncated earlier prompt, is the latest product authority. It supersedes
 GUI-first, offline-only and summary-only first-version scope. The primary interaction is the user's own ChatGPT desktop

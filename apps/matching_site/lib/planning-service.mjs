@@ -6,7 +6,7 @@ export {preferencesSchema,planSchema};
 const closed=new Set(['withdrawn','expired']);
 const resetPlan="plan='{}',plan_digest='',plan_approved_by='',plan_approved_at='',confirmation_a=0,confirmation_b=0,option_a='',option_b='',feedback_a='',feedback_b=''";
 const purge=`preferences_a='{}',preferences_b='{}',preferences_digest_a='',preferences_digest_b='',preferences_expires_a='',preferences_expires_b='',${resetPlan}`;
-export const closePlanningSql=(guard='1=1')=>`UPDATE planning_sessions SET status='withdrawn',revision=revision+1,${purge},updated_at=? WHERE (owner_a=? OR owner_b=?) AND mode=? AND status NOT IN ('withdrawn','expired') AND ${guard}`;
+export const closePlanningSql=(guard='1=1')=>`UPDATE planning_sessions SET status='withdrawn',revision=revision+1,${purge},updated_at=? WHERE (owner_a=? OR owner_b=?) AND mode=? AND scope=? AND status NOT IN ('withdrawn','expired') AND ${guard}`;
 const validId=value=>{if(typeof value!=='string'||!/^[a-f0-9]{32}$/u.test(value))throw new ServiceError('invalid_identifier');};
 const utc=value=>{
   return new Date(summaryExpiry(value)).toISOString();
@@ -18,9 +18,9 @@ const contextOf=row=>({schema_version:'1.0',planning_id:row.id,mode:row.mode,rev
   {public_id:row.public_b,preferences:JSON.parse(row.preferences_b),approved_digest:row.preferences_digest_b},
 ].sort((a,b)=>a.public_id.localeCompare(b.public_id))});
 
-export function createPlanningService(db,{clock,read,limit,shape,revision,modeValue}){
+export function createPlanningService(db,{clock,read,limit,shape,revision,modeValue,scope,ownerAllowed,activeValue}){
   const now=()=>clock().toISOString();
-  const fetchRow=(id,mode,owner)=>db.prepare('SELECT * FROM planning_sessions WHERE id=? AND mode=? AND (owner_a=? OR owner_b=?)').bind(id,mode,owner,owner).first();
+  const fetchRow=(id,mode,owner)=>db.prepare('SELECT * FROM planning_sessions WHERE id=? AND mode=? AND (owner_a=? OR owner_b=?) AND scope=?').bind(id,mode,owner,owner,scope).first();
   async function current(row){
     if(closed.has(row.status))return row;
     const time=now();
@@ -28,9 +28,9 @@ export function createPlanningService(db,{clock,read,limit,shape,revision,modeVa
     if(row.expires_at<=time||(row.preferences_expires_a&&row.preferences_expires_a<=time)||(row.preferences_expires_b&&row.preferences_expires_b<=time)||(row.plan!=='{}'&&utc(JSON.parse(row.plan).expires_at)<=time))status='expired';
     const [a,b]=await Promise.all([read(row.owner_a,row.mode),read(row.owner_b,row.mode)]);
     if(!status&&a?.summary!=='{}'&&b?.summary!=='{}'&&a&&b&&(summaryExpired(JSON.parse(a.summary),clock())||summaryExpired(JSON.parse(b.summary),clock())))status='expired';
-    if(!status&&(!a?.active||!b?.active||!reciprocal(validate(JSON.parse(a.summary)),validate(JSON.parse(b.summary)),clock())))status='withdrawn';
+    if(!status&&(a?.active!==activeValue||b?.active!==activeValue||!reciprocal(validate(JSON.parse(a.summary)),validate(JSON.parse(b.summary)),clock())))status='withdrawn';
     if(status){
-      const result=await db.prepare(`UPDATE planning_sessions SET status=?,revision=revision+1,${purge},updated_at=? WHERE id=? AND revision=?`).bind(status,time,row.id,row.revision).run();
+      const result=await db.prepare(`UPDATE planning_sessions SET status=?,revision=revision+1,${purge},updated_at=? WHERE id=? AND revision=? AND scope=?`).bind(status,time,row.id,row.revision,scope).run();
       if(result.meta.changes!==1)throw new ServiceError('version_conflict',409);
       return {...row,status,revision:row.revision+1,preferences_a:'{}',preferences_b:'{}',plan:'{}',plan_digest:'',confirmation_a:0,confirmation_b:0,option_a:'',option_b:'',feedback_a:'',feedback_b:''};
     }
@@ -59,7 +59,8 @@ export function createPlanningService(db,{clock,read,limit,shape,revision,modeVa
     revision(args.expected_version);
     if(args.expected_version!==row.revision)throw new ServiceError('version_conflict',409);
     const time=now();
-    const result=await db.prepare(`UPDATE planning_sessions SET ${set},revision=revision+1,updated_at=? WHERE id=? AND mode=? AND revision=? AND status NOT IN ('withdrawn','expired') AND expires_at>? AND (preferences_expires_a='' OR preferences_expires_a>?) AND (preferences_expires_b='' OR preferences_expires_b>?) AND EXISTS(SELECT 1 FROM participations WHERE owner=owner_a AND mode=planning_sessions.mode AND active=1 AND revision=? AND julianday(json_extract(summary,'$.expires_at'))>julianday(?)) AND EXISTS(SELECT 1 FROM participations WHERE owner=owner_b AND mode=planning_sessions.mode AND active=1 AND revision=? AND julianday(json_extract(summary,'$.expires_at'))>julianday(?))`).bind(...values,time,row.id,row.mode,row.revision,time,time,time,row.participation_revision_a,time,row.participation_revision_b,time).run();
+    if(!ownerAllowed(row.owner_a)||!ownerAllowed(row.owner_b))throw new ServiceError('planning_unavailable',410);
+    const result=await db.prepare(`UPDATE planning_sessions SET ${set},revision=revision+1,updated_at=? WHERE id=? AND mode=? AND revision=? AND scope=? AND status NOT IN ('withdrawn','expired') AND expires_at>? AND (preferences_expires_a='' OR preferences_expires_a>?) AND (preferences_expires_b='' OR preferences_expires_b>?) AND EXISTS(SELECT 1 FROM participations WHERE owner=owner_a AND mode=planning_sessions.mode AND scope=planning_sessions.scope AND active=CASE WHEN scope='production' THEN 1 ELSE 2 END AND revision=? AND julianday(json_extract(summary,'$.expires_at'))>julianday(?)) AND EXISTS(SELECT 1 FROM participations WHERE owner=owner_b AND mode=planning_sessions.mode AND scope=planning_sessions.scope AND active=CASE WHEN scope='production' THEN 1 ELSE 2 END AND revision=? AND julianday(json_extract(summary,'$.expires_at'))>julianday(?))`).bind(...values,time,row.id,row.mode,row.revision,scope,time,time,time,row.participation_revision_a,time,row.participation_revision_b,time).run();
     if(result.meta.changes!==1)throw new ServiceError('version_conflict',409);
   }
   function approve(args){if(args.approved!==true)throw new ServiceError('explicit_approval_required');}
@@ -125,15 +126,15 @@ export function createPlanningService(db,{clock,read,limit,shape,revision,modeVa
       if(args.explicit_invitation!==true)throw new ServiceError('explicit_invitation_required');
       validId(args.candidate_public_id);await limit(owner,'planning_write',30);
       const expiry=future(args.expires_at,now());
-      const a=await read(owner,args.mode),b=await db.prepare('SELECT * FROM participations WHERE public_id=? AND mode=? AND owner<>?').bind(args.candidate_public_id,args.mode,owner).first();
-      if(!a?.active||!b?.active||!reciprocal(validate(JSON.parse(a.summary)),validate(JSON.parse(b.summary)),clock()))throw new ServiceError('current_reciprocal_candidate_required',403);
+      const a=await read(owner,args.mode),b=await db.prepare('SELECT * FROM participations WHERE public_id=? AND mode=? AND owner<>? AND scope=?').bind(args.candidate_public_id,args.mode,owner,scope).first();
+      if(a?.active!==activeValue||b?.active!==activeValue||!ownerAllowed(b.owner)||!reciprocal(validate(JSON.parse(a.summary)),validate(JSON.parse(b.summary)),clock()))throw new ServiceError('current_reciprocal_candidate_required',403);
       const pairKey=await digest([owner,b.owner].sort());
-      const existing=await db.prepare("SELECT * FROM planning_sessions WHERE pair_key=? AND mode=? AND status NOT IN ('withdrawn','expired')").bind(pairKey,args.mode).first();
+      const existing=await db.prepare("SELECT * FROM planning_sessions WHERE pair_key=? AND mode=? AND scope=? AND status NOT IN ('withdrawn','expired')").bind(pairKey,args.mode,scope).first();
       if(existing){const live=await current(existing);if(!closed.has(live.status))return {...receipt(live,owner),idempotent:true};}
       const id=crypto.randomUUID().replaceAll('-',''),time=now();
-      const result=await db.prepare("INSERT INTO planning_sessions(id,pair_key,mode,owner_a,owner_b,public_a,public_b,expires_at,created_at,updated_at) SELECT ?,?,?,?,?,?,?,?,?,? WHERE EXISTS(SELECT 1 FROM participations WHERE owner=? AND mode=? AND revision=? AND active=1 AND julianday(json_extract(summary,'$.expires_at'))>julianday(?)) AND EXISTS(SELECT 1 FROM participations WHERE owner=? AND mode=? AND revision=? AND active=1 AND julianday(json_extract(summary,'$.expires_at'))>julianday(?)) ON CONFLICT DO NOTHING").bind(id,pairKey,args.mode,owner,b.owner,a.public_id,b.public_id,expiry,time,time,owner,args.mode,a.revision,time,b.owner,args.mode,b.revision,time).run();
+      const result=await db.prepare("INSERT INTO planning_sessions(id,pair_key,scope,mode,owner_a,owner_b,public_a,public_b,expires_at,created_at,updated_at) SELECT ?,?,?,?,?,?,?,?,?,?,? WHERE EXISTS(SELECT 1 FROM participations WHERE owner=? AND mode=? AND revision=? AND scope=? AND active=CASE WHEN scope='production' THEN 1 ELSE 2 END AND julianday(json_extract(summary,'$.expires_at'))>julianday(?)) AND EXISTS(SELECT 1 FROM participations WHERE owner=? AND mode=? AND revision=? AND scope=? AND active=CASE WHEN scope='production' THEN 1 ELSE 2 END AND julianday(json_extract(summary,'$.expires_at'))>julianday(?)) ON CONFLICT DO NOTHING").bind(id,pairKey,scope,args.mode,owner,b.owner,a.public_id,b.public_id,expiry,time,time,owner,args.mode,a.revision,scope,time,b.owner,args.mode,b.revision,scope,time).run();
       if(result.meta.changes!==1){
-        const retry=await db.prepare("SELECT * FROM planning_sessions WHERE pair_key=? AND mode=? AND status NOT IN ('withdrawn','expired')").bind(pairKey,args.mode).first();
+        const retry=await db.prepare("SELECT * FROM planning_sessions WHERE pair_key=? AND mode=? AND scope=? AND status NOT IN ('withdrawn','expired')").bind(pairKey,args.mode,scope).first();
         if(retry){const live=await current(retry);if(!closed.has(live.status))return {...receipt(live,owner),idempotent:true};}
         throw new ServiceError('version_conflict',409);
       }
@@ -141,7 +142,7 @@ export function createPlanningService(db,{clock,read,limit,shape,revision,modeVa
     }
     if(name==='slowmatch_planning_list'){
       shape(args,['mode']);await limit(owner,'planning_query',30);
-      const rows=await db.prepare('SELECT * FROM planning_sessions WHERE mode=? AND (owner_a=? OR owner_b=?) ORDER BY updated_at DESC LIMIT 21').bind(args.mode,owner,owner).all();
+      const rows=await db.prepare('SELECT * FROM planning_sessions WHERE mode=? AND (owner_a=? OR owner_b=?) AND scope=? ORDER BY updated_at DESC LIMIT 21').bind(args.mode,owner,owner,scope).all();
       const sessions=[];for(const row of rows.results.slice(0,20))sessions.push(receipt(await current(row),owner));
       return {sessions,limit:20,limited:rows.results.length>20,no_external_message_sent:true};
     }

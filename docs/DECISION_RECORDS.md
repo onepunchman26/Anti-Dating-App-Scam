@@ -1,5 +1,33 @@
 # Decision Records
 
+## ADR-016: Pinned Preview Distribution and Bounded Installation
+
+Status: Accepted by the owner's October 18 distribution supplement. Extends ADR-015.
+
+### English
+
+The repository remains `onepunchman26/Anti-Dating-App-Scam`. A pinned Windows x64
+prebuilt local component and official marketplace/Skill setup replace developer-source
+setup for normal installers. A release is a controlled preview until independent client
+and account proof exists. Official platform install/authentication permissions remain
+necessary; a GitHub link is a starting point, not an invented zero-click protocol.
+Each account explicitly selects its own bound local data slot; sharing a Windows user
+does not provide independent OS security. The maintained Site enforces test scopes
+using maintainer configuration and verified platform identity, never caller-supplied IDs.
+Diagnostics separate deterministic file/version checks from actual native model/tool
+and two-account use. No startup model calls, full-repo review or automatic repair loop.
+No project-wide license is inferred from third-party MIT components.
+
+### 中文版
+
+仓库继续为 `onepunchman26/Anti-Dating-App-Scam`。普通安装使用固定版本 Windows x64
+预编译本机组件与官方目录／Skill 设置，替代依赖开发源码的路径。在独立客户端与账号证明之前，
+版本为受控预览。官方安装／认证权限仍然必要，GitHub 链接是起点，不虚构零点击协议。
+各账号明确选择绑定的本机数据位置；共用 Windows 用户不是独立操作系统安全边界。统一 Site
+根据维护者配置和经过验证的平台身份隔离测试范围，不信任调用方自填身份。诊断分开程序／版本
+检查、真实原生工具调用及双账号使用，不在启动时调用模型、全库审查或无限修复。
+第三方 MIT 组件不意味着整个项目采用 MIT 许可。
+
 ## ADR-015: Independent Modes, Private Support and Consent-Bound Shared Activities
 
 Status: Accepted direction from the owner's full October 17 replacement attachment

@@ -1,5 +1,22 @@
 Open-source sources and thanks / 开源来源与致谢
 
+October 18, 2026: Windows Work 0.8.0 controlled preview bundles CPython 3.12.14,
+Pydantic 2.13.5/pydantic_core 2.46.5 and the pinned runtime dependencies recorded
+in work-release.json. Built with PyInstaller 6.22.3. Their full installed license
+notices are copied into LICENSES/ by the allowlisted builder. Thank you to these
+maintainers. Project code has no newly selected license; see the packaged licensing
+status. Codex/ChatGPT, Vosk/models, Qt and the old desktop EXE are not bundled.
+Official onboarding and plugin commands informed this new project-written installer;
+documentation reference only: https://developers.openai.com/plugins/build/plugins
+and https://learn.chatgpt.com/docs/reference/commands (checked October 18, 2026).
+
+2026 年 10 月 18 日：Windows Work 0.8.0 受控预览包含 CPython 3.12.14、
+Pydantic 2.13.5／pydantic_core 2.46.5，以及 work-release.json 记录的固定运行依赖；
+使用 PyInstaller 6.22.3 构建。白名单构建程序把已安装依赖的完整许可声明复制到
+LICENSES/，感谢维护者。未为本项目擅选新许可，详见随包许可状态。
+不打包 Codex／ChatGPT、Vosk／模型、Qt 或旧桌面 EXE。安装程序由本项目编写，
+上述官方文档仅作为 onboarding 与插件命令接口参考（2026 年 10 月 18 日核对）。
+
 English
 
 Thank you to these authors and communities. References are not endorsements.

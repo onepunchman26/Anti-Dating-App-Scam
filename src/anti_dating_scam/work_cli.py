@@ -35,6 +35,7 @@ from anti_dating_scam.services.work_planning import PLANNING_OPERATIONS, WorkPla
 from anti_dating_scam.services.work_profile import WorkProfileError, WorkProfileService
 
 OPERATIONS = {
+    "profile-index": ("profile_index", None),
     "profile-read": ("read_profile_view", ProfileReadRequest),
     "profile-update": ("update_profile", ProfileUpdate),
     "profile-history": ("profile_history", None),
@@ -59,6 +60,34 @@ def dispatch(operation: str, arguments: dict, data_dir: Path | None = None):
     if not isinstance(arguments, dict):
         raise WorkProfileError("invalid_data")
     if operation == "schema":
+        objects = {
+            "PrivateProfile": PrivateProfile,
+            "ShareableSummary": ShareableSummary,
+            "ShareableProfileDraft": ShareableProfileDraft,
+            "PublishedProfile": PublishedProfile,
+            "PrivateMatchAssessment": PrivateMatchAssessment,
+        }
+        if set(arguments) == {"compact"} and arguments["compact"] is True:
+            return {
+                "operations": list(OPERATIONS),
+                "objects": [*objects, "CurrentShareableSummary"],
+                "schema_query": "Supply exactly one operation or object name for its schema.",
+                "data_read": False,
+            }
+        if set(arguments) == {"operation"}:
+            name = arguments["operation"]
+            if not isinstance(name, str) or name not in OPERATIONS:
+                raise WorkProfileError("unsupported_operation_or_arguments")
+            model = OPERATIONS[name][1]
+            return {"operation": name, "schema": model.model_json_schema() if model else {
+                "type": "object", "properties": {}, "additionalProperties": False,
+            }}
+        if set(arguments) == {"object"}:
+            name = arguments["object"]
+            if not isinstance(name, str) or name not in [*objects, "CurrentShareableSummary"]:
+                raise WorkProfileError("unsupported_operation_or_arguments")
+            return {"object": name, "schema": shareable_summary_schema()
+                    if name == "CurrentShareableSummary" else objects[name].model_json_schema()}
         if arguments:
             raise WorkProfileError("unsupported_operation_or_arguments")
         return {
@@ -76,13 +105,7 @@ def dispatch(operation: str, arguments: dict, data_dir: Path | None = None):
             },
             "objects": {
                 name: model.model_json_schema()
-                for name, model in {
-                    "PrivateProfile": PrivateProfile,
-                    "ShareableSummary": ShareableSummary,
-                    "ShareableProfileDraft": ShareableProfileDraft,
-                    "PublishedProfile": PublishedProfile,
-                    "PrivateMatchAssessment": PrivateMatchAssessment,
-                }.items()
+                for name, model in objects.items()
             }
             | {"CurrentShareableSummary": shareable_summary_schema()},
         }

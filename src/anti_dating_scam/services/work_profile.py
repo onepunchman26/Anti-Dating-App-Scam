@@ -252,18 +252,40 @@ class WorkProfileService:
         return profile
 
     @safe_operation
-    def update_profile(self, request: dict) -> PrivateProfile:
+    def profile_index(self):
+        """Current revision/topic counts only; never return claim or source text."""
+        profile = self.read_profile()
+        topics = {}
+        for claim in profile.claims:
+            topic = topics.setdefault(claim.topic, {"count": 0, "needs_confirmation": 0})
+            topic["count"] += 1
+            topic["needs_confirmation"] += claim.confirmation in {"unconfirmed", "questioned"}
+        return {
+            "schema_version": profile.schema_version,
+            "revision": profile.revision,
+            "updated_at": profile.updated_at,
+            "claim_count": len(profile.claims),
+            "topics": topics,
+            "unknown_count": len(profile.unknowns),
+            "contradiction_count": len(profile.contradictions),
+            "includes_private_text": False,
+        }
+
+    @safe_operation
+    def update_profile(self, request: dict) -> PrivateProfile | dict:
         request = ProfileUpdate.model_validate(request)
         with self.store._writer(self.root):
             current = self.read_profile()
             if current.revision != request.expected_revision:
                 raise WorkProfileError("revision_conflict")
             claims = {claim.id: claim for claim in current.claims}
+            changed_ids, removed_ids = set(), []
             for change in request.changes:
                 if change.action == "remove":
                     if change.claim_id not in claims:
                         raise WorkProfileError("claim_not_found")
                     del claims[change.claim_id]
+                    removed_ids.append(change.claim_id)
                     continue
                 claim = change.claim
                 if claim.id and claim.id not in claims:
@@ -271,6 +293,7 @@ class WorkProfileService:
                 data = claim.model_dump(exclude={"id"})
                 entry = ProfileClaim(id=claim.id or uuid4().hex, updated_at=now(), **data)
                 claims[entry.id] = entry
+                changed_ids.add(entry.id)
             updated = PrivateProfile(
                 revision=current.revision + 1,
                 claims=list(claims.values()),
@@ -282,7 +305,21 @@ class WorkProfileService:
                 ),
                 updated_at=now(),
             )
-            return self._commit_profile(updated)
+            saved = self._commit_profile(updated)
+            if request.response == "changes":
+                return {
+                    "revision": saved.revision,
+                    "updated_at": saved.updated_at,
+                    "claims": [
+                        claim.model_dump(mode="json")
+                        for claim in saved.claims if claim.id in changed_ids
+                    ],
+                    "removed_ids": removed_ids,
+                    "unknown_count": len(saved.unknowns),
+                    "contradiction_count": len(saved.contradictions),
+                    "selection": {"complete": False, "changed_only": True},
+                }
+            return saved
 
     @safe_operation
     def profile_history(self):

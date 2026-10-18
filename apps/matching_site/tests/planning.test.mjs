@@ -149,7 +149,7 @@ test('expiry and mode withdrawal close current plans while another mode stays en
 
 test('published MCP tool schemas have no dangling nested references or private transport fields',()=>{
   const serialized=JSON.stringify(tools);assert.equal(serialized.includes('"$ref"'),false);
-  for(const tool of tools){assert.equal(tool.inputSchema.additionalProperties,false);assert.deepEqual(tool.inputSchema.required,Object.keys(tool.inputSchema.properties));}
+  for(const tool of tools){assert.equal(tool.inputSchema.additionalProperties,false);assert.deepEqual(tool.inputSchema.required,Object.keys(tool.inputSchema.properties).filter(key=>key!=='client_protocol'));}
   const forbidden=['user_id','private_profile','raw_audio','transcript','source_path'];
   for(const tool of tools)for(const key of forbidden)assert.equal(Object.hasOwn(tool.inputSchema.properties,key),false);
 });

@@ -4,6 +4,28 @@ name: build-apps
 on: [workflow_dispatch]
 
 jobs:
+  windows-work-preview:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12.14"
+      - run: pip install -c packaging/constraints-windows-py312.txt ".[dev]" pyinstaller
+      - shell: pwsh
+        run: |
+          $releaseOutput = "$env:LOCALAPPDATA/AI-SlowMatch/ci-work-release"
+          "WORK_RELEASE=$releaseOutput" >> $env:GITHUB_ENV
+          python scripts/work_distribution_build.py --output "$releaseOutput"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AI-SlowMatch-Work-controlled-preview
+          path: |
+            ${{ env.WORK_RELEASE }}/*.zip
+            ${{ env.WORK_RELEASE }}/SHA256SUMS.txt
+          if-no-files-found: error
   windows-desktop:
     runs-on: windows-latest
     steps:
