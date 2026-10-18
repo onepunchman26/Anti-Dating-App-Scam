@@ -1,0 +1,63 @@
+{
+  "revision": "2026-10-18-site-ui",
+  "original_repository": "onepunchman26/Anti-Dating-App-Scam",
+  "original_implementation_commit": "e4d6f065e911b44dfe9215c98c00e4cb1960c346",
+  "baseline_commit": "2d21f43e14d765ad82f7f860d89d3c0945efdc78",
+  "hosting_source_commit": "4b3ef648a7e3ffcfbcfbdbe0e493897dbbf53c2f",
+  "project_id": "appgprj_6ad4306f79e88191bbbd502f495ec501",
+  "deployment_id": "appgdep_6ad55982a7148191af5e331bceeb5d4a",
+  "version_id": "appgprj_6ad4306f79e88191bbbd502f495ec501~appgver_c7ec5868a3908191a0d4a4b19f2c833e",
+  "saved_version": 7,
+  "deployment_status": "succeeded",
+  "environment_revision": 1,
+  "url": "https://slowmatch-private-pilot.fizzydeer7.chatgpt.site",
+  "archive_sha256": "9a04ec45a8b1b853d57197ab7cca9687b18af1cf39762cddc17da7de8c680ce3",
+  "access": {
+    "mode": "custom",
+    "ownerOnly": true,
+    "externalVisitors": 0,
+    "revision": 1
+  },
+  "native_read_only_health": {
+    "authenticated": true,
+    "service_version": "0.8.0",
+    "service_protocol_version": "1.0",
+    "scope": "controlled_test",
+    "access": "enabled",
+    "database_read": "passed",
+    "write_check": "not_checked"
+  },
+  "tests": {
+    "python": {
+      "passed": 2549,
+      "skipped": 11
+    },
+    "node_d1": {
+      "passed": 25
+    },
+    "localization": {
+      "passed": 3
+    },
+    "typescript": "passed",
+    "production_build": "passed",
+    "language_switch_extra_api_calls": 0,
+    "local_viewport_css_widths": [
+      360,
+      768,
+      1440
+    ],
+    "deployed_discovery_viewport_css_widths": [
+      360,
+      768,
+      1440
+    ],
+    "languages": [
+      "en",
+      "zh-CN"
+    ],
+    "hosted_writes": false,
+    "independent_second_account": "not_exercised"
+  },
+  "windows_release_changed": false,
+  "legacy_exe_changed": false
+}

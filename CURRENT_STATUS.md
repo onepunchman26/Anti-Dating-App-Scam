@@ -1,6 +1,46 @@
 # Current handoff / 当前交接
 
-## English — 0.8.0 distribution, October 18, 2026 UTC
+## English — Site UI delivered, October 18, 2026
+
+The [existing private Site](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site) is now
+**saved version 7**, with complete English/Chinese selection, separate Discover / Plans
+together / Shared profile views, compact candidate/activity cards and responsive layouts.
+Language changes retain drafts, consent, filters and selections without a service/model call.
+The owner-private audience, runtime 0.8.0 / protocol 1.0 and environment revision 1 are unchanged.
+Windows v0.8.0 release files and the legacy EXE were not rebuilt.
+
+Python: **2,549 passed / 11 skipped**. Node/D1: **25 passed**; localization: **3 passed**;
+compile, TypeScript, supported production build and packaging passed. Actual local browser
+workflows and both languages at 360/768/1440 passed. After deployment, real signed-in browser
+summary reads in both modes, plan read, health, language persistence and responsive discovery
+passed. The installed native plugin's authenticated read-only health also passed. No hosted
+profile was published. See [UI acceptance](docs/SITE_UI_VALIDATION.md), screenshots and the
+[sanitized receipt](docs/evidence/2026-10-18-site-ui.json). Original implementation `e4d6f06`
+maps one-way to hosting source `4b3ef64`; saved Site version 6 remains a rollback point.
+
+**Independent account B remains NOT EXERCISED.** Fresh-client distribution, independent
+installation and reciprocal hosted publication/confirmation still need the user's own second
+account and supported environment. Do not confuse local synthetic identities with this proof.
+No permissions were widened, no private archive was accessed, and hourly automation stays paused.
+
+## 中文版 — 2026 年 10 月 18 日网站界面已交付
+
+[原私有网站](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site)现为**保存版本 7**，
+支持完整中英文选择、“发现／共同计划／共享资料”分区、简洁候选和活动卡片及响应式布局。
+语言切换保留草稿、批准、筛选与选择，不新增服务或模型调用。所有者私有访问范围、
+运行 0.8.0／协议 1.0 及环境版本 1 保持不变，Windows v0.8.0 发布文件与旧 EXE 未重建。
+
+Python **2,549 通过／11 跳过**，Node／D1 **25 通过**、语言 **3 通过**；编译、
+TypeScript、受支持生产构建和打包通过。真实本机浏览器流程与双语 360／768／1440 通过。
+部署后，实际登录浏览器的双模式摘要读取、计划读取、自检、语言持久性及响应式发现页通过；
+已安装原生插件的本人认证只读健康调用也通过。没有发布线上私人资料。
+[界面验收](docs/SITE_UI_VALIDATION.md)含截图与[脱敏回执](docs/evidence/2026-10-18-site-ui.json)。
+原项目实现 `e4d6f06` 单向映射到托管源码 `4b3ef64`，第 6 版保留为回退点。
+
+**独立 B 账号仍尚未实测**。新客户端分发、独立安装和双方线上发布／确认仍需用户本人第二账号
+及受支持环境；合成本机身份不作为替代证明。没有扩大权限，没有读取私人档案，小时自动化继续暂停。
+
+## English — historical distribution checkpoint before Site UI revision
 
 The original project now has a prebuilt Windows runtime, deterministic installation and
 account-scoped local storage, a short setup entry, progressive daily reads, and server-enforced
@@ -30,7 +70,7 @@ its own authorized Site login and separate device/OS identity. Do not repair B's
 configuration manually. Public catalog admission and overall source licensing remain separate.
 Existing private files and the legacy 0.5.3 EXE are preserved. Prior 0.7 evidence below is historical.
 
-## 中文版 — 0.8.0 分发，UTC 2026 年 10 月 18 日
+## 中文版 — 网站界面修订前的分发历史检查点
 
 原项目已新增预编译 Windows 运行组件、确定性安装与按账号隔离的本机存储、短设置入口、
 日常按需读取及服务端受控测试。GitHub About、主页、Topics 与默认分支已实际更新。

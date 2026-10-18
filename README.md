@@ -6,7 +6,7 @@
 
 ## English
 
-The Site now has separate English/Chinese interfaces and clearer Discover, Plans together
+The private Site, saved version 7, now has separate English/Chinese interfaces and clearer Discover, Plans together
 and Shared profile pages. Language changes preserve in-progress choices without another
 model or service request. [UI verification and limitations](docs/SITE_UI_VALIDATION.md)
 distinguishes real local tests from independent-account acceptance. The following screenshot
@@ -114,7 +114,7 @@ See [licensing status and options](docs/LICENSING_STATUS.md).
 
 ## 中文版
 
-网站已实现完整中文／英文切换，并整理为“发现、共同计划、共享资料”。切换语言保留进行中的
+私有网站第 7 版已部署，支持完整中文／英文切换，并整理为“发现、共同计划、共享资料”。切换语言保留进行中的
 选择，不增加模型或服务请求。[界面验收与限制](docs/SITE_UI_VALIDATION.md)区分真实本机测试
 与独立账号验收。下图使用本机合成测试资料，不是真实成员，也不代表线上已有候选。
 

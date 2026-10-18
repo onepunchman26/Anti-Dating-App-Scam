@@ -1,5 +1,23 @@
 # AI Development Log
 
+## 2026-10-18 — Site UI and complete language selection / 网站界面与完整语言切换
+
+English: Implemented the owner-adopted Site UI supplement on `codex/sites-ui-language`,
+starting at `2d21f43`. Existing matching/planning contracts and owner-private access retained;
+central translations, state-preserving language selection, clearer navigation, compact cards,
+responsive layouts and visibility-state fixes delivered. Python 2,549/11 skipped, Site 25,
+localization 3, compilation, typecheck and production build passed. Browser synthetic-service
+workflows and 360/768/1440 bilingual checks passed. Saved Site version 7 deployed successfully;
+actual hosted reads and existing native health passed. Independent B and hosted mutations
+remain unexercised. See [acceptance](SITE_UI_VALIDATION.md). No private data or binary changes.
+
+中文版：从 `2d21f43` 在 `codex/sites-ui-language` 落实所有者采用的 UI 补充，保留原匹配／
+计划契约与所有者私有权限，交付集中翻译、保留状态的语言切换、清晰导航、简洁卡片、响应式
+布局和可见性状态修复。Python 2,549 通过／11 跳过，Site 25、语言 3、编译、类型检查与
+生产构建通过；浏览器合成服务流程和双语 360／768／1440 通过。网站第 7 版成功部署，实际
+托管读取及已有原生健康调用通过，独立 B 与托管写入仍未实测。见[验收](SITE_UI_VALIDATION.md)。
+没有改动私人数据或二进制文件。
+
 ## Entry Template
 
 Date:

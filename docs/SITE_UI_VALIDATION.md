@@ -72,8 +72,20 @@ The owner-private hosted Site may correctly show no shared profiles.
 
 ### Deployment and remaining gates
 
-Deployment: **pending final source packaging and owner-private publication**.
-The previous version 6 remains the rollback point until success is confirmed.
+Deployment: **saved version 7 succeeded** at the [same private URL](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site).
+Hosting source: `4b3ef648a7e3ffcfbcfbdbe0e493897dbbf53c2f`; original implementation:
+`e4d6f065e911b44dfe9215c98c00e4cb1960c346`. Environment revision 1 and owner-only access
+revision 1 are unchanged. The archive, version and sanitized results are in the
+[deployment receipt](evidence/2026-10-18-site-ui.json). Version 6 remains a rollback point.
+Final TypeScript, localization checks, supported production build and source packaging passed.
+The Windows npm shim initially failed path resolution; an isolated build-only wrapper invoked
+the existing official npm CLI. No dependency, system policy or user installer was changed.
+After deployment the actual browser passed English/Chinese switching, refresh persistence,
+both-mode empty summary reads, an empty plan read and service diagnostics. Deployed discovery
+also passed both languages at 360/768/1440 with no horizontal overflow or browser errors.
+The existing installed native plugin made a real authenticated read-only health call:
+0.8.0 / 1.0, controlled test, access enabled, database read passed. Hosted publication and
+cross-account operations were not performed.
 Windows v0.8.0 release files and the legacy 0.5.3 EXE remain unchanged.
 No second independent account is available: independent installation, reciprocal hosted
 publication and cross-account confirmation remain **NOT EXERCISED**. No access grant,
@@ -138,7 +150,17 @@ impersonation or invitation was made to simulate them. Existing automation stays
 
 ### 部署与剩余事项
 
-部署状态：**等待最终源码打包与所有者私有发布**，确认成功前第 6 版仍是回退点。
+部署状态：**第 7 版已成功发布**至[原私有网址](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site)。
+托管源码 `4b3ef648a7e3ffcfbcfbdbe0e493897dbbf53c2f`，原项目实现提交
+`e4d6f065e911b44dfe9215c98c00e4cb1960c346`，环境版本 1 和所有者私有访问版本 1 不变。
+归档、版本及脱敏结果见[部署回执](evidence/2026-10-18-site-ui.json)，第 6 版保留为回退点。
+最终 TypeScript、语言检查、受支持生产构建和源码打包均通过。Windows npm 包装命令初次
+路径解析失败，以隔离的构建专用包装器调用已有官方 npm CLI 后通过，没有更改依赖、系统策略
+或普通用户安装程序。
+部署后真实浏览器通过中英切换、刷新保持语言、双模式空摘要读取、空计划读取及连接自检；
+线上发现页也在双语 360／768／1440 下无横向溢出，浏览器没有错误。当前已安装的原生插件
+实际完成本人认证的只读健康调用，确认 0.8.0／1.0、受控范围、访问启用及数据库读取通过。
+没有进行线上发布资料或跨账号操作。
 Windows v0.8.0 发布文件及旧 0.5.3 EXE 保持不变。
 目前没有第二独立账号，其独立安装、双方托管发布与跨账号确认仍为**尚未实测**。
 没有扩大授权、冒充账号或邀请他人来替代验收，已有自动化保持暂停。

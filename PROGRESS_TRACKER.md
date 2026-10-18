@@ -4,7 +4,7 @@ Updated / 更新：2026-10-18。Agent-maintained; change both languages together
 
 ## English
 
-- 🔄 UI supplement started: original repository checked at `2d21f43`; isolated branch `codex/sites-ui-language`. Deployed version 6 and real components audited. Whole-interface language selection, clearer navigation and responsive layouts implemented; both-language browser checks at 360/768/1440, state preservation and local service workflows passed. Python 2,549/11 skipped, Site 25 and localization 3 passed. Final packaging/private deployment pending; independent account B remains unexercised.
+- ✅ UI supplement delivered: original repository checked at `2d21f43`; isolated branch `codex/sites-ui-language`. Deployed version 6 and real components audited. Whole-interface language selection, clearer navigation and responsive layouts implemented; both-language browser checks at 360/768/1440, state preservation and local service workflows passed. Python 2,549/11 skipped, Site 25 and localization 3 passed. Production build/package passed; same owner-private Site deployed as version 7, hosting source `4b3ef64`. Actual browser bilingual persistence/both-mode reads/plans/health and native read-only health passed. Source implementation `e4d6f06`; independent account B remains unexercised.
 
 - ✅ R8 available distribution work: GitHub About/homepage/Topics and main updated; v0.8.0 prerelease published. Public-download bootstrap plus repeat installation/official registration pass; final package passes 29 isolated EXE calls including interruption/retry. Core baseline 2,491 passed / 10 skipped; Site 25; final distribution 52; bootstrap 41 / 1 skipped. Private Site version 6 confirmed. Current existing Codex conversation now passes installed setup-Skill reading, native authenticated health/both-mode reads and a bound local synthetic probe. ⚠ Independent clean desktop, fresh native ChatGPT invocation, account B and an actual released-version upgrade failure remain unverified; PS5.1 is policy-blocked. No impersonation or contact.
 
@@ -62,7 +62,7 @@ Hourly automation stays paused. No purchase, paid API key, real private archive,
 
 ## 中文版
 
-- 🔄 UI 补充开始：原仓库核对至 `2d21f43`，独立分支 `codex/sites-ui-language`；已审计部署第 6 版及真实组件。完整界面语言选择、清晰导航与响应式布局已实现；双语 360／768／1440 浏览器、状态保留和本机服务流程通过，Python 2,549 项通过／11 项跳过，Site 25 项与语言 3 项通过。最终打包／私有部署待完成，独立 B 账号仍尚未实测。
+- ✅ UI 补充已交付：原仓库核对至 `2d21f43`，独立分支 `codex/sites-ui-language`；已审计部署第 6 版及真实组件。完整界面语言选择、清晰导航与响应式布局已实现；双语 360／768／1440 浏览器、状态保留和本机服务流程通过，Python 2,549 项通过／11 项跳过，Site 25 项与语言 3 项通过。生产构建／打包通过，同一所有者私有站已部署第 7 版，托管源码 `4b3ef64`；真实浏览器双语持久性／双模式读取／计划／自检及原生只读健康调用通过。原项目实现 `e4d6f06`，独立 B 账号仍尚未实测。
 
 - ✅ R8 可执行分发工作：GitHub About／主页／Topics 与 main 已更新，v0.8.0 已预发布；公开下载引导及重复安装／官方注册通过，最终包通过 29 次隔离 EXE 调用，含中断重试。核心基线 2,491 项通过／10 项跳过，Site 25 项、最终分发专项 52 项、下载引导 41 项通过／1 项跳过，私有 Site 第 6 版已确认；当前已有 Codex 会话已通过安装的 setup Skill 读取、本人认证的原生健康／双模式读取及绑定本机合成探针。⚠ 独立干净桌面、新会话原生 ChatGPT 调用、B 账号及真实已发布版本升级失败仍未验证；PS5.1 被策略阻止。不冒充、不联系他人。
 
