@@ -1,5 +1,33 @@
 # Open-source references and thanks / 开源来源与致谢
 
+## Site UI revision, October 18, 2026 / 网站界面修订
+
+English: [Hinge](https://hinge.co/mission), [Hinge Date Ideas](https://hinge.co/newsroom/date-ideas-feature),
+[Bumble](https://bumble.com/), [Bumble Chinese](https://bumble.com/zh),
+[Tinder](https://tinder.com/) and [Meetup](https://www.meetup.com/) were checked on
+October 18, 2026 as official design references. Actual reuse is limited to general
+information hierarchy: profile-specific conversation starts, separate relationship
+intents, clear language/start/help controls and activity/place/time information.
+No brand layout, image, logo, profile, source code or website text is redistributed;
+no software license is asserted for these references. Thanks to their designers.
+[W3C language declarations](https://www.w3.org/International/questions/qa-html-language-declarations)
+and [contrast guidance](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)
+informed the project-authored implementation. Actual bundled SVG icons use the
+already installed **lucide-react 1.31.0**, ISC, copyright 2026 Lucide Icons and
+Contributors. Its full installed notice, including the relevant Feather/MIT notice,
+is preserved in [the Site license asset](../apps/matching_site/public/licenses/lucide.txt).
+The deployed Site also contains [bilingual packaged credits](../apps/matching_site/public/CREDITS.md).
+The released Windows package and legacy EXE are not rebuilt by this UI revision.
+
+中文版：上列 Hinge、Hinge Date Ideas、Bumble 及其中文页面、Tinder、Meetup 官方页面于
+2026 年 10 月 18 日核对，实际仅参考通用信息层级：具体资料带来的交流切入点、分别表达关系
+意向、清晰的语言／开始／帮助入口，以及活动／地点／时间安排。没有重新分发品牌布局、图片、
+标志、资料、源码或网页文字，不对这些参考声称软件许可，感谢其设计团队。上列 W3C 语言声明
+及对比度指南用于本项目自写实现。实际随网站使用的 SVG 图标来自已安装的
+**lucide-react 1.31.0**，ISC 许可，版权 2026 Lucide Icons and Contributors；完整安装
+声明及其相关 Feather／MIT 条款保留在上列网站许可文件，部署包同时含完整双语致谢。
+此次 UI 修订没有重新构建已发布 Windows 包或旧 EXE。
+
 ## Windows Work 0.8.0 distribution / Windows Work 0.8.0 分发
 
 English: The controlled preview actually bundles CPython 3.12.14, Pydantic 2.13.5,

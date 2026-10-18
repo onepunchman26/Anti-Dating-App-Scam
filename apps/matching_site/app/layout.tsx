@@ -1,23 +1,13 @@
-import type { Metadata } from "next";
-import "./globals.css";
-
-export const metadata: Metadata = {
-  title: "AI-SlowMatch · 慢慢相识",
-  description: "Your conversation, your choices, your pace. / 你的对话、你的选择、你的节奏。",
-  icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
-  },
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en">
-      <body className="antialiased">{children}</body>
-    </html>
-  );
+import type {Metadata} from 'next';
+import {requestLanguage} from './request-language';
+import {LanguageProvider} from './language';
+import {text} from '../lib/i18n.mjs';
+import './globals.css';
+export async function generateMetadata():Promise<Metadata>{
+ const locale=await requestLanguage();
+ return {title:text(locale,'title'),description:text(locale,'description'),icons:{icon:'/favicon.svg',shortcut:'/favicon.svg'}};
+}
+export default async function RootLayout({children}:{children:React.ReactNode}){
+ const locale=await requestLanguage();
+ return <html lang={locale}><body><LanguageProvider initialLocale={locale}>{children}</LanguageProvider></body></html>;
 }

@@ -6,6 +6,14 @@
 
 ## English
 
+The Site now has separate English/Chinese interfaces and clearer Discover, Plans together
+and Shared profile pages. Language changes preserve in-progress choices without another
+model or service request. [UI verification and limitations](docs/SITE_UI_VALIDATION.md)
+distinguishes real local tests from independent-account acceptance. The following screenshot
+uses synthetic local test profiles, not real members or a populated live service.
+
+![English Site discovery with synthetic test profiles](docs/images/site-ui-discover-en-desktop.png)
+
 Understand your values, relationships and life direction through **your own ChatGPT
 conversation**. Keep a correctable private profile on your computer, decide what to share,
 explore dating or friendship separately, and get thoughtful help before, during or after
@@ -105,6 +113,12 @@ been selected**; third-party MIT/Apache notices do not license the whole applica
 See [licensing status and options](docs/LICENSING_STATUS.md).
 
 ## 中文版
+
+网站已实现完整中文／英文切换，并整理为“发现、共同计划、共享资料”。切换语言保留进行中的
+选择，不增加模型或服务请求。[界面验收与限制](docs/SITE_UI_VALIDATION.md)区分真实本机测试
+与独立账号验收。下图使用本机合成测试资料，不是真实成员，也不代表线上已有候选。
+
+![中文发现页，使用合成测试资料](docs/images/site-ui-discover-zh-desktop.png)
 
 通过**你自己的 ChatGPT 对话**理解价值观、关系与人生方向。在自己的电脑上保留可纠正的私人档案，
 自主决定分享什么，分别探索恋爱或友谊，并在见面前、中途或之后获得具体帮助。每个人的答案以本人为准，

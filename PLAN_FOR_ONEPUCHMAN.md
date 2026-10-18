@@ -1,5 +1,28 @@
 # Approved plan / 已批准计划
 
+## English — Site UI supplement, October 18, 2026
+
+The owner adopted `Codex_Site_UI_Bilingual_Design_Addendum.md` from “整合Skills与界面”.
+Improve this existing Site using its real matching and planning interfaces. Use a
+warm white/berry palette, clear Discover / Plans together / Shared profile navigation
+and complete English or Simplified Chinese UI selected at the top. Keep the user's
+language across visits and preserve drafts, approvals, filters and operations on
+switch; no extra model call, publication or request. User-authored text stays original.
+Audit first, implement language resources and reusable layout, then verify real
+browser behavior at 360/768/1440 pixels in both languages and deploy to the same
+private Site. Keep privacy, reciprocal mode conditions, individual version-bound
+planning approvals and honest independent-account limits. Documents remain fully
+bilingual; the Site shows one selected language at a time.
+
+## 中文版 — 2026 年 10 月 18 日 Site 界面补充
+
+所有者采用“整合Skills与界面”中的 `Codex_Site_UI_Bilingual_Design_Addendum.md`。
+在现有网站及真实匹配／计划接口上改进，使用暖白与莓紫配色，整理为“发现／共同计划／共享资料”，
+顶部选择完整中文或英文界面。记住语言，切换时保留草稿、批准、筛选和操作，不增加模型调用、
+发布或网络请求，用户原创内容保持原文。先审计，再实现语言资源与共用布局，随后在两种语言下
+实测 360／768／1440 像素并部署至同一个私有站。保留隐私边界、分模式双向条件、个人对具体计划
+版本的批准及独立账号未验收的事实。文档继续完整双语，网站每次显示一种所选语言。
+
 ## English — distribution supplement, October 18, 2026
 
 The owner-endorsed `New Text Document (2).md` supplements, rather than replaces,

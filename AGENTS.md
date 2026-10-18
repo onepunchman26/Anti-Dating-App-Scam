@@ -6,6 +6,15 @@ Anti-Dating-App-Scam is the authoritative AI-SlowMatch project for relationship 
 
 ## Current Product Direction (2026-10-17)
 
+The owner-endorsed October 18 `Codex_Site_UI_Bilingual_Design_Addendum.md`
+additionally governs Site presentation. Use one shared component/behavior tree with
+complete English and Simplified Chinese resources and a persistent language selector.
+This supersedes side-by-side bilingual Site UI, not the bilingual documentation rule.
+Language changes must preserve drafts, consent, mode, filters and current actions and
+must never initiate analysis, publication or requests. Keep user-authored content,
+currency, place and meeting instants unchanged. Preserve existing authentication,
+approved-field boundaries and the owner-private audience during redesign.
+
 The owner-endorsed `New Text Document (2).md` distribution supplement additionally
 governs the 0.8 release work. Normal users install a pinned prebuilt Windows preview
 from the exact original GitHub project, connect to the one maintained service, and run

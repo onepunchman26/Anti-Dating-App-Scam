@@ -2,6 +2,19 @@
 
 ## English
 
+The October 18 UI supplement adds whole-interface English/Simplified Chinese selection,
+Discover / Plans together / Shared profile navigation and responsive layouts to this same
+application. Only a language-preference cookie persists in the browser; drafts and approvals
+remain in memory. Switching language performs no service or model request. Server-rendered
+language uses the saved preference, supported Accept-Language, then English. Runtime/API
+version remains 0.8.0 (protocol 1.0); deployment revision is tracked separately. The Windows
+release is unchanged. See [UI acceptance](../../docs/SITE_UI_VALIDATION.md).
+
+For local browser QA only, `tests/ui-preview.mjs` proxies the actual dev UI on loopback and
+uses the existing D1 test fixture/service with synthetic identities. It requires an explicit
+QA flag and external artifact directory, is excluded by the one-way source mirror allowlist,
+and is not an authenticated second-account test. No test switch exists in the production app.
+
 For 0.8 controlled-test scope configuration, protocol checks and recovery, use the
 [maintainer operations guide](../../docs/SITE_OPERATIONS.md). Ordinary users use the
 root installation guide and never deploy their own copy of this service.
@@ -100,6 +113,16 @@ notices remain under `build/` and `vendor/`; the root credits distinguish bundle
 method/documentation references. Existing notices remain applicable.
 
 ## 中文版
+
+10 月 18 日 UI 补充在同一应用中增加完整英文／简体中文选择、“发现／共同计划／共享资料”
+导航和响应式布局。浏览器仅持久保存语言偏好 Cookie，草稿与批准仍留在内存；切换语言不会
+请求服务或模型。服务端首次呈现依次采用已保存偏好、支持的浏览器语言、英文默认值。
+运行／接口版本仍为 0.8.0（协议 1.0），部署修订单独记录，Windows 发布包不变。
+详见[界面验收](../../docs/SITE_UI_VALIDATION.md)。
+
+仅供本机浏览器验收的 `tests/ui-preview.mjs` 在回环地址代理真实开发界面，并复用原 D1
+测试设施与服务、使用合成身份。它需要显式测试标记及仓库外的产物目录，被单向镜像白名单排除，
+不代表第二真实账号。生产应用没有测试开关。
 
 0.8 受控测试范围、协议检查及恢复见[维护者操作指引](../../docs/SITE_OPERATIONS.md)。
 普通用户使用根目录安装入口，不自行部署本服务。
