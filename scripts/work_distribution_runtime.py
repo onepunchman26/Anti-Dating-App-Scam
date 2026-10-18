@@ -7,6 +7,7 @@ Separate Windows users/devices are required for an adversarial account-isolation
 from __future__ import annotations
 
 import argparse
+import configparser
 import csv
 import hashlib
 import io
@@ -354,6 +355,40 @@ class Distribution:
             raise DistributionError("active_integrity_failed")
         return pointer, value, package
 
+    def recover_active_pointer(self, incoming_checksum):
+        """Recover only one unambiguous, fully verified identical release."""
+        try:
+            broken = read_bytes(self.home / "active.json", 4096)
+        except (OSError, DistributionError):
+            raise DistributionError("active_pointer_unrecoverable") from None
+        candidates = [item for item in self.releases.iterdir() if re.fullmatch(RELEASE, item.name)]
+        if len(candidates) != 1:
+            raise DistributionError("active_pointer_recovery_ambiguous")
+        package = candidates[0]
+        try:
+            value, checksum = manifest(package)
+        except (OSError, ValueError, TypeError):
+            raise DistributionError("verified_installed_release_required") from None
+        if checksum != incoming_checksum or not package.name.startswith(
+            value["version"] + "-" + checksum[:12]
+        ):
+            raise DistributionError("active_pointer_recovery_requires_same_release")
+        recovery = mkdir(self.home / "pointer-recovery")
+        target = recovery / (digest(broken) + ".json")
+        if not target.exists():
+            if len(list(recovery.iterdir())) >= 5:
+                raise DistributionError("pointer_recovery_limit")
+            atomic(
+                target,
+                {"schema_version": 1, "sha256": digest(broken), "pointer_bytes_hex": broken.hex()},
+            )
+        return {
+            "schema_version": 1,
+            "release": package.name,
+            "version": value["version"],
+            "manifest_sha256": checksum,
+        }
+
     def _remove_managed(self, path):
         path = check_path(path, directory=True)
         # Confirm the resolved absolute target before any recursive operation.
@@ -393,7 +428,16 @@ class Distribution:
             raise DistributionError("release_checksum_mismatch")
         package = Path(package).resolve(strict=True)
         with locked(self.home):
-            previous = self.active() if (self.home / "active.json").exists() else None
+            recovered_pointer = False
+            previous = None
+            if (self.home / "active.json").exists():
+                try:
+                    previous = self.active()
+                except (DistributionError, OSError, ValueError, TypeError):
+                    if not repair:
+                        raise DistributionError("active_pointer_invalid_use_repair") from None
+                    previous = self.recover_active_pointer(checksum)
+                    recovered_pointer = True
             if previous and tuple(map(int, value["version"].split("."))) < tuple(
                 map(int, previous["version"].split("."))
             ):
@@ -403,7 +447,7 @@ class Distribution:
             for child in self.releases.iterdir():
                 if re.fullmatch(r"\.staging-[a-f0-9]{32}", child.name):
                     self._remove_managed(child)
-            if previous and previous["manifest_sha256"] == checksum:
+            if previous and previous["manifest_sha256"] == checksum and not recovered_pointer:
                 try:
                     self.checked_active()
                     self.probe(self.releases / previous["release"], value["version"])
@@ -428,7 +472,9 @@ class Distribution:
                         output.write(read_bytes(source, 300_000_000))
                         output.flush()
                         os.fsync(output.fileno())
-                manifest(staging)
+                _, staged_checksum = manifest(staging)
+                if staged_checksum != checksum:
+                    raise DistributionError("package_changed_during_copy")
                 self.probe(staging, value["version"])
                 name = value["version"] + "-" + checksum[:12]
                 target = self.releases / name
@@ -460,7 +506,7 @@ class Distribution:
                     self._remove_managed(staging)
         return {
             "ok": True,
-            "status": "installed",
+            "status": "repaired_active_pointer" if recovered_pointer else "installed",
             "version": value["version"],
             "data_preserved": True,
             "model_calls": 0,
@@ -586,15 +632,11 @@ class Distribution:
 
     def register_plugin(self):
         pointer, _, package = self.checked_active()
-        if not (package / ".agents/plugins/marketplace.json").is_file():
-            raise DistributionError("packaged_marketplace_missing")
         cli = shutil.which("codex")
         if not cli:
             raise DistributionError("supported_plugin_installer_unavailable")
-        for command in (
-            ["plugin", "marketplace", "add", str(package), "--json"],
-            ["plugin", "add", "slowmatch@slowmatch-local", "--json"],
-        ):
+
+        def invoke(command):
             result = subprocess.run(
                 [cli, *command],
                 capture_output=True,
@@ -604,6 +646,59 @@ class Distribution:
             )
             if result.returncode:
                 raise DistributionError("native_plugin_registration_failed")
+            if len(result.stdout) > 1_000_000:
+                raise DistributionError("native_installer_output_limit")
+            return result.stdout
+
+        def inventory():
+            value = _json(invoke(["plugin", "marketplace", "list", "--json"]))
+            entries = value.get("marketplaces")
+            if not isinstance(entries, list) or len(entries) > 100:
+                raise DistributionError("native_marketplace_inventory_invalid")
+            matches = [
+                entry
+                for entry in entries
+                if isinstance(entry, dict) and entry.get("name") == "slowmatch-local"
+            ]
+            if len(matches) > 1 or (matches and not isinstance(matches[0].get("root"), str)):
+                raise DistributionError("native_marketplace_inventory_invalid")
+            if matches and len(matches[0]["root"]) > 4000:
+                raise DistributionError("native_marketplace_inventory_invalid")
+            return Path(matches[0]["root"]) if matches else None
+
+        def same(left, right):
+            return logical_path(native_path(left).resolve()) == logical_path(
+                native_path(right).resolve()
+            )
+
+        self.verify_owned_marketplace(package)
+        previous = inventory()
+        migrating = previous is not None and not same(previous, package)
+        if migrating:
+            self.verify_owned_marketplace(previous)
+            invoke(["plugin", "marketplace", "remove", "slowmatch-local", "--json"])
+        try:
+            if previous is None or migrating:
+                invoke(["plugin", "marketplace", "add", str(logical_path(package)), "--json"])
+            invoke(["plugin", "add", "slowmatch@slowmatch-local", "--json"])
+        except (DistributionError, OSError, ValueError):
+            if migrating:
+                try:
+                    current = inventory()
+                    if current is not None and same(current, package):
+                        invoke(["plugin", "marketplace", "remove", "slowmatch-local", "--json"])
+                    elif current is not None and not same(current, previous):
+                        raise DistributionError("native_marketplace_rollback_conflict")
+                    if current is None or not same(current, previous):
+                        invoke(
+                            ["plugin", "marketplace", "add", str(logical_path(previous)), "--json"]
+                        )
+                except (DistributionError, OSError, ValueError):
+                    raise DistributionError("native_marketplace_rollback_failed") from None
+                raise DistributionError(
+                    "native_registration_failed_previous_source_restored"
+                ) from None
+            raise
         atomic(
             self.home / "plugin-registration.json",
             {"release": pointer["release"], "status": "installer_completed"},
@@ -611,9 +706,47 @@ class Distribution:
         return {
             "ok": True,
             "status": "native_installer_completed",
+            "owned_marketplace_migrated": migrating,
             "native_chatgpt_loading": "not_checked",
             "model_calls": 0,
         }
+
+    def verify_owned_marketplace(self, package):
+        """Only our exact single-plugin marketplace and recognized source may move."""
+        try:
+            package = native_path(check_path(package, directory=True)).resolve(strict=True)
+            marketplace = _json(read_bytes(package / ".agents/plugins/marketplace.json", 100_000))
+            plugin = _json(read_bytes(package / "plugins/slowmatch/plugin.json", 100_000))
+            entries = marketplace.get("plugins")
+            if (
+                marketplace.get("name") != "slowmatch-local"
+                or not isinstance(entries, list)
+                or len(entries) != 1
+                or entries[0].get("name") != "slowmatch"
+                or entries[0].get("source") != {"source": "local", "path": "./plugins/slowmatch"}
+                or plugin.get("name") != "slowmatch"
+                or plugin.get("author", {}).get("name") != "onepuchman"
+            ):
+                raise ValueError("unrecognized")
+            if logical_path(package.parent) == logical_path(self.releases.resolve()):
+                manifest(package)
+                if not re.fullmatch(RELEASE, package.name):
+                    raise ValueError("unrecognized")
+                return
+            config = configparser.ConfigParser(interpolation=None)
+            config.read_string(read_bytes(package / ".git/config", 64_000).decode("utf-8"))
+            origin = config.get('remote "origin"', "url").strip().casefold()
+            repository = REPOSITORY.casefold()
+            allowed = {
+                f"https://github.com/{repository}",
+                f"https://github.com/{repository}.git",
+                f"git@github.com:{repository}.git",
+                f"ssh://git@github.com/{repository}.git",
+            }
+            if origin not in allowed:
+                raise ValueError("unrecognized")
+        except (OSError, ValueError, TypeError, AttributeError, configparser.Error):
+            raise DistributionError("existing_marketplace_not_verified_owned") from None
 
     def uninstall(self):
         with locked(self.home):

@@ -138,11 +138,14 @@ def public_sources(root):
     }
 
 
-def copy_public(root, payload):
+def copy_public(root, payload, source_hashes=None):
     for source, destination in PUBLIC_FILES.items():
         target = payload / destination
         runtime.mkdir(target.parent)
-        target.write_bytes(runtime.read_bytes(root / source, 2_000_000))
+        raw = runtime.read_bytes(root / source, 2_000_000)
+        if source_hashes is not None and runtime.digest(raw) != source_hashes.get(source):
+            raise runtime.DistributionError("build_sources_changed")
+        target.write_bytes(raw)
 
 
 def copy_notices(payload):
@@ -388,8 +391,10 @@ def build(root, output, *, allow_dirty=False):
     payload = output / "compiled/SlowMatch-Work"
     clean_generated_metadata(payload)
     audit = audit_embedded_sources(root, payload / runtime.EXECUTABLE)
-    copy_public(root, payload)
+    copy_public(root, payload, provenance["source_files"])
     copy_notices(payload)
+    if public_sources(root) != provenance:
+        raise runtime.DistributionError("build_sources_changed")
     (payload / "source-provenance.json").write_bytes(runtime.encoded(provenance))
     (payload / "package-audit.json").write_bytes(runtime.encoded(audit))
     audit_developer_paths(payload, root)

@@ -21,8 +21,20 @@ def package(tmp_path, version="0.8.0", label="payload", **overrides):
     components = {
         runtime.EXECUTABLE: b"synthetic runtime binary; never executed",
         "_internal/pinned.dll": b"synthetic dependency",
-        ".agents/plugins/marketplace.json": b'{"name":"slowmatch-local"}',
-        "plugins/slowmatch/plugin.json": b'{"name":"slowmatch"}',
+        ".agents/plugins/marketplace.json": runtime.encoded(
+            {
+                "name": "slowmatch-local",
+                "plugins": [
+                    {
+                        "name": "slowmatch",
+                        "source": {"source": "local", "path": "./plugins/slowmatch"},
+                    }
+                ],
+            }
+        ),
+        "plugins/slowmatch/plugin.json": runtime.encoded(
+            {"name": "slowmatch", "version": version, "author": {"name": "onepuchman"}}
+        ),
     }
     for name, raw in components.items():
         file = folder / name
@@ -279,6 +291,106 @@ def test_uninstall_and_reinstall_preserve_accounts_and_other_config(installation
     assert account(distribution)[0] == slot
 
 
+def fake_legacy_marketplace(tmp_path, repository=runtime.REPOSITORY):
+    root = package(tmp_path, "0.7.0", "legacy-public-source")
+    (root / ".git").mkdir()
+    (root / ".git/config").write_text(
+        f'[remote "origin"]\nurl = https://github.com/{repository}.git\n', encoding="utf-8"
+    )
+    return root
+
+
+def native_registry(monkeypatch, old, fail_new_add=False):
+    state = {"slowmatch-local": str(old), "unrelated-marketplace": "synthetic-unrelated-root"}
+    calls = []
+    monkeypatch.setattr(runtime.shutil, "which", lambda _: "synthetic-codex")
+
+    def invoke(command, **_):
+        arguments = command[1:]
+        calls.append(arguments)
+        if arguments[:3] == ["plugin", "marketplace", "list"]:
+            return SimpleNamespace(
+                returncode=0,
+                stdout=runtime.encoded(
+                    {"marketplaces": [{"name": name, "root": root} for name, root in state.items()]}
+                ),
+            )
+        if arguments[:3] == ["plugin", "marketplace", "remove"]:
+            assert arguments[3] == "slowmatch-local"
+            state.pop("slowmatch-local", None)
+        if arguments[:3] == ["plugin", "marketplace", "add"]:
+            if fail_new_add and runtime.logical_path(
+                Path(arguments[3]).resolve()
+            ) != runtime.logical_path(old.resolve()):
+                return SimpleNamespace(returncode=1, stdout=b"{}")
+            state["slowmatch-local"] = arguments[3]
+        return SimpleNamespace(returncode=0, stdout=b"{}")
+
+    monkeypatch.setattr(runtime.subprocess, "run", invoke)
+    return state, calls
+
+
+def test_owned_original_marketplace_migrates_idempotently_only_own_source(
+    installation,
+    tmp_path,
+    monkeypatch,
+):
+    distribution, _ = installation
+    old = fake_legacy_marketplace(tmp_path)
+    state, calls = native_registry(monkeypatch, old)
+    result = distribution.register_plugin()
+    assert result["owned_marketplace_migrated"] is True
+    installed = distribution.releases / distribution.active()["release"]
+    assert runtime.logical_path(Path(state["slowmatch-local"]).resolve()) == runtime.logical_path(
+        installed.resolve()
+    )
+    assert state["unrelated-marketplace"] == "synthetic-unrelated-root"
+    calls.clear()
+    assert distribution.register_plugin()["owned_marketplace_migrated"] is False
+    assert len(calls) == 2
+
+
+def test_native_marketplace_add_failure_restores_only_verified_previous_source(
+    installation,
+    tmp_path,
+    monkeypatch,
+):
+    distribution, _ = installation
+    old = fake_legacy_marketplace(tmp_path)
+    state, _ = native_registry(monkeypatch, old, fail_new_add=True)
+    with pytest.raises(runtime.DistributionError, match="previous_source_restored"):
+        distribution.register_plugin()
+    assert runtime.logical_path(Path(state["slowmatch-local"]).resolve()) == runtime.logical_path(
+        old.resolve()
+    )
+    assert state["unrelated-marketplace"] == "synthetic-unrelated-root"
+
+
+def test_foreign_same_named_marketplace_is_not_removed(installation, tmp_path, monkeypatch):
+    distribution, _ = installation
+    old = fake_legacy_marketplace(tmp_path, "other-owner/similar-product")
+    state, calls = native_registry(monkeypatch, old)
+    with pytest.raises(runtime.DistributionError, match="existing_marketplace_not_verified_owned"):
+        distribution.register_plugin()
+    assert state["slowmatch-local"] == str(old)
+    assert len(calls) == 1
+
+
+def test_public_copy_rechecks_exact_original_bytes_not_only_final_source_state(
+    tmp_path, monkeypatch
+):
+    source, payload = tmp_path / "source", tmp_path / "payload"
+    source.mkdir()
+    payload.mkdir()
+    (source / "guide.md").write_bytes(b"original reviewed guide")
+    hashes = {"guide.md": runtime.digest((source / "guide.md").read_bytes())}
+    monkeypatch.setattr(builder, "PUBLIC_FILES", {"guide.md": "guide.md"})
+    (source / "guide.md").write_bytes(b"changed during copy")
+    with pytest.raises(runtime.DistributionError, match="build_sources_changed"):
+        builder.copy_public(source, payload, hashes)
+    assert not (payload / "guide.md").exists()
+
+
 def test_locked_uninstall_reports_pending_without_claiming_removed(installation, monkeypatch):
     distribution, _ = installation
 
@@ -299,13 +411,14 @@ def test_plugin_uses_supported_commands_no_configuration_rewrite(installation, m
 
     def invoke(command, **_):
         calls.append(command)
-        return SimpleNamespace(returncode=0)
+        return SimpleNamespace(returncode=0, stdout=b'{"marketplaces":[]}')
 
     monkeypatch.setattr(runtime.subprocess, "run", invoke)
     result = distribution.register_plugin()
-    assert len(calls) == 2
-    assert calls[0][1:4] == ["plugin", "marketplace", "add"]
-    assert calls[1][1:] == ["plugin", "add", "slowmatch@slowmatch-local", "--json"]
+    assert len(calls) == 3
+    assert calls[0][1:4] == ["plugin", "marketplace", "list"]
+    assert calls[1][1:4] == ["plugin", "marketplace", "add"]
+    assert calls[2][1:] == ["plugin", "add", "slowmatch@slowmatch-local", "--json"]
     assert result["native_chatgpt_loading"] == "not_checked"
     monkeypatch.setattr(runtime.shutil, "which", lambda _: None)
     with pytest.raises(runtime.DistributionError, match="supported_plugin_installer_unavailable"):
@@ -502,3 +615,91 @@ def test_generated_editable_metadata_removed_and_developer_paths_refused(tmp_pat
     (payload / "direct_url.json").write_text("{}")
     with pytest.raises(runtime.DistributionError, match="developer_install_metadata_in_payload"):
         builder.audit_developer_paths(payload, root)
+
+
+@pytest.mark.skipif(os.name != "nt", reason="Windows PyInstaller source/destination syntax")
+def test_pyinstaller_add_data_parser_receives_normalized_extended_path(tmp_path):
+    from PyInstaller.__main__ import generate_parser
+
+    generated = runtime.native_path(tmp_path / "generated/build_info.json")
+    argument = f"{runtime.logical_path(generated)};anti_dating_scam"
+    parsed = generate_parser().parse_args(["--add-data", argument, "synthetic-entry.py"])
+    assert len(parsed.datas) == 1
+    assert Path(parsed.datas[0][0]) == runtime.logical_path(generated)
+    assert parsed.datas[0][1] == "anti_dating_scam"
+
+
+def test_repair_recovers_one_verified_identical_release_and_preserves_bad_pointer(installation):
+    distribution, source = installation
+    slot, data = account(distribution)
+    (data / "synthetic-retained.txt").write_text("SYNTHETIC_PRIVATE")
+    before = distribution.active()
+    (distribution.home / "active.json").write_bytes(b'{"truncated":')
+    with pytest.raises(runtime.DistributionError, match="active_pointer_invalid_use_repair"):
+        distribution.install(source)
+    result = distribution.install(source, repair=True)
+    assert result["status"] == "repaired_active_pointer"
+    assert distribution.active() == before
+    assert account(distribution)[0] == slot
+    assert (data / "synthetic-retained.txt").read_text() == "SYNTHETIC_PRIVATE"
+    backups = list((distribution.home / "pointer-recovery").iterdir())
+    assert len(backups) == 1
+    assert (
+        bytes.fromhex(json.loads(backups[0].read_text())["pointer_bytes_hex"]) == b'{"truncated":'
+    )
+
+
+def test_pointer_repair_refuses_ambiguous_upgrade_and_invalid_installed_payload(
+    installation,
+    tmp_path,
+):
+    distribution, source = installation
+    upgrade = package(tmp_path, "0.9.0", "upgrade")
+    (distribution.home / "active.json").write_bytes(b"invalid")
+    with pytest.raises(runtime.DistributionError, match="recovery_requires_same_release"):
+        distribution.install(upgrade, repair=True)
+    distribution.install(source, repair=True)
+    distribution.install(upgrade)
+    (distribution.home / "active.json").write_bytes(b"invalid")
+    with pytest.raises(runtime.DistributionError, match="active_pointer_recovery_ambiguous"):
+        distribution.install(upgrade, repair=True)
+
+
+def test_pointer_repair_requires_integrity_and_bounds_recovery_input(installation):
+    distribution, source = installation
+    installed = distribution.releases / distribution.active()["release"]
+    (distribution.home / "active.json").write_bytes(b"x" * 4097)
+    with pytest.raises(runtime.DistributionError, match="active_pointer_unrecoverable"):
+        distribution.install(source, repair=True)
+    (distribution.home / "active.json").write_bytes(b"invalid")
+    (installed / "_internal/pinned.dll").write_bytes(b"broken")
+    with pytest.raises(runtime.DistributionError, match="verified_installed_release_required"):
+        distribution.install(source, repair=True)
+
+
+def test_source_manifest_change_after_validation_never_reaches_executable_probe(
+    tmp_path, monkeypatch
+):
+    distribution = runtime.Distribution(tmp_path / "isolated/portable")
+    source = package(tmp_path)
+    original_read = runtime.read_bytes
+    reads = 0
+    probed = []
+
+    def mutate(path, limit):
+        nonlocal reads
+        if Path(path).resolve() == (source / runtime.MANIFEST).resolve():
+            reads += 1
+            if reads == 2:
+                value = json.loads((source / runtime.MANIFEST).read_text())
+                value["source_commit"] = "e" * 40
+                (source / runtime.MANIFEST).write_bytes(runtime.encoded(value))
+        return original_read(path, limit)
+
+    monkeypatch.setattr(runtime, "read_bytes", mutate)
+    monkeypatch.setattr(distribution, "probe", lambda *_: probed.append(True))
+    with pytest.raises(runtime.DistributionError, match="package_changed_during_copy"):
+        distribution.install(source)
+    assert probed == []
+    assert not (distribution.home / "active.json").exists()
+    assert not list(distribution.releases.iterdir())
