@@ -12,11 +12,11 @@ explore dating or friendship separately, and get thoughtful help before, during 
 meeting someone. Your answers belong to you; there are no founder-default preferences,
 public personality scores or guarantees about another person's honesty.
 
-**v0.8.0 is a controlled Windows x64 preview. Release publication is pending.**
-The intended [v0.8.0 Release](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.0)
-will contain the prebuilt component, source-commit mapping and integrity information.
-Until those assets exist, do not substitute a source ZIP or a similarly named project.
-This is not a stable release or a public ChatGPT plugin-directory listing.
+**v0.8.0 is the published controlled Windows x64 preview. There is no stable release yet.**
+The [v0.8.0 Release](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.0)
+contains the prebuilt component, source-commit mapping and checksums. The public-download
+installer and repeat installation passed on the current Windows desktop; an independent
+clean desktop remains untested. This is not a public ChatGPT plugin-directory listing.
 
 ### Start here
 
@@ -28,7 +28,7 @@ This is not a stable release or a public ChatGPT plugin-directory listing.
    Git, Node or compiler is required**. Automatic plugin registration separately requires
    the supported desktop `codex` installer to be available. Web-only chat cannot access
    your local profile; other operating systems are not verified.
-3. After publication, use the Release's [fixed-version Windows installer script](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/download/v0.8.0/install_work_preview.ps1).
+3. Use the Release's [fixed-version Windows installer script](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/download/v0.8.0/install_work_preview.ps1).
    It downloads the exact package, verifies archive/manifest/component hashes, extracts only
    allowed files, installs and runs diagnostics. Run `./install_work_preview.ps1 -RegisterPlugin`
    to request official plugin registration too; without that flag it installs the local component only.
@@ -41,9 +41,10 @@ This is not a stable release or a public ChatGPT plugin-directory listing.
    ordinary users do not deploy a website or database.
 
 A website opening successfully or a plugin being installed does not prove your account can
-call the private Site. Native authenticated access, a fresh ChatGPT setup conversation and
-the real two-account flow remain separate acceptance gates. No second independent account
-has been tested. See [validation and costs](docs/DISTRIBUTION_VALIDATION.md) and
+call the private Site. After the installed tools became available, the current existing Codex
+desktop conversation read the setup Skill, made authenticated native reads and completed a
+bound synthetic local write/read probe. A fresh ChatGPT setup conversation and the real
+two-account flow remain unverified. See [validation and costs](docs/DISTRIBUTION_VALIDATION.md) and
 [CURRENT_STATUS](CURRENT_STATUS.md) for actual results rather than assuming completion.
 
 Offline installer checks, including extraction beyond 260 characters, passed in this
@@ -109,10 +110,10 @@ See [licensing status and options](docs/LICENSING_STATUS.md).
 自主决定分享什么，分别探索恋爱或友谊，并在见面前、中途或之后获得具体帮助。每个人的答案以本人为准，
 不套用创始人偏好、不设公开人格分，也不保证他人诚实。
 
-**v0.8.0 是 Windows x64 受控预览，Release 尚待发布。**目标
+**v0.8.0 是已发布的 Windows x64 受控预览，目前没有稳定版。**
 [v0.8.0 发布页](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.0)
-将提供预编译组件、源码提交对应关系和完整性资料。产物尚不存在时，不改用源码 ZIP 或同名项目。
-这不是稳定版，也未上架 ChatGPT 公共插件目录。
+已提供预编译组件、源码提交对应关系和校验值。公开下载的安装脚本及重复安装已在当前 Windows
+桌面通过；独立干净桌面尚未实测，也未上架 ChatGPT 公共插件目录。
 
 ### 从这里开始
 
@@ -121,7 +122,7 @@ See [licensing status and options](docs/LICENSING_STATUS.md).
 2. 使用允许本机执行和插件安装的 Windows x64 ChatGPT 桌面环境。发布包自带运行组件，
    **普通用户无需另装 Python、Git、Node 或编译器**。自动插件登记另需桌面环境能够调用受支持的
    `codex` 安装器。纯网页聊天不能访问本机档案；其他操作系统尚未验证。
-3. 发布后使用 Release 中的[固定版本 Windows 安装脚本](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/download/v0.8.0/install_work_preview.ps1)。
+3. 使用 Release 中的[固定版本 Windows 安装脚本](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/download/v0.8.0/install_work_preview.ps1)。
    它下载指定包、验证压缩包／清单／组件哈希，仅解压允许文件，然后安装并诊断。
    运行 `./install_work_preview.ps1 -RegisterPlugin` 可同时请求官方插件登记；不带该参数则只安装本机组件。
    它不改变执行策略、不绑定用户账号。脚本执行受限时准确报告平台条件，不绕过。
@@ -129,8 +130,9 @@ See [licensing status and options](docs/LICENSING_STATUS.md).
    完成本人平台登录／权限和设置检查，然后开始聊天。所有人连接统一维护的
    [匹配服务](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site)，普通用户不部署网站或数据库。
 
-网站能打开或插件已安装，不证明本人账号能调用私有 Site。原生认证访问、新 ChatGPT 设置会话与真实
-双账号流程分别验收；目前尚未测试第二个独立账号。实际结果见[验证与成本](docs/DISTRIBUTION_VALIDATION.md)
+网站能打开或插件已安装，不证明本人账号能调用私有 Site。安装工具变为可用后，当前已有 Codex 桌面
+会话已读取 setup Skill、完成本人认证的原生读取和绑定账号的合成本机写读探针；新 ChatGPT 设置会话
+及真实独立双账号流程仍未验证。实际结果见[验证与成本](docs/DISTRIBUTION_VALIDATION.md)
 和 [CURRENT_STATUS](CURRENT_STATUS.md)，不能据功能描述推断全部通过。
 
 本机当前 PowerShell 的安装器离线检查已通过，包括超过 260 字符的路径提取。此机器的 Windows

@@ -90,6 +90,14 @@ to the developer source runtime. The first flag `--developer-source` is retained
 explicitly requested development; it is not an installation or account-isolation workaround.
 Pass private JSON by stdin or an explicitly authorized local file, not interpolated shell text.
 
+For `--input-json -`, the launcher must receive **process standard input**. A PowerShell
+object pipeline directly into a `.ps1` script is not forwarded to its native child. Launch
+the script with the already-permitted PowerShell executable's `-NoProfile -File` arguments
+and write the JSON to that process's stdin; close stdin after the payload. Alternatively,
+use the documented EXE command below, or `--input-json` with an explicitly authorized private
+local file. Do not change execution policy. An empty-input `operation_failed` is not a reason
+to reinstall or repair source. Keep private JSON and account bindings out of copied diagnostics.
+
 For a minimal synthetic local check, send `{}` via stdin to
 `SlowMatch-Work.exe run --slot <slot> --account-key <current-fingerprint> --scope <current-scope> local-probe --input-json -`.
 The same operation works through the plugin launcher. It writes/reads/deletes a synthetic
@@ -262,6 +270,12 @@ SlowMatch-Work.exe doctor --slot <returned-slot> --account-key <current-fingerpr
 日常操作使用已安装插件 `scripts/work.ps1`，明确传 `--slot`、`--account-key`、`--scope`，
 再传操作与 JSON。它不默默回退到开发源码；首参数 `--developer-source` 只供明确要求的开发流程，
 不能绕过安装或账号隔离。私密 JSON 走标准输入或本人授权的本机文件，不拼入命令文本。
+
+使用 `--input-json -` 时，启动器必须收到**进程标准输入**。PowerShell 对象管道直接传入 `.ps1`
+不会自动转交其内部原生程序。应通过已获准的 PowerShell 程序，以 `-NoProfile -File` 启动脚本，
+把 JSON 写入该进程的标准输入并关闭输入；也可使用下方 EXE 命令，或通过 `--input-json` 指定本人
+授权的私密本机文件。不更改执行策略；空输入导致的 `operation_failed` 不需要重装或修源码。
+复制诊断时不附上私密 JSON 或账号绑定值。
 
 最小合成本机检查把 `{}` 经标准输入交给
 `SlowMatch-Work.exe run --slot <slot> --account-key <current-fingerprint> --scope <current-scope> local-probe --input-json -`，

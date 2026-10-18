@@ -4,7 +4,11 @@ Updated / 更新：2026-10-18。Agent-maintained; change both languages together
 
 ## English
 
-- 🔄 R8 distribution implementation and verification: prebuilt Windows candidate passed 25 actual isolated calls, core regression 2,491 passed / 10 skipped, Site tests 25 passed and private deployment version 6 confirmed. GitHub About/homepage/Topics are updated. Final native-registration recovery, bootstrap verification, Release and default-branch synchronization remain in progress. Independent-account acceptance is still unexercised; no impersonation or contact.
+- ✅ R8 available distribution work: GitHub About/homepage/Topics and main updated; v0.8.0 prerelease published. Public-download bootstrap plus repeat installation/official registration pass; final package passes 29 isolated EXE calls including interruption/retry. Core baseline 2,491 passed / 10 skipped; Site 25; final distribution 52; bootstrap 41 / 1 skipped. Private Site version 6 confirmed. Current existing Codex conversation now passes installed setup-Skill reading, native authenticated health/both-mode reads and a bound local synthetic probe. ⚠ Independent clean desktop, fresh native ChatGPT invocation, account B and an actual released-version upgrade failure remain unverified; PS5.1 is policy-blocked. No impersonation or contact.
+
+### Historical 0.7 implementation checkpoint
+
+The current distribution status is R8 above; the following records preserve earlier evidence.
 
 - ✅ R1–R2: adopted the complete owner-approved replacement requirements in the original repository. Reused 0.6 data/guarded I/O/CLI; added independent dating/friendship summaries and expiry without changing the fixed 0.5.3 EXE or real private data.
 - ✅ R3–R4 implementation: mode-specific bilateral matching, exact visible Site reminder, private observations/reflection/filtering and scoped selected-material lifecycle. 0.7 local plugin installed, 13 files verified against source; actual separate-process workflow preserved correction and independent approvals. Seven synthetic semantic examples were authored/reviewed in the current conversation, not claimed as new-chat integration tests.
@@ -56,7 +60,11 @@ Hourly automation stays paused. No purchase, paid API key, real private archive,
 
 ## 中文版
 
-- 🔄 R8 分发实现与验收：预编译 Windows 候选包通过 25 次真实隔离调用，核心回归 2,491 项通过／10 项跳过，Site 测试 25 项通过，私有部署第 6 版已确认。GitHub About／主页链接／Topics 已更新。最终原生注册恢复、下载引导验证、Release 与默认分支同步仍在进行；独立账号仍未实测，不冒充、不联系他人。
+- ✅ R8 可执行分发工作：GitHub About／主页／Topics 与 main 已更新，v0.8.0 已预发布；公开下载引导及重复安装／官方注册通过，最终包通过 29 次隔离 EXE 调用，含中断重试。核心基线 2,491 项通过／10 项跳过，Site 25 项、最终分发专项 52 项、下载引导 41 项通过／1 项跳过，私有 Site 第 6 版已确认；当前已有 Codex 会话已通过安装的 setup Skill 读取、本人认证的原生健康／双模式读取及绑定本机合成探针。⚠ 独立干净桌面、新会话原生 ChatGPT 调用、B 账号及真实已发布版本升级失败仍未验证；PS5.1 被策略阻止。不冒充、不联系他人。
+
+### 历史 0.7 实现检查点
+
+当前分发状态见上方 R8；以下条目保留早期证据。
 
 - ✅ R1–R2：在原仓库采用所有者批准的完整替代要求，复用 0.6 数据／受保护读写／CLI，增加独立恋爱／交友摘要与期限，固定 0.5.3 EXE 和真实私人数据不变。
 - ✅ R3–R4 实现：分模式双向匹配、准确可见网站提醒、私人观察／复盘／筛选及限定材料生命周期。0.7 本机插件已安装，13 文件与源码核对一致，实际跨进程流程保留纠正及独立批准。七个合成语义样例在当前对话编写／审阅，不冒充新聊天集成测试。

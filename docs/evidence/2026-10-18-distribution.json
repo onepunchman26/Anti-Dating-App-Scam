@@ -11,10 +11,24 @@
     "runtime_source_dirty": false,
     "starting_checkpoint": "5340ab245a01c31a33d22c88c4e52322a06d7f2d",
     "starting_main": "6823522a2fd0b6a50349f0fd9e9926f5c6f3e42c",
-    "unrelated_work_preserved": [".vscode/", "paper/"],
+    "unrelated_work_preserved": [
+      ".vscode/",
+      "paper/"
+    ],
     "about_homepage_topics": "updated_and_read_back",
-    "default_branch_sync": "pending",
-    "release": "pending"
+    "default_branch_sync": "fast_forwarded_main_and_migration_branch; original history retained",
+    "release": {
+      "id": 416267314,
+      "tag": "v0.8.0",
+      "url": "https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.0",
+      "prerelease": true,
+      "draft": false,
+      "published_at": "2026-10-18T06:05:38Z",
+      "tag_target": "a056985781fda503fa2e143db35e1e3d349c23f9",
+      "uploaded_assets": 6,
+      "server_asset_digests_match_local": true
+    },
+    "bootstrap_source_commit": "4e661476fa6cd5ca2fa9bd150f862f759b471109"
   },
   "artifact": {
     "name": "AI-SlowMatch-Work-0.8.0-windows-x64-controlled-preview.zip",
@@ -32,7 +46,12 @@
     "actual_repair": "passed_controlled_document_corruption",
     "uninstall_data_preservation": "passed_synthetic_profile_and_assessment",
     "fresh_independent_windows_environment": "not_checked",
-    "real_released_portable_upgrade_failure": "not_checked_no_prior_released_portable_object"
+    "real_released_portable_upgrade_failure": "not_checked_no_prior_released_portable_object",
+    "published_download_verified": true,
+    "published_download_actual_calls": 29,
+    "bootstrap_sha256": "3db526b83939d78e7851fa59acbc7d316a8a75ee99654cdf25a2b322831f32fa",
+    "bootstrap_current_shell": "PowerShell 7.6.5 permitted; no policy change",
+    "bootstrap_actual_first_and_repeat": "passed_public_download_and_verified_cache_with_official_registration"
   },
   "plugin": {
     "official_registration": "passed_existing_owned_source_marketplace_migrated",
@@ -42,9 +61,11 @@
     "all_files_match": true,
     "other_plugins_unchanged": 20,
     "fresh_chatgpt_setup_conversation": "not_checked_no_new_session_created",
-    "native_remote_tools_in_current_tool_inventory": 0,
-    "native_authenticated_remote_call": "blocked_not_available_in_current_tool_inventory",
-    "real_account_slot_creation": "not_performed_native_identity_gate_unverified"
+    "native_remote_tools_in_current_tool_inventory": 16,
+    "native_authenticated_remote_call": "passed_current_existing_Codex_desktop_conversation_after_tool_refresh; fresh_ChatGPT_session_not_checked",
+    "real_account_slot_creation": "created_for_verified_current_account_in_controlled_test_scope; only_synthetic_probe_no_profile_read_import_or_write",
+    "published_bootstrap_registration_repeat": "passed; 14 installed files match final manifest; other 20 plugins unchanged",
+    "installed_setup_skill_current_session": "read_and_followed_after_native_catalog_discovery"
   },
   "site": {
     "project_id": "appgprj_6ad4306f79e88191bbbd502f495ec501",
@@ -67,25 +88,48 @@
     "summary_and_plan_reads": "passed_empty_test_scope",
     "real_profile_publication": false,
     "scope_membership_metadata": "created_by_authenticated_health_first_access",
-    "native_mcp_from_chatgpt": "not_verified",
+    "native_mcp_from_chatgpt": "passed_current_existing_Codex_desktop_conversation_health_and_both_mode_summary_reads; fresh_ChatGPT_not_checked",
     "two_independent_accounts": "blocked_second_account_unavailable"
   },
   "tests": {
-    "core_baseline": {"passed": 2491, "skipped": 10, "failed": 0, "seconds": 796.90, "warnings": 1},
-    "final_distribution_and_verifier": {"passed": 52, "failed": 0, "seconds": 9.52},
-    "node_d1": {"passed": 25, "failed": 0, "milliseconds": 11983.7718},
+    "core_baseline": {
+      "passed": 2491,
+      "skipped": 10,
+      "failed": 0,
+      "seconds": 796.9,
+      "warnings": 1
+    },
+    "final_distribution_and_verifier": {
+      "passed": 52,
+      "failed": 0,
+      "seconds": 9.52
+    },
+    "node_d1": {
+      "passed": 25,
+      "failed": 0,
+      "milliseconds": 11983.7718
+    },
     "compileall_src": "passed",
     "changed_python_ruff": "passed",
     "site_types_lint_build": "passed",
-    "bootstrap": {"passed": 41, "skipped": 1, "failed": 0, "seconds": 18.51, "skip": "Windows PowerShell 5.1 policy/module blocked"},
-    "windows_powershell_51": "blocked_execution_policy_before_script_load_no_bypass"
+    "bootstrap": {
+      "passed": 41,
+      "skipped": 1,
+      "failed": 0,
+      "seconds": 18.51,
+      "skip": "Windows PowerShell 5.1 policy/module blocked"
+    },
+    "windows_powershell_51": "blocked_execution_policy_before_script_load_no_bypass",
+    "github_actions": "manual workflow prepared; not dispatched",
+    "current_session_setup": "passed_authenticated_native_reads_and_installed_launcher_synthetic_local_probe; details_in_2026-10-18-current-session-setup.json"
   },
   "retained_failures": [
     "First candidate actual install failed after AppData redirection exceeded ordinary path lengths; no active install pointer was retained.",
     "First candidate contained editable project metadata; never uploaded. Final builder removes generated project metadata and scans developer paths.",
     "Second candidate build argument parser rejected an extended path; CLI arguments were normalized and rebuilt.",
     "Official registration initially rejected the old source marketplace; bounded owned-marketplace migration then passed with unrelated plugins unchanged.",
-    "Optional temporary malformed-launcher probe was rejected by automatic approval: blocked by policy. No execution, retry or bypass; not counted as passed."
+    "Optional temporary malformed-launcher probe was rejected by automatic approval: blocked by policy. No execution, retry or bypass; not counted as passed.",
+    "First current-session launcher probe used a PowerShell object pipeline rather than process stdin and returned operation_failed. Direct EXE and correct process-stdin launcher probes then passed without code/config repair."
   ],
   "legacy_exe_sha256": "9280e8b464d91b85249c6af26b9e5390e9a358dbe3e7ccbc3b8494d919fb2978",
   "real_private_archive_read_or_migrated": false,

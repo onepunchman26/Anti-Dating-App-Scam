@@ -24,7 +24,335 @@
     "model_required_for_generated_private_interpretation": true
   },
   "published_package_verification": {
-    "status": "pending"
+    "channel": "controlled-preview",
+    "checks": {
+      "actual_interrupted_install_retry": "passed_owned_process_terminated_during_actual_copy_then_retry",
+      "explicit_local_binding_refusals": "passed_local_assertions_not_authentication",
+      "first_and_repeat_install": "passed_actual_package",
+      "private_assessment_storage": "passed_fixed_synthetic_content_no_generation",
+      "profile_persistence_selection_correction": "passed_actual_package",
+      "repair": "passed_controlled_guide_corruption",
+      "synthetic_local_probe": "passed_actual_package",
+      "uninstall_reinstall_data_preservation": "passed_actual_package"
+    },
+    "developer_tools_on_child_path": false,
+    "manifest_sha256": "cbf0685e1ddde65e523c32b7a08ffee0840efa056668a26d9033d709cf3339dd",
+    "metrics": {
+      "elapsed_ms": 30991.897,
+      "executable_calls": 29,
+      "input_utf8_bytes": 2467,
+      "measurement_scope": "local_executable_only_not_chatgpt_guidance",
+      "output_unicode_characters": 13509,
+      "output_utf8_bytes": 14055,
+      "private_explanation_generation": "not_measured_no_model_session",
+      "true_model_tokens": "unavailable_not_inferred_from_text_or_subscription_usage"
+    },
+    "model_calls": 0,
+    "native_chatgpt": "not_checked",
+    "ok": true,
+    "product": "AI-SlowMatch",
+    "real_upgrade_atomic_rollback": "unit_tests_only",
+    "remote_authentication": "not_checked",
+    "schema_version": 1,
+    "scope": "isolated_local_synthetic_only",
+    "source_commit": "a056985781fda503fa2e143db35e1e3d349c23f9",
+    "source_dirty": false,
+    "steps": [
+      {
+        "elapsed_ms": 4838.932,
+        "expected_refusal": false,
+        "input_utf8_bytes": 0,
+        "output_unicode_characters": 99,
+        "output_utf8_bytes": 99,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "first_install"
+      },
+      {
+        "elapsed_ms": 1034.33,
+        "expected_refusal": false,
+        "input_utf8_bytes": 0,
+        "output_unicode_characters": 107,
+        "output_utf8_bytes": 107,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "repeat_install"
+      },
+      {
+        "elapsed_ms": 703.908,
+        "expected_refusal": false,
+        "input_utf8_bytes": 0,
+        "output_unicode_characters": 371,
+        "output_utf8_bytes": 371,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "doctor"
+      },
+      {
+        "elapsed_ms": 337.097,
+        "expected_refusal": false,
+        "input_utf8_bytes": 0,
+        "output_unicode_characters": 161,
+        "output_utf8_bytes": 161,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "synthetic_slot"
+      },
+      {
+        "elapsed_ms": 736.831,
+        "expected_refusal": false,
+        "input_utf8_bytes": 0,
+        "output_unicode_characters": 385,
+        "output_utf8_bytes": 385,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "owner_doctor"
+      },
+      {
+        "elapsed_ms": 351.448,
+        "expected_refusal": false,
+        "input_utf8_bytes": 2,
+        "output_unicode_characters": 194,
+        "output_utf8_bytes": 194,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "empty_profile"
+      },
+      {
+        "elapsed_ms": 360.065,
+        "expected_refusal": false,
+        "input_utf8_bytes": 703,
+        "output_unicode_characters": 1129,
+        "output_utf8_bytes": 1201,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "profile_update_full"
+      },
+      {
+        "elapsed_ms": 342.085,
+        "expected_refusal": false,
+        "input_utf8_bytes": 2,
+        "output_unicode_characters": 328,
+        "output_utf8_bytes": 328,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "profile_index"
+      },
+      {
+        "elapsed_ms": 348.709,
+        "expected_refusal": false,
+        "input_utf8_bytes": 2,
+        "output_unicode_characters": 1176,
+        "output_utf8_bytes": 1248,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "profile_read_full"
+      },
+      {
+        "elapsed_ms": 353.264,
+        "expected_refusal": false,
+        "input_utf8_bytes": 21,
+        "output_unicode_characters": 698,
+        "output_utf8_bytes": 730,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "profile_read_targeted"
+      },
+      {
+        "elapsed_ms": 362.145,
+        "expected_refusal": false,
+        "input_utf8_bytes": 451,
+        "output_unicode_characters": 714,
+        "output_utf8_bytes": 754,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "profile_update_incremental"
+      },
+      {
+        "elapsed_ms": 376.707,
+        "expected_refusal": false,
+        "input_utf8_bytes": 556,
+        "output_unicode_characters": 2421,
+        "output_utf8_bytes": 2679,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "assessment_prepare"
+      },
+      {
+        "elapsed_ms": 355.789,
+        "expected_refusal": false,
+        "input_utf8_bytes": 640,
+        "output_unicode_characters": 805,
+        "output_utf8_bytes": 805,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "assessment_save"
+      },
+      {
+        "elapsed_ms": 352.262,
+        "expected_refusal": false,
+        "input_utf8_bytes": 41,
+        "output_unicode_characters": 805,
+        "output_utf8_bytes": 805,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "assessment_read"
+      },
+      {
+        "elapsed_ms": 402.859,
+        "expected_refusal": false,
+        "input_utf8_bytes": 2,
+        "output_unicode_characters": 195,
+        "output_utf8_bytes": 195,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "local_probe"
+      },
+      {
+        "elapsed_ms": 305.701,
+        "expected_refusal": true,
+        "input_utf8_bytes": 2,
+        "output_unicode_characters": 78,
+        "output_utf8_bytes": 78,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "wrong_account_refused"
+      },
+      {
+        "elapsed_ms": 317.722,
+        "expected_refusal": true,
+        "input_utf8_bytes": 2,
+        "output_unicode_characters": 78,
+        "output_utf8_bytes": 78,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "wrong_scope_refused"
+      },
+      {
+        "elapsed_ms": 289.26,
+        "expected_refusal": true,
+        "input_utf8_bytes": 0,
+        "output_unicode_characters": 82,
+        "output_utf8_bytes": 82,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "corruption_detected"
+      },
+      {
+        "elapsed_ms": 4828.539,
+        "expected_refusal": false,
+        "input_utf8_bytes": 0,
+        "output_unicode_characters": 99,
+        "output_utf8_bytes": 99,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "repair"
+      },
+      {
+        "elapsed_ms": 740.316,
+        "expected_refusal": false,
+        "input_utf8_bytes": 0,
+        "output_unicode_characters": 371,
+        "output_utf8_bytes": 371,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "repaired_doctor"
+      },
+      {
+        "elapsed_ms": 471.333,
+        "expected_refusal": false,
+        "input_utf8_bytes": 0,
+        "output_unicode_characters": 220,
+        "output_utf8_bytes": 220,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "uninstall"
+      },
+      {
+        "elapsed_ms": 4864.107,
+        "expected_refusal": false,
+        "input_utf8_bytes": 0,
+        "output_unicode_characters": 99,
+        "output_utf8_bytes": 99,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "reinstall_retained_data"
+      },
+      {
+        "elapsed_ms": 406.6,
+        "expected_refusal": false,
+        "input_utf8_bytes": 2,
+        "output_unicode_characters": 1179,
+        "output_utf8_bytes": 1251,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "read_retained_data"
+      },
+      {
+        "elapsed_ms": 361.403,
+        "expected_refusal": false,
+        "input_utf8_bytes": 41,
+        "output_unicode_characters": 805,
+        "output_utf8_bytes": 805,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "assessment_after_reinstall"
+      },
+      {
+        "elapsed_ms": 418.765,
+        "expected_refusal": false,
+        "input_utf8_bytes": 0,
+        "output_unicode_characters": 220,
+        "output_utf8_bytes": 220,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "final_uninstall"
+      },
+      {
+        "elapsed_ms": 557.717,
+        "expected_refusal": true,
+        "input_utf8_bytes": 0,
+        "output_unicode_characters": 0,
+        "output_utf8_bytes": 0,
+        "owned_process_terminated_during_observed_copy": true,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "actual_install_interruption"
+      },
+      {
+        "elapsed_ms": 5041.784,
+        "expected_refusal": false,
+        "input_utf8_bytes": 0,
+        "output_unicode_characters": 99,
+        "output_utf8_bytes": 99,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "interrupted_install_retry"
+      },
+      {
+        "elapsed_ms": 751.935,
+        "expected_refusal": false,
+        "input_utf8_bytes": 0,
+        "output_unicode_characters": 371,
+        "output_utf8_bytes": 371,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "interrupted_retry_doctor"
+      },
+      {
+        "elapsed_ms": 380.284,
+        "expected_refusal": false,
+        "input_utf8_bytes": 0,
+        "output_unicode_characters": 220,
+        "output_utf8_bytes": 220,
+        "passed": true,
+        "stderr_utf8_bytes": 0,
+        "step": "interrupted_retry_uninstall"
+      }
+    ],
+    "synthetic_data": "retained_in_isolated_verification_workspace",
+    "two_independent_accounts": "not_checked",
+    "version": "0.8.0"
   },
   "ordinary_user_manual_steps": {
     "status": "not_measured_in_clean_independent_desktop",
@@ -378,5 +706,80 @@
     "synthetic_data": "retained_in_isolated_verification_workspace",
     "two_independent_accounts": "not_checked",
     "version": "0.8.0"
+  },
+  "published_bootstrap": {
+    "environment": "existing signed-in Windows maintainer desktop; permitted PowerShell 7.6.5; child PATH only Windows and official Codex CLI; not a clean independent account",
+    "developer_tools_on_child_path": false,
+    "download": {
+      "model_calls": 0,
+      "package_cache_preexisted": false,
+      "download_ms": 620,
+      "downloaded_from": "public_github_release",
+      "bootstrap_download_sha256": "3db526b83939d78e7851fa59acbc7d316a8a75ee99654cdf25a2b322831f32fa"
+    },
+    "runs": [
+      {
+        "result": {
+          "two_accounts": "not_checked",
+          "plugin_registration": "installer_completed",
+          "elapsed_ms": 11214,
+          "remote_identity": "not_checked",
+          "version": "0.8.0",
+          "ok": true,
+          "public_staging": "retained_for_repair",
+          "account_binding": "not_requested",
+          "channel": "controlled-preview",
+          "program_check": "passed",
+          "native_chatgpt": "not_checked",
+          "download": "downloaded_and_verified",
+          "model_calls": 0
+        },
+        "step": "download_install",
+        "stdout_utf8_bytes": 368,
+        "total_ms": 11562,
+        "stdout_unicode_characters": 368,
+        "stderr_utf8_bytes": 0,
+        "process_exit": 0
+      },
+      {
+        "result": {
+          "remote_identity": "not_checked",
+          "model_calls": 0,
+          "account_binding": "not_requested",
+          "two_accounts": "not_checked",
+          "channel": "controlled-preview",
+          "public_staging": "retained_for_repair",
+          "plugin_registration": "installer_completed",
+          "ok": true,
+          "download": "verified_cache",
+          "elapsed_ms": 4233,
+          "native_chatgpt": "not_checked",
+          "program_check": "passed",
+          "version": "0.8.0"
+        },
+        "step": "repeat_cached_install",
+        "stdout_utf8_bytes": 358,
+        "total_ms": 4535,
+        "stdout_unicode_characters": 358,
+        "stderr_utf8_bytes": 0,
+        "process_exit": 0
+      }
+    ],
+    "additional_user_prompts_observed": 0,
+    "manual_steps_scope": "this already-authorized maintainer session only; not new-user measurement",
+    "model_calls_by_script": 0,
+    "model_guidance_tokens": null,
+    "top_level_runtime_calls_per_run": 3,
+    "count_boundary": "Three direct runtime calls: install, doctor, register-plugin. Internal probes and official installer subprocesses are not separately counted.",
+    "official_installer_completion": "passed_both_runs"
+  },
+  "current_session_setup_probe": {
+    "native_read_calls": 3,
+    "local_runtime_calls": 4,
+    "local_calls_include": "slot-create, first empty-input launcher refusal, direct EXE probe, actual process-stdin launcher probe",
+    "new_conversations": 0,
+    "guidance_model_tokens": null,
+    "local_script_model_requests": 0,
+    "environment": "existing signed-in Codex desktop session; not clean independent user"
   }
 }

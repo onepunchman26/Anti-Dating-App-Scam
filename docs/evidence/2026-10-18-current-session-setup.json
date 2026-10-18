@@ -1,0 +1,28 @@
+{
+  "environment": "current_existing_Codex_desktop_conversation; not_a_fresh_ChatGPT_session",
+  "installed_skills_in_client_catalog": [
+    "slowmatch",
+    "slowmatch-setup"
+  ],
+  "installed_setup_skill_read": true,
+  "native_tools_available": 16,
+  "native_authenticated_health": "passed_actual_connected_tool",
+  "service_name": "AI-SlowMatch",
+  "service_version": "0.8.0",
+  "service_protocol": "1.0",
+  "controlled_scope_enabled": true,
+  "native_mode_reads": {
+    "dating": "passed_empty_not_joined",
+    "friendship": "passed_empty_not_joined"
+  },
+  "local_slot": "created_for_verified_current_account_in_controlled_test_scope_only",
+  "local_launcher_probe": "passed_synthetic_write_read_delete_with_actual_process_stdin",
+  "direct_component_probe": "passed_synthetic_write_read_delete",
+  "private_profile_read_or_imported": false,
+  "private_profile_written": false,
+  "summary_published": false,
+  "identifiers_omitted": true,
+  "first_launcher_attempt": "failed_empty_stdin_from_PowerShell_object_pipeline; correct_process_stdin_succeeded_without_source_or_configuration_repair",
+  "fresh_chatgpt_conversation": "not_checked",
+  "independent_account": "blocked_unavailable"
+}
