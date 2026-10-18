@@ -1,10 +1,21 @@
 name: build-apps
 
 # Remote compute is explicitly started by a human. Local release is automatic per command.
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Build target / 构建目标"
+        required: true
+        default: work-preview
+        type: choice
+        options:
+          - work-preview
+          - legacy-desktop
 
 jobs:
   windows-work-preview:
+    if: inputs.target == 'work-preview'
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,6 +38,7 @@ jobs:
             ${{ env.WORK_RELEASE }}/SHA256SUMS.txt
           if-no-files-found: error
   windows-desktop:
+    if: inputs.target == 'legacy-desktop'
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4

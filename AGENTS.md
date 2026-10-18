@@ -24,9 +24,11 @@ permission to send information to the matching service.
 
 - Keep the full profile, private assessments, relationship observations, reflections,
   raw materials/audio/transcripts and private filtering reasons in user-owned local storage.
-  Default new state to `%LOCALAPPDATA%/AI-SlowMatch/work`, outside Git, OneDrive,
-  plugin packages, build outputs, and website assets. Do not migrate or scan old
-  vaults automatically.
+  Portable 0.8 state uses explicit account/scope-bound slots under
+  `%LOCALAPPDATA%/AI-SlowMatch/accounts/<opaque-slot>/work`. The former
+  `%LOCALAPPDATA%/AI-SlowMatch/work` is a retained developer/legacy location, never
+  an automatic account fallback. Keep both outside Git, OneDrive, plugin packages,
+  build outputs and website assets. Do not migrate or scan old vaults automatically.
 - Sites accepts separately generated, reviewed, version-bound matching summaries
   and the narrow new exception of individually approved, purpose/audience/expiry-bound
   minimal shared planning preferences, meeting plans and selected feedback. Local

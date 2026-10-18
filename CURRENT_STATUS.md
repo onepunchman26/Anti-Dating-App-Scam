@@ -1,5 +1,50 @@
 # Current handoff / 当前交接
 
+## English — 0.8.0 distribution, October 18, 2026 UTC
+
+The original project now has a prebuilt Windows runtime, deterministic installation and
+account-scoped local storage, a short setup entry, progressive daily reads, and server-enforced
+controlled testing. GitHub About, homepage link and Topics are updated. **Release upload and
+final downloaded-artifact verification are still in progress.** See the
+[distribution record](docs/DISTRIBUTION_VALIDATION.md) for current proof and limitations.
+
+The existing private Site runs 0.8.0, saved version 6, environment revision 1. Actual signed-in
+browser health confirms the controlled test scope and database access; native MCP/local-tool
+and independent B acceptance are separate, unverified gates. No real profile was published.
+The default test scope expires at 2026-11-17 05:30 UTC and needs deliberate maintainer renewal.
+
+A compiled candidate passed 25 isolated EXE calls without Python/Git/Node on its child PATH,
+including data preservation and privacy refusals. Actual plugin registration exposed an old
+marketplace-path conflict; the installer is being corrected before final release. Full core
+regression: 2,491 passed / 10 skipped; website: 25 passed. Later installer corrections have
+separate focused tests. A clean independent desktop and actual upgrade failure remain untested.
+
+No second account is available. When it is, use the [same test entry](CONTROLLED_TEST.md), with
+its own authorized Site login and separate device/OS identity. Do not repair B's code or client
+configuration manually. Public catalog admission and overall source licensing remain separate.
+Existing private files and the legacy 0.5.3 EXE are preserved. Prior 0.7 evidence below is historical.
+
+## 中文版 — 0.8.0 分发，UTC 2026 年 10 月 18 日
+
+原项目已新增预编译 Windows 运行组件、确定性安装与按账号隔离的本机存储、短设置入口、
+日常按需读取及服务端受控测试。GitHub About、主页链接与 Topics 已实际更新。
+**Release 上传及最终下载产物验收仍在进行。** 证据与限制见[分发记录](docs/DISTRIBUTION_VALIDATION.md)。
+
+现有私有 Site 运行 0.8.0，保存版本 6、环境版本 1。真实登录浏览器自检确认受控范围与数据库读取；
+原生 MCP／本机工具和独立 B 验收另行判断，尚未验证。未发布真实档案。
+默认测试范围于 UTC 2026-11-17 05:30 到期，需要维护者明确续期。
+
+编译候选包在子进程 PATH 不含 Python／Git／Node 的条件下通过 25 次实际 EXE 调用，包含资料保留
+及隐私拒绝。真实插件注册发现旧目录路径冲突，正在发布前修复安装程序。
+完整核心回归 2,491 项通过／10 项跳过；网站 25 项通过，后续安装器修改另作针对性验证。
+尚未测试独立干净桌面和真实升级失败。
+
+目前没有第二账号。具备后用[同一测试入口](CONTROLLED_TEST.md)，以本人获准的 Site 登录和独立
+设备／系统身份完成，不能由开发者替 B 手工修代码或配置。公共目录资格及整体源码许可仍另行决定。
+已有私人文件与旧 0.5.3 EXE 保留；下列 0.7 记录仅为历史证据。
+
+---
+
 ## English — 0.7.0, October 18, 2026 UTC
 
 **The expanded migration is implemented, installed locally and deployed to the existing

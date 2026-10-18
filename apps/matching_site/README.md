@@ -2,7 +2,11 @@
 
 ## English
 
-This is the authoritative Site/MCP source inside the original Python project. Source 0.7
+For 0.8 controlled-test scope configuration, protocol checks and recovery, use the
+[maintainer operations guide](../../docs/SITE_OPERATIONS.md). Ordinary users use the
+root installation guide and never deploy their own copy of this service.
+
+This is the authoritative Site/MCP source inside the original Python project. Source 0.8
 extends the existing Sites Vinext/Cloudflare Worker and D1 service with independent romance
 (`dating`) and friendship modes and minimal joint planning. It never hosts the private Python
 store, AI inference, private risk reports, raw materials, audio or transcripts. Native Sites
@@ -97,7 +101,10 @@ method/documentation references. Existing notices remain applicable.
 
 ## 中文版
 
-本目录是原 Python 项目内的 Site／MCP 权威源码。0.7 源码在现有 Sites Vinext／Cloudflare Worker
+0.8 受控测试范围、协议检查及恢复见[维护者操作指引](../../docs/SITE_OPERATIONS.md)。
+普通用户使用根目录安装入口，不自行部署本服务。
+
+本目录是原 Python 项目内的 Site／MCP 权威源码。0.8 源码在现有 Sites Vinext／Cloudflare Worker
 和 D1 上增加独立恋爱（`dating`）／朋友模式及最小共同安排，不托管私人 Python 存储、AI 推理、私人
 风险报告、原始材料、音频或转写。所有权来自原生 Sites 请求身份；预览／测试身份是模拟的，不算真实
 账号验收。
