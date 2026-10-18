@@ -13,7 +13,8 @@
       ".vscode/",
       "paper/"
     ],
-    "source_sync": "pending_final_delivery_commit"
+    "source_sync": "implementation_commit_pushed_normally_and_verified_on_origin_migration_branch",
+    "implementation_commit": "d84de813335fa748276b7b8e28f6655003702f09"
   },
   "legacy": {
     "fixed_exe_version": "0.5.3",
@@ -200,7 +201,8 @@
         "access suitability",
         "schedule or price changes"
       ],
-      "reservations": false
+      "reservations": false,
+      "window_note": "Proposed windows are conservative subsets of observed opening hours, not guaranteed future availability."
     }
   },
   "semantic_review": {

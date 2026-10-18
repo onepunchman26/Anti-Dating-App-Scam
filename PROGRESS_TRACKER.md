@@ -9,7 +9,7 @@ Updated / 更新：2026-10-18。Agent-maintained; change both languages together
 - ✅ R5–R6 executable scope: isolated shared-input generator, individual planning preferences, versioned proposals/confirmations/withdrawal and optional selected feedback. Two public venues actually checked; installed launcher generated/exported/withdrew a synthetic sourced plan. Local UI rendered both source cards and kept preview unuploaded. Selected text/audio correction/retention/deletion passed; actual speech transcription returned unavailable, not a success.
 - ✅ R7 verification/private deployment: **2,444 Python passed / 10 skipped / zero failures**, 18 Node/local D1 tests, compile, Ruff, TypeScript, ESLint and production build passed. Same owner-private Site deployed as saved version 4 (0.7.0), source `4c5bb5e`; real signed-in hosted summary and plan-list reads passed. No production test users or hosted writes.
 - ⛔ External acceptance: second independent account unavailable (NOT EXERCISED); native hosted MCP invocation remains approval-blocked; restricted new-chat storage and broad Work distribution unresolved. No native recorder; missing speech models prevent verified recognition. Real hosted write/lifecycle, cross-account and expired-login/network recovery remain untested. Current-chat Standard speed setting cannot be changed by an available tool.
-- 🔄 Final delivery: bilingual acceptance/handoff and sanitized 0.7 receipt written; final normal Git synchronization pending. Required owner/environment actions are deferred in CURRENT_STATUS, with no questions tonight. Hourly automation remains paused.
+- ✅ Final autonomous delivery: bilingual acceptance/handoff and sanitized 0.7 receipt complete. Implementation `d84de81` pushed normally and verified on `origin/codex/chatgpt-sites-migration`; unrelated work preserved. External acceptance above remains open. Required owner/environment actions are deferred in CURRENT_STATUS, with no questions tonight. Hourly automation remains paused.
 
 ### Historical 0.6 migration checkpoint
 
@@ -59,7 +59,7 @@ Hourly automation stays paused. No purchase, paid API key, real private archive,
 - ✅ R5–R6 可执行范围：隔离共享输入生成器、各自安排偏好、版本化方案／确认／撤回及可选选定反馈。实际核对两个公开地点，安装启动器生成／导出／撤回合成有来源计划；本地界面呈现两张来源卡，预览未上传。选定文字／音频纠正／保留／删除通过，实际语音转写返回不可用，未计为成功。
 - ✅ R7 验证／私有部署：**Python 2,444 通过／10 跳过／零失败**，18 项 Node／本地 D1、编译、Ruff、TypeScript、ESLint、生产构建通过。同一所有者私有站部署为保存版本 4（0.7.0），源码 `4c5bb5e`；真实登录托管摘要及计划列表读取通过，未植入生产测试用户或托管写入。
 - ⛔ 外部验收：没有第二独立账号（尚未实测）；原生托管 MCP 调用仍受审批阻止，受限新聊天存储／广泛 Work 分发未解决。无原生录音器，缺语音模型导致无法验证识别。真实托管写入／生命周期、跨账户及登录过期／断网恢复未实测；当前没有工具更改本聊天 Standard 速度设置。
-- 🔄 最后交付：双语验收／交接及 0.7 脱敏回执已写入，待最终正常 Git 同步。必要本人／环境操作列于 CURRENT_STATUS 留待明天，今晚不提问，小时自动化继续暂停。
+- ✅ 本轮自主交付：双语验收／交接及 0.7 脱敏回执完成，实现 `d84de81` 已正常推送并在 `origin/codex/chatgpt-sites-migration` 核实，保留无关工作。上方外部验收仍未完成；必要本人／环境操作列于 CURRENT_STATUS 留待明天，今晚不提问，小时自动化继续暂停。
 
 ### 0.6 迁移历史检查点
 

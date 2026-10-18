@@ -127,6 +127,8 @@ No answer is requested tonight.
 Recovery: preserve this branch; separately check out `e742c0a` for 0.6 or `78ea405` for
 pre-migration source, without resetting unrelated work. Private files require separate protected
 backup outside Git. Source sync is recorded in the receipt/tracker. Hourly automation stays paused.
+Implementation `d84de813335fa748276b7b8e28f6655003702f09` was pushed normally and verified
+on `origin/codex/chatgpt-sites-migration`; this documentation records that observed result.
 
 ## 中文版 — 0.7.0，UTC 2026 年 10 月 18 日
 
@@ -235,3 +237,5 @@ Sites 项目 `appgprj_6ad4306f79e88191bbbd502f495ec501`，保存版本 **4**；
 
 恢复：保留当前分支，另行检出 `e742c0a` 的 0.6 或 `78ea405` 迁移前源码，不重置覆盖无关工作。
 私人文件需在 Git 外单独受保护备份。源码同步记于回执／进度表，小时自动化继续暂停。
+实现 `d84de813335fa748276b7b8e28f6655003702f09` 已正常推送并在
+`origin/codex/chatgpt-sites-migration` 核实；本文记录这一已观察结果。
