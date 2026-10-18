@@ -355,7 +355,10 @@ def build(root, output, *, allow_dirty=False):
         "--specpath",
         str(output / "spec"),
         "--add-data",
-        f"{generated / 'build_info.json'};anti_dating_scam",
+        # PyInstaller's SOURCE:DEST parser recognizes normal Windows drive
+        # prefixes, but not an extended \\?\ prefix. Only this CLI argument is
+        # normalized; our guarded filesystem I/O keeps long-path support.
+        f"{runtime.logical_path(generated / 'build_info.json')};anti_dating_scam",
         "--optimize",
         "1",
     ]
