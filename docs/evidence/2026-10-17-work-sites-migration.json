@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "product_version": "0.6.0",
+  "verification_date_utc": "2026-10-18",
+  "status": "implemented_and_private_deployed_with_external_acceptance_blocked",
+  "repository": {
+    "authority": "onepunchman26/Anti-Dating-App-Scam",
+    "branch": "codex/chatgpt-sites-migration",
+    "baseline": "78ea4053e716701a3b501ce37f4d5095b2cc51c4",
+    "unrelated_work_preserved": [
+      ".vscode/",
+      "paper/"
+    ],
+    "source_sync": "ready_for_normal_push"
+  },
+  "legacy": {
+    "version": "0.5.3",
+    "entry": "AI-SlowMatch.exe",
+    "unchanged_sha256": "9280e8b464d91b85249c6af26b9e5390e9a358dbe3e7ccbc3b8494d919fb2978",
+    "real_data_accessed": false
+  },
+  "plugin": {
+    "package": "slowmatch@slowmatch-local",
+    "version": "0.6.0",
+    "native_installed": true,
+    "native_skill_read_observed": true,
+    "hosted_app_id": "asdk_app_sites_901b102d1564819190f415db0d09f995",
+    "remote_tool_discovered": "slowmatch_channel_check",
+    "remote_tool_call": "blocked_by_native_approval_policy",
+    "remote_failure": "MCP tool call requires approval, but approval policy is never",
+    "approval_policy_changed": false,
+    "general_chatgpt_work_distribution": "unverified",
+    "installed_cache_matches_source": true
+  },
+  "local_tools": {
+    "execution": "current_chat_supported_exec_with_installed_plugin_launcher",
+    "synthetic": true,
+    "empty_profile_read": true,
+    "saved_revision": 1,
+    "corrected_revision": 2,
+    "separate_process_reread_revision": 2,
+    "summary_preview_approval_export": true,
+    "export_status": "approved_for_upload_not_sent",
+    "private_assessment_saved_and_reread": true,
+    "profile_and_report_uploaded": false,
+    "restricted_new_session": {
+      "result": "storage_unavailable",
+      "bounded_attempts": 3,
+      "success_claimed": false
+    }
+  },
+  "site": {
+    "project_id": "appgprj_6ad4306f79e88191bbbd502f495ec501",
+    "url": "https://slowmatch-private-pilot.fizzydeer7.chatgpt.site",
+    "audience": "owner_private",
+    "external_viewers_added": false,
+    "authoritative_directory": "apps/matching_site",
+    "hosting_source_mapping": "allowlisted_one_way_mirror_with_source-map.json",
+    "source_commit": "79dbff84025c6528023eb77ced2df923deb67006",
+    "version_number": 3,
+    "version_id": "appgprj_6ad4306f79e88191bbbd502f495ec501~appgver_9e9fcec07f808191bc436c9237fca7a0",
+    "deployment_id": "appgdep_6ad43837478081919a64617dae7c5b0d",
+    "deployment_status": "succeeded",
+    "has_mcp": true,
+    "archive": {
+      "archive_format": "tar",
+      "sediment_file_id": "file_00000000635081f694be709b30e00589",
+      "content_hash": "sha256:9125406a675895756bb30ab397c606ddf480533960b625c702f50015fdb32d09",
+      "size_bytes": 1587200,
+      "file_count": 94
+    },
+    "hosted_render": "verified_signed_in_browser",
+    "browser_console_errors": 0,
+    "authenticated_native_summary_write": "not_exercised",
+    "two_accounts": "not_exercised_owner_has_no_second_account"
+  },
+  "checks": {
+    "baseline_pytest": {
+      "passed": 2306,
+      "skipped": 9
+    },
+    "initial_migration_pytest": {
+      "passed": 2341,
+      "skipped": 10,
+      "failed": 1,
+      "reason": "schema_file_updated_after_test_process_imported_previous_definition"
+    },
+    "final_pytest": {
+      "passed": 2349,
+      "skipped": 10,
+      "failed": 0,
+      "warnings": 1,
+      "seconds": 781.38
+    },
+    "focused_python": {
+      "passed": 43,
+      "skipped": 1
+    },
+    "node_local_d1": {
+      "passed": 5,
+      "real_account_authentication": false
+    },
+    "compileall": "passed",
+    "ruff_new_python": "passed",
+    "typescript": "passed",
+    "eslint_app_lib_db_tests": "passed",
+    "site_build": "passed",
+    "staged_source_scan": {
+      "files": 163,
+      "credential_or_absolute_user_path_findings": 0,
+      "forbidden_artifacts": 0,
+      "mirrored_files_missing_from_git": 0
+    }
+  },
+  "acceptance_limits": [
+    "Native approval-required remote calls not exercised",
+    "Restricted independent new-session local storage unresolved",
+    "Two-account authentication, publication, matching and withdrawal not exercised",
+    "Real hosted expiry/network recovery not exercised"
+  ],
+  "no_actions": [
+    "no_real_private_archive_read",
+    "no_real_summary_uploaded",
+    "no_automatic_contact",
+    "no_public_audience_expansion",
+    "no_paid_service_purchase",
+    "no_approval_bypass"
+  ]
+}

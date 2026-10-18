@@ -2,7 +2,37 @@
 
 ## Mission
 
-Anti-Dating-App-Scam is an AI-SlowMatch prototype for scam awareness and relationship-trust infrastructure. Build tools that help users slow down, preserve autonomy, and avoid unsafe online intimacy patterns.
+Anti-Dating-App-Scam is the authoritative AI-SlowMatch project for relationship understanding, long-term relationship choices, and scam awareness. Build tools that help users slow down, preserve autonomy, and avoid unsafe online intimacy patterns.
+
+## Current Product Direction (2026-10-17)
+
+The owner's October 17 migration requirements supersede the earlier GUI-first and
+offline-only assumptions. The primary interaction is the user's own ChatGPT desktop
+conversation with the AI-SlowMatch plugin. ChatGPT's cloud models may process the
+personal information the user has authorized for that task. This is separate from
+permission to send information to the matching service.
+
+- Keep the full profile and private match assessments in user-owned local storage.
+  Default new state to `%LOCALAPPDATA%/AI-SlowMatch/work`, outside Git, OneDrive,
+  plugin packages, build outputs, and website assets. Do not migrate or scan old
+  vaults automatically.
+- Send only a separately generated, reviewed, version-bound shareable summary to
+  Sites. Local profile-update consent is not publication consent. Sites must never
+  receive raw chats, private claims, private analysis, or full-profile embeddings.
+- Sites provides authenticated summary storage, visibility, reciprocal filtering,
+  and preliminary explanations from shared fields. Resolve identity from validated
+  platform request context, never a model/client-supplied `user_id`.
+- Reuse the existing Python models, guarded storage, and migration helpers. Keep the
+  fixed `AI-SlowMatch.exe` and verified 0.5.3 recovery evidence; the new 0.6.0 source
+  migration does not imply that EXE has been rebuilt. Do not maintain two primary
+  chat clients or introduce Ollama/self-hosted inference for this migration.
+- The original repository remains source authority. `apps/matching_site/` is the
+  source for a one-way hosted Sites deployment mirror, not a second product or
+  independently edited authority. Preserve existing Git remotes and unrelated work.
+- Distinguish implementation, package creation, installation, deployment,
+  connection, and real end-to-end acceptance. Do not equate local synthetic tests
+  with two independent authenticated accounts or ordinary ChatGPT cloud access to
+  the user's computer. See the current plan and status for evidence.
 
 ## Safety Boundaries
 
@@ -17,8 +47,8 @@ Anti-Dating-App-Scam is an AI-SlowMatch prototype for scam awareness and relatio
 - Keep FastAPI routes thin and put behavior in services.
 - Use Pydantic models for API inputs and outputs.
 - Keep AI provider code behind interfaces; do not hard-code vendor-specific calls.
-- Current phase is GUI-first: PySide6 desktop code should call the core engine, not own business logic.
-- The core engine must remain UI-independent so it can later be reused by PySide6, optional FastAPI, Tauri, or a Python sidecar.
+- Current phase is ChatGPT-plugin-first: local CLI/tool code and retained PySide6 utilities call the core engine, not own business logic.
+- The core engine must remain UI-independent. The hosted Sites service uses its supported Worker runtime; do not assume Python/FastAPI can run unchanged there.
 - Provider adapters must be isolated behind shared interfaces and registry code.
 - All report-like outputs should become schema-valid before export, signing, or verification.
 
@@ -44,6 +74,10 @@ Anti-Dating-App-Scam is an AI-SlowMatch prototype for scam awareness and relatio
 - No real user data in tests, examples, docs, or fixtures.
 - No hidden data collection: process only data the user has explicitly provided; never
   scrape, exfiltrate, or transmit third-party platform content or vault contents.
+- The owner's explicit authorization permits OpenAI cloud analysis of task-relevant
+  supplied personal information. It does not authorize bulk vault uploads, new sync
+  destinations, or publication to Sites, other users, or the public. Keep all three
+  data destinations and their approvals distinct.
 
 ## Inherited rules
 

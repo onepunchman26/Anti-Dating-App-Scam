@@ -2,10 +2,12 @@
 
 ## English
 
-Reviewed October 16, 2026. Thank you to the authors and communities below. This
-register distinguishes adapted ideas, design references and an external runtime;
-it does not imply endorsement or that another client's code is shipped here.
-The same sources and scope are available offline in **About → Show Details**.
+Reviewed October 17, 2026. Thank you to the authors and communities below. This
+register distinguishes adapted ideas, design references, external runtimes and
+the actual Sites starter components now retained in source. References are not
+endorsements. Source packaged credits are updated in
+`src/anti_dating_scam/licenses/open-source-credits.txt`; the existing 0.5.3 EXE's
+**About → Show Details** retains its earlier credits until a separate rebuild.
 
 | Project and license | Pinned source and use in AI-SlowMatch |
 | --- | --- |
@@ -21,7 +23,26 @@ or a completed public-distribution legal review. Before any future copying, reco
 the exact revision, compatibility of the license, files changed, notices and thanks.
 Update both README languages and packaged credits in the same change.
 
+### October 17 plugin and Sites migration
+
+| Source, revision and license | Actual reuse and retained notices |
+| --- | --- |
+| OpenAI Sites supplied Vinext starter, installed bundle `sites/1.0.2-remix-a.1` | Actual scaffolding copied into `apps/matching_site/`: runtime/build configuration, auth helper, scripts and retained vendor assets. Project-specific matching behavior and pages are written here. This is bundled starter source, not merely design inspiration; component licenses are identified below, without asserting one blanket license for the whole supplied template. |
+| `@openai/sites-vite-plugin` `0.2.0`, header provenance `openai/sites#9`, MIT, copyright 2026 OpenAI | [Build integration](../apps/matching_site/build/sites-vite-plugin.ts) is actually vendored and imported by the Site Vite config. The [full MIT notice](../apps/matching_site/build/sites-vite-plugin.LICENSE) is retained. SHA-256 matched the installed starter source at inspection: `07af20e7097d9ed1d76f7c446d02997550b8fc5ca89668b249e25eabd62c6834`. Thank you to the Sites maintainers. |
+| shadcn Tailwind CSS `4.13.0`, supplied by the same Sites bundle, MIT, copyright 2023 shadcn | [Vendored stylesheet](../apps/matching_site/vendor/shadcn-tailwind-4.13.0.css) is imported by the Site's global CSS; the [full MIT notice](../apps/matching_site/vendor/shadcn-tailwind-4.13.0.LICENSE.md) remains beside it. SHA-256 matched the installed starter: `bc7d83425702955b4cb67cb14ede9d603f9d912376d57a2d81d661094d2a782a`. Thank you to shadcn and contributors. |
+| goutoujunshi, reviewed revision `6db7354a4002dc7c448a9c87ffdad8132570c9d3`, MIT | The native plugin adapts evidence separation, tentative interpretation, autonomy and bounded-memory methods from the inspected Skill and memory guide. It does not copy the complete prompt or memory implementation. Mandatory MBTI/scores, gender defaults and manipulation are excluded. Both original notices remain in `plugins/slowmatch/licenses/`; see its [bilingual credits](../plugins/slowmatch/CREDITS.md). |
+| Installed `grilling` Skill; inspected local copy, no upstream revision/license claimed | Development review only. It is neither bundled nor an end-user coaching module. No copied implementation or prompt, so this entry records a consulted method rather than a redistributed dependency. |
+| Life direction and action planning | No separate installed Skill was found in the audited user and cached-plugin locations. `plugins/slowmatch/skills/slowmatch/references/direction.md` is new project-authored workflow text, not a claimed reuse of an unavailable Skill. |
+| Official OpenAI plugin and Sites documentation, checked October 17, 2026 | [Plugin packaging](https://developers.openai.com/plugins/build/plugins), [connection/testing](https://developers.openai.com/plugins/deploy/connect-chatgpt), [desktop distribution](https://developers.openai.com/plugins/deploy/desktop-only), [Sites data](https://learn.chatgpt.com/docs/sites/data-and-connections) and [sharing](https://learn.chatgpt.com/docs/sites/publishing-and-sharing) informed interfaces and evidence boundaries. Documentation reference only; no OpenAI client code copied. |
+
+Site dependency versions are captured in its `package.json` and lockfile; their own
+licenses apply. Build and vendor notices above remain in the hosted-source mirror
+and source package. The native plugin and existing desktop binary are separate
+artifacts; this source credit update does not claim either was reinstalled/rebuilt.
+
 ### Applying the findings to the connection loop
+
+The following records the earlier 0.5.3 repair, not the current plugin workflow.
 
 The root executable was still 0.5.1 because the earlier replacement had been blocked
 by its running process. Native inspection also found a loaded model list alongside
@@ -46,9 +67,10 @@ does not establish working inference or the upstream's actual model ID.
 
 ## 中文版
 
-2026 年 10 月 16 日审阅。感谢上述作者与社区。本登记区分改编理念、设计参考和外部
-运行依赖，不代表上游背书，也不表示打包了其他客户端的源码。软件的**关于 → 显示详情**
-可离线查看相同来源及借鉴范围。
+2026 年 10 月 17 日审阅。感谢上述作者与社区。本登记区分改编理念、设计参考、外部运行依赖和
+当前源码中实际保留的 Sites 模板组件，引用不代表上游背书。源码中的打包致谢
+`src/anti_dating_scam/licenses/open-source-credits.txt` 已同步；现有 0.5.3 EXE 的
+**关于 → 显示详情**仍保留旧版致谢，只有另行重建后才会包含新增内容。
 
 | 项目与许可 | 固定来源及本软件的使用范围 |
 | --- | --- |
@@ -62,7 +84,24 @@ does not establish working inference or the upstream's actual model ID.
 原始许可，也不代表完成公开分发法律审查。今后复制前须记录确切版本、许可兼容性、
 修改文件、版权声明和致谢，并在同次变更中同步双语 README 与软件内致谢。
 
+### 10 月 17 日插件与 Sites 迁移
+
+| 来源、版本与许可 | 实际使用及保留声明 |
+| --- | --- |
+| OpenAI Sites 提供的 Vinext 模板，已安装 bundle `sites/1.0.2-remix-a.1` | 模板实际复制到 `apps/matching_site/`，包括运行／构建配置、身份辅助、脚本和附带供应商资源。本项目编写具体匹配逻辑与页面。这是实际打包源码，不只是设计参考；下方按组件记录许可，不声称整个所供模板具有同一许可。 |
+| `@openai/sites-vite-plugin` `0.2.0`，文件头来源 `openai/sites#9`，MIT，版权 2026 OpenAI | [构建集成源码](../apps/matching_site/build/sites-vite-plugin.ts)实际随项目保留并由 Site 的 Vite 配置导入，[完整 MIT 声明](../apps/matching_site/build/sites-vite-plugin.LICENSE)保持不变。检查时与安装模板的 SHA-256 相同：`07af20e7097d9ed1d76f7c446d02997550b8fc5ca89668b249e25eabd62c6834`。感谢 Sites 维护者。 |
+| shadcn Tailwind CSS `4.13.0`，来自同一 Sites bundle，MIT，版权 2023 shadcn | [随包样式表](../apps/matching_site/vendor/shadcn-tailwind-4.13.0.css)由 Site 全局 CSS 导入，旁边保留[完整 MIT 声明](../apps/matching_site/vendor/shadcn-tailwind-4.13.0.LICENSE.md)。与安装模板 SHA-256 一致：`bc7d83425702955b4cb67cb14ede9d603f9d912376d57a2d81d661094d2a782a`。感谢 shadcn 及贡献者。 |
+| goutoujunshi，审阅版本 `6db7354a4002dc7c448a9c87ffdad8132570c9d3`，MIT | 原生插件借鉴实际读取 Skill 和记忆指南中的证据区分、暂定解释、自主选择和有限记忆方法，不复制完整提示词或记忆实现；排除必填 MBTI／评分、性别默认值和操控。两份原许可保留在 `plugins/slowmatch/licenses/`，见其[双语致谢](../plugins/slowmatch/CREDITS.md)。 |
+| 已安装 `grilling` Skill，读取本地副本，不声称上游版本／许可 | 只用于开发审查，不打包，也不是面向最终用户的军师模块。没有复制实现或提示词；此处记录方法参考，不将其列为重新分发依赖。 |
+| 人生方向与行动规划 | 在已审计用户及插件缓存位置未发现独立已安装 Skill。`plugins/slowmatch/skills/slowmatch/references/direction.md` 是本项目新写流程，不冒充复用了不可用的 Skill。 |
+| 官方 OpenAI 插件与 Sites 文档，2026 年 10 月 17 日核对 | 参考[插件打包](https://developers.openai.com/plugins/build/plugins)、[连接／测试](https://developers.openai.com/plugins/deploy/connect-chatgpt)、[桌面分发](https://developers.openai.com/plugins/deploy/desktop-only)、[Sites 数据](https://learn.chatgpt.com/docs/sites/data-and-connections)及[分享](https://learn.chatgpt.com/docs/sites/publishing-and-sharing)，用于接口与验收边界；仅文档参考，不复制 OpenAI 客户端源码。 |
+
+Site 依赖版本记录在其 `package.json` 与锁文件，各自许可独立适用。上述构建和供应商声明继续保留在
+托管源码镜像与源码包中。原生插件与旧桌面二进制是不同产物，本次源码致谢更新不表示已重装或重建。
+
 ### 如何应用到本次连接循环
+
+下方记录此前 0.5.3 修复，不描述当前插件工作流。
 
 根目录仍是 0.5.1，因为此前运行中的进程阻止了替换。原生检查还发现：模型已加载，
 但套餐确认未勾选，突出显示的按钮却会重复登录。与此同时，本机 Codex 更新到了

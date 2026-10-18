@@ -1,0 +1,12 @@
+{
+  "name": "slowmatch-local",
+  "interface": {"displayName": "AI-SlowMatch / 慢慢相识"},
+  "plugins": [
+    {
+      "name": "slowmatch",
+      "source": {"source": "local", "path": "./plugins/slowmatch"},
+      "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
+      "category": "Productivity"
+    }
+  ]
+}

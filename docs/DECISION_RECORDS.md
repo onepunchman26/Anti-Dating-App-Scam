@@ -1,8 +1,77 @@
 # Decision Records
 
+## ADR-014: ChatGPT Entry, Local Private Profile, Sites Summary Service
+
+Status: Accepted direction (owner requirements, October 17, 2026); implementation
+and acceptance are recorded separately in `CURRENT_STATUS.md` and `PROGRESS_TRACKER.md`.
+
+### English
+
+Context: The owner wants to reuse the existing project, use their own ChatGPT
+desktop conversation and cloud models, keep the complete profile on their computer,
+and share only an explicitly approved summary for an authenticated matching service.
+Earlier GUI-first, offline-default and metadata-only rendezvous directions conflict
+with this request. They are historical where superseded, not parallel roadmaps.
+
+Decision:
+
+- Make `plugins/slowmatch/` the unified workflow entry. Focused Skills guide the
+  conversation and call local tools when supported. The user's own values and
+  answers are authoritative; no founder profile defaults.
+- Reuse the Python core with versioned private/draft/publication/assessment objects,
+  guarded local persistence, corrections and explicit legacy import. New state
+  defaults to `%LOCALAPPDATA%/AI-SlowMatch/work`, outside OneDrive and Git.
+- Allow the authorized personal context needed for OpenAI cloud analysis. This is
+  not permission for Sites to receive raw chats, full profiles or private reports.
+- Sites stores only separately approved summary fields and necessary identity,
+  visibility and version state. Use its supported Worker/D1 runtime and verified
+  request identity, not a client-supplied owner ID. Check both participants' hard
+  conditions and explain only shared information. Deep analysis remains local.
+- Bind approval to content, destination, audience and version. A draft is not
+  approval, a hash is not a signature, and local approval is not remote-write evidence.
+- Keep the original repository authoritative. `apps/matching_site/` synchronizes
+  one way to the hosted deployment repository required by Sites. Preserve the
+  original remote and unrelated work; do not create independently maintained products.
+- Retain validated 0.5.3 fixed-EXE/recovery evidence. New 0.6.0 source does not imply
+  rebuilding the EXE. No additional main chat client, Ollama migration or Tauri work.
+
+Consequences: Sites introduces intentional remote storage of permitted summaries,
+not of complete profiles. Browser access, sign-in, MCP connection, local Skill
+installation and two independent accounts require separate proof. Public directory
+distribution and local-executor eligibility cannot be assumed from owner installation.
+Routine authorized work continues while blocked external prerequisites are reported
+accurately. No private data migration has been performed merely by adopting this ADR.
+
+### 中文版
+
+背景：所有者要求复用原项目，在自己的 ChatGPT 桌面对话中使用云端模型，完整档案以本人电脑为主存，
+只把独立批准的摘要交给认证匹配服务。旧 GUI 优先、默认离线和仅保存会合元数据的方向与此冲突，
+被替代部分保留为历史，不作为并行路线。
+
+决策：
+
+- `plugins/slowmatch/` 成为统一工作流入口，按需 Skills 引导聊天并在支持时调用本机工具。
+  每个人的价值观和答案以本人为准，不设置创始人档案默认值。
+- 复用 Python 核心，使用分开的版本化私人档案／草稿／发布记录／私人分析、受保护本地持久化、
+  纠正和明确旧数据导入。新状态默认位于 OneDrive 和 Git 之外的 `%LOCALAPPDATA%/AI-SlowMatch/work`。
+- 允许 OpenAI 云端处理已授权任务所需个人资料，不代表允许 Sites 获取原始聊天、完整档案或私人报告。
+- Sites 仅保存独立批准的摘要字段和必要身份、可见性、版本状态。使用受支持的 Worker/D1 与验证后的
+  请求身份，不信任客户端自报所有者。检查双方硬条件，只解释共享信息，深入分析留在本人工作流。
+- 批准绑定内容、目的地、受众和版本。草稿不是批准，哈希不是签名，本机批准不是远程写入证明。
+- 原仓库继续作为权威，`apps/matching_site/` 单向同步至 Sites 要求的托管部署仓库。保留原远端和他人
+  工作，不建立独立维护的并行产品。
+- 保留已验证的 0.5.3 固定 EXE 与恢复证据。0.6.0 新源码不表示 EXE 已重建，不另做主聊天客户端、
+  Ollama 迁移或 Tauri 工作。
+
+影响：Sites 有意远程保存获准摘要，不保存完整档案。网页访问、登录、MCP 连接、本机 Skill 安装和
+两个独立账号均需分别证明。不能凭所有者安装推断公开目录分发或本机执行资格。常规获准工作继续推进，
+外部缺口如实记录。接受本决策本身不表示已经迁移真实私人数据。
+
+## Earlier decisions (read with ADR-014) / 早期决策（以 ADR-014 为准）
+
 ## ADR-001: Local-First Instead Of Cloud-First
 
-Status: Accepted
+Status: Accepted for complete private profiles; remote-summary scope amended by ADR-014.
 
 Context: The project handles sensitive relationship conversations, risk reflections, and potentially personal profile documents.
 
@@ -12,7 +81,7 @@ Consequences: More responsibility moves to local file format design, export, del
 
 ## ADR-002: GUI-First Instead Of API-First
 
-Status: Accepted
+Status: Superseded by ADR-014; retained as historical desktop direction.
 
 Context: A FastAPI prototype is useful for tests and contracts, but the user-facing product is a local desktop trust tool.
 
@@ -32,7 +101,7 @@ Consequences: Python remains the source of truth for analyzers, provider adapter
 
 ## ADR-004: PySide6 For Early Desktop GUI
 
-Status: Accepted
+Status: Retained for legacy/recovery utilities; primary entry superseded by ADR-014.
 
 Context: The project needs a local desktop GUI before a full Tauri migration is worth the extra build complexity.
 
@@ -44,7 +113,7 @@ Implementation note 2026-06-21: `apps/desktop_pyqt/` and `run_desktop.py` now pr
 
 ## ADR-005: Future Tauri Plus Python Sidecar Migration
 
-Status: Proposed
+Status: Deferred; not part of the ADR-014 migration.
 
 Context: Tauri offers a strong desktop shell and Rust integration, but the engine is still evolving.
 
@@ -94,7 +163,7 @@ Consequences: Any local report should use risk signals and uncertainty notes, no
 
 ## ADR-010: FastAPI Retained Only As Optional Local API
 
-Status: Accepted
+Status: Accepted for the existing FastAPI code; ADR-014 adds a separate Sites Worker summary service.
 
 Context: Existing FastAPI routes provide useful contracts and tests.
 
@@ -104,7 +173,7 @@ Consequences: Future work should move core logic into engine modules and keep AP
 
 ## ADR-011: Ollama Adapter Implemented With Stdlib HTTP, No New Dependency
 
-Status: Accepted
+Status: Historical implementation retained; recommended-default direction superseded by ADR-014.
 
 Context: Phase 2 calls for an Ollama (local) provider adapter as the recommended default AI path, since it keeps imported chat/profile data on-device. The project has no existing HTTP client dependency (`httpx` is dev/test-only, used for FastAPI's `TestClient`).
 
@@ -114,7 +183,7 @@ Consequences: No new third-party dependency was added for this feature. The `LLM
 
 ## ADR-012: Thin Rendezvous Server For Nearby Discovery (Amends ADR-001 Scope)
 
-Status: Accepted (owner decision, 2026-07-06)
+Status: Historical (owner decision, 2026-07-06); first-version service scope superseded by ADR-014.
 
 Context: The compatibility pillar (`docs/11_compatibility_matching_plan.md`) was designed
 strictly peer-to-peer, which only works for two people already in contact. The owner now
@@ -137,7 +206,7 @@ the requester to have an attested card (no browsing without skin in the game). F
 
 ## ADR-013: Decentralized Rendezvous — No Single Operator, Minimal Server
 
-Status: Accepted (owner decision, 2026-07-06)
+Status: Historical (owner decision, 2026-07-06); first-version hosting direction superseded by ADR-014.
 
 Context: ADR-012's thin rendezvous server still implied one hosted service. The owner
 requires that the rendezvous layer not depend on a server owned or rented by one person,

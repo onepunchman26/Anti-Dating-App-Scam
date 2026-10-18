@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "anti-dating-scam"
-version = "0.5.3"
+version = "0.6.0"
 description = "AI-SlowMatch prototype for dating scam risk analysis and trust-ladder support."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -34,6 +34,7 @@ dev = [
 [project.scripts]
 slowmatch = "anti_dating_scam.launchers:desktop_main"
 slowmatch-web = "anti_dating_scam.launchers:web_main"
+slowmatch-work = "anti_dating_scam.work_cli:main"
 
 [tool.setuptools.package-dir]
 "" = "src"

@@ -1,5 +1,145 @@
 # Data Governance
 
+## English — current destination boundaries, October 17, 2026
+
+The owner's October 17 requirements supersede conflicting local-only and GUI-only
+assumptions in the historical sections below. OpenAI analysis, local persistence
+and Sites publication are separate operations with separate data scopes. Accepting
+cloud analysis does not grant the matching website, other participants or the public
+access to the complete private profile.
+
+| Destination | Allowed data and authority |
+|---|---|
+| User's local state | Full profile claims, sources, corrections, uncertainty, revision history, drafts, approvals and private assessments. Read only material required for the current authorized task. |
+| User's ChatGPT session / OpenAI | Task-relevant personal information the user has chosen to analyze, under the applicable service settings. Do not scrape prior ChatGPT history, borrow another application's credentials or treat login as unrestricted local-file access. |
+| Sites matching service | Separately approved summary plus necessary authenticated ownership, visibility, version and matching state. Never raw chats, detailed history, private claims/reports, original source quotations, secrets or full-profile embeddings. |
+| Other participants | Only the fields allowed by current visibility and reciprocal eligibility. No private report, internal user identity, credentials, arbitrary database row or bulk identity export. |
+| Public product page / source / package | Product explanation, code and synthetic examples only. No real profiles, private state, credentials or private test output. |
+
+The local contracts are in `models/work_profile.py`; the guarded service and JSON
+CLI are in `services/work_profile.py` and `work_cli.py`, all below
+`src/anti_dating_scam/`. `PrivateProfile`, `ShareableProfileDraft`,
+`PublishedProfile` and `PrivateMatchAssessment` are distinct schema-versioned
+objects. An important claim records whether it is self-report, observation,
+inference or unknown, its confirmation status and update time. Preserve alternative
+explanations and contradictions; a correction must not be overwritten by stale work.
+
+The first summary contract is intentionally narrow: alias, adult age band, chosen
+city/areas, relationship goal, accepted goals and age bands, selected value,
+life-direction, communication and interest tokens, soft preferences, participant
+visibility, discoverability and summary identifiers/versions. No free-form private
+biography or exact coordinates are required. Approved labels still reveal selected
+information; allowlisting is not a claim of anonymity or proof that all text is safe.
+
+Generate and validate the summary locally before any network operation. Preview the
+exact content, destination, audience and version; record the user's separate
+publication approval. Upload reads the independent approved summary artifact, never
+the private profile followed by server-side filtering. Refuse content changed after
+approval, unexpected fields, excess sizes, arbitrary destinations and private nested
+objects. A digest binds exact bytes but is not a signature or evidence of human
+identity. An approved local receipt is distinct from a successful remote write.
+
+Use Sites-verified request identity for every owned query/write. Ignore or reject
+client `user_id` fields. Account A cannot select account B as the owner by changing
+arguments. Candidate access must recheck authentication, current participation,
+visibility and both sides' hard conditions. Bound queries and responses; do not
+implement identity enumeration or bulk export. Treat all returned labels, links and
+attachments as untrusted data, never instructions to run tools or read local files.
+No tool may upload a private assessment or contact a candidate automatically.
+
+New local state defaults to `%LOCALAPPDATA%/AI-SlowMatch/work`. The resolved path
+must remain outside OneDrive, Git, plugin packages, builds and website assets, even
+when a packaged Windows host redirects AppData. `profile/`, `drafts/`,
+`publications/`, `assessments/` and `outbound/` are separate. The state is plaintext;
+do not claim that file separation or a content hash encrypts it. No new cloud sync
+or broad backup destination is implied. Protect backups as private state and never
+store real backup data in source or deployment folders.
+
+Legacy import must explicitly select and validate an existing supported source,
+copy only the required fields and retain original bytes. Unsupported, malformed or
+conflicting input must fail without silently discarding fields or deleting the
+source. No real legacy archive has been imported during this migration. Synthetic
+tests do not authorize later bulk archive reading.
+
+Withdrawal must remove a profile from current matching/display and controlled
+caches. Deletion cannot revoke another participant's saved copy or promise removal
+from provider/platform backups whose retention the app does not control. Local
+private reports and local history have their own lifecycle; withdrawing from Sites
+does not silently erase them. Document the actual retained state, not absolute erasure.
+The service clears the summary and digest on deletion while retaining an ownership
+tombstone, public ID, server revision, last summary version and update timestamp.
+A revoked summary version cannot be republished even after reloading server state;
+rejoining requires review and approval of a newer summary version. Account query-limit
+counters and a fixed synthetic channel marker may remain; neither contains private text.
+
+Tests and receipts use synthetic data. Inspect the actual approved upload, stored
+remote object and returned fields; use synthetic private markers to test exclusion.
+Handle network, expired-session, failed-write and version-conflict errors explicitly.
+Retries must not duplicate publication or overwrite newer revisions. Authentication
+tests with injected headers are local logic tests, not real two-account acceptance.
+Current deployment, connection and acceptance evidence belongs in the status tracker.
+
+## 中文版 — 当前目的地边界，2026 年 10 月 17 日
+
+所有者 10 月 17 日要求替代下方历史记录中冲突的“仅本机”和“仅 GUI”假设。OpenAI 分析、
+本机保存和 Sites 发布是独立操作，使用不同资料范围。接受云端分析，不代表允许匹配网站、
+其他参与者或公众获取完整私人档案。
+
+| 目的地 | 允许资料与授权范围 |
+|---|---|
+| 本人本机状态 | 完整档案判断、来源、纠正、不确定性、修订历史、草稿、批准和私人分析；只读当前获准任务所需材料。 |
+| 本人 ChatGPT 会话／OpenAI | 按适用服务设置处理本人选择用于任务的个人信息。不抓取既有 ChatGPT 历史，不借用其他应用凭据，不把登录当成无限本机文件访问权。 |
+| Sites 匹配服务 | 独立批准的摘要和必要认证所有权、可见性、版本与匹配状态。禁止原始聊天、详细经历、私密判断／报告、来源引文、秘密或完整档案向量。 |
+| 其他参与者 | 仅展示当前可见范围与双方条件允许的字段，不返回私人报告、内部用户身份、凭据、任意数据库完整行或身份批量导出。 |
+| 公开介绍页／源码／插件包 | 仅产品说明、代码与合成示例，不含真实档案、私人状态、凭据或私人测试输出。 |
+
+本机结构在 `src/anti_dating_scam/models/work_profile.py`，受保护服务和 JSON CLI 分别在同目录下
+的 `services/work_profile.py` 与 `work_cli.py`。`PrivateProfile`、`ShareableProfileDraft`、
+`PublishedProfile` 和 `PrivateMatchAssessment` 是分开的版本化结构。重要判断记录自述、观察、
+推断或未知、本人确认状态和更新时间。保留其他解释及矛盾，旧任务不得覆盖新纠正。
+
+首版摘要刻意收窄为：化名、成年年龄段、自选城市／区域、关系目标、接受的目标与年龄段、选定价值观／
+人生方向／沟通／兴趣选项、软偏好、参与者可见范围、发现状态和摘要编号／版本。不要求自由撰写私人
+经历或精确坐标。获准标签仍会披露选定信息；字段白名单不等于匿名，也不证明所有文字都安全。
+
+任何网络操作前，先在本机生成并校验摘要。展示准确内容、目的地、受众与版本，记录本人独立发布批准。
+上传只读取独立获准摘要产物，不能先传完整档案再在服务端过滤。拒绝批准后被修改的内容、额外字段、超限
+大小、任意目标和夹带私人对象。哈希绑定准确字节，不是签名或身份同意证明；本机批准记录不同于远程写入成功。
+
+每次查询或写入都使用 Sites 验证的身份，忽略或拒绝客户端 `user_id`。A 不能通过参数把 B 设为所有者。
+候选访问重新核验登录、当前参与状态、可见范围和双方硬条件，限制查询与返回量，不提供身份枚举或批量导出。
+所有候选标签、链接及附件都当作不可信数据，不能成为执行工具或读取本机文件的指令。不提供私人报告上传
+或自动联系候选的工具。
+
+新本机状态默认存入 `%LOCALAPPDATA%/AI-SlowMatch/work`。即使 Windows 打包宿主重定向 AppData，
+最终解析路径仍须在 OneDrive、Git、插件包、构建和网站资源之外。`profile/`、`drafts/`、
+`publications/`、`assessments/` 和 `outbound/` 分开保存。状态为明文，目录隔离或哈希并不加密文件。
+不暗含新增云同步或广泛备份目标。备份按私人状态保护，不能进入源码或部署目录。
+
+旧资料导入必须明确选择并校验受支持来源，只复制必要字段，保留原始字节。遇到不支持、损坏或冲突输入
+应失败，不能暗中丢字段或删除源文件。本次迁移未导入真实旧档案，合成测试不授权以后批量扫描资料库。
+
+撤回应从当前匹配、展示与受控缓存中移除相应资料。删除不能追回他人已保存的副本，也不能承诺移除应用
+无法控制保留期的平台／提供方备份。本机私人报告与历史有独立生命周期，退出 Sites 不会暗中删除它们。
+如实说明实际保留状态，不承诺绝对抹除。
+删除时服务清空摘要正文与摘要哈希，保留归属墓碑、公开标识、服务版本、最近摘要版本与更新时间。
+即使重新读取服务状态，也不能重发已撤回的旧摘要版本；再次加入需要审阅并批准更高版本。
+账号查询限额计数与固定合成通道标记可能保留，两者均不包含私人正文。
+
+测试和证据使用合成资料，检查真实获准请求、远程保存对象与返回字段，可用合成私人标记验证排除边界。
+明确处理网络、登录过期、写入失败与版本冲突，重试不能重复发布或覆盖更新版本。注入身份头的测试只证明
+本地逻辑，不算双真实账号验收。当前部署、连接与验收结果记录在状态追踪中。
+
+---
+
+## Historical desktop governance records / 历史桌面资料治理记录
+
+The sections below preserve earlier implementation boundaries and limitations.
+They do not override the October 17 destination policy or assert the new plugin's
+status. In particular, old provider-test and no-database statements are historical.
+/ 下方保留早期实现边界与局限，不覆盖 10 月 17 日目的地政策，也不代表新插件状态。
+其中旧提供方验收和“无数据库”等表述均为历史记录。
+
 ## Private attachment and microphone boundary — English (2026-09-30)
 
 Voice capture begins only after Start recording. At most 30 seconds of audio remain in memory, are normalized and recognized by a user-installed offline Vosk model, and are discarded after transcription or cancel. No audio is saved or sent to AI. The editable words enter the same reviewed text-chat boundary as typed words. Official English/Chinese model downloads occur only after an explicit click and are stored outside the vault. A permission or absent-device failure must remain visible; the app cannot assert that a physical microphone worked.
@@ -18,7 +158,7 @@ Comparison needs explicit permission for each person. A remote request discloses
 
 The earlier conversation checkpoint follows / 下方保留此前聊天里程碑。
 
-## Current conversation boundary — English
+## Historical conversation checkpoint — English
 
 The new AI Chat starts with a user-selected local folder, including an empty one; it does not require importing a file or building an older profile. The conversation lives in memory until the user explicitly chooses to save a reflection. Only original text typed by this user in the current chat can become portrait evidence. A remote request includes those typed statements and at most two earlier AI questions as non-evidence context. Every remote question or portrait request requires a fresh disclosure review; canceling it sends nothing. The flow does not read existing ChatGPT conversations, silently scan the vault, ingest another person's messages, or scrape a platform. **End** invalidates pending responses and does not trigger a portrait or save; it cannot retract a request that was already sent to an online service.
 
@@ -26,7 +166,7 @@ After End, a separate **Create my reflection** action may produce a provisional 
 
 The visible ChatGPT connection uses local code for official browser sign-in, PKCE, separate plan-use permission, model discovery and provider requests; all present verification is synthetic. Real account authorization, model quality and plan eligibility have not been verified. The app does not borrow the local ChatGPT app's credentials or chats. The user must review eligibility and disable extra-credit use for this app in ChatGPT settings before activation; the app cannot inspect that setting or guarantee zero credit use. Do not use paid APIs, buy credits, enter card details or perform live account tests as part of the autonomous development run. Public testers and moving real private vaults into encrypted storage remain owner-review decisions.
 
-## 当前对话资料边界 — 中文版
+## 历史对话资料里程碑 — 中文版
 
 新的 AI 聊天先由用户选择本地文件夹，空文件夹也可以直接进入；不要求导入文件或建立旧版档案。对话先留在内存中，只有用户明确选择保存画像才写入独立历史文件。画像证据只能来自用户在本次聊天亲自输入的原文。远程请求会包含这些原话，并最多附上两条先前 AI 问题作为**非证据背景**。每次远程提问或生成画像都要重新查看拟发送内容；取消则不发送。此流程不会读取已有 ChatGPT 对话、暗中扫描档案库、导入他人消息或抓取平台内容。点击**结束**会使待处理回复失效，且不会自动生成或保存画像；已经发到在线服务的请求无法追回。
 
@@ -38,7 +178,9 @@ The visible ChatGPT connection uses local code for official browser sign-in, PKC
 
 ## Earlier vault and report records (advanced tools)
 
-The current prototype has no database. This is intentional. Early work should stabilize safety behavior before retaining sensitive relationship data.
+At this early checkpoint the prototype had no database. That historical choice
+prioritized safety behavior before retaining sensitive relationship data; the
+October 17 architecture explicitly adds summary-only Sites storage.
 
 The local desktop/browser prototype now uses ordinary plaintext vault files.
 Explicitly saved report corrections retain a full original JSON snapshot and a

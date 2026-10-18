@@ -38,6 +38,51 @@ The separately installed official runtime provides the app-server protocol. It i
 not bundled or modified here. Its installation and service terms apply separately.
 Audited runtime versions: 0.162.0-alpha.17.2 and 0.163.0-alpha.10.2.
 
+October 17, 2026 plugin and Sites migration
+
+OpenAI Sites supplied Vinext starter — bundle sites/1.0.2-remix-a.1
+Actual starter configuration, scripts, auth helper and retained vendor assets are
+copied into apps/matching_site. They are bundled source, not design-only references.
+Project-specific matching behavior and pages are written by this project. Component
+licenses below do not assert a blanket license for the entire supplied template.
+Thank you to the Sites maintainers and contributors.
+
+@openai/sites-vite-plugin — 0.2.0 — MIT — Copyright (c) 2026 OpenAI
+Source header provenance: openai/sites#9; supplied by the Sites bundle above.
+Actual file: apps/matching_site/build/sites-vite-plugin.ts, imported by Vite config.
+SHA-256 at inspection, identical to the installed starter:
+07af20e7097d9ed1d76f7c446d02997550b8fc5ca89668b249e25eabd62c6834
+Original notice retained in build/sites-vite-plugin.LICENSE and reproduced below.
+
+shadcn Tailwind CSS — 4.13.0 — MIT — Copyright (c) 2023 shadcn
+Source: the same Sites bundle's Vinext starter vendor directory.
+Actual file: apps/matching_site/vendor/shadcn-tailwind-4.13.0.css, imported by
+the Site's global CSS. Original notice remains beside that file and below.
+SHA-256 at inspection, identical to the installed starter:
+bc7d83425702955b4cb67cb14ede9d603f9d912376d57a2d81d661094d2a782a
+Thank you to shadcn and contributors.
+
+Native slowmatch plugin — methods and new project work
+The inspected goutoujunshi Skill and memory guide at the MIT revision listed above
+informed evidence separation, tentative interpretation, autonomy and bounded memory.
+No complete prompt or memory implementation is copied. Mandatory MBTI/scores,
+gender defaults and manipulation are excluded. Original notices remain under
+plugins/slowmatch/licenses. The installed grilling Skill was consulted for developer
+review only; it is not bundled or an end-user module. No separate installed
+life-direction/action-plan Skill was found in the audited user/plugin locations.
+The direction workflow is new project-authored text, not a claimed missing import.
+
+Official OpenAI documentation — interface reference, checked October 17, 2026
+https://developers.openai.com/plugins/build/plugins
+https://developers.openai.com/plugins/deploy/connect-chatgpt
+https://developers.openai.com/plugins/deploy/desktop-only
+https://learn.chatgpt.com/docs/sites/data-and-connections
+https://learn.chatgpt.com/docs/sites/publishing-and-sharing
+Used for packaging, identity and evidence boundaries; no OpenAI client code copied.
+The Sites dependency package.json/lockfile records separate third-party dependencies
+whose own licenses apply. A source credits update does not rebuild the existing
+0.5.3 EXE or establish plugin installation, public approval or another user's access.
+
 Our other runtime/build dependencies are declared in pyproject.toml and the Windows
 constraints file; their own licenses apply. This credits register describes the
 named borrowed ideas and integration references, not a license replacement or a
@@ -76,5 +121,91 @@ https://github.com/openai/codex
 使用另行安装的官方程序提供的 app-server 协议，本软件不打包或修改该程序；
 其安装与服务条款独立适用。已审核运行版本为 0.162.0-alpha.17.2 和 0.163.0-alpha.10.2。
 
+2026 年 10 月 17 日插件与 Sites 迁移
+
+OpenAI Sites 所供 Vinext 模板 — bundle sites/1.0.2-remix-a.1
+模板的配置、脚本、身份辅助和保留的供应商资源实际复制到 apps/matching_site，属于打包源码，
+不只是设计参考。项目具体匹配行为与页面由本项目编写。下方组件许可不表示整个所供模板
+具有同一许可。感谢 Sites 维护者与贡献者。
+
+@openai/sites-vite-plugin — 0.2.0 — MIT — Copyright (c) 2026 OpenAI
+文件头来源 openai/sites#9，由上述 Sites bundle 提供。
+实际文件为 apps/matching_site/build/sites-vite-plugin.ts，由 Vite 配置导入。
+检查时与安装模板完全相同的 SHA-256：
+07af20e7097d9ed1d76f7c446d02997550b8fc5ca89668b249e25eabd62c6834
+原声明保留在 build/sites-vite-plugin.LICENSE，完整文本也列于下方。
+
+shadcn Tailwind CSS — 4.13.0 — MIT — Copyright (c) 2023 shadcn
+来源为同一 Sites bundle 的 Vinext 模板 vendor 目录。
+实际文件 apps/matching_site/vendor/shadcn-tailwind-4.13.0.css 由 Site 全局 CSS 导入，
+原许可保留在同目录及下方。检查时与安装模板相同的 SHA-256：
+bc7d83425702955b4cb67cb14ede9d603f9d912376d57a2d81d661094d2a782a
+感谢 shadcn 与贡献者。
+
+原生 slowmatch 插件 — 方法参考与本项目新写内容
+实际读取上述 MIT 版本的 goutoujunshi Skill 和记忆指南，借鉴证据区分、暂定解释、自主选择
+与有限记忆。未复制完整提示词或记忆实现；排除必填 MBTI／评分、性别默认值和操控，
+原许可保留在 plugins/slowmatch/licenses。已安装 grilling 仅供开发审查，不打包、
+不作为最终用户模块。在已审计用户／插件位置没有找到独立人生方向或行动计划 Skill；
+方向工作流为本项目新写文本，不冒充已导入缺失的 Skill。
+
+官方 OpenAI 文档 — 接口参考，2026 年 10 月 17 日核对
+https://developers.openai.com/plugins/build/plugins
+https://developers.openai.com/plugins/deploy/connect-chatgpt
+https://developers.openai.com/plugins/deploy/desktop-only
+https://learn.chatgpt.com/docs/sites/data-and-connections
+https://learn.chatgpt.com/docs/sites/publishing-and-sharing
+参考打包、身份与验收边界，未复制 OpenAI 客户端源码。Site 的 package.json／锁文件
+记录独立第三方依赖，各自许可适用。更新源码致谢不代表重建已有 0.5.3 EXE，也不证明
+插件已安装、获准公开分发或其他账号能访问。
+
 其他运行／构建依赖列在 pyproject.toml 及 Windows 约束文件中，各自许可独立适用。
 本登记记录上述借鉴与集成来源，不替代原许可，也不表示已完成公开分发的法律审核。
+
+Original Sites build integration notice / Sites 构建集成原许可
+
+MIT License
+
+Copyright (c) 2026 OpenAI
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Original shadcn vendor CSS notice / shadcn 附带 CSS 原许可
+
+MIT License
+
+Copyright (c) 2023 shadcn
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

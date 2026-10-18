@@ -1,5 +1,172 @@
 # Current handoff / 当前交接
 
+## English — October 17 migration delivery (verification continued October 18 UTC)
+
+**0.6.0 is implemented in this original repository and deployed as an owner-private
+pilot. The complete two-account ChatGPT Work journey is not yet accepted.**
+Use the [private Site](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site) and
+the installed `slowmatch@slowmatch-local` plugin. The fixed 0.5.3 EXE remains unchanged.
+The latest product authority is the October 17 request in [PLAN](PLAN_FOR_ONEPUCHMAN.md)
+and [AGENTS](AGENTS.md), superseding GUI-first/offline-only assumptions.
+
+| Module | File/runtime evidence | Reuse or change | Acceptance |
+|---|---|---|---|
+| Existing desktop/core | Python, PySide6, optional FastAPI; verified root EXE hash still matches 0.5.3 | Preserve recovery and reusable services; ChatGPT becomes the main conversation | Baseline 2,306 passed / 9 skipped; final regression below |
+| Local data | Existing ReportReviewService guarded reads, locks, atomic writes and canonical JSON; RelationshipMemory selected-entry imports | New separate profile/draft/approval/private-assessment models reuse these primitives; old memory is not misrepresented as a full profile | Current-chat installed launcher saved revision 1, corrected to 2 and re-read from another process |
+| Skills/plugin | Native installer enabled SlowMatch; a new native session actually loaded its Skill | Focused goutoujunshi method adaptation; new life-direction workflow; grilling excluded from end-user package | Discovery passes; independent restricted new-chat persistence remains blocked |
+| Matching | Old peer coordinator could store private analysis and old matching used hidden attributes | Reuse requirements and safe patterns, replace hosted flow with permitted-summary-only Worker/D1 service | Local real D1 tests pass; deployed MCP is discoverable; native remote call blocked |
+| Source/sync | Original origin remains `onepunchman26/Anti-Dating-App-Scam`; migration branch from `78ea4053e716701a3b501ce37f4d5095b2cc51c4` | `apps/matching_site/` is authoritative; allowlisted one-way mirror feeds the Sites hosting repository | No new product repo, no remote replacement, no private data in the mirror |
+
+Implemented source locations: `plugins/slowmatch/`, `.agents/plugins/marketplace.json`,
+`src/anti_dating_scam/{models,services}/work_profile.py`, `work_cli.py`,
+`schemas/shareable_profile.schema.json`, `scripts/work_plugin_setup.py`,
+`scripts/sites_source_snapshot.py`, and `apps/matching_site/`. The Python-generated
+summary schema is identical to the hosted copy. No new AI provider or standalone chat
+client was added. The existing provider adapters and fixed legacy binary are preserved.
+
+Local full profile, immutable history, drafts, approvals, outbound summaries and private
+assessments default to `%LOCALAPPDATA%/AI-SlowMatch/work`. This Windows packaged host
+may resolve that under its private LocalCache. Runtime registration is separate at
+`%LOCALAPPDATA%/AI-SlowMatch/work-runtime.json`. These are ordinary local plaintext
+files; they are outside Git, OneDrive, plugin packages and website output. Synthetic
+verification used a separate `AI-SlowMatch/current-chat-proof` directory. No real archive
+was inspected, backed up, migrated or uploaded. Selected legacy memory import is additive
+and preserves originals; recovery creates a newer revision rather than silently rolling
+the head backward.
+
+Only the approved summary is exportable: alias, adult age band, coarse city/areas,
+relationship goal/accepted goals and age bands, controlled value/life-direction/
+communication/interest/preference choices, participant visibility, discovery and version
+metadata. Approval binds content digest, source revision, destination and audience.
+The export reads only its independent receipt and content-free revision metadata, not
+the private profile or assessment. It reports **approved_for_upload_not_sent** until
+a genuine remote result is separately observed and recorded. The current synthetic
+approval remains unuploaded; no publication receipt has been fabricated.
+
+| Required acceptance | Result and evidence |
+|---|---|
+| 1. Installation/discovery | **Installed and discovered:** local native Codex plugin install plus actual Skill read. Hosted plugin provisioned/already installed; native `slowmatch_channel_check` discovered. **Remote invocation blocked** by `MCP tool call requires approval, but approval policy is never`. Broad ChatGPT Work distribution eligibility remains unverified. |
+| 2. Local persistence | **Verified in this current chat across processes:** installed launcher read empty state, saved revision 1, corrected to revision 2, re-read 2, drafted/approved/exported summary and saved/re-read private assessment. **Restricted new session unresolved:** three bounded attempts returned `storage_unavailable`; Windows owner-ACL and packaged AppData redirection were investigated. Do not repeat blind attempts or claim that environment passed. |
+| 3. Upload scope | **Local contract/export/storage checks pass:** synthetic private marker absent from outbound and candidate objects, extra/private fields rejected, Python/JS digest agreement. **Actual authenticated hosted summary request and stored object not exercised** because native call approval is blocked. |
+| 4. Two real accounts | **NOT EXERCISED:** owner explicitly has no second account. Local synthetic identities are never counted as two accounts. |
+| 5. Private explanation | **Current-chat synthetic local path passes:** analysis used own corrected claim plus peer's permitted summary, included unknowns and respectful questions, saved and re-read locally. No hosted private-report endpoint. **Two real participants' full path not exercised.** |
+| 6. Authorization/malicious content | **Local logic tests pass:** owner-scoped D1, rejected self-declared IDs/private fields/prompt-injection labels, exact JSON MIME and Origin checks, bounded bodies and candidates. **Real cross-account permission enforcement not exercised.** Identity relies on supported Sites dispatch. |
+| 7. Update/withdrawal | **Local real D1 tests pass:** stale writes fail, replay cannot resume a pause, deletion clears content, tombstone rejects an old summary even with refreshed server revision; rejoining needs a newly approved higher summary version. **Hosted lifecycle not exercised.** |
+| 8. Failure/recovery | **Tests pass:** invalid JSON, interrupted/local failed writes, stale revisions, approval mismatch and storage failure do not report success. Network/expired-session UI explains unconfirmed operations. **Real expired-login/network recovery remains untested.** |
+| 9. Original compatibility | Existing EXE hash unchanged: `9280e8b464d91b85249c6af26b9e5390e9a358dbe3e7ccbc3b8494d919fb2978`; old data untouched; unrelated `.vscode/` and `paper/` preserved. Final regression status below. |
+
+Verification: compilation, Ruff for new Python, 43 focused Python checks (1 OS symlink
+skip), 5 Node/D1 checks, TypeScript and application ESLint/build passed. An earlier full
+run returned 2,341 passed / 10 skipped / 1 failure because the in-memory schema predated
+a schema-file update during that run; the focused final contract check passes. Final
+full regression passed: **2,349 passed, 10 skipped, zero failures** in 781.38 seconds.
+The existing Starlette/httpx
+deprecation warning is unrelated and preserved.
+
+Sites project: `appgprj_6ad4306f79e88191bbbd502f495ec501`. The source helper pushes only
+the allowlisted mirror and packages the same build; `source-map.json` records file hashes.
+Production schema migrations are additive and published migrations stay immutable.
+The Site stays owner-private; no external viewers were added. Current deployed source,
+version and outcome are recorded in the [sanitized receipt](docs/evidence/2026-10-17-work-sites-migration.json).
+
+Tomorrow's minimum actions (no passwords or manual token copying):
+
+1. Set the app speed selector to **Standard** if it still shows Fast/1.5×; this setting
+   was requested but no supported current-chat speed-control tool is available.
+2. In the intended local ChatGPT Work chat, select SlowMatch and allow the normal
+   platform prompt for its synthetic channel check. Then verify write → read, approved
+   synthetic publication → reread → withdrawal through that user's native tools.
+   The blocked test session's approval policy was not changed or bypassed.
+3. Verify local read → correction → reread in that intended new chat with its normal
+   local-execution permissions. Current-chat success does not erase the restricted
+   session failure. Broader installation needs actual eligible account/UI evidence.
+4. When a second independent account becomes available, add only that account to the
+   private Site through normal sharing, then run the two-account cases above. This is
+   deferred, not a requirement to create an account tonight.
+
+Recovery: use the unchanged fixed EXE for its legacy functions. Keep the migration
+branch and use a separate checkout of `78ea405` when old source is needed; do not reset
+over unrelated work. New private state is separate and must not be copied into Git.
+Necessary source synchronization is tracked in PROGRESS_TRACKER; hourly automation
+remains paused. No purchase, public-audience expansion, contact or real-data publication.
+
+## 中文版 — 10 月 17 日迁移交付（验证延续至 UTC 10 月 18 日）
+
+**0.6.0 已在原仓库实现并部署为仅所有者可访问的私有试运行版；完整双账户 ChatGPT Work
+流程尚未验收通过。**入口为[私有网站](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site)
+及已安装的 `slowmatch@slowmatch-local` 插件。固定 0.5.3 EXE 未改变。
+[PLAN](PLAN_FOR_ONEPUCHMAN.md) 与 [AGENTS](AGENTS.md) 已更新 10 月 17 日权威方向，
+替代 GUI 优先／必须离线的旧假设。
+
+| 模块 | 文件／运行证据 | 复用或改造决定 | 验收方式 |
+|---|---|---|---|
+| 原桌面／核心 | Python、PySide6、可选 FastAPI；根目录 EXE 哈希仍为已验证的 0.5.3 | 保留恢复与可复用服务，以 ChatGPT 为主要聊天入口 | 基线 2,306 项通过／9 项跳过；最终回归见下 |
+| 本机数据 | 既有 ReportReviewService 受保护读写、锁、原子写与规范 JSON；RelationshipMemory 按项导入 | 新档案／草稿／批准／私人分析复用这些基础；不把旧短记忆冒充完整档案 | 当前聊天调用已安装启动器，保存版本 1、纠正为 2，换进程重读 |
+| Skills／插件 | 原生安装器启用 SlowMatch；新的原生会话确实读取 Skill | 按需改编 goutoujunshi 方法，新写人生方向流程，终端用户包不含 grilling | 发现通过；独立受限新会话的持久化仍受阻 |
+| 匹配 | 旧 peer coordinator 可保存私密分析，旧匹配使用隐藏属性 | 复用需求与安全模式，托管链路改为仅允许摘要的 Worker／D1 | 本地真实 D1 测试通过，远程工具可发现，实际调用受阻 |
+| 源码／同步 | 原 origin 仍为 `onepunchman26/Anti-Dating-App-Scam`；从 `78ea4053e716701a3b501ce37f4d5095b2cc51c4` 建迁移分支 | `apps/matching_site/` 为权威，允许列表单向镜像送入 Sites 托管源码库 | 未另造产品仓库、未更换远端、镜像不含私人资料 |
+
+实现位置为 `plugins/slowmatch/`、`.agents/plugins/marketplace.json`、
+`src/anti_dating_scam/{models,services}/work_profile.py`、`work_cli.py`、
+`schemas/shareable_profile.schema.json`、`scripts/work_plugin_setup.py`、
+`scripts/sites_source_snapshot.py` 与 `apps/matching_site/`。Python 生成的摘要结构与网站副本
+一致，未新增 AI 服务商或独立聊天客户端，既有适配器和固定旧程序保留。
+
+完整档案、不可变历史、草稿、批准、出站摘要和私人分析默认位于
+`%LOCALAPPDATA%/AI-SlowMatch/work`；本 Windows 打包宿主可能将其解析到自身 LocalCache。
+运行配置另存 `%LOCALAPPDATA%/AI-SlowMatch/work-runtime.json`。这些是普通本地明文文件，
+位于 Git、OneDrive、插件包和网站产物之外。合成验收使用独立的
+`AI-SlowMatch/current-chat-proof` 目录。未检查、备份、迁移或上传任何真实旧档案。
+选定旧记忆的导入是追加式并保留原件；恢复会创建更高修订号，不暗中把指针退回旧版本。
+
+可导出的只有批准摘要：化名、成年年龄段、粗略城市／区域、关系目标／接受目标及年龄段、
+受控价值观／人生方向／沟通／兴趣／偏好选项、参与者范围、匹配状态及版本信息。
+批准绑定内容哈希、来源修订、目标与受众。导出只读取独立批准记录与不含正文的修订元数据，
+不读取私人档案或报告。在真实远程结果另行观察并记录前，状态明确为
+**approved_for_upload_not_sent（已批准导出，尚未发送）**。本轮合成批准仍未上传，未伪造发布记录。
+
+| 必须验收项 | 结果与证据 |
+|---|---|
+| 1. 安装与发现 | **已安装、可发现：**原生 Codex 安装并实际读取本地 Skill；Sites 插件已创建／报告已安装，原生 `slowmatch_channel_check` 可发现。**远程调用受阻：**工具要求批准，但测试会话审批策略为 never。面向其他 ChatGPT Work 账号的分发资格尚未验证。 |
+| 2. 本地持续性 | **当前聊天跨进程通过：**已安装启动器读空档案、保存版本 1、纠正为 2、重读 2，再草拟／批准／导出摘要及保存／重读私人分析。**受限新会话未解决：**三次有界尝试返回 `storage_unavailable`，已检查 Windows 所有者 ACL 与打包 AppData 重定向；不再盲目重试，也不声称其通过。 |
+| 3. 上传范围 | **本地结构／导出／存储检查通过：**合成私密标记不进入出站或候选对象，拒绝额外／私人字段，Python／JS 哈希一致。**真实认证的托管摘要请求及存储对象尚未实测：**原生调用批准受阻。 |
+| 4. 两个真实账户 | **尚未实测：**所有者明确暂时没有第二账户；不把本地合成身份算作真实双账户。 |
+| 5. 私人解释 | **当前聊天合成本机链路通过：**使用本人纠正条目与对方允许摘要，保留未知及尊重对方的问题，保存后重读；服务端没有私人报告接口。**两位真实参与者完整路径尚未实测。** |
+| 6. 越权与恶意内容 | **本地逻辑测试通过：**按所有者约束 D1、拒绝自报身份／私人字段／注入标签、严格 JSON MIME 与 Origin、限制正文和候选数量。**真实跨账户权限尚未实测。**身份依赖受支持的 Sites 入口验证。 |
+| 7. 更新与撤回 | **本地真实 D1 测试通过：**旧写入冲突，旧重放不能恢复暂停，删除清空内容，即使刷新服务版本也不能重发旧摘要；重新加入须新批准更高摘要版本。**托管生命周期尚未实测。** |
+| 8. 失败与恢复 | **测试通过：**非法 JSON、本机中断／写入失败、版本冲突、批准不符及存储失败不会报成功；网络／过期登录界面说明操作未确认。**真实登录过期／网络恢复尚未实测。** |
+| 9. 原项目兼容 | EXE 哈希未变：`9280e8b464d91b85249c6af26b9e5390e9a358dbe3e7ccbc3b8494d919fb2978`；旧数据未动，保留无关 `.vscode/`、`paper/`。最终回归见下。 |
+
+验证：编译、新 Python 的 Ruff、43 项定向 Python（1 项操作系统符号链接跳过）、5 项 Node／D1、
+TypeScript、应用 ESLint 与构建通过。较早一次完整运行得到 2,341 项通过／10 项跳过／1 项失败，
+原因是运行期间更新了结构文件而进程仍持有旧定义；最终定向结构检查已通过。
+最终固定 Python 源码完整回归通过：**2,349 项通过、10 项跳过、零失败**，用时 781.38 秒。
+既有一项 Starlette／httpx 弃用警告保留，与迁移无关。
+
+Sites 项目：`appgprj_6ad4306f79e88191bbbd502f495ec501`。受支持的源码工具只推送允许列表镜像，
+打包同一份构建；`source-map.json` 记录文件哈希。数据库采用追加迁移，已部署迁移不改写。
+网站仍仅所有者可访问，未新增外部访客。实际部署源码、版本及结果见
+[脱敏交付记录](docs/evidence/2026-10-17-work-sites-migration.json)。
+
+明天最少操作（不需密码或手动复制令牌）：
+
+1. 如 App 仍显示 Fast／1.5×，将速度选择器改为 **Standard**。已收到此要求，但没有可控制当前聊天
+   速度的受支持工具，不能声称已经替你切换。
+2. 在目标本机 ChatGPT Work 聊天中选择 SlowMatch，完成平台对合成通道检查的正常批准；再通过本人
+   原生工具验证“写入→读取、批准合成摘要→发布→重读→撤回”。未修改或绕过受阻测试会话的审批策略。
+3. 在目标新会话的正常本机执行权限下验证“读取→纠正→重读”。当前聊天成功不消除受限会话失败；
+   更广泛安装还须实际账号资格与界面证据。
+4. 以后有第二个独立账号时，再通过正常分享仅授权该账号访问私有站，并执行上述双账户验收。
+   这项已延期，不要求今晚注册账号。
+
+回退：既有功能继续用固定旧 EXE；保留迁移分支，需要旧源码时单独检出 `78ea405`，不能 reset
+覆盖无关工作。新私人状态独立，不得复制进 Git。必要源码同步见 PROGRESS_TRACKER；小时自动化
+保持暂停。本轮未购买、扩大公开受众、联系候选或发布真实资料。
+
+---
+
+The following is historical release evidence. / 以下为历史版本证据。
+
 ## English
 
 October 16, 2026: **0.5.3 delivered to the fixed root `AI-SlowMatch.exe`.**

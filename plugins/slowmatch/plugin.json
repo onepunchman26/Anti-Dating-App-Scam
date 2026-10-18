@@ -1,0 +1,19 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "slowmatch",
+  "version": "0.6.0",
+  "description": "Relationship reflection and private local profiles / 关系探索与本机私人档案",
+  "author": {"name": "onepuchman"},
+  "extensions": {
+    "com.openai": {
+      "requires_local_executor": true,
+      "apps": "./.app.json",
+      "interface": {
+        "displayName": "AI-SlowMatch / 慢慢相识",
+        "shortDescription": "Relationship reflection and private profiles / 关系探索与私人档案",
+        "developerName": "onepuchman",
+        "category": "Productivity"
+      }
+    }
+  }
+}
