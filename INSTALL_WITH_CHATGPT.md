@@ -15,7 +15,13 @@ a similarly named project. The Release records the source commit, asset names an
 1. Use the Windows x64 ChatGPT desktop environment with permitted local execution and
    plugin installation. Web-only chat cannot manage this computer's files. Other systems
    and independent-account installation are not certified by this preview.
-2. Download the prebuilt Windows package and checksum from that exact Release. Verify the
+2. Prefer the Release's [fixed-version Windows installer](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/download/v0.8.0/install_work_preview.ps1).
+   After reviewing its source and publisher, run `./install_work_preview.ps1 -RegisterPlugin`.
+   It downloads the pinned package, verifies archive/manifest/file hashes, installs, registers
+   the plugin through the official installer and returns a short check. It does not bind an
+   account or change script execution policy. If execution is restricted, report the platform
+   requirement without bypassing it. On success continue at step 4.
+   For a manual package install, download the prebuilt Windows package and checksum from that exact Release. Verify the
    origin, version and checksum, then extract into a local, nonsynced staging folder.
    A checksum checks integrity; it does not replace trusting the publisher. Keep the entire
    package together. No Git, Python, Node, Docker or compilation should be needed.
@@ -61,7 +67,11 @@ uninstall, account changes and remaining platform gates, use [distribution help]
 
 1. 使用允许本机执行和插件安装的 Windows x64 ChatGPT 桌面环境。纯网页聊天不能管理本机文件。
    本预览尚不证明其他系统或独立账号安装已获验证。
-2. 从该 Release 下载预编译 Windows 包和校验文件，核对来源、版本和校验值，再解压到本机非同步
+2. 优先使用 Release 中的[固定版本 Windows 安装程序](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/download/v0.8.0/install_work_preview.ps1)。
+   核对来源及代码后运行 `./install_work_preview.ps1 -RegisterPlugin`。它自动下载固定包、核验包／清单／
+   文件哈希、安装、通过官方安装器注册插件，并返回短自检结果；不绑定账号、不改变脚本执行策略。
+   执行受限时如实记录平台条件，不绕过。成功后直接继续第 4 步。
+   若手动安装包：从该 Release 下载预编译 Windows 包和校验文件，核对来源、版本和校验值，再解压到本机非同步
    临时目录。校验值证明完整性，不能代替对发布者的信任。保留完整目录；不应要求安装 Git、Python、
    Node、Docker 或编译。
 3. 在解压包目录运行 `./SlowMatch-Work.exe install --package .`，再运行
