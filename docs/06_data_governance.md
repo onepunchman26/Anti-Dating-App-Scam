@@ -1,6 +1,93 @@
 # Data Governance
 
-## English — current destination boundaries, October 17, 2026
+## English — full replacement policy, October 17, 2026
+
+This policy implements the owner's full replacement requirement. It overrides the
+baseline's summary-only scope only for the explicit minimal planning/feedback objects
+below. It does not authorize uploading a private profile, risk analysis or raw material.
+Policies describe required behavior; current implementation/evidence is in the status
+tracker. The earlier desktop rules below remain historical and cannot require peer
+consent for personal help or prescribe offline analysis as the primary experience.
+
+| Object/scope | Owner, destination and lifecycle |
+|---|---|
+| Private profile and match assessment | Local master; authorized excerpts may be analyzed by the user's ChatGPT under service settings. Keep source/confirmation/time, alternatives, corrections and history. No Sites/peer copy. |
+| Mode participation and summaries | Romance/friendship have independent enabled state, summary/version, audience and conditions. Private profile updates cannot activate either. Only the exact locally approved outbound object may reach Sites. |
+| Relationship observations, reflection and filters | Private events/evidence, fact-versus-inference, alternatives, repetition, actions and corrections stay local. Hide/block reasons and ordering never become global risk labels, scores or vectors. Separate platform reporting shares only separately chosen material. |
+| Raw material, own diary, audio and transcripts | Explicitly selected, bounded, private local storage. No blanket library scan. Preserve correction and speaker uncertainty. Offer actual retention/view/delete/summary-only controls; no hidden capture or Site upload. |
+| Planning preferences and joint context | Separately approved coarse area, time windows, budget, interests, duration, environment and voluntary accommodation needs without sensitive reasons. No home/GPS, detailed calendar, vulnerability or private risk explanation. Build joint context from these objects alone. |
+| Meeting plan | Bounded options with sources/check times/unknowns and per-participant confirmations bound to the current version. Changes require new confirmations. Planning is not contact/reservation/payment/calendar authority. |
+| Optional shared feedback | Each participant chooses their own contribution and audience/purpose/expiry. No feedback is not consent or rejection. Never combine two private reports to produce a shared report. |
+| Consent evidence | Who approved exactly which version, purpose, audience, expiry and withdrawal. Server stores only necessary execution evidence, not local paths or private approval conversation. Approval of one scope does not grant another. |
+
+Recording, transcription, OpenAI processing, local retention and sharing are separate
+scopes. Joint recording requires participants' informed applicable consent; personal
+support and text recollection do not require the discussed person's permission. Native
+voice access does not prove a plugin can obtain raw audio or a transcript. Unsupported
+audio must fail honestly without blocking the text path. Do not claim a universal legal
+recording rule; verify specific jurisdictional questions when asked.
+
+The joint input builder must lack private-store reads. Merely omitting private text in
+one observed model response is insufficient proof of isolation. A context that already
+contains private profiles cannot be treated as safe for shared generation by instructions
+alone. Use an isolated supported context or deterministic builder with approved input
+only. Validate output shape, lengths, audience, expiry and state; reject hidden nested
+payloads, encoded private data and embeddings. Do not silently upload location hints or
+include private fields in hidden HTML, JavaScript state, logs, error bodies or exports.
+
+Every shared operation checks verified current identity, object ownership/participants,
+current version, purpose, consent/expiry and withdrawal. A cannot authorize for B.
+Pause/revoke stops subsequent reads and generation and removes controlled cached inputs.
+Changed data cannot reuse old consent; retries must not replay an action or overwrite a
+newer version. Scope deletion: turning off friendship must not silently turn off romance,
+and leaving a plan does not erase unrelated private reflection. Local material deletion
+must cover retained derivatives/caches according to the selected scope. Explain remaining
+local history, OpenAI/provider retention and others' earlier copies accurately.
+
+Current local defaults and protected backups remain outside Git/OneDrive/packages/Sites.
+No real personal archive was migrated as part of this policy change. Audits use minimal
+operation/status metadata with synthetic marker tests spanning private profile, source
+text, risk notes and transcript; inspect actual requests, server rows/logs, rendered state
+and peer-visible objects when a real channel is available. Unit injection tests do not
+count as two independently authenticated accounts. Do not bypass platform approval.
+
+## 中文版 — 2026 年 10 月 17 日完整替代政策
+
+本政策落实所有者完整替代要求，仅为下列明确最小安排／反馈对象修改基线的“仅摘要”范围，不授权上传
+私人档案、风险分析或原始材料。政策描述必须满足的行为，当前实现／证据见状态跟踪。下方旧桌面规则为
+历史，不能要求私人求助取得对方同意，也不能把离线分析规定为主要体验。
+
+| 对象／范围 | 所有权、目的地与生命周期 |
+|---|---|
+| 私人档案与匹配分析 | 本机主存，获准片段可按服务设置供本人 ChatGPT 分析。保留来源／确认／时间、其他解释、纠正及历史；不交 Sites／对方。 |
+| 模式参与与摘要 | 恋爱／朋友各自有开启状态、摘要／版本、受众和条件。私人更新不能启用任一模式，只有本机批准的准确导出对象可进入 Sites。 |
+| 关系观察、复盘与筛选 | 私人事件／证据、事实与推断、其他解释、反复情况、行动及纠正留本机。隐藏／屏蔽原因和排序不变成全站风险标签、分数或向量。平台举报另行选择分享材料。 |
+| 原始材料、本人口述、音频和转写 | 明确选定、有界、私密本机保存，不扫描整库。保留纠正及说话人不确定性；按实际提供保留／查看／删除／仅存摘要控制，不隐藏采集或上传 Sites。 |
+| 安排偏好与共同上下文 | 单独批准的大致地区、时间窗口、预算、兴趣、时长、环境及自愿便利需求，不含敏感原因。不含家庭／GPS、完整日历、脆弱点或私人风险原因，共同上下文只从这些对象构建。 |
+| 见面计划 | 有界方案含来源／核对时间／未知和绑定当前版本的各人确认，改变需重确认。规划不授权联系／预订／付款／日历。 |
+| 可选共同反馈 | 每人选择本人贡献及受众／用途／到期，无反馈不等于同意或拒绝，不合并两份私人报告形成共享报告。 |
+| 授权证据 | 谁批准了哪个准确版本、用途、受众、到期及撤回。服务端只保存必要执行证据，不保存本机路径或私人批准对话；某种许可不扩大为另一许可。 |
+
+录制、转写、OpenAI 处理、本机保留及分享为独立范围。共同录制须参与者知情同意；私人求助和文字回忆
+不要求被讨论者许可。原生语音不证明插件能获得原音频或转写。音频不支持时如实失败，文字仍可用。
+不声称普遍录音法律规则；被问到具体法律问题时核实相应司法地区。
+
+共同输入构建器不得读取私人存储。一次模型结果未出现私密文本，不足以证明隔离；已有私人档案的上下文
+不能仅靠指令变成安全的共同生成环境。使用只读获准输入的隔离受支持上下文或确定性构建器。验证输出
+结构、长度、受众、到期和状态，拒绝隐藏嵌套载荷、编码私密信息和向量。不悄悄上传位置提示，不把私密
+字段放入隐藏 HTML、JavaScript 状态、日志、错误正文或导出。
+
+每次共享操作检查已验证当前身份、所有权／参与者、当前版本、用途、授权／到期及撤回；A 不能替 B 授权。
+暂停／撤回后停止后续读取与生成，并移除受控缓存输入。改变内容不能沿用旧许可，重试不得重放动作或覆盖
+新版本。按范围删除：退出朋友模式不暗中关闭恋爱，退出计划不删除无关私人复盘。本机材料删除按选定范围
+覆盖保留衍生物／缓存；如实说明残留历史、OpenAI／提供方保留和他人此前副本。
+
+本机默认路径及私密备份继续与 Git／OneDrive／插件包／Sites 分离。本次政策变更未迁移真实私人档案。
+审计只用最少操作／状态元数据；合成标记覆盖档案、原文、风险记录和转写，在真实链路可用时检查请求、
+服务端对象／日志、页面状态和对方可见对象。单元注入测试不等于两个独立真实账号，不绕过平台审批。
+
+
+## e742c0a destination-boundary baseline — English
 
 The owner's October 17 requirements supersede conflicting local-only and GUI-only
 assumptions in the historical sections below. OpenAI analysis, local persistence
@@ -79,7 +166,7 @@ Retries must not duplicate publication or overwrite newer revisions. Authenticat
 tests with injected headers are local logic tests, not real two-account acceptance.
 Current deployment, connection and acceptance evidence belongs in the status tracker.
 
-## 中文版 — 当前目的地边界，2026 年 10 月 17 日
+## e742c0a 目的地边界基线 — 中文版
 
 所有者 10 月 17 日要求替代下方历史记录中冲突的“仅本机”和“仅 GUI”假设。OpenAI 分析、
 本机保存和 Sites 发布是独立操作，使用不同资料范围。接受云端分析，不代表允许匹配网站、

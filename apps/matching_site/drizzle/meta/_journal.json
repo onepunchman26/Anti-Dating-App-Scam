@@ -15,6 +15,27 @@
       "when": 1792292261961,
       "tag": "0001_parched_spitfire",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1792294177655,
+      "tag": "0002_fluffy_mentor",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1792294721550,
+      "tag": "0003_outgoing_kabuki",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1792295308485,
+      "tag": "0004_wealthy_shape",
+      "breakpoints": true
     }
   ]
 }

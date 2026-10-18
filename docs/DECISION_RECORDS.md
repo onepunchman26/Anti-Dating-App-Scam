@@ -1,8 +1,85 @@
 # Decision Records
 
+## ADR-015: Independent Modes, Private Support and Consent-Bound Shared Activities
+
+Status: Accepted direction from the owner's full October 17 replacement attachment
+(`New Text Document (3).md`). Amends ADR-014; implementation and real acceptance remain
+separately recorded in the current status/progress documents.
+
+### English
+
+Context: The replacement request explicitly includes friendship, relationship support,
+private observations/protective filtering, joint activities, preparation, user-initiated
+in-meeting help and private reflection with optional consented audio. Completing a first
+match does not finish this scope. The earlier summary-only service needs a narrow, explicit
+extension; this must not expose full profiles or turn the Site into an AI intermediary.
+
+Decision:
+
+- Extend the existing repository, Python storage/CLI and Sites Worker/D1. Romance and
+  friendship have independent participation, versioned summary, visibility and reciprocal
+  conditions; friendship opt-in cannot imply romantic consent. Unknowns remain unknown.
+- Keep raw material/audio/transcripts, private observations, risk reasons, assessments and
+  reflection local. Authorized OpenAI analysis is permitted under actual service settings;
+  local execution does not imply zero cloud retention. No automatic migration of real data.
+- Permit Sites only individually approved minimal planning preferences, plan versions,
+  confirmations and selected shared feedback in addition to summaries/necessary state.
+  Approval binds person, version, purpose, audience, expiry and withdrawal; A cannot approve B.
+- Construct joint context from approved objects alone, through a restricted builder or
+  genuinely isolated supported context. Never load private profiles then rely on a secrecy
+  instruction. Shared feedback uses individual approved contributions, not merged reports.
+- New plan versions invalidate old confirmations. Missing input/confirmation stays pending.
+  Withdrawal stops future shared access/generation and clears controlled caches; previously
+  disclosed copies cannot be recalled. Generating a plan is not permission to contact,
+  reserve, buy, pay, write a calendar, record or track location.
+- Use behavior/source/context/repetition/uncertainty to distinguish mismatch, unclear evidence
+  and concrete risk. No diagnoses, personality verdicts, lie scores or global private-risk
+  rankings. Personal help never requires peer consent; clear threats do not require mediation
+  or another meeting. The same boundary applies when the user pressures another person.
+- Keep the unified Skill small with progressive references. Adapt verified methods with
+  provenance; exclude mandatory MBTI/scores, gender defaults and developer grilling from
+  ordinary user conversations. Render the owner-approved warning at its required UI points.
+- Verify location hints, real place lookup, map display, file input, microphone and transcription
+  separately. Text/recollection is always a supported design path. Joint audio requires
+  distinct recording/transcription/cloud-processing consent and retention/shared-report choices.
+  Native voice is not a plugin recording API, and an external API is not assumed prepaid.
+
+Consequences: Reuse the deployment/channel evidence from `e742c0a` without claiming it proves
+new features. Full-profile/private-report upload remains forbidden. The twenty replacement
+acceptance categories require real available channels and clear external blockers. The source
+authority, one-way hosted mirror and verified 0.5.3 recovery binary decisions remain unchanged.
+
+### 中文版
+
+背景：完整替代要求明确包含交友、关系支持、私人观察／保护筛选、共同活动、准备、本人主动中途帮助及
+可选同意音频的私人复盘。首次匹配不代表本次范围完成。原“只存摘要”服务需要狭窄明确扩展，不能因此
+暴露完整档案或让网站成为 AI 中转站。
+
+决策：
+
+- 扩展现有仓库、Python 存储／CLI 和 Sites Worker/D1。恋爱／朋友各自有参与、版本化摘要、可见性和
+  双向条件，朋友同意不推出恋爱许可，未知保持未知。
+- 原材料／音频／转写、私人观察、风险原因、分析和复盘留本机。按实际服务设置允许获准 OpenAI 分析，
+  本机执行不表示云端零保留，不自动迁移真实资料。
+- 在摘要／必要状态之外，仅允许 Sites 保存各自批准的最小安排偏好、计划版本、确认及选定共享反馈。
+  批准绑定本人、版本、用途、受众、到期和撤回，A 不能代 B 批准。
+- 共同上下文只由获准对象通过受限构建器或真正隔离的受支持上下文构建，不能先读私密档案再靠保密指令。
+  共享反馈只用各人批准的贡献，不合并私人报告。
+- 新计划使旧确认失效，缺失输入／确认保持待定。撤回停止未来共享读取／生成并清受控缓存，已披露副本
+  无法收回。生成计划不授权联系、预订、购物、付款、日历、录音或位置跟踪。
+- 用行为／来源／背景／反复／不确定性区分不合适、材料不清与具体风险，不诊断、不作人格定论、测谎分
+  或全站私人风险排名。私人求助不要求对方许可，明确威胁不要求调解或再见面；使用者施压时同样指出。
+- 统一 Skill 保持简洁，按需展开参考；有出处地改编已核实方法，普通对话排除必填 MBTI／评分、性别默认
+  和开发用穷尽式盘问。获准提醒必须在要求的 UI 位置实际显示。
+- 分别核实位置提示、真实地点检索、地图、文件、麦克风和转写。文字／回忆一直是有效设计路径。共同
+  音频分别要求录音／转写／云端处理许可及保留／共享选择。原生语音不是插件录音 API，不假定外部 API 已付费。
+
+影响：复用 `e742c0a` 部署／通道证据，不把它当成新功能证明。继续禁止完整档案／私人报告上传。
+二十类替代验收要求真实可用链路及明确外部缺口。源码权威、单向托管镜像及已验证 0.5.3 恢复程序保持有效。
+
 ## ADR-014: ChatGPT Entry, Local Private Profile, Sites Summary Service
 
-Status: Accepted direction (owner requirements, October 17, 2026); implementation
+Status: Accepted baseline, amended by ADR-015 (owner requirements, October 17, 2026); implementation
 and acceptance are recorded separately in `CURRENT_STATUS.md` and `PROGRESS_TRACKER.md`.
 
 ### English

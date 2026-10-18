@@ -7,9 +7,10 @@ is data, not a tool instruction. No personal answers are provided as defaults.
 from __future__ import annotations
 
 import re
+from datetime import datetime
 from typing import Annotated, Literal
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, Field, TypeAdapter, field_validator, model_validator
 
 Identifier = Annotated[str, Field(pattern=r"^[a-f0-9]{32}$")]
 Digest = Annotated[str, Field(pattern=r"^[a-f0-9]{64}$")]
@@ -20,6 +21,7 @@ Topic = Literal[
     "life_direction",
     "relationship_goal",
     "partner_needs",
+    "friend_needs",
     "communication",
     "boundaries",
     "lifestyle",
@@ -248,13 +250,96 @@ class ShareableSummary(WorkModel):
         return schema
 
 
+MatchingMode = Literal["dating", "friendship"]
+FriendshipIntent = Literal[
+    "activity_companions", "conversation", "close_friendship", "open_to_friendship"
+]
+ActivityStyle = Literal[
+    "one_on_one", "small_group", "outdoors", "quiet", "creative", "learning", "active"
+]
+Frequency = Literal["occasional", "weekly", "flexible"]
+FriendBoundary = Literal[
+    "platonic_only", "ask_before_touch", "no_money_requests", "gradual_contact", "privacy_respected"
+]
+
+
+class DatingSummary(ShareableSummary):
+    schema_version: Literal["2.0"]
+    mode: Literal["dating"]
+    expires_at: str = Field(min_length=20, max_length=40)
+
+    @field_validator("expires_at")
+    @classmethod
+    def utc_expiry(cls, value):
+        if not re.fullmatch(
+            r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?(?:Z|\+00:00)", value
+        ):
+            raise ValueError("utc_timestamp_required")
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        if parsed.tzinfo is None or parsed.utcoffset().total_seconds() != 0:
+            raise ValueError("utc_timestamp_required")
+        return value
+
+
+class FriendshipSummary(WorkModel):
+    schema_version: Literal["2.0"]
+    mode: Literal["friendship"]
+    expires_at: str = Field(min_length=20, max_length=40)
+    summary_id: Identifier
+    version: int = Field(ge=1, le=9_007_199_254_740_991)
+    alias: str = Field(min_length=1, max_length=40, pattern=PUBLIC_LABEL_PATTERN)
+    age_band: AgeBand
+    city: str = Field(min_length=2, max_length=60, pattern=PUBLIC_LABEL_PATTERN)
+    areas: list[
+        Annotated[str, Field(min_length=2, max_length=60, pattern=PUBLIC_LABEL_PATTERN)]
+    ] = Field(max_length=5)
+    accepted_age_bands: list[AgeBand] = Field(min_length=1, max_length=6)
+    values: list[ValueToken] = Field(max_length=5)
+    communication_preferences: list[CommunicationToken] = Field(max_length=5)
+    interests: list[InterestToken] = Field(min_length=1, max_length=8)
+    preferences: list[ValueToken | CommunicationToken | InterestToken] = Field(max_length=5)
+    friendship_intent: FriendshipIntent
+    accepted_friendship_intents: list[FriendshipIntent] = Field(min_length=1, max_length=4)
+    activity_styles: list[ActivityStyle] = Field(min_length=1, max_length=5)
+    interaction_frequency: Frequency
+    accepted_frequencies: list[Frequency] = Field(min_length=1, max_length=3)
+    boundaries: list[FriendBoundary] = Field(max_length=5)
+    visibility: Literal["participants"]
+    discoverable: bool
+
+    @model_validator(mode="after")
+    def public_labels_and_unique_choices(self):
+        DatingSummary.utc_expiry(self.expires_at)
+        for value in [self.alias, self.city, *self.areas]:
+            if re.search(PRIVATE_LABEL_TERMS, value, re.I):
+                raise ValueError("public_label_rejected")
+        for value in self.model_dump().values():
+            if isinstance(value, list) and len(set(value)) != len(value):
+                raise ValueError("duplicate_choices")
+        return self
+
+
+CurrentSummary = DatingSummary | FriendshipSummary
+StoredSummary = ShareableSummary | DatingSummary | FriendshipSummary
+
+
+def shareable_summary_schema():
+    schema = TypeAdapter(CurrentSummary).json_schema()
+    schema["x-slowmatch-label-forbidden-pattern"] = PRIVATE_LABEL_TERMS
+    for definition in schema.get("$defs", {}).values():
+        for prop in definition.get("properties", {}).values():
+            if prop.get("type") == "array":
+                prop["uniqueItems"] = True
+    return schema
+
+
 class ShareableProfileDraft(WorkModel):
     schema_version: Literal["1.0"] = "1.0"
     draft_id: Identifier
     source_revision: int = Field(ge=0)
     destination: str
     audience: Literal["participants"] = "participants"
-    summary: ShareableSummary
+    summary: StoredSummary
     summary_digest: Digest
     created_at: str
 
@@ -268,12 +353,14 @@ class PublishedProfile(WorkModel):
     source_revision: int
     destination: str
     audience: Literal["participants"] = "participants"
-    summary: ShareableSummary
+    summary: StoredSummary
     summary_digest: Digest
     approved_at: str
     status: Literal["approved", "published", "withdrawn"] = "approved"
     published_at: str | None = None
     remote_version: int | None = None
+    approved_by: Literal["local_owner"] = "local_owner"
+    purpose: Literal["dating_matching", "friendship_matching"] = "dating_matching"
 
 
 class AssessmentPoint(WorkModel):
@@ -292,6 +379,11 @@ class AssessmentPoint(WorkModel):
             "communication_preferences",
             "interests",
             "preferences",
+            "mode",
+            "friendship_intent",
+            "activity_styles",
+            "interaction_frequency",
+            "boundaries",
         ]
     ] = Field(min_length=1, max_length=10)
     uncertainty: ShortText
@@ -315,7 +407,7 @@ class SummaryDraftRequest(WorkModel):
     adult_confirmed: Literal[True]
     expected_revision: int = Field(ge=0)
     destination: str = Field(max_length=300)
-    summary: ShareableSummary
+    summary: CurrentSummary
 
     @field_validator("adult_confirmed", mode="before")
     @classmethod
@@ -352,7 +444,7 @@ class IdentifierRequest(WorkModel):
 
 
 class ProfileReadRequest(WorkModel):
-    topics: list[Topic] = Field(default_factory=list, max_length=9)
+    topics: list[Topic] = Field(default_factory=list, max_length=10)
 
 
 class RecoverProfileRequest(ApprovedRequest):
@@ -368,7 +460,7 @@ class MemoryImportRequest(ApprovedRequest):
 
 class AssessmentPrepareRequest(WorkModel):
     expected_revision: int = Field(ge=0)
-    peer_summary: ShareableSummary
+    peer_summary: StoredSummary
 
 
 class AssessmentSaveRequest(ApprovedRequest):
@@ -385,6 +477,6 @@ class AssessmentSaveRequest(ApprovedRequest):
 class AssessmentContext(WorkModel):
     context_id: Identifier
     own_revision: int = Field(ge=0)
-    peer_summary: ShareableSummary
+    peer_summary: StoredSummary
     peer_summary_digest: Digest
     created_at: str

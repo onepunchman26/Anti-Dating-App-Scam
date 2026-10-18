@@ -4,11 +4,12 @@ import json
 import os
 import subprocess
 import sys
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import pytest
 
-from anti_dating_scam.models.work_profile import ShareableSummary
+from anti_dating_scam.models.work_profile import shareable_summary_schema
 from anti_dating_scam.services.relationship_memory import RelationshipMemory
 from anti_dating_scam.services.work_profile import WorkProfileError, WorkProfileService
 from anti_dating_scam.work_cli import dispatch
@@ -36,9 +37,14 @@ def update(service, text=PRIVATE_MARKER, revision=0):
     )
 
 
+SUMMARY_EXPIRY = (datetime.now(UTC) + timedelta(days=30)).replace(microsecond=0).isoformat()
+
+
 def summary():
     return {
-        "schema_version": "1.0",
+        "schema_version": "2.0",
+        "mode": "dating",
+        "expires_at": SUMMARY_EXPIRY,
         "summary_id": "a" * 32,
         "version": 1,
         "alias": "Synthetic Cedar",
@@ -173,7 +179,7 @@ def test_generated_summary_schema_is_the_checked_in_contract():
     schema = (
         Path(__file__).parents[1] / "src/anti_dating_scam/schemas/shareable_profile.schema.json"
     )
-    assert json.loads(schema.read_text(encoding="utf-8")) == ShareableSummary.model_json_schema()
+    assert json.loads(schema.read_text(encoding="utf-8")) == shareable_summary_schema()
 
 
 @pytest.mark.parametrize(

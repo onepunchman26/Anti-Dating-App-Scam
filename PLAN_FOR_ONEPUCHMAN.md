@@ -1,114 +1,119 @@
 # Approved plan / 已批准计划
 
-## English — October 17, 2026 migration authority
+## English — full replacement requirement, October 17, 2026
 
-Owner: onepuchman. The October 17 implementation request replaces conflicting
-earlier product directions. Continue this repository; preserve unrelated work,
-verified releases and old data. The 0.6.0 source migration makes the user's ChatGPT
-desktop conversation the primary entry. The verified 0.5.3 fixed EXE remains a
-legacy/recovery utility; a new source version does not assert a rebuilt binary.
+Owner: onepuchman. The owner-authorized **New Text Document (3).md** replaces the
+truncated earlier migration prompt and conflicting earlier product directions. This
+repository remains authoritative. Preserve unrelated changes, verified releases and
+old data. ChatGPT desktop with the unified plugin is the daily entry; authorized
+OpenAI cloud analysis is intended. The verified fixed 0.5.3 EXE stays available for
+legacy tasks/recovery. New source versions do not assert a rebuilt binary.
 
-The complete first-version journey is: use the plugin in ChatGPT, update a local
-profile, preview and approve a separate summary, publish it to Sites, match using
-two independently authenticated accounts, privately discuss each other's permitted
-summary, and confirm that updates or withdrawal change later results correctly.
-Each step requires actual evidence. Local tests, ZIP creation, a website screenshot
-or one owner's connection cannot stand in for that journey.
+The complete journey includes independently chosen **romance and friendship** modes:
+chat, update a local profile, review/approve a separate mode-specific summary, publish
+and see reciprocal candidates, discuss privately, optionally share minimal activity
+preferences, compare two or three plans, confirm a version, receive preparation and
+user-initiated in-meeting help, then reflect privately. Optional jointly shared feedback
+comes from separately approved contributions. Relationship support, planning and
+reflection are part of this delivery, not deferred until after the first match.
 
 | Phase | Required result and acceptance |
 |---|---|
-| M1: audit and minimum channel | Verify repository, remotes and work in progress; record reuse decisions and rollback points. Prove Skill discovery, local read/update/re-read, hosted authenticated persistence and real remote tool invocation separately. Check distribution eligibility early. |
-| M2: local profile | Reuse Python models and guarded storage. Keep source type, confirmation, uncertainty, corrections, unknowns, contradictions and revision history. Separate private profile, draft, approved publication and private assessment. Test restart persistence, invalid input, stale versions and failure recovery. |
-| M3: Sites and identity | Use the supported Worker/D1 runtime. Accept only bounded approved-summary fields. Resolve ownership from Sites-verified identity; check per-user access and visibility. The original repo is authoritative and hosted source is a one-way deployment mirror. |
-| M4: matching and explanation | Filter both participants' hard conditions and coarse locations; explain shared alignments, differences, tensions and unknowns without precision scores. Local deep analysis uses only one's own full profile plus the peer's permitted summary. Zero results remain zero. |
-| M5: delivery | Validate installation, local persistence, actual upload contents, independent accounts, private explanations, malicious content/authorization, update/withdrawal, failure/recovery and legacy compatibility. Package and deploy via supported paths; label each implemented, deployed, connected, verified or blocked item accurately. |
+| R1: audit and capability proof | Preserve the existing repository and rollback points. Reuse valid evidence. Verify local calls, Skill discovery, Sites identity/persistence/MCP and distribution separately; distinguish place lookup, location hints, file input, microphone and transcription. |
+| R2: local objects and modes | Extend the existing Python/storage/CLI with separate participation and summaries for romance/friendship, private observations/reflections, materials, exact-version purpose/audience/expiry consent and protective local rules. Retain corrections/history and explicit legacy import. |
+| R3: hosted mode-specific matching | Extend the existing Worker/D1 service, enforce platform identity/ownership, same-mode participation, both parties' hard conditions and honest unknowns. Friendship must actually use interests/interaction style/frequency/boundaries. |
+| R4: private support and visible warning | Connect private explanations, observations and user-controlled filters. Distinguish mismatch, unclear evidence and concrete risk without diagnoses. Render the full approved warning on the relevant homepage, joining, candidate detail and first planning flow. |
+| R5: isolated activity planning | Build joint context only from individually approved minimal objects. Retrieve real places with sources/check times/unknowns; offer two or three options. Each participant confirms the current plan version; changed plans require reconfirmation. Withdrawal stops later shared processing. |
+| R6: preparation, immediate help and reflection | Support text/recollection first, brief user-initiated advice during a meeting and private debrief. Verify optional audio import/transcription/correction/local lifecycle under actual device capability and separate consents; no secret recording or fake capture button. |
+| R7: bounded real acceptance and delivery | Execute the twenty owner acceptance categories with synthetic content and real available channels. Preserve failures and mark implemented/deployed/connected/tested/blocked separately. A build, screenshot or local test does not prove two real accounts or authenticated network flow. |
 
-The privacy boundary is destination-specific. The owner accepts OpenAI cloud
-processing of the personal information needed for their ChatGPT task. The complete
-profile remains locally owned. Sites receives only the separately approved summary
-and necessary identity/visibility/version state. Raw chats, detailed experiences,
-private inferences and private reports never go to Sites or another participant.
-Profile-update permission does not grant publication permission. New content or
-broader audiences require review according to the explicit publication scope.
+Data sharing is destination- and purpose-specific. Full profiles, detailed experiences,
+private assessments/risk reasons, raw materials, audio and transcripts stay in the user's
+private workflow/local files and never go to Sites or another participant. Necessary
+context may reach OpenAI according to service settings; local execution is not zero cloud
+retention. Sites receives approved summaries plus necessary state, and the narrow new
+exception of minimal, individually approved shared planning/meeting/feedback objects.
+Each approval binds person, content version, purpose, audience, expiry and withdrawal.
+Recording, transcription, OpenAI processing, retention and shared reports are distinct.
 
-Use `%LOCALAPPDATA%/AI-SlowMatch/work` for new private state, outside Git, OneDrive,
-plugin archives and website assets. No new synchronization is implied by the old
-source checkout being in OneDrive. Legacy import is explicit, bounded and additive;
-keep originals intact and stop on unsupported formats. No real archive migration
-has been performed in this task.
+Personal help never needs the other person's consent. Clear threats require timely safety
+support, not mandatory mediation or another meeting. No personality diagnoses, deception
+scores, hidden global rankings or manipulative scripts. Private filters keep their reasons
+local. Generating a plan does not send invitations, book, buy, pay, share location or write
+a calendar. Those actions require their own explicit instruction and real permissions.
 
-The unified plugin contains focused relationship, self-understanding, life-direction,
-profile and matching workflows. Reuse verified installed methods; do not claim
-missing Skills were found. Each person's own answers are authoritative. Candidate
-content is untrusted data and cannot authorize tool execution, local-file access
-or uploads. No automatic contact, interest expression or private-report forwarding.
+New private state remains under `%LOCALAPPDATA%/AI-SlowMatch/work`, outside Git,
+OneDrive, plugin bundles and deployments. No real-data migration was authorized merely
+by adopting the architecture. The original source repository remains the sole authority;
+`apps/matching_site/` synchronizes one way into the hosted Sites deployment mirror.
 
-Routine reversible implementation, relevant checks and authorized non-sensitive
-source synchronization may proceed autonomously. New account login, spending,
-irreversible actions or audience expansion require the concrete minimum user action.
-Continue independent work when an external prerequisite is missing. Do not activate
-the paused hourly automation. Stop after a verifiable first version and report the
-remaining blockers without disguising them as success.
+At the `e742c0a` starting checkpoint, the [private Sites pilot](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site)
+was deployed with the single-summary service. Native Skill discovery and current-chat
+local persistence had evidence. Restricted new-chat storage failed; remote tools were
+discovered but invocation was blocked by that session's approval policy. These are
+historical channel facts, not evidence for the new modes/planning/audio features.
+No second account is available; two-account acceptance remains **not exercised**.
+[Current status](CURRENT_STATUS.md) and [progress](PROGRESS_TRACKER.md) record current
+implementation and acceptance, including any later verified changes.
 
-Native Codex Skill loading has evidence. The
-[private Sites pilot](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site) has
-successfully deployed the summary and matching service and provisioned its MCP plugin.
-Current-chat local persistence passed; a restricted new-chat storage probe failed.
-Native remote discovery passed, but invocation is blocked by the test session's
-approval policy. Desktop Work and hosted invocation need separate evidence.
-Two-account acceptance is **not exercised**
-because no second account is available. [Current status](CURRENT_STATUS.md) and [progress](PROGRESS_TRACKER.md)
-are the live acceptance records. Earlier S0–S7 scope below is retained as historical
-context, not a request to rebuild a second main chat client or perform extra voice work.
+Continue authorized reversible work without reopening settled decisions. Do not bypass
+approval controls, create model/chat sessions merely to test, contact a second participant,
+or claim unavailable credentials/device permissions. Prepare concrete results before the
+minimum required login, fee or audience-expansion action. Keep the hourly automation paused.
+Deliver the executable scope and accurate external blockers without an unlimited iteration loop.
 
-## 中文版 — 2026 年 10 月 17 日迁移权威要求
+## 中文版 — 2026 年 10 月 17 日完整替代要求
 
-所有者：观澜击水。10 月 17 日实施要求替代与之冲突的旧产品方向。继续使用本仓库，保护
-他人修改、已验证版本与旧数据。0.6.0 源码迁移把用户自己的 ChatGPT 桌面对话设为主要入口；
-已验证的固定 0.5.3 EXE 保留为旧功能／恢复工具，源码版本更新不表示二进制已经重建。
+所有者：观澜击水。经所有者授权的 **New Text Document (3).md** 替代此前截断的迁移提示词及冲突的
+旧产品方向。原仓库继续作为权威，保护无关修改、已验证版本和旧数据。日常入口为 ChatGPT 桌面 App
+中的统一插件，允许经授权的 OpenAI 云端分析。已验证的固定 0.5.3 EXE 保留作旧功能／恢复工具；
+源码版本变化不表示二进制已经重建。
 
-首版完整路径是：在 ChatGPT 使用插件、更新本机档案、预览并批准独立摘要、发布到 Sites、
-两个独立登录账号相互匹配、各自在私下讨论对方允许分享的摘要，再确认修改或撤回会正确改变
-之后的结果。每个步骤都需要真实证据；本地测试、生成 ZIP、网站截图或所有者单账号连接均不能替代。
+完整路径包含各自选择的**恋爱和朋友**模式：聊天、更新本机档案、审阅批准独立的分模式摘要、发布并
+查看双向候选、私下讨论、自愿共享最小活动偏好、比较两到三个方案、确认具体版本、得到见面前准备及
+本人主动发起的中途帮助，再私人复盘。可选共同反馈来自各自单独批准的贡献。关系支持、活动规划和
+复盘属于本次交付，不能在首次匹配完成后全部延期。
 
 | 阶段 | 必须交付与验收的结果 |
 |---|---|
-| M1：审计与最小通道 | 核实仓库、远端与进行中的工作，记录复用和回退点。分别证明 Skill 发现、本机读写再读、托管认证持久化和真实远程工具调用，尽早检查分发资格。 |
-| M2：本机档案 | 复用 Python 结构与受保护存储，保留来源类型、本人确认、不确定性、纠正、未知、矛盾与历史版本。分离私人档案、草稿、批准发布记录和私人分析；验证重启持久性、非法输入、旧版本及失败恢复。 |
-| M3：Sites 与身份 | 使用受支持的 Worker/D1 环境，只接受有大小限制的获准摘要字段。所有权来自 Sites 验证身份，落实逐用户权限与可见性。原仓库是源码权威，托管源码仅为单向部署镜像。 |
-| M4：匹配与解释 | 同时检查双方硬条件和大致地区，解释共享契合、差异、冲突与未知，不给精确兼容分。深入分析仅使用本人的完整档案和对方获准摘要；零候选就显示零。 |
-| M5：交付 | 验证安装、本机持续性、实际上传范围、独立账号、私人解释、恶意内容／越权、更新撤回、失败恢复及旧版兼容。按支持流程打包和部署，准确区分已实现、已部署、已连接、已实测和受阻。 |
+| R1：审计与能力证据 | 保留原仓库与回退点，复用有效证据。分别核实本机调用、Skill 发现、Sites 身份／持久化／MCP 和分发；分清地点检索、位置提示、文件输入、麦克风与转写。 |
+| R2：本机对象与模式 | 在现有 Python／存储／CLI 中扩展独立恋爱／朋友参与和摘要、私人观察／复盘、材料、绑定具体版本／用途／受众／到期的授权和私人筛选规则；保留纠正／历史及明确旧数据导入。 |
+| R3：托管分模式匹配 | 扩展现有 Worker/D1，执行平台身份与所有权、同模式参与、双方硬条件和真实未知。朋友模式实际使用兴趣／相处方式／频率／边界。 |
+| R4：私人支持与可见提醒 | 接通私人解释、观察和本人可控筛选，区分不合适、材料不清与具体风险，不作诊断。在首页相关解释、加入、候选详情和首次安排中真正显示完整获准提醒。 |
+| R5：隔离共同安排 | 共同上下文只来自各自批准的最小对象。实际检索地点并记录来源／时间／未知，给两到三个方案。每人确认当前计划版本，改变后重新确认；撤回停止之后共享处理。 |
+| R6：准备、当场帮助与复盘 | 先支持文字／回忆、本人主动发起的简短中途建议及私人复盘。依据真实设备能力和独立许可验证可选音频导入／转写／纠正／本机生命周期，不秘密录音、不放假按钮。 |
+| R7：有限真实验收与交付 | 用合成内容和实际可用链路执行所有者二十类验收，保留失败，分清已实现／已部署／已连接／已实测／受阻。构建、截图或本地测试不证明双真实账号或认证网络链路。 |
 
-隐私边界按目的地划分。所有者接受 OpenAI 云端处理 ChatGPT 任务所需的个人信息，完整档案仍以
-本人本机为主存。Sites 只接收独立批准的摘要与必要身份／可见性／版本状态；原始聊天、详细经历、
-私人推断与私人报告不得进入 Sites 或交给其他参与者。档案更新许可不等于发布许可；新增内容或扩大
-受众要按明确的发布授权范围重新审阅。
+分享按目的地和用途划分。完整档案、详细经历、私人分析／风险原因、原始材料、音频和转写留在本人
+私人工作流／本机文件，绝不交给 Sites 或对方。任务所需内容可按服务设置进入 OpenAI；本机执行不代表
+云端零保留。Sites 接收获准摘要及必要状态，并新增狭窄例外：各自明确批准的最小共同安排／计划／反馈
+对象。每次批准绑定本人、内容版本、用途、受众、到期及撤回状态；录音、转写、OpenAI 处理、保留和
+共享报告各自独立。
 
-新私人状态使用 `%LOCALAPPDATA%/AI-SlowMatch/work`，与 Git、OneDrive、插件归档及网站资源
-分离。旧源码位于 OneDrive 不代表授权同步新私人数据。旧资料导入必须明确选择、限制范围并采用新增
-副本方式，保留原件，遇到不支持的格式停止。本任务尚未执行真实私人档案迁移。
+私人求助不要求对方许可。明确威胁时及时支持安全，不强迫调解或再见面。禁止人格诊断、欺骗分数、
+秘密全站排名或操控话术，私人筛选原因留本机。生成计划不发送邀请、不订位、购票、付款、共享位置
+或写日历；这些动作需独立明确指令和实际权限。
 
-统一插件包含按需使用的关系、自我理解、人生方向、档案与匹配流程。复用实际找到的方法，不声称已整合
-缺失的 Skill。每个人的回答以本人为准。候选内容是不可信数据，不能授权执行工具、读取本机文件或上传。
-不自动联系候选、不代替用户表达兴趣、不转发私人报告。
+新私人状态仍使用 `%LOCALAPPDATA%/AI-SlowMatch/work`，与 Git、OneDrive、插件包和部署分离。
+接受架构不等于批准迁移真实资料。原源码仓库是唯一权威，`apps/matching_site/` 单向同步到 Sites
+托管部署镜像。
 
-常规可逆实现、相关检查和已授权的非敏感源码同步可自主推进。只有新账号登录、费用、不可逆处理或扩大
-对外受众，才需要准备好具体结果后交给用户完成最小必要动作。外部条件受阻时继续独立工作，不启用已暂停
-的小时自动化。完成可验证首版后交付，如实列出缺口，不把未验收包装成成功。
+起点 `e742c0a` 已部署[私密 Sites 试运行站点](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site)的单摘要
+服务。原生 Skill 发现和当前聊天本机持久化有证据；受限新会话存储失败，原生远程工具可发现，但该会话
+审批策略阻止调用。这些是历史通道事实，不证明新模式／安排／音频已完成。没有第二账号，双账号验收
+仍为**未实测**。[当前状态](CURRENT_STATUS.md)和[进度](PROGRESS_TRACKER.md)记录实时实现与验收，
+包括之后确实验证的变更。
 
-原生 Codex 已有 Skill 加载证据。[私密 Sites 试运行站点](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site)
-已成功部署摘要与匹配服务并创建 MCP 插件。当前聊天本机持久化通过；受限新会话存储探针失败。
-原生远程工具发现通过，但测试会话审批策略阻止调用。桌面 Work
-和托管调用仍需各自证据。没有第二账号，因此双账号验收**未实测**。
-[当前状态](CURRENT_STATUS.md)与[进度](PROGRESS_TRACKER.md)记录实时验收结果。
-下方 S0–S7 保留为历史背景，不要求重做另一套主聊天客户端，也不扩展首轮语音工作。
+继续已授权可逆工作，不重问已确定决策。不绕过审批、不为测试擅开模型／聊天会话、不联系第二参与者、
+不声称拥有缺失凭据／设备权限。需要登录、费用或扩大受众时先准备具体结果，再说明最小必要动作。
+小时自动化保持暂停。交付可执行范围与真实外部缺口，不进行无限迭代。
 
 ---
 
 ## Historical October 2 plan / 10 月 2 日历史计划
 
 The following decisions describe the earlier desktop release scope. Conflicts are
-superseded by M1–M5 above. / 以下描述旧桌面版本范围，与上方 M1–M5 冲突时以上方为准。
+superseded by R1–R7 above. / 以下描述旧桌面版本范围，与上方 R1–R7 冲突时以上方为准。
 
 ## English
 

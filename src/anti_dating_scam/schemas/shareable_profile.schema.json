@@ -1,185 +1,106 @@
 {
-  "additionalProperties": false,
-  "description": "Only this allowlisted object may leave local storage for the matching site.",
-  "properties": {
-    "schema_version": {
-      "const": "1.0",
-      "title": "Schema Version",
-      "type": "string"
-    },
-    "summary_id": {
-      "pattern": "^[a-f0-9]{32}$",
-      "title": "Summary Id",
-      "type": "string"
-    },
-    "version": {
-      "maximum": 9007199254740991,
-      "minimum": 1,
-      "title": "Version",
-      "type": "integer"
-    },
-    "alias": {
-      "maxLength": 40,
-      "minLength": 1,
-      "pattern": "^[A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF][A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF '\\u2019.,-]*$",
-      "title": "Alias",
-      "type": "string"
-    },
-    "age_band": {
-      "enum": [
-        "18-24",
-        "25-34",
-        "35-44",
-        "45-54",
-        "55-64",
-        "65+"
-      ],
-      "title": "Age Band",
-      "type": "string"
-    },
-    "city": {
-      "maxLength": 60,
-      "minLength": 2,
-      "pattern": "^[A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF][A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF '\\u2019.,-]*$",
-      "title": "City",
-      "type": "string"
-    },
-    "areas": {
-      "items": {
-        "maxLength": 60,
-        "minLength": 2,
-        "pattern": "^[A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF][A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF '\\u2019.,-]*$",
-        "type": "string"
-      },
-      "maxItems": 5,
-      "title": "Areas",
-      "type": "array",
-      "uniqueItems": true
-    },
-    "relationship_goal": {
-      "enum": [
-        "long_term",
-        "companionship",
-        "exploring"
-      ],
-      "title": "Relationship Goal",
-      "type": "string"
-    },
-    "accepted_goals": {
-      "items": {
-        "enum": [
-          "long_term",
-          "companionship",
-          "exploring"
-        ],
-        "type": "string"
-      },
-      "maxItems": 3,
-      "minItems": 1,
-      "title": "Accepted Goals",
-      "type": "array",
-      "uniqueItems": true
-    },
-    "accepted_age_bands": {
-      "items": {
-        "enum": [
-          "18-24",
-          "25-34",
-          "35-44",
-          "45-54",
-          "55-64",
-          "65+"
-        ],
-        "type": "string"
-      },
-      "maxItems": 6,
-      "minItems": 1,
-      "title": "Accepted Age Bands",
-      "type": "array",
-      "uniqueItems": true
-    },
-    "values": {
-      "items": {
-        "enum": [
-          "honesty",
-          "kindness",
-          "autonomy",
-          "curiosity",
-          "family",
-          "community",
-          "growth",
-          "stability",
-          "creativity",
-          "adventure"
-        ],
-        "type": "string"
-      },
-      "maxItems": 5,
-      "title": "Values",
-      "type": "array",
-      "uniqueItems": true
-    },
-    "life_directions": {
-      "items": {
-        "enum": [
-          "build_family",
-          "childfree",
-          "career_focus",
-          "community_life",
-          "creative_life",
-          "travel",
-          "settled_life",
-          "still_exploring"
-        ],
-        "type": "string"
-      },
-      "maxItems": 5,
-      "title": "Life Directions",
-      "type": "array",
-      "uniqueItems": true
-    },
-    "communication_preferences": {
-      "items": {
-        "enum": [
-          "direct",
-          "reflective",
-          "frequent_checkins",
-          "space_between_chats",
-          "discuss_conflict_calmly",
-          "gradual_disclosure"
-        ],
-        "type": "string"
-      },
-      "maxItems": 5,
-      "title": "Communication Preferences",
-      "type": "array",
-      "uniqueItems": true
-    },
-    "interests": {
-      "items": {
-        "enum": [
-          "reading",
-          "music",
-          "art",
-          "outdoors",
-          "cooking",
-          "games",
-          "travel",
-          "sport",
-          "learning",
-          "volunteering"
-        ],
-        "type": "string"
-      },
-      "maxItems": 8,
-      "title": "Interests",
-      "type": "array",
-      "uniqueItems": true
-    },
-    "preferences": {
-      "items": {
-        "anyOf": [
-          {
+  "$defs": {
+    "DatingSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "2.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "summary_id": {
+          "pattern": "^[a-f0-9]{32}$",
+          "title": "Summary Id",
+          "type": "string"
+        },
+        "version": {
+          "maximum": 9007199254740991,
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        },
+        "alias": {
+          "maxLength": 40,
+          "minLength": 1,
+          "pattern": "^[A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF][A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF '\\u2019.,-]*$",
+          "title": "Alias",
+          "type": "string"
+        },
+        "age_band": {
+          "enum": [
+            "18-24",
+            "25-34",
+            "35-44",
+            "45-54",
+            "55-64",
+            "65+"
+          ],
+          "title": "Age Band",
+          "type": "string"
+        },
+        "city": {
+          "maxLength": 60,
+          "minLength": 2,
+          "pattern": "^[A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF][A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF '\\u2019.,-]*$",
+          "title": "City",
+          "type": "string"
+        },
+        "areas": {
+          "items": {
+            "maxLength": 60,
+            "minLength": 2,
+            "pattern": "^[A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF][A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF '\\u2019.,-]*$",
+            "type": "string"
+          },
+          "maxItems": 5,
+          "title": "Areas",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "relationship_goal": {
+          "enum": [
+            "long_term",
+            "companionship",
+            "exploring"
+          ],
+          "title": "Relationship Goal",
+          "type": "string"
+        },
+        "accepted_goals": {
+          "items": {
+            "enum": [
+              "long_term",
+              "companionship",
+              "exploring"
+            ],
+            "type": "string"
+          },
+          "maxItems": 3,
+          "minItems": 1,
+          "title": "Accepted Goals",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "accepted_age_bands": {
+          "items": {
+            "enum": [
+              "18-24",
+              "25-34",
+              "35-44",
+              "45-54",
+              "55-64",
+              "65+"
+            ],
+            "type": "string"
+          },
+          "maxItems": 6,
+          "minItems": 1,
+          "title": "Accepted Age Bands",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "values": {
+          "items": {
             "enum": [
               "honesty",
               "kindness",
@@ -194,7 +115,13 @@
             ],
             "type": "string"
           },
-          {
+          "maxItems": 5,
+          "title": "Values",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "life_directions": {
+          "items": {
             "enum": [
               "build_family",
               "childfree",
@@ -207,7 +134,13 @@
             ],
             "type": "string"
           },
-          {
+          "maxItems": 5,
+          "title": "Life Directions",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "communication_preferences": {
+          "items": {
             "enum": [
               "direct",
               "reflective",
@@ -218,7 +151,13 @@
             ],
             "type": "string"
           },
-          {
+          "maxItems": 5,
+          "title": "Communication Preferences",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "interests": {
+          "items": {
             "enum": [
               "reading",
               "music",
@@ -232,44 +171,448 @@
               "volunteering"
             ],
             "type": "string"
-          }
-        ]
+          },
+          "maxItems": 8,
+          "title": "Interests",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "preferences": {
+          "items": {
+            "anyOf": [
+              {
+                "enum": [
+                  "honesty",
+                  "kindness",
+                  "autonomy",
+                  "curiosity",
+                  "family",
+                  "community",
+                  "growth",
+                  "stability",
+                  "creativity",
+                  "adventure"
+                ],
+                "type": "string"
+              },
+              {
+                "enum": [
+                  "build_family",
+                  "childfree",
+                  "career_focus",
+                  "community_life",
+                  "creative_life",
+                  "travel",
+                  "settled_life",
+                  "still_exploring"
+                ],
+                "type": "string"
+              },
+              {
+                "enum": [
+                  "direct",
+                  "reflective",
+                  "frequent_checkins",
+                  "space_between_chats",
+                  "discuss_conflict_calmly",
+                  "gradual_disclosure"
+                ],
+                "type": "string"
+              },
+              {
+                "enum": [
+                  "reading",
+                  "music",
+                  "art",
+                  "outdoors",
+                  "cooking",
+                  "games",
+                  "travel",
+                  "sport",
+                  "learning",
+                  "volunteering"
+                ],
+                "type": "string"
+              }
+            ]
+          },
+          "maxItems": 5,
+          "title": "Preferences",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "visibility": {
+          "const": "participants",
+          "title": "Visibility",
+          "type": "string"
+        },
+        "discoverable": {
+          "title": "Discoverable",
+          "type": "boolean"
+        },
+        "mode": {
+          "const": "dating",
+          "title": "Mode",
+          "type": "string"
+        },
+        "expires_at": {
+          "maxLength": 40,
+          "minLength": 20,
+          "title": "Expires At",
+          "type": "string"
+        }
       },
-      "maxItems": 5,
-      "title": "Preferences",
-      "type": "array",
-      "uniqueItems": true
+      "required": [
+        "schema_version",
+        "summary_id",
+        "version",
+        "alias",
+        "age_band",
+        "city",
+        "areas",
+        "relationship_goal",
+        "accepted_goals",
+        "accepted_age_bands",
+        "values",
+        "life_directions",
+        "communication_preferences",
+        "interests",
+        "preferences",
+        "visibility",
+        "discoverable",
+        "mode",
+        "expires_at"
+      ],
+      "title": "DatingSummary",
+      "type": "object"
     },
-    "visibility": {
-      "const": "participants",
-      "title": "Visibility",
-      "type": "string"
-    },
-    "discoverable": {
-      "title": "Discoverable",
-      "type": "boolean"
+    "FriendshipSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "2.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "mode": {
+          "const": "friendship",
+          "title": "Mode",
+          "type": "string"
+        },
+        "expires_at": {
+          "maxLength": 40,
+          "minLength": 20,
+          "title": "Expires At",
+          "type": "string"
+        },
+        "summary_id": {
+          "pattern": "^[a-f0-9]{32}$",
+          "title": "Summary Id",
+          "type": "string"
+        },
+        "version": {
+          "maximum": 9007199254740991,
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        },
+        "alias": {
+          "maxLength": 40,
+          "minLength": 1,
+          "pattern": "^[A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF][A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF '\\u2019.,-]*$",
+          "title": "Alias",
+          "type": "string"
+        },
+        "age_band": {
+          "enum": [
+            "18-24",
+            "25-34",
+            "35-44",
+            "45-54",
+            "55-64",
+            "65+"
+          ],
+          "title": "Age Band",
+          "type": "string"
+        },
+        "city": {
+          "maxLength": 60,
+          "minLength": 2,
+          "pattern": "^[A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF][A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF '\\u2019.,-]*$",
+          "title": "City",
+          "type": "string"
+        },
+        "areas": {
+          "items": {
+            "maxLength": 60,
+            "minLength": 2,
+            "pattern": "^[A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF][A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF '\\u2019.,-]*$",
+            "type": "string"
+          },
+          "maxItems": 5,
+          "title": "Areas",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "accepted_age_bands": {
+          "items": {
+            "enum": [
+              "18-24",
+              "25-34",
+              "35-44",
+              "45-54",
+              "55-64",
+              "65+"
+            ],
+            "type": "string"
+          },
+          "maxItems": 6,
+          "minItems": 1,
+          "title": "Accepted Age Bands",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "values": {
+          "items": {
+            "enum": [
+              "honesty",
+              "kindness",
+              "autonomy",
+              "curiosity",
+              "family",
+              "community",
+              "growth",
+              "stability",
+              "creativity",
+              "adventure"
+            ],
+            "type": "string"
+          },
+          "maxItems": 5,
+          "title": "Values",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "communication_preferences": {
+          "items": {
+            "enum": [
+              "direct",
+              "reflective",
+              "frequent_checkins",
+              "space_between_chats",
+              "discuss_conflict_calmly",
+              "gradual_disclosure"
+            ],
+            "type": "string"
+          },
+          "maxItems": 5,
+          "title": "Communication Preferences",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "interests": {
+          "items": {
+            "enum": [
+              "reading",
+              "music",
+              "art",
+              "outdoors",
+              "cooking",
+              "games",
+              "travel",
+              "sport",
+              "learning",
+              "volunteering"
+            ],
+            "type": "string"
+          },
+          "maxItems": 8,
+          "minItems": 1,
+          "title": "Interests",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "preferences": {
+          "items": {
+            "anyOf": [
+              {
+                "enum": [
+                  "honesty",
+                  "kindness",
+                  "autonomy",
+                  "curiosity",
+                  "family",
+                  "community",
+                  "growth",
+                  "stability",
+                  "creativity",
+                  "adventure"
+                ],
+                "type": "string"
+              },
+              {
+                "enum": [
+                  "direct",
+                  "reflective",
+                  "frequent_checkins",
+                  "space_between_chats",
+                  "discuss_conflict_calmly",
+                  "gradual_disclosure"
+                ],
+                "type": "string"
+              },
+              {
+                "enum": [
+                  "reading",
+                  "music",
+                  "art",
+                  "outdoors",
+                  "cooking",
+                  "games",
+                  "travel",
+                  "sport",
+                  "learning",
+                  "volunteering"
+                ],
+                "type": "string"
+              }
+            ]
+          },
+          "maxItems": 5,
+          "title": "Preferences",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "friendship_intent": {
+          "enum": [
+            "activity_companions",
+            "conversation",
+            "close_friendship",
+            "open_to_friendship"
+          ],
+          "title": "Friendship Intent",
+          "type": "string"
+        },
+        "accepted_friendship_intents": {
+          "items": {
+            "enum": [
+              "activity_companions",
+              "conversation",
+              "close_friendship",
+              "open_to_friendship"
+            ],
+            "type": "string"
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "title": "Accepted Friendship Intents",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "activity_styles": {
+          "items": {
+            "enum": [
+              "one_on_one",
+              "small_group",
+              "outdoors",
+              "quiet",
+              "creative",
+              "learning",
+              "active"
+            ],
+            "type": "string"
+          },
+          "maxItems": 5,
+          "minItems": 1,
+          "title": "Activity Styles",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "interaction_frequency": {
+          "enum": [
+            "occasional",
+            "weekly",
+            "flexible"
+          ],
+          "title": "Interaction Frequency",
+          "type": "string"
+        },
+        "accepted_frequencies": {
+          "items": {
+            "enum": [
+              "occasional",
+              "weekly",
+              "flexible"
+            ],
+            "type": "string"
+          },
+          "maxItems": 3,
+          "minItems": 1,
+          "title": "Accepted Frequencies",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "boundaries": {
+          "items": {
+            "enum": [
+              "platonic_only",
+              "ask_before_touch",
+              "no_money_requests",
+              "gradual_contact",
+              "privacy_respected"
+            ],
+            "type": "string"
+          },
+          "maxItems": 5,
+          "title": "Boundaries",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "visibility": {
+          "const": "participants",
+          "title": "Visibility",
+          "type": "string"
+        },
+        "discoverable": {
+          "title": "Discoverable",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "schema_version",
+        "mode",
+        "expires_at",
+        "summary_id",
+        "version",
+        "alias",
+        "age_band",
+        "city",
+        "areas",
+        "accepted_age_bands",
+        "values",
+        "communication_preferences",
+        "interests",
+        "preferences",
+        "friendship_intent",
+        "accepted_friendship_intents",
+        "activity_styles",
+        "interaction_frequency",
+        "accepted_frequencies",
+        "boundaries",
+        "visibility",
+        "discoverable"
+      ],
+      "title": "FriendshipSummary",
+      "type": "object"
     }
   },
-  "required": [
-    "schema_version",
-    "summary_id",
-    "version",
-    "alias",
-    "age_band",
-    "city",
-    "areas",
-    "relationship_goal",
-    "accepted_goals",
-    "accepted_age_bands",
-    "values",
-    "life_directions",
-    "communication_preferences",
-    "interests",
-    "preferences",
-    "visibility",
-    "discoverable"
+  "anyOf": [
+    {
+      "$ref": "#/$defs/DatingSummary"
+    },
+    {
+      "$ref": "#/$defs/FriendshipSummary"
+    }
   ],
-  "title": "ShareableSummary",
-  "type": "object",
   "x-slowmatch-label-forbidden-pattern": "https?|www\\.|private|secret|token|password|ignore|upload|system|instruction|prompt|trauma|diagnos|therapy|sexual|abuse|隐私|私密|密码|令牌|忽略|上传|指令|创伤|诊断|治疗|性生活|住址"
 }

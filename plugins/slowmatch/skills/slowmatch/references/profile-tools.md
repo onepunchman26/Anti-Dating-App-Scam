@@ -16,13 +16,23 @@ confirmation, uncertainty and alternatives for inferences; retain contradictions
 
 Use `--help` for implemented commands; schema is authoritative. Draft, approval and upload
 remain separate. Review all fields, audience and destination. Choose only user-supplied or
-approved values. If v1 sharing choices cannot express a preference, keep it private/unknown
+approved values. If the current sharing choices cannot express a preference, keep it private/unknown
 rather than invent a nearby answer. Approval binds exact content, audience and destination.
-Remote writes use only separately exported approved summaries. Approval is not publication:
+Matching writes use only separately exported approved summaries. Shared planning/feedback
+has its own isolated objects and consent flow in [activity planning](activity-planning.md);
+never put those fields into a summary as an escape hatch. Approval is not publication:
 verify the remote response and own published version before recording success. Unknown network
 results require a state check, not repeated publication. Private corrections never republish
 silently. Remote access uses the current user's own login, never borrowed credentials or
 client-declared identities. A missing connection leaves drafts local; zero candidates is valid.
+
+Keep romance and friendship participation, summary versions, visibility and conditions separate.
+Never convert a companionship goal into friendship opt-in or infer romantic intent from friendship.
+Both participants must be active in the same requested mode and satisfy reciprocal hard conditions;
+unknown is not a pass. Friendship explanations use actual shared interests, interaction style,
+desired frequency and boundaries; do not apply partner/family goals as universal friendship rules.
+Do not enable or publish either mode from a private profile update. Read current tools before
+acting; an unsupported mode must remain explicitly unavailable rather than silently mapped.
 
 Adult discovery requires an explicit 18+ self-declaration before drafting for publication.
 This is eligibility, not verified age or identity. General self-reflection is separate.
@@ -58,8 +68,14 @@ Git／OneDrive 外的指定文件或标准输入（`--input-json -`）。诊断�
 受众与目标，仅采用本人提供／批准的值。共享选项不能表达的偏好保留私密／未知，不替用户
 选近似答案。批准绑定内容、受众与目标；远程仅收到独立导出的已批准摘要。批准不等于
 发布，核对远程回复及本人发布版本后再记成功；网络结果未知时查询状态，不重复发布。
+共同安排／反馈使用[活动安排](activity-planning.md)中的隔离对象和独立授权流程，不能塞进摘要绕过边界。
 私人纠正不自动重发。远程使用当前用户自己登录，不借凭据或相信自报身份。缺少连接时
 草稿留本机，零候选也是有效结果。
+
+恋爱与朋友的参与状态、摘要版本、可见性和条件各自独立。不能把“陪伴”目标转成朋友模式同意，或从
+交友推断恋爱意图。双方必须在同一所求模式有效参与，并通过双向硬条件；未知不算满足。朋友解释实际
+使用共同兴趣、相处方式、频率及边界，不能把择偶／家庭目标当成所有朋友的标准。私人档案更新不自动
+开启或发布任一模式。先读实际工具，不支持的模式明确不可用，不暗中映射。
 
 准备发布到成人发现前须本人明确声明已满 18 岁；这是参与资格，不是已核验年龄或身份。
 普通自我探索与成人发现分开。本机顺序为 `summary-draft` → `summary-read` →

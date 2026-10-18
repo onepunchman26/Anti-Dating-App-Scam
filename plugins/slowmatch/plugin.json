@@ -1,9 +1,11 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "slowmatch",
-  "version": "0.6.0",
-  "description": "Relationship reflection and private local profiles / 关系探索与本机私人档案",
-  "author": {"name": "onepuchman"},
+  "version": "0.7.0",
+  "description": "Dating, friendship, private support and shared activities / 恋爱、交友、私人支持与共同活动",
+  "author": {
+    "name": "onepuchman"
+  },
   "extensions": {
     "com.openai": {
       "requires_local_executor": true,

@@ -40,6 +40,14 @@ licenses apply. Build and vendor notices above remain in the hosted-source mirro
 and source package. The native plugin and existing desktop binary are separate
 artifacts; this source credit update does not claim either was reinstalled/rebuilt.
 
+### Full replacement scope: behavior, place and audio references
+
+| Source and checked edition | Actual use, license scope and thanks |
+|---|---|
+| Department of Justice Canada, *Making appropriate parenting arrangements in family violence cases, 2023*, February 2023 summary; Jaffe, Bala, Medhekar, Scott and Oliver; [source](https://www.justice.gc.ca/eng/rp-pr/jr/rib-reb/mpafvc-capcvf/index.html), checked October 17, 2026 | Behavioral design reference: patterns/context and differentiated safety responses inform the project's own relationship-support text. No report text, diagram or code is bundled; no software license is claimed. Its family-justice setting is not a dating-AI diagnostic standard or a legal conclusion for a user's location. Thank you to the authors and publisher. |
+| Official OpenAI [plugin reference](https://developers.openai.com/plugins/reference), [local security](https://learn.chatgpt.com/docs/enterprise/chatgpt-work-local-security), [Voice](https://learn.chatgpt.com/docs/features/voice), [web search](https://learn.chatgpt.com/docs/web-search) and [transcription API](https://developers.openai.com/api/reference/resources/audio/subresources/transcriptions/methods/create), checked October 17, 2026 | Interface/documentation references only, not bundled OpenAI software. Used to distinguish optional location/file hints, local/cloud boundaries, voice versus raw-audio access and optional API capabilities. No transcription API or third-party recording service is activated by this reference. |
+| Existing AI-SlowMatch voice and relationship modules | The short local Vosk adapter is reused through project code; this does not change the chosen ChatGPT analysis model. Existing Vosk/model notices and optional-install boundaries continue to apply. New meeting-support/planning references are project-authored adaptations, not an imported absent Skill or a copy of the government publication. |
+
 ### Applying the findings to the connection loop
 
 The following records the earlier 0.5.3 repair, not the current plugin workflow.
@@ -98,6 +106,14 @@ does not establish working inference or the upstream's actual model ID.
 
 Site 依赖版本记录在其 `package.json` 与锁文件，各自许可独立适用。上述构建和供应商声明继续保留在
 托管源码镜像与源码包中。原生插件与旧桌面二进制是不同产物，本次源码致谢更新不表示已重装或重建。
+
+### 完整替代范围：行为、地点与音频参考
+
+| 来源与核对版本 | 实际用途、许可范围与致谢 |
+|---|---|
+| 加拿大司法部《Making appropriate parenting arrangements in family violence cases, 2023》，2023 年 2 月摘要；作者 Jaffe、Bala、Medhekar、Scott、Oliver；[原文](https://www.justice.gc.ca/eng/rp-pr/jr/rib-reb/mpafvc-capcvf/index.html)，2026 年 10 月 17 日核对 | 仅作行为设计参考：模式／背景及差异化安全回应用于本项目自写关系支持文本。不打包报告正文、图表或代码，不声称软件许可。其家庭司法背景不是约会 AI 诊断标准，也不构成用户所在地法律结论。感谢作者与发布方。 |
+| 官方 OpenAI [插件参考](https://developers.openai.com/plugins/reference)、[本机安全](https://learn.chatgpt.com/docs/enterprise/chatgpt-work-local-security)、[语音](https://learn.chatgpt.com/docs/features/voice)、[网页检索](https://learn.chatgpt.com/docs/web-search)及[转写 API](https://developers.openai.com/api/reference/resources/audio/subresources/transcriptions/methods/create)，2026 年 10 月 17 日核对 | 仅接口／文档参考，不打包 OpenAI 软件。用于区分可选位置／文件提示、本机与云端边界、原生语音与原音频访问及可选 API 能力；参考资料不激活转写 API 或第三方录音服务。 |
+| 原 AI-SlowMatch 语音与关系模块 | 通过本项目代码复用短音频本机 Vosk 适配器，不改变已选择的 ChatGPT 分析模型。旧 Vosk／模型声明及可选安装边界继续有效。新增见面支持／规划参考为本项目改编文本，不冒充导入缺失 Skill，不复制政府报告。 |
 
 ### 如何应用到本次连接循环
 

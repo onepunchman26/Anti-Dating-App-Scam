@@ -1,8 +1,17 @@
 # Progress tracker / 进度追踪
 
-Updated / 更新：2026-10-17。Agent-maintained; change both languages together / 代理维护，状态须同步更新双语。
+Updated / 更新：2026-10-18。Agent-maintained; change both languages together / 代理维护，状态须同步更新双语。
 
 ## English
+
+- ✅ R1–R2: adopted the complete owner-approved replacement requirements in the original repository. Reused 0.6 data/guarded I/O/CLI; added independent dating/friendship summaries and expiry without changing the fixed 0.5.3 EXE or real private data.
+- ✅ R3–R4 implementation: mode-specific bilateral matching, exact visible Site reminder, private observations/reflection/filtering and scoped selected-material lifecycle. 0.7 local plugin installed, 13 files verified against source; actual separate-process workflow preserved correction and independent approvals. Seven synthetic semantic examples were authored/reviewed in the current conversation, not claimed as new-chat integration tests.
+- ✅ R5–R6 executable scope: isolated shared-input generator, individual planning preferences, versioned proposals/confirmations/withdrawal and optional selected feedback. Two public venues actually checked; installed launcher generated/exported/withdrew a synthetic sourced plan. Local UI rendered both source cards and kept preview unuploaded. Selected text/audio correction/retention/deletion passed; actual speech transcription returned unavailable, not a success.
+- ✅ R7 verification/private deployment: **2,444 Python passed / 10 skipped / zero failures**, 18 Node/local D1 tests, compile, Ruff, TypeScript, ESLint and production build passed. Same owner-private Site deployed as saved version 4 (0.7.0), source `4c5bb5e`; real signed-in hosted summary and plan-list reads passed. No production test users or hosted writes.
+- ⛔ External acceptance: second independent account unavailable (NOT EXERCISED); native hosted MCP invocation remains approval-blocked; restricted new-chat storage and broad Work distribution unresolved. No native recorder; missing speech models prevent verified recognition. Real hosted write/lifecycle, cross-account and expired-login/network recovery remain untested. Current-chat Standard speed setting cannot be changed by an available tool.
+- 🔄 Final delivery: bilingual acceptance/handoff and sanitized 0.7 receipt written; final normal Git synchronization pending. Required owner/environment actions are deferred in CURRENT_STATUS, with no questions tonight. Hourly automation remains paused.
+
+### Historical 0.6 migration checkpoint
 
 - ✅ M1 audit/protection: original repository/remote verified at `78ea405`, unrelated work preserved, `codex/chatgpt-sites-migration` created. Native Skill installation/discovery and current-chat local persistence proved with synthetic data. October 17 Work + Sites direction supersedes EXE-first assumptions.
 - ✅ M2 local implementation: versioned profile, provenance/correction/history, selected legacy import, exact approved-summary export and private assessments implemented and tested. Current-chat launcher saved and re-read revision 2 plus a private synthetic assessment. No real private archive read or published.
@@ -44,6 +53,15 @@ Updated / 更新：2026-10-17。Agent-maintained; change both languages together
 Hourly automation stays paused. No purchase, paid API key, real private archive, email delivery or public deployment was used. The [prior tracker](docs/history/2026-10-01-before-standards-correction/PROGRESS_TRACKER.md) is historical, not an extra backlog. Current evidence belongs in [CURRENT_STATUS](CURRENT_STATUS.md).
 
 ## 中文版
+
+- ✅ R1–R2：在原仓库采用所有者批准的完整替代要求，复用 0.6 数据／受保护读写／CLI，增加独立恋爱／交友摘要与期限，固定 0.5.3 EXE 和真实私人数据不变。
+- ✅ R3–R4 实现：分模式双向匹配、准确可见网站提醒、私人观察／复盘／筛选及限定材料生命周期。0.7 本机插件已安装，13 文件与源码核对一致，实际跨进程流程保留纠正及独立批准。七个合成语义样例在当前对话编写／审阅，不冒充新聊天集成测试。
+- ✅ R5–R6 可执行范围：隔离共享输入生成器、各自安排偏好、版本化方案／确认／撤回及可选选定反馈。实际核对两个公开地点，安装启动器生成／导出／撤回合成有来源计划；本地界面呈现两张来源卡，预览未上传。选定文字／音频纠正／保留／删除通过，实际语音转写返回不可用，未计为成功。
+- ✅ R7 验证／私有部署：**Python 2,444 通过／10 跳过／零失败**，18 项 Node／本地 D1、编译、Ruff、TypeScript、ESLint、生产构建通过。同一所有者私有站部署为保存版本 4（0.7.0），源码 `4c5bb5e`；真实登录托管摘要及计划列表读取通过，未植入生产测试用户或托管写入。
+- ⛔ 外部验收：没有第二独立账号（尚未实测）；原生托管 MCP 调用仍受审批阻止，受限新聊天存储／广泛 Work 分发未解决。无原生录音器，缺语音模型导致无法验证识别。真实托管写入／生命周期、跨账户及登录过期／断网恢复未实测；当前没有工具更改本聊天 Standard 速度设置。
+- 🔄 最后交付：双语验收／交接及 0.7 脱敏回执已写入，待最终正常 Git 同步。必要本人／环境操作列于 CURRENT_STATUS 留待明天，今晚不提问，小时自动化继续暂停。
+
+### 0.6 迁移历史检查点
 
 - ✅ M1 审计／保护：核实原仓库／远端与 `78ea405` 回退点，保留无关工作，建立 `codex/chatgpt-sites-migration`。原生 Skill 安装／发现及当前聊天本机持久化已用合成资料证明；10 月 17 日 Work + Sites 方向替代 EXE 优先假设。
 - ✅ M2 本机实现：带版本档案、来源／纠正／历史、选定旧记忆导入、具体批准摘要导出与私人分析均已实现并测试。当前聊天启动器保存后重读版本 2 与合成私人分析，未读取或发布真实私人档案。

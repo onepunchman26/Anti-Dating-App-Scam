@@ -1,0 +1,446 @@
+{
+  "$defs": {
+    "MeetingOption": {
+      "additionalProperties": false,
+      "properties": {
+        "activity_type": {
+          "enum": [
+            "cafe_walk",
+            "museum",
+            "gallery",
+            "park_walk",
+            "board_games",
+            "volunteer",
+            "online_chat"
+          ],
+          "title": "Activity Type",
+          "type": "string"
+        },
+        "place_name": {
+          "maxLength": 80,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9\\u00C0-\\u024F\\u3400-\\u9FFF][A-Za-z0-9\\u00C0-\\u024F\\u3400-\\u9FFF '\\u2019.,()&/-]*$",
+          "title": "Place Name",
+          "type": "string"
+        },
+        "address_or_area": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9\\u00C0-\\u024F\\u3400-\\u9FFF][A-Za-z0-9\\u00C0-\\u024F\\u3400-\\u9FFF '\\u2019.,()&/-]*$",
+          "title": "Address Or Area",
+          "type": "string"
+        },
+        "planning_area": {
+          "maxLength": 60,
+          "minLength": 2,
+          "pattern": "^[A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF][A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF '\\u2019.,-]*$",
+          "title": "Planning Area",
+          "type": "string"
+        },
+        "source_urls": {
+          "items": {
+            "maxLength": 400,
+            "minLength": 8,
+            "type": "string"
+          },
+          "maxItems": 3,
+          "minItems": 1,
+          "title": "Source Urls",
+          "type": "array"
+        },
+        "checked_at": {
+          "maxLength": 40,
+          "minLength": 20,
+          "title": "Checked At",
+          "type": "string"
+        },
+        "verification": {
+          "enum": [
+            "official_source_checked",
+            "not_verified"
+          ],
+          "title": "Verification",
+          "type": "string"
+        },
+        "verified_facts": {
+          "items": {
+            "enum": [
+              "address",
+              "hours",
+              "admission_price",
+              "event_date"
+            ],
+            "type": "string"
+          },
+          "maxItems": 4,
+          "title": "Verified Facts",
+          "type": "array"
+        },
+        "unknowns": {
+          "items": {
+            "enum": [
+              "availability_not_checked",
+              "booking_not_made",
+              "opening_hours_may_change",
+              "price_may_change",
+              "accessibility_to_confirm",
+              "weather_to_check",
+              "travel_time_unknown",
+              "all_details_unverified"
+            ],
+            "type": "string"
+          },
+          "maxItems": 8,
+          "minItems": 1,
+          "title": "Unknowns",
+          "type": "array"
+        },
+        "source_open_window": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Window"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "source_admission": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourceAdmission"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "source_event_at": {
+          "anyOf": [
+            {
+              "maxLength": 40,
+              "minLength": 20,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Event At"
+        },
+        "option_id": {
+          "enum": [
+            "a",
+            "b",
+            "c"
+          ],
+          "title": "Option Id",
+          "type": "string"
+        },
+        "start_at": {
+          "maxLength": 40,
+          "minLength": 20,
+          "title": "Start At",
+          "type": "string"
+        },
+        "duration_minutes": {
+          "maximum": 480,
+          "minimum": 15,
+          "title": "Duration Minutes",
+          "type": "integer"
+        },
+        "estimated_budget_minor": {
+          "maximum": 100000,
+          "minimum": 0,
+          "title": "Estimated Budget Minor",
+          "type": "integer"
+        },
+        "currency": {
+          "enum": [
+            "USD",
+            "CAD",
+            "EUR",
+            "GBP",
+            "CNY",
+            "AUD",
+            "JPY"
+          ],
+          "title": "Currency",
+          "type": "string"
+        },
+        "sequence": {
+          "items": {
+            "enum": [
+              "meet_public",
+              "coffee",
+              "walk",
+              "visit_exhibit",
+              "play_game",
+              "meal",
+              "online_conversation",
+              "leave_independently"
+            ],
+            "type": "string"
+          },
+          "maxItems": 5,
+          "minItems": 1,
+          "title": "Sequence",
+          "type": "array"
+        },
+        "shared_interest_reasons": {
+          "items": {
+            "enum": [
+              "reading",
+              "music",
+              "art",
+              "outdoors",
+              "cooking",
+              "games",
+              "travel",
+              "sport",
+              "learning",
+              "volunteering"
+            ],
+            "type": "string"
+          },
+          "maxItems": 8,
+          "minItems": 1,
+          "title": "Shared Interest Reasons",
+          "type": "array"
+        },
+        "conversation_starters": {
+          "items": {
+            "enum": [
+              "shared_hobby",
+              "recent_learning",
+              "preferred_pace",
+              "next_activity",
+              "weekend_interests"
+            ],
+            "type": "string"
+          },
+          "maxItems": 3,
+          "minItems": 1,
+          "title": "Conversation Starters",
+          "type": "array"
+        },
+        "arrival_exit": {
+          "const": "independent_arrival_easy_exit",
+          "title": "Arrival Exit",
+          "type": "string"
+        },
+        "fallback": {
+          "enum": [
+            "reschedule",
+            "public_indoor_alternative",
+            "online_chat",
+            "end_without_pressure"
+          ],
+          "title": "Fallback",
+          "type": "string"
+        },
+        "booking_status": {
+          "const": "not_booked",
+          "title": "Booking Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "activity_type",
+        "place_name",
+        "address_or_area",
+        "planning_area",
+        "source_urls",
+        "checked_at",
+        "verification",
+        "verified_facts",
+        "unknowns",
+        "option_id",
+        "start_at",
+        "duration_minutes",
+        "estimated_budget_minor",
+        "currency",
+        "sequence",
+        "shared_interest_reasons",
+        "conversation_starters",
+        "arrival_exit",
+        "fallback",
+        "booking_status"
+      ],
+      "title": "MeetingOption",
+      "type": "object"
+    },
+    "PlanningRequirements": {
+      "additionalProperties": false,
+      "properties": {
+        "environment": {
+          "items": {
+            "enum": [
+              "public_place",
+              "quiet",
+              "outdoors",
+              "indoors",
+              "alcohol_free",
+              "easy_exit",
+              "step_free"
+            ],
+            "type": "string"
+          },
+          "maxItems": 7,
+          "minItems": 1,
+          "title": "Environment",
+          "type": "array"
+        },
+        "arrangement_needs": {
+          "items": {
+            "enum": [
+              "vegetarian",
+              "vegan",
+              "halal_options",
+              "allergen_menu",
+              "step_free_access",
+              "accessible_toilet",
+              "quiet_space",
+              "short_walk"
+            ],
+            "type": "string"
+          },
+          "maxItems": 8,
+          "title": "Arrangement Needs",
+          "type": "array"
+        },
+        "status": {
+          "const": "confirm_venue_suitability_before_agreeing",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "environment",
+        "arrangement_needs",
+        "status"
+      ],
+      "title": "PlanningRequirements",
+      "type": "object"
+    },
+    "SourceAdmission": {
+      "additionalProperties": false,
+      "properties": {
+        "currency": {
+          "enum": [
+            "USD",
+            "CAD",
+            "EUR",
+            "GBP",
+            "CNY",
+            "AUD",
+            "JPY"
+          ],
+          "title": "Currency",
+          "type": "string"
+        },
+        "amount_minor": {
+          "maximum": 100000,
+          "minimum": 0,
+          "title": "Amount Minor",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "currency",
+        "amount_minor"
+      ],
+      "title": "SourceAdmission",
+      "type": "object"
+    },
+    "Window": {
+      "additionalProperties": false,
+      "properties": {
+        "start_at": {
+          "maxLength": 40,
+          "minLength": 20,
+          "title": "Start At",
+          "type": "string"
+        },
+        "end_at": {
+          "maxLength": 40,
+          "minLength": 20,
+          "title": "End At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start_at",
+        "end_at"
+      ],
+      "title": "Window",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "mode": {
+      "enum": [
+        "dating",
+        "friendship"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "context_digest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Context Digest",
+      "type": "string"
+    },
+    "version": {
+      "maximum": 9007199254740991,
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "expires_at": {
+      "maxLength": 40,
+      "minLength": 20,
+      "title": "Expires At",
+      "type": "string"
+    },
+    "options": {
+      "items": {
+        "$ref": "#/$defs/MeetingOption"
+      },
+      "maxItems": 3,
+      "minItems": 2,
+      "title": "Options",
+      "type": "array"
+    },
+    "budget_basis": {
+      "const": "shared_budget_ceiling_not_verified_price",
+      "title": "Budget Basis",
+      "type": "string"
+    },
+    "requirements": {
+      "$ref": "#/$defs/PlanningRequirements"
+    }
+  },
+  "required": [
+    "schema_version",
+    "mode",
+    "context_digest",
+    "version",
+    "expires_at",
+    "options",
+    "budget_basis",
+    "requirements"
+  ],
+  "title": "MeetingPlan",
+  "type": "object",
+  "x-slowmatch-label-forbidden-pattern": "https?|www\\.|private|secret|token|password|ignore|upload|system|instruction|prompt|trauma|diagnos|therapy|sexual|abuse|隐私|私密|密码|令牌|忽略|上传|指令|创伤|诊断|治疗|性生活|住址"
+}

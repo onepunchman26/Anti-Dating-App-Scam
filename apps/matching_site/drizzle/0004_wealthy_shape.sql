@@ -1,0 +1,2 @@
+ALTER TABLE `planning_sessions` ADD `pair_key` text DEFAULT '' NOT NULL;--> statement-breakpoint
+CREATE UNIQUE INDEX `planning_open_pair` ON `planning_sessions` (`pair_key`,`mode`) WHERE status NOT IN ('withdrawn','expired');

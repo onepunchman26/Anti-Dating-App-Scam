@@ -1,0 +1,6 @@
+export default function SiteReminder({compact=false}:{compact?:boolean}) {
+  return <aside className="reminder" aria-label="AI recommendations / AI 推荐提醒">
+    <h3>AI recommendations are a starting point<br/>AI 推荐是认识的起点</h3>
+    {compact?<><p>AI can be wrong, and profiles may be untrue. Take time to get to know each other, keep your boundaries, and judge by your experience together. You can pause or leave at any time.</p><p lang="zh-Hans">AI 可能误判，资料也可能不真实。慢慢了解，保留边界，以实际相处作判断；随时可以暂停或退出。</p></>:<><p>AI analysis and matching can be wrong. Profiles and statements may be incomplete or deliberately misleading. A match cannot establish someone’s honesty, actual circumstances, or the safety of a relationship. Move at a pace both of you are comfortable with, keep your boundaries, and get to know each other through gradual conversation and safe, easy-to-leave meetings. Over time, consider whether their actions match their words and whether the relationship suits you. You can slow down, decline, pause, or leave at any time. You do not need to stay in a relationship that makes you uncomfortable because AI recommended it.</p><p lang="zh-Hans">AI 的分析和匹配可能出错，人的资料和陈述也可能不完整，或存在刻意隐瞒与误导。匹配结果不能证明一个人的诚实程度、真实情况或关系安全。请按双方舒服的节奏，保持边界，通过逐步交流和安全、容易离开的线下接触，观察对方在一段时间里的实际行为是否与表达一致、是否真的适合你。你可以随时放慢、拒绝、暂停或退出，无须为了 AI 的推荐继续一段让你不舒服的关系。</p></>}
+  </aside>;
+}

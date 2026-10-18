@@ -24,8 +24,14 @@ from anti_dating_scam.models.work_profile import (
     SummaryApprovalRequest,
     SummaryDraftRequest,
     SummaryExportRequest,
+    shareable_summary_schema,
+)
+from anti_dating_scam.services.relationship_support import (
+    SUPPORT_OPERATIONS,
+    RelationshipSupportService,
 )
 from anti_dating_scam.services.report_review import _decode
+from anti_dating_scam.services.work_planning import PLANNING_OPERATIONS, WorkPlanningService
 from anti_dating_scam.services.work_profile import WorkProfileError, WorkProfileService
 
 OPERATIONS = {
@@ -44,6 +50,9 @@ OPERATIONS = {
     "assessment-save": ("save_assessment", AssessmentSaveRequest),
     "assessment-read": ("read_assessment", IdentifierRequest),
 }
+PROFILE_OPERATIONS = dict(OPERATIONS)
+OPERATIONS.update(SUPPORT_OPERATIONS)
+OPERATIONS.update(PLANNING_OPERATIONS)
 
 
 def dispatch(operation: str, arguments: dict, data_dir: Path | None = None):
@@ -74,14 +83,22 @@ def dispatch(operation: str, arguments: dict, data_dir: Path | None = None):
                     "PublishedProfile": PublishedProfile,
                     "PrivateMatchAssessment": PrivateMatchAssessment,
                 }.items()
-            },
+            }
+            | {"CurrentShareableSummary": shareable_summary_schema()},
         }
     if operation not in OPERATIONS:
         raise WorkProfileError("unsupported_operation_or_arguments")
     method, model = OPERATIONS[operation]
     if model is None and arguments:
         raise WorkProfileError("unsupported_operation_or_arguments")
-    service = WorkProfileService(data_dir)
+    service_type = (
+        RelationshipSupportService
+        if operation in SUPPORT_OPERATIONS
+        else WorkPlanningService
+        if operation in PLANNING_OPERATIONS
+        else WorkProfileService
+    )
+    service = service_type(data_dir)
     result = getattr(service, method)(arguments) if model else getattr(service, method)()
     return result.model_dump(mode="json") if hasattr(result, "model_dump") else result
 

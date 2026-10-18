@@ -6,21 +6,40 @@ Anti-Dating-App-Scam is the authoritative AI-SlowMatch project for relationship 
 
 ## Current Product Direction (2026-10-17)
 
-The owner's October 17 migration requirements supersede the earlier GUI-first and
-offline-only assumptions. The primary interaction is the user's own ChatGPT desktop
+The owner's full October 17 replacement attachment (`New Text Document (3).md`),
+not the truncated earlier prompt, is the latest product authority. It supersedes
+GUI-first, offline-only and summary-only first-version scope. The primary interaction is the user's own ChatGPT desktop
 conversation with the AI-SlowMatch plugin. ChatGPT's cloud models may process the
 personal information the user has authorized for that task. This is separate from
 permission to send information to the matching service.
 
-- Keep the full profile and private match assessments in user-owned local storage.
+- Keep the full profile, private assessments, relationship observations, reflections,
+  raw materials/audio/transcripts and private filtering reasons in user-owned local storage.
   Default new state to `%LOCALAPPDATA%/AI-SlowMatch/work`, outside Git, OneDrive,
   plugin packages, build outputs, and website assets. Do not migrate or scan old
   vaults automatically.
-- Send only a separately generated, reviewed, version-bound shareable summary to
-  Sites. Local profile-update consent is not publication consent. Sites must never
-  receive raw chats, private claims, private analysis, or full-profile embeddings.
+- Sites accepts separately generated, reviewed, version-bound matching summaries
+  and the narrow new exception of individually approved, purpose/audience/expiry-bound
+  minimal shared planning preferences, meeting plans and selected feedback. Local
+  profile-update consent is not publication/planning/recording consent. Sites must never
+  receive raw chats, audio/transcripts, private claims, risk reasons, private analysis,
+  or full-profile embeddings. Shared generation reads approved objects alone; loading
+  private profiles and relying on prompt secrecy is not isolation.
+- Romance and friendship are independently enabled modes with their own summaries,
+  visibility and reciprocal conditions. Friendship never implies romantic intent.
+  Relationship support, private observations, user-controlled local filters, shared
+  activities, preparation, user-initiated in-meeting help, text reflection and optional
+  consented audio are current scope, not an unapproved future roadmap.
+- Personal help never requires the peer's permission. Distinguish ordinary mismatch,
+  unclear evidence and concrete harmful behavior; no diagnostic personality/lie scores.
+  Support boundaries and exit, including when the user pressures someone else.
+  No automatic messages, reservations, payments, calendar changes, recording or tracking.
+- Verify map display, place lookup, coarse location hints, file import, microphone and
+  transcription separately. Do not equate native voice with plugin access to raw audio.
+  Keep text help usable when audio is unsupported. Show the approved bilingual Site
+  reminder in homepage explanation, joining, candidate detail and first planning flow.
 - Sites provides authenticated summary storage, visibility, reciprocal filtering,
-  and preliminary explanations from shared fields. Resolve identity from validated
+  mode-specific preliminary explanations and bounded planning state from shared fields. Resolve identity from validated
   platform request context, never a model/client-supplied `user_id`.
 - Reuse the existing Python models, guarded storage, and migration helpers. Keep the
   fixed `AI-SlowMatch.exe` and verified 0.5.3 recovery evidence; the new 0.6.0 source

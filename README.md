@@ -1,140 +1,140 @@
 # AI-SlowMatch
 
-## English — current direction, October 17, 2026
+## English — current direction, October 18, 2026
 
-AI-SlowMatch is moving the existing relationship copilot into **your own ChatGPT
-desktop workflow**. Talk about relationships, communication, values and life
-direction; maintain a correctable local profile; separately approve a small matching
-summary for Sites; discuss candidates privately in your own ChatGPT conversation.
-Your answers define your profile. There are no founder-default values, public
-personality scores, automatic messages, or guarantees about another person.
+AI-SlowMatch uses **your own ChatGPT conversation** to understand relationships, friendships,
+values and life direction. Your answers remain your own: no founder defaults, personality
+scores, guarantees about someone’s honesty, or automatic messages. The owner-approved full
+replacement requirements are recorded in [PLAN](PLAN_FOR_ONEPUCHMAN.md) and [AGENTS](AGENTS.md).
 
-The original `Anti-Dating-App-Scam` repository remains the product and source
-authority. The October 17 requirements replace the older GUI-first and offline-only
-assumptions. Existing Python services and guarded storage are reused. The verified
-**0.5.3 `AI-SlowMatch.exe` remains the recovery/legacy entry**; the **0.6.0 source
-migration is not a new EXE build**. The historical desktop workflow below remains
-available for its existing functions.
+**0.7.0 expands the original project; complete two-account acceptance remains blocked.**
+The original `onepunchman26/Anti-Dating-App-Scam` repository remains authoritative. The fixed
+**0.5.3 `AI-SlowMatch.exe` is unchanged** and remains the legacy/recovery entry. This migration
+reuses Python contracts, guarded storage, selected imports and the optional speech adapter;
+ChatGPT replaces the standalone app as the primary conversation entry. No new inference
+service or parallel product was created.
 
-The intended daily path is **ChatGPT → AI-SlowMatch → chat → review and approve a
-summary when ready → publish → inspect candidates → discuss privately**. This is
-being implemented, not a claim that the whole path has passed acceptance. Native
-Codex discovery of the installed `slowmatch` Skill has been observed. The
-[private Sites pilot](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site) has a
-successful deployment of the summary UI, authenticated MCP service, D1 storage and
-reciprocal matching code; this is not complete-product acceptance. Current-chat local
-tools saved, corrected and re-read a synthetic profile and private assessment.
-Sites provisioned its MCP plugin; native discovery succeeded, but invocation was
-blocked by the test session's approval policy. A separate restricted new-chat local
-storage probe also remains blocked. **Two-account acceptance is not exercised: no second account is
-available.** See [current evidence](CURRENT_STATUS.md) for the latest verified results.
+The [private Site](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site) and local
+`slowmatch@slowmatch-local` plugin have different permissions. **Implemented, connected,
+actually tested and blocked are recorded separately in [CURRENT_STATUS](CURRENT_STATUS.md).**
+Native remote invocation previously hit the platform approval policy; no bypass was used.
+The owner has no second independent account, so real two-account cases remain NOT EXERCISED.
 
-| Component | Source and purpose |
+| Where | What it does |
 |---|---|
-| Unified workflow | `plugins/slowmatch/`: focused Skills, references and plugin packaging; use the bundled instructions instead of pasting several long prompts. |
-| Local contracts | `src/anti_dating_scam/models/work_profile.py`: separate private profile, summary draft, approved publication record and private assessment. |
-| Local operations | `src/anti_dating_scam/services/work_profile.py` and `src/anti_dating_scam/work_cli.py`: guarded local I/O; `python -m anti_dating_scam.work_cli --help` lists implemented commands in an installed source environment. |
-| Matching service | `apps/matching_site/`: Sites-supported Worker source for authentication, permitted summaries, visibility and reciprocal filters; delivery status is tracked separately. |
+| `plugins/slowmatch/` | One progressive Skill for relationship support, self-understanding, direction, profile changes, private reflection and shared activities. |
+| `src/anti_dating_scam/{models,services}/work_profile.py` | Correctable private profile, separate dating/friendship summaries, expiry-bound approvals and private candidate explanations. |
+| `src/anti_dating_scam/{models,services}/relationship_support.py` | Evidence-linked observations, private reflections, local candidate filters, selected text/audio import, scoped consent, correction and deletion. |
+| `src/anti_dating_scam/{models,services}/work_planning.py` | Minimal sharing receipts and a restricted generator that reads only supplied shared preferences and public place evidence. |
+| `apps/matching_site/` | Worker/D1 service: per-mode participation, bilateral candidate filters, reminders, separate participant preferences, versioned plans, individual confirmations, withdrawal and optional minimal feedback. |
 
-Full profiles and private assessments default to `%LOCALAPPDATA%/AI-SlowMatch/work`
-on Windows, outside the source repository and OneDrive. The runtime resolves the
-actual local application-data location; packaged Windows hosts may redirect it.
-Local state is plaintext and separated into `profile/`, `drafts/`, `publications/`,
-`assessments/` and `outbound/`. No real legacy archive has been migrated in this task.
-Migration must select old input explicitly and preserve its original bytes.
+The everyday path is ChatGPT → SlowMatch → talk → review and approve a separate summary
+for each chosen mode → publish → discuss candidates privately → voluntarily share activity
+preferences → review two or three options → each person confirms → optional private reflection.
+Friendship does not imply romantic intent. A profile update does not publish anything.
+No response is unknown, not consent or rejection. A plan does not send an invitation outside
+this Site, make a reservation, pay, share location or write a calendar event.
 
-OpenAI may process the task-relevant personal information you choose to use in
-ChatGPT under your service settings. **Sites receives only the approved summary**:
-alias, adult age band, selected city/areas, relationship goal, accepted goals and age
-bands, selected value/life-direction/communication/interest tokens, preferences,
-participant visibility, discoverability and version metadata. It receives no raw
-chat, source quotes, detailed private history, private assessment or full-profile
-embedding. City/area filters do not claim kilometre accuracy. A draft is not consent;
-approval records bind the exact summary version. A local approval is not proof of
-successful remote publication.
+Windows private data defaults to `%LOCALAPPDATA%/AI-SlowMatch/work`, outside Git and OneDrive;
+packaged hosts can redirect that path to their local application cache. Files are plaintext.
+Full profiles/history, private assessments, relationship observations, raw text/audio and
+transcripts stay in this local workflow. OpenAI can process information you choose to use
+under your ChatGPT settings; local primary storage is **not** a promise of zero cloud retention.
 
-Installation is a separate step from creating a ZIP. On this machine initialization
-and native Codex installation have completed. For a prepared Windows checkout with
-Python 3.11+, the project dependencies and the supported `codex` plugin installer,
-run `python scripts/work_plugin_setup.py install` once from the repository. This
-registers the existing core and installs `slowmatch@slowmatch-local`; no local web
-server is needed for daily use. Open a local chat, select SlowMatch and ask it to
-read the profile before saving a correction. This Codex installer does not prove
-arbitrary ChatGPT Work accounts can install the local package. The hosted
-`AI-SlowMatch · 慢慢相识` plugin must also be connected under your own account through
-the platform's normal plugin connection and approval UI. Another participant must use their own account and supported
-installation/connection path; an owner's private plugin does not prove general
-availability. Daily use must not require copying tokens or starting several services.
+Sites receives only separately approved, allowlisted objects: a mode-specific matching summary
+(alias, adult age band, coarse area and selected public choices), practical activity preferences,
+public-source plans and optional feedback choices. Friendship summaries exclude dating/family
+goals. Preferences can include voluntary access/diet requirements but never their private
+reasons. Consent binds the exact content, purpose, recipient, expiry and withdrawal state.
+Server identity comes from Sites authentication. No raw chat, private risk narrative, recording,
+transcript, private file path, full-profile vector or private report is accepted by a Site tool.
+Copies already seen by other people and platform backups cannot be guaranteed recalled.
 
-Thanks also to the supplied OpenAI Sites starter and shadcn contributors. The Sites
-build integration and vendored CSS are actual bundled source with retained MIT
-notices; this differs from the method-only references below. The focused plugin
-adapts goutoujunshi methods, excludes developer-only grilling, and includes an
-original life-direction workflow because no separate installed planning Skill was
-found. Exact sources, revisions and reuse scopes are in the credits register.
+For personal help, describe what happened without obtaining the other person's permission.
+Ask for a brief suggestion before or during a meeting; nothing records or contacts anyone as
+a side effect. Save an observation only when wanted. Text and recollection work without audio.
+The optional import accepts selected UTF-8 `.txt`/`.md`, or mono 16 kHz 16-bit WAV of 0.1–30 s.
+There is **no native recording feature** in this Work plugin. The optional existing Vosk adapter
+needs its installed language model; neither language model is ready on the current runtime.
+A supplied/corrected transcript is labelled unverified, not counted as automatic transcription.
+Retention is checked on each support operation; there is no background expiry promise. Deleting
+managed local material does not delete the external original or the ChatGPT conversation.
 
-[Approved migration plan](PLAN_FOR_ONEPUCHMAN.md) · [Progress](PROGRESS_TRACKER.md) ·
-[Current evidence and recovery](CURRENT_STATUS.md) · [Sources and credits](docs/39_open_source_credits.md)
+On a prepared Windows checkout with Python 3.11+, dependencies and the supported Codex installer,
+run `python scripts/work_plugin_setup.py install` once. Daily use needs no manually started
+server or copied tokens. The local launcher uses `work-runtime.json` outside source to invoke
+the existing core. `slowmatch-work schema` describes actual operations. The hosted Site plugin
+must be connected through the account’s normal platform UI and approvals. Local Codex installation
+does not prove distribution eligibility on arbitrary ChatGPT Work accounts.
 
-## 中文版 — 当前方向，2026 年 10 月 17 日
+Website publishing uses an allowlisted, one-way hosting source mirror; `apps/matching_site/`
+stays authoritative. Published migrations are immutable. [Current evidence](CURRENT_STATUS.md)
+contains validation and minimal deferred owner actions; [progress](PROGRESS_TRACKER.md) remains
+bilingual. The existing hourly automation remains paused.
 
-AI-SlowMatch 正在把现有恋爱军师迁入**你自己的 ChatGPT 桌面工作流**。通过聊天探索关系、
-沟通、价值观与人生方向，持续维护可纠正的本机档案；另行批准少量匹配摘要交给 Sites，
-再在自己的 ChatGPT 对话中私下讨论候选。档案答案以本人为准，不套用创始人的默认价值观，
-不设公开人格分数，不自动发消息，也不保证他人的人品或关系安全。
+Thanks to the supplied Sites/Vinext starter, retained MIT build/CSS sources, Vosk and the
+method references including goutoujunshi. Developer grilling is excluded. The Canadian DOJ
+reference informed behavior/context distinctions, not diagnosis or legal conclusions.
+[Credits, revisions, licenses and exact reuse](docs/39_open_source_credits.md).
 
-原 `Anti-Dating-App-Scam` 仓库继续作为产品和源码权威。10 月 17 日要求替代旧有“GUI
-优先”和“必须离线”的假设，复用已有 Python 服务与受保护读写工具。已验证的
-**0.5.3 `AI-SlowMatch.exe` 保留为恢复／旧功能入口**；**0.6.0 是本次源码迁移，并不表示
-已经重建 EXE**。下方历史桌面流程仍说明旧程序的既有功能。
+## 中文版 — 当前方向，2026 年 10 月 18 日
 
-目标日常路径是 **ChatGPT → AI-SlowMatch → 聊天 → 准备好后预览并批准摘要 → 发布 →
-查看候选 → 私下讨论**。这条路径正在实现，不能据此声称整体验收通过。已观察到原生 Codex
-发现并加载所安装的 `slowmatch` Skill。[私密 Sites 试运行站点](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site)
-已成功部署摘要界面、带认证的 MCP 服务、D1 存储与双向匹配代码，但不表示完整产品验收通过。
-当前聊天中的本机工具已保存、纠正并重读合成档案与私人分析。Sites 已创建 MCP 插件，原生工具
-可被发现，但测试会话的审批策略阻止了调用；独立受限新会话的本机存储探针也仍受阻。
-**双账号验收未实测：没有第二账号。**
-最新验证结果以[当前依据](CURRENT_STATUS.md)为准。
+AI-SlowMatch 使用**你自己的 ChatGPT 对话**理解关系、友谊、价值观与人生方向。每个人的答案
+以本人为准，不套用创始人默认值、不打人格分、不保证他人诚实，也不自动发消息。所有者批准的
+完整替代要求已记录在 [PLAN](PLAN_FOR_ONEPUCHMAN.md) 与 [AGENTS](AGENTS.md)。
 
-| 组件 | 源码与用途 |
+**0.7.0 继续扩展原项目；完整双账户验收仍受外部条件阻挡。**原
+`onepunchman26/Anti-Dating-App-Scam` 仓库继续作为源码权威。固定的
+**0.5.3 `AI-SlowMatch.exe` 未改变**，保留旧功能和恢复入口。本次复用 Python 结构、受保护读写、
+选定导入与可选语音适配器，以 ChatGPT 为主要对话入口；没有另造推理服务或平行产品。
+
+[私有网站](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site)与本机
+`slowmatch@slowmatch-local` 插件的权限不同。**已实现、已连接、已实测和受阻分别记在
+[CURRENT_STATUS](CURRENT_STATUS.md)**。原生远程调用此前被平台审批策略阻止，未绕过；
+所有者暂时没有第二个独立账号，真实双账户场景明确“尚未实测”。
+
+| 位置 | 用途 |
 |---|---|
-| 统一工作流 | `plugins/slowmatch/`：按需加载的 Skills、参考与插件打包；使用随包流程，不把多份长提示词直接拼接。 |
-| 本机结构 | `src/anti_dating_scam/models/work_profile.py`：分开的完整私人档案、摘要草稿、批准发布记录和私人匹配分析。 |
-| 本机操作 | `src/anti_dating_scam/services/work_profile.py` 与 `src/anti_dating_scam/work_cli.py`：受保护的本地读写；安装源码环境后运行 `python -m anti_dating_scam.work_cli --help` 查看实际命令。 |
-| 匹配服务 | `apps/matching_site/`：Sites 支持的 Worker 源码，处理身份、允许摘要、可见性与双向条件；交付状态单独记录。 |
+| `plugins/slowmatch/` | 单一按需 Skill，覆盖关系支持、自我理解、方向、档案修改、私人复盘与共同活动。 |
+| `src/anti_dating_scam/{models,services}/work_profile.py` | 可纠正的私人档案、独立恋爱／交友摘要、带期限批准和私人候选解释。 |
+| `src/anti_dating_scam/{models,services}/relationship_support.py` | 有证据关联的观察、私人复盘、本机候选筛选、选定文字／音频导入、分项授权、纠正与删除。 |
+| `src/anti_dating_scam/{models,services}/work_planning.py` | 最小共享批准记录；受限生成器只读取传入的共享偏好和公开地点依据。 |
+| `apps/matching_site/` | Worker／D1 服务：分模式参与、双向候选筛选、提醒、各人独立偏好、版本化方案、各自确认、退出与可选最少反馈。 |
 
-Windows 上的完整档案和私人报告默认存入 `%LOCALAPPDATA%/AI-SlowMatch/work`，与源码仓库及
-OneDrive 分离。运行时会解析实际本机应用数据目录，Windows 打包宿主可能重定向该位置。
-本地状态目前为明文，分别放入 `profile/`、`drafts/`、`publications/`、`assessments/` 与
-`outbound/`。本任务未迁移真实旧档案；迁移必须明确选择旧输入并保留原始文件。
+日常路径：ChatGPT → SlowMatch → 聊天 → 分别审阅并批准所选模式的摘要 → 发布 → 私下讨论候选 →
+自愿分享活动偏好 → 比较两三个方案 → 各自确认 → 可选私人复盘。交友不代表恋爱意向，档案更新
+不会自动发布。无回应是未知，不代表同意或拒绝。计划不会向站外发送邀请、订位、付款、共享位置或写入日历。
 
-你选择在 ChatGPT 中使用的相关个人信息，可按你的服务设置交给 OpenAI 分析。
-**Sites 只接收已批准摘要**：化名、成年年龄段、自选城市／区域、关系目标、接受的目标与年龄段、
-选定的价值观／人生方向／沟通／兴趣选项、偏好、参与者可见范围、发现状态和版本元数据。
-不会收到原始对话、来源引文、详细私人经历、私人分析或完整档案向量。城市／区域筛选不声称
-精确公里距离。草稿存在不等于获准发布；批准记录绑定具体摘要版本，本地批准也不证明远程发布成功。
+Windows 私人资料默认存于 `%LOCALAPPDATA%/AI-SlowMatch/work`，与 Git、OneDrive 分离；
+打包宿主可能重定向到本机应用缓存。文件目前为明文。完整档案／历史、私人解释、关系观察、原始
+文字／音频和转写留在本机工作流。OpenAI 可按 ChatGPT 设置处理本人选择使用的信息；本机主存
+**不等于零云端留存承诺**。
 
-安装与生成 ZIP 是不同步骤。这台电脑已完成初始化与原生 Codex 安装。其他 Windows 源码环境须有
-Python 3.11+、本项目依赖与受支持的 `codex` 插件安装器；在仓库运行一次
-`python scripts/work_plugin_setup.py install`，即可注册原核心并安装 `slowmatch@slowmatch-local`。
-日常不需要启动本机网站服务。新开支持本机执行的聊天、选择 SlowMatch，先请它读取档案，再保存纠正。
-此 Codex 安装器不证明任意 ChatGPT Work 账号都能安装本机包。托管的 `AI-SlowMatch · 慢慢相识`
-插件仍须用本人账号，通过平台正常插件连接与审批界面接入。其他参与者必须使用自己的账号和受支持的安装／连接路径；
-所有者拿到私人插件不证明它已经向所有人开放。日常使用不应要求复制令牌或手动启动多个服务。
+Sites 只接收另行批准且符合允许字段的对象：分模式匹配摘要（化名、成年年龄段、粗略地区和所选
+公开选项）、实际活动偏好、附公开来源的方案及可选反馈选择。交友摘要不含择偶／家庭目标；安排
+需求可自愿包括无障碍／饮食要求，但不包含私人原因。批准绑定具体内容、用途、接收者、期限与撤回
+状态，身份由 Sites 登录验证。网站工具不接收原始聊天、私人风险叙述、录音、转写、私密路径、完整
+档案向量或私人报告。无法保证收回对方已看过的内容或平台备份。
 
-同时感谢 OpenAI Sites 所供模板和 shadcn 贡献者。Sites 构建集成与附带 CSS 是实际打包的源码，
-保留 MIT 许可，与下方仅借鉴方法的参考不同。插件改编 goutoujunshi 方法，不包含仅供开发审查的
-grilling；未找到独立已安装规划 Skill，因此人生方向流程由本项目新写。确切来源、版本和使用范围
-记录在致谢登记中。
+本人可直接描述经历并求助，无须先取得对方许可。见面前或中途可以请求简短建议，咨询不会顺带录音
+或联系任何人；需要时再保存观察。不用音频也能通过文字和回忆复盘。可选导入接收指定 UTF-8
+`.txt`／`.md`，或 0.1–30 秒、单声道 16 kHz／16-bit WAV。此 Work 插件**没有原生录音功能**。
+复用的可选 Vosk 适配器需要安装相应语言模型，当前运行环境的中英文模型均未就绪。本人提供／纠正
+的转写标记为未核验，不能算自动识别成功。每次支持操作检查保留期限，不承诺后台到期清理；删除
+本机受管材料不会删除外部原文件或 ChatGPT 对话。
 
-[已批准迁移计划](PLAN_FOR_ONEPUCHMAN.md) · [进度](PROGRESS_TRACKER.md) ·
-[当前依据与恢复](CURRENT_STATUS.md) · [来源与致谢](docs/39_open_source_credits.md)
+准备好 Windows 源码、Python 3.11+、依赖和受支持的 Codex 安装器后，运行一次
+`python scripts/work_plugin_setup.py install`。日常不用手动启动服务器或复制令牌。本机启动器用
+源码外的 `work-runtime.json` 调用已有核心；`slowmatch-work schema` 列出实际操作。托管网站插件
+需通过账号正常的平台界面连接和批准；本机 Codex 安装不能证明所有 ChatGPT Work 账号均有分发资格。
 
----
+网站通过允许列表生成单向托管源码镜像，权威仍是 `apps/matching_site/`；已发布迁移不可修改。
+[当前依据](CURRENT_STATUS.md)记录验证与最少人工操作，[进度](PROGRESS_TRACKER.md)同步双语。
+既有小时自动化继续暂停。
 
-The following is the preserved 0.5.3 desktop workflow, not the new plugin's acceptance
-record. / 以下保留 0.5.3 桌面使用流程，不是新插件的验收记录。
+感谢 Sites／Vinext 模板、保留的 MIT 构建／CSS 源码、Vosk 与 goutoujunshi 等方法参考；开发用
+压力测试 Skill 不进入终端产品。加拿大司法部资料用于行为／情境区分，不是诊断或法律结论。
+[来源、版本、许可及确切复用范围](docs/39_open_source_credits.md)。
 
 ## Historical 0.5.3 desktop workflow — English
 

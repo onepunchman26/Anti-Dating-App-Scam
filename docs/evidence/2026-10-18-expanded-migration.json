@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "product_version": "0.7.0",
+  "verification_date_utc": "2026-10-18",
+  "status": "implemented_installed_private_deployed_external_acceptance_open",
+  "requirement_authority": "Owner-endorsed complete New Text Document (3).md; replaces prior prompt; PLAN and ADR-015",
+  "repository": {
+    "authority": "onepunchman26/Anti-Dating-App-Scam",
+    "branch": "codex/chatgpt-sites-migration",
+    "starting_checkpoint": "e742c0a70d2c5aa7dc5b8053bea923b5c2eeff48",
+    "premigration_checkpoint": "78ea4053e716701a3b501ce37f4d5095b2cc51c4",
+    "unrelated_work_preserved": [
+      ".vscode/",
+      "paper/"
+    ],
+    "source_sync": "pending_final_delivery_commit"
+  },
+  "legacy": {
+    "fixed_exe_version": "0.5.3",
+    "unchanged_sha256": "9280e8b464d91b85249c6af26b9e5390e9a358dbe3e7ccbc3b8494d919fb2978",
+    "real_private_archive_read_or_migrated": false
+  },
+  "validation": {
+    "python": {
+      "passed": 2444,
+      "skipped": 10,
+      "failed": 0,
+      "duration_seconds": 821.61,
+      "warnings": 1,
+      "warning": "Existing Starlette/httpx deprecation",
+      "runtime": "Python 3.12.14 in .venv-rehab; old .venv interpreter unavailable"
+    },
+    "compileall_src": "passed",
+    "changed_python_ruff": "passed",
+    "node_local_d1": {
+      "passed": 18,
+      "failed": 0,
+      "real_local_sqlite_d1": true,
+      "real_account_authentication": false
+    },
+    "typescript": "passed",
+    "app_eslint": "passed",
+    "production_build": "passed",
+    "schema_parity": [
+      "shareable_profile",
+      "shared_planning_preferences",
+      "meeting_plan"
+    ],
+    "final_read_only_review": "no_new_release_blocking_finding"
+  },
+  "plugin": {
+    "package": "slowmatch@slowmatch-local",
+    "version": "0.7.0",
+    "native_install_command_completed": true,
+    "files_matching_source": 13,
+    "installed_skill_sha256": "7d08e067e44f05024320cecdf04f44c02658af059ae82b648f40af4440dba3a1",
+    "skill_read_observed_in_current_agent_chat": true,
+    "local_operation_counts": {
+      "profile": 14,
+      "support": 21,
+      "planning": 6,
+      "total": 41
+    },
+    "fresh_native_chat_started": false,
+    "previous_restricted_session": {
+      "result": "storage_unavailable",
+      "bounded_attempts": 3,
+      "remains_unresolved": true
+    },
+    "general_chatgpt_work_distribution": "unverified"
+  },
+  "local_execution": {
+    "synthetic_only": true,
+    "execution": "current_chat_installed_plugin_launcher_separate_processes",
+    "no_hosted_writes": true,
+    "private_test_root": "separate LOCALAPPDATA/AI-SlowMatch/expanded-proof directory",
+    "profile_revision_saved_corrected_reread": 2,
+    "independent_mode_draft_approval_export": [
+      "friendship",
+      "dating"
+    ],
+    "export_status": "approved_for_upload_not_sent",
+    "private_assessment_saved_reread": true,
+    "private_help_no_peer_permission": true,
+    "private_filter_without_reason_export": true,
+    "selected_text_audio_import_correction_retention_deletion": true,
+    "external_originals_preserved": true,
+    "actual_transcription_result": "local_transcription_unavailable",
+    "recognizer_package_installed": true,
+    "english_model_available": false,
+    "chinese_model_available": false,
+    "audio_input": "synthetic silent 0.2-second WAV; selected file only",
+    "supplied_corrected_transcript_status": "user_supplied_unverified",
+    "recording_or_recognized_speech_verified": false,
+    "retention_enforcement": "next support access or explicit sweep; not background",
+    "shared_only_public_place_proposal": true,
+    "withdrawn_export_result": "approval_withdrawn",
+    "peer_authentication_in_local_proof": "synthetic_context_not_real_accounts"
+  },
+  "site": {
+    "project_id": "appgprj_6ad4306f79e88191bbbd502f495ec501",
+    "url": "https://slowmatch-private-pilot.fizzydeer7.chatgpt.site",
+    "audience": "owner_private_unchanged",
+    "external_viewers_added": 0,
+    "source_authority": "apps/matching_site/",
+    "one_way_mirror_source_files": 139,
+    "hosting_source_commit": "4c5bb5e801c2400034fef3b35d62afa2e19eb79a",
+    "saved_version_number": 4,
+    "saved_version_id": "appgprj_6ad4306f79e88191bbbd502f495ec501~appgver_696a320540208191a8a3b6ce5539c8be",
+    "deployment_id": "appgdep_6ad446706a148191a147e180b0540727",
+    "deployment_status": "succeeded",
+    "deployment_updated_at": "2026-10-18T04:10:11.842967+00:00",
+    "has_mcp": true,
+    "remote_operation_counts": {
+      "matching": 6,
+      "planning": 10,
+      "total": 16
+    },
+    "local_gzip_sha256": "531284e46fe824555da5e8211c696ff49d9e3d4449df61c383cc8fcf1d17f30f",
+    "stored_tar_sha256": "3742d0ee0627d432a1715f6b96192bca63efed830a85471b39986c29bfd35b84",
+    "stored_tar_file_count": 100,
+    "stored_tar_bytes": 1751040,
+    "new_schema_only_migrations": [
+      "0002_fluffy_mentor.sql",
+      "0003_outgoing_kabuki.sql",
+      "0004_wealthy_shape.sql"
+    ],
+    "published_old_migrations_modified": false,
+    "production_synthetic_users_seeded": false,
+    "authenticated_hosted_browser_reads": {
+      "friendship_summary": {
+        "passed": true,
+        "version": 0,
+        "discoverable": false,
+        "content": "empty"
+      },
+      "planning_list": {
+        "passed": true,
+        "content": "empty"
+      },
+      "recorded_console_errors_after_deployment": 0
+    },
+    "hosted_writes": "not_exercised",
+    "native_remote_tool_call": {
+      "result": "previously_blocked_by_platform_approval_policy",
+      "message": "MCP tool call requires approval, but approval policy is never",
+      "policy_bypassed": false
+    },
+    "local_browser": {
+      "real_local_server_and_d1": true,
+      "synthetic_fixtures_only": true,
+      "friendship_candidate_and_explanation": true,
+      "reminder_home_join_candidate_planning": true,
+      "explicit_pending_request_created": true,
+      "missing_peer_preferences_keep_context_disabled": true,
+      "public_plan_json_preview": true,
+      "two_real_source_cards_rendered": true,
+      "preview_did_not_upload": true,
+      "share_button_disabled_before_separate_approval": true,
+      "temporary_tab_closed": true
+    },
+    "screenshot_filename": "slowmatch-0.7.0-private-site.png"
+  },
+  "places": {
+    "check_time_utc": "2026-10-18T03:50:00Z",
+    "scenario": "Synthetic jointly selected Toronto area; not user's inferred location or product default",
+    "current_chat_web_lookup": true,
+    "installed_shared_only_generator_used": true,
+    "sources": [
+      {
+        "place": "Riverdale Farm",
+        "official_or_operator_url": "https://riverdalefarmtoronto.ca/",
+        "city_corroboration": "https://www.toronto.ca/explore-enjoy/parks-recreation/places-spaces/beaches-gardens-attractions/zoos-farms/riverdalefarm/",
+        "observed": {
+          "address": "201 Winchester Street, Toronto",
+          "daily_hours": "09:00-17:00 local",
+          "admission": "free"
+        }
+      },
+      {
+        "place": "Allan Gardens Conservatory",
+        "official_or_operator_url": "https://www.friendsofallangardens.ca/plan-your-vist",
+        "city_corroboration": "https://www.toronto.ca/explore-enjoy/parks-recreation/places-spaces/beaches-gardens-attractions/gardens-and-horticulture/conservatories/allan-gardens-conservatory/",
+        "observed": {
+          "address": "160 Gerrard Street East, Toronto",
+          "daily_hours": "10:00-17:00 local; last entry 16:45",
+          "admission": "free"
+        }
+      }
+    ],
+    "proposal": {
+      "date_utc": "2026-10-19",
+      "time_utc": "17:00-18:00",
+      "budget": "CAD 20 shared ceiling, not verified venue cost",
+      "known_admission_minor": 0,
+      "unknowns": [
+        "actual availability",
+        "weather",
+        "travel time",
+        "access suitability",
+        "schedule or price changes"
+      ],
+      "reservations": false
+    }
+  },
+  "semantic_review": {
+    "file": "docs/evidence/2026-10-18-support-scenarios.md",
+    "synthetic_cases": 7,
+    "method": "manually authored and reviewed in current conversation; no independent fresh-session or automated semantic pass claimed"
+  },
+  "unresolved": [
+    "two independent accounts unavailable; NOT EXERCISED",
+    "native hosted MCP invocation blocked; hosted writes/lifecycle not verified",
+    "restricted new-chat local storage unresolved",
+    "general ChatGPT Work installation/distribution eligibility unverified",
+    "no native recording; missing language models; actual speech recognition unverified",
+    "real expired-login and network recovery untested",
+    "offline context cannot authenticate participant or observe remote revocation; refresh live Site context",
+    "current-chat Standard speed setting not programmatically changed"
+  ],
+  "preserved_failures": [
+    {
+      "scope": "old .venv installer attempt",
+      "result": "interpreter unavailable",
+      "resolution": ".venv-rehab installation succeeded"
+    },
+    {
+      "scope": "local preview initial request",
+      "result": "missing new table",
+      "resolution": "applied local schema-only migrations; subsequent UI flow passed"
+    },
+    {
+      "scope": "local HMR while source was edited",
+      "result": "temporary parse error",
+      "resolution": "corrected before final Node/build/deployment checks"
+    },
+    {
+      "scope": "local direct request without mock-login cookie",
+      "result": "401",
+      "resolution": "used normal local browser login; no forged identity"
+    },
+    {
+      "scope": "actual optional transcription",
+      "result": "local_transcription_unavailable",
+      "resolution": "retained failure; selected-file lifecycle and unverified supplied text alternative tested"
+    }
+  ],
+  "no_purchase": true,
+  "no_external_messages": true,
+  "no_real_private_data_uploaded": true,
+  "no_new_model_sessions": true,
+  "hourly_automation": "remains_paused"
+}

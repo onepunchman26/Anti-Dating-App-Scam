@@ -10,7 +10,7 @@ from __future__ import annotations
 import os
 import re
 import stat
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from functools import wraps
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -71,6 +71,17 @@ def safe_operation(function):
 
 def now():
     return datetime.now(UTC).isoformat()
+
+
+def _active_summary(summary):
+    if summary.schema_version != "2.0":
+        raise WorkProfileError("mode_upgrade_required")
+    expiry = datetime.fromisoformat(summary.expires_at.replace("Z", "+00:00"))
+    current = datetime.now(UTC)
+    if expiry <= current:
+        raise WorkProfileError("summary_approval_expired")
+    if expiry > current + timedelta(days=365):
+        raise WorkProfileError("summary_expiry_too_long")
 
 
 def default_data_directory() -> Path:
@@ -387,6 +398,7 @@ class WorkProfileService:
             if self.read_profile().revision != request.expected_revision:
                 raise WorkProfileError("revision_conflict")
             summary = request.summary
+            _active_summary(summary)
             draft = ShareableProfileDraft(
                 draft_id=uuid4().hex,
                 source_revision=request.expected_revision,
@@ -410,6 +422,9 @@ class WorkProfileService:
         request = SummaryApprovalRequest.model_validate(request)
         with self.store._writer(self.root):
             draft = self.read_summary({"id": request.draft_id})
+            if draft.summary.schema_version != "2.0":
+                raise WorkProfileError("mode_upgrade_required")
+            _active_summary(draft.summary)
             if (
                 request.expected_revision != self.read_profile().revision
                 or draft.source_revision != request.expected_revision
@@ -435,6 +450,7 @@ class WorkProfileService:
                 summary=draft.summary,
                 summary_digest=draft.summary_digest,
                 approved_at=now(),
+                purpose=draft.summary.mode + "_matching",
             )
             self.store._write_new(receipt_path, _encode(receipt.model_dump()))
             return receipt
@@ -448,6 +464,11 @@ class WorkProfileService:
             )
             if receipt.status == "withdrawn":
                 raise WorkProfileError("approval_withdrawn")
+            if receipt.summary.schema_version != "2.0":
+                raise WorkProfileError("mode_upgrade_required")
+            _active_summary(receipt.summary)
+            if receipt.purpose != receipt.summary.mode + "_matching":
+                raise WorkProfileError("approval_mismatch")
             # The outgoing path checks content-free revision metadata; it does
             # not load private claims or analyses into the publication pipeline.
             if self._profile_revision() != receipt.source_revision:
@@ -516,6 +537,7 @@ class WorkProfileService:
     @safe_operation
     def prepare_assessment(self, request):
         request = AssessmentPrepareRequest.model_validate(request)
+        _active_summary(request.peer_summary)
         with self.store._writer(self.root):
             profile = self.read_profile()
             if profile.revision != request.expected_revision:
@@ -557,6 +579,7 @@ class WorkProfileService:
                 self.root / "assessments" / (request.context_id + ".context.json"),
                 AssessmentContext,
             )
+            _active_summary(context.peer_summary)
             profile = self.read_profile()
             if request.own_revision != profile.revision or context.own_revision != profile.revision:
                 raise WorkProfileError("revision_conflict")
@@ -566,7 +589,9 @@ class WorkProfileService:
             for point in request.possible_alignment + request.questions_and_tensions:
                 if not set(point.own_claim_ids) <= known:
                     raise WorkProfileError("unsupported_assessment_evidence")
-                if any(not getattr(context.peer_summary, field) for field in point.peer_fields):
+                if any(
+                    not getattr(context.peer_summary, field, None) for field in point.peer_fields
+                ):
                     raise WorkProfileError("unsupported_assessment_evidence")
             all_text = [p.text for p in request.possible_alignment + request.questions_and_tensions]
             all_text += request.unknowns + request.respectful_questions + request.caveats

@@ -45,11 +45,16 @@ DIRS = {
 
 
 def main():
-    contract = ROOT / "src/anti_dating_scam/schemas/shareable_profile.schema.json"
-    if json.loads(contract.read_text(encoding="utf-8")) != json.loads(
-        (SOURCE / "lib/shareable-profile.schema.json").read_text(encoding="utf-8")
+    for local, remote in (
+        ("shareable_profile", "shareable-profile"),
+        ("shared_planning_preferences", "shared-planning-preferences"),
+        ("meeting_plan", "meeting-plan"),
     ):
-        raise ValueError("site_contract_out_of_sync")
+        contract = ROOT / f"src/anti_dating_scam/schemas/{local}.schema.json"
+        if json.loads(contract.read_text(encoding="utf-8")) != json.loads(
+            (SOURCE / f"lib/{remote}.schema.json").read_text(encoding="utf-8")
+        ):
+            raise ValueError("site_contract_out_of_sync")
     parent = Path(os.environ["LOCALAPPDATA"]) / "AI-SlowMatch" / "site-build"
     parent.mkdir(parents=True, exist_ok=True)
     parent = parent.resolve()

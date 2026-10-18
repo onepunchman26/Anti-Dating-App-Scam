@@ -209,3 +209,37 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
+October 17 full replacement: behavioral and capability references
+
+Department of Justice Canada — Making appropriate parenting arrangements in family
+violence cases, 2023 — February 2023 summary — Jaffe, Bala, Medhekar, Scott, Oliver
+https://www.justice.gc.ca/eng/rp-pr/jr/rib-reb/mpafvc-capcvf/index.html
+Checked October 17, 2026. Behavioral-design reference only: pattern/context and differentiated
+responses inform project-authored relationship-support guidance. No report text, diagrams
+or code copied/bundled; no software license claimed. Not a dating-AI diagnostic standard or
+legal advice for a user's location. Thank you to the authors and publisher.
+
+Official OpenAI capability references, checked October 17, 2026:
+https://developers.openai.com/plugins/reference
+https://learn.chatgpt.com/docs/enterprise/chatgpt-work-local-security
+https://learn.chatgpt.com/docs/features/voice
+https://learn.chatgpt.com/docs/web-search
+https://developers.openai.com/api/reference/resources/audio/subresources/transcriptions/methods/create
+Documentation reference only, not bundled OpenAI software. Used to distinguish optional
+location/file interfaces, local/cloud processing, voice and audio APIs. No paid API or
+external recording service was activated by consulting them. Existing project Vosk adapter
+reuse keeps its original model notices and explicit optional installation boundary.
+
+10 月 17 日完整替代：行为与能力参考
+
+加拿大司法部 — Making appropriate parenting arrangements in family violence cases, 2023
+2023 年 2 月摘要；作者 Jaffe、Bala、Medhekar、Scott、Oliver，链接如上。
+2026 年 10 月 17 日核对。仅作行为设计参考：行为模式／背景及差异化回应用于本项目自写关系支持。
+不复制／打包报告正文、图表或代码，不声称软件许可，不作为约会 AI 诊断标准或用户所在地法律建议。
+感谢作者与发布方。
+
+上列官方 OpenAI 能力文档于 2026 年 10 月 17 日核对，仅为文档参考，不打包 OpenAI 软件。
+用于区分可选位置／文件接口、本机与云端处理、原生语音和音频 API；查阅不激活付费 API 或第三方
+录音服务。复用原项目 Vosk 适配器继续遵守原模型声明及明确可选安装边界。
