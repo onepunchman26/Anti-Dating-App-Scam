@@ -50,6 +50,8 @@ PUBLIC_FILES = {
         )
     },
     "INSTALL_WITH_CHATGPT.md": "INSTALL_WITH_CHATGPT.md",
+    "WEB_COMPANION.md": "WEB_COMPANION.md",
+    "scripts/start_companion.cmd": "Start-SlowMatch.cmd",
     "CONTROLLED_TEST.md": "CONTROLLED_TEST.md",
     "docs/DISTRIBUTION_HELP.md": "docs/DISTRIBUTION_HELP.md",
     "docs/LICENSING_STATUS.md": "docs/LICENSING_STATUS.md",
@@ -57,8 +59,22 @@ PUBLIC_FILES = {
     "src/anti_dating_scam/licenses/open-source-credits.txt": "LICENSES/project-credits.txt",
 }
 # This small runtime deliberately omits the optional Vosk native runtime/models,
-# GUI, web server, provider adapters and test/development packages.
+# GUI and test/development packages. The web companion includes its loopback
+# server and official ChatGPT adapter, never an offline inference engine.
 DEPENDENCIES = (
+    "fastapi",
+    "starlette",
+    "annotated-doc",
+    "anyio",
+    "idna",
+    "uvicorn",
+    "click",
+    "h11",
+    "colorama",
+    "PyJWT",
+    "cryptography",
+    "cffi",
+    "pycparser",
     "pydantic",
     "pydantic_core",
     "annotated-types",
@@ -72,6 +88,17 @@ DEPENDENCIES = (
     "pywin32-ctypes",
 )
 SOURCE_FILES = (
+    "src/anti_dating_scam/api/__init__.py",
+    "src/anti_dating_scam/api/web_companion.py",
+    "src/anti_dating_scam/services/web_companion.py",
+    "src/anti_dating_scam/services/coaching_policy.py",
+    "src/anti_dating_scam/skills/relationship-reflection/SKILL.md",
+    "src/anti_dating_scam/ai/__init__.py",
+    "src/anti_dating_scam/ai/chatgpt_auth.py",
+    "src/anti_dating_scam/ai/chatgpt_credentials.py",
+    "src/anti_dating_scam/ai/chatgpt_backend.py",
+    "src/anti_dating_scam/ai/privacy.py",
+    "src/anti_dating_scam/ai/results.py",
     "pyproject.toml",
     "packaging/constraints-windows-py312.txt",
     "scripts/work_distribution_runtime.py",
@@ -364,6 +391,20 @@ def build(root, output, *, allow_dirty=False):
         f"{runtime.logical_path(generated / 'build_info.json')};anti_dating_scam",
         "--optimize",
         "1",
+        "--add-data",
+        f"{runtime.logical_path(root / 'src/anti_dating_scam/skills')};anti_dating_scam/skills",
+        "--hidden-import",
+        "uvicorn.logging",
+        "--hidden-import",
+        "uvicorn.loops.auto",
+        "--hidden-import",
+        "uvicorn.protocols.http.auto",
+        "--hidden-import",
+        "uvicorn.protocols.http.h11_impl",
+        "--hidden-import",
+        "uvicorn.protocols.websockets.auto",
+        "--hidden-import",
+        "uvicorn.lifespan.on",
     ]
     for name in (
         "PySide6",
@@ -373,8 +414,12 @@ def build(root, output, *, allow_dirty=False):
         "pytest",
         "IPython",
         "vosk",
-        "fastapi",
-        "uvicorn",
+        "httptools",
+        "websockets",
+        "watchfiles",
+        "uvloop",
+        "yaml",
+        "dotenv",
     ):
         command.extend(["--exclude-module", name])
     command.append(str(root / "scripts/work_distribution_runtime.py"))

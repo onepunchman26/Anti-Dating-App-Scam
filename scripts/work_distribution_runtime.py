@@ -801,6 +801,9 @@ def main(argv=None):
     try:
         parser = Parser(description="AI-SlowMatch controlled-preview runtime / 受控预览运行组件")
         sub = parser.add_subparsers(dest="command", required=True)
+        companion = sub.add_parser("companion")
+        companion.add_argument("--state-root", type=Path)
+        companion.add_argument("--no-browser", action="store_true")
         for name in (
             "install",
             "repair",
@@ -830,7 +833,15 @@ def main(argv=None):
         schema.add_argument("--operation")
         schema.add_argument("--object")
         args = parser.parse_args(argv)
-        if args.command == "_runtime-check":
+        if args.command == "companion":
+            from anti_dating_scam.api.web_companion import main as companion_main
+
+            options = ["--state-root", str(args.state_root)] if args.state_root else []
+            if args.no_browser:
+                options.append("--no-browser")
+            companion_main(options)
+            return 0
+        elif args.command == "_runtime-check":
             result = runtime_check()
         elif args.command == "schema":
             from anti_dating_scam.work_cli import dispatch

@@ -7,6 +7,7 @@ import {useLanguage} from './language';
 import SiteReminder from './site-reminder';
 import FilePicker from './file-picker';
 import PlanningClient from './planning-client';
+import SummaryEditor from './summary-editor';
 import type {View} from './site-app';
 
 type Mode='dating'|'friendship';
@@ -60,7 +61,7 @@ export default function MatchingClient({view,navigate}:{view:View;navigate:(view
  const sharingLabel=mine?.status==='expired'?'profileExpired':mine?.status==='withdrawn'?'profileWithdrawn':mine?.summary?(mine.discoverable?'visible':'paused'):'notShared';
  const filtered=candidates?.filter(c=>(!region.trim()||[c.summary.city,...c.summary.areas].some(a=>a.toLocaleLowerCase().includes(region.trim().toLocaleLowerCase())))&&(!interest||c.summary.interests.includes(interest)));
  const interests=[...new Set(candidates?.flatMap(c=>c.summary.interests)||[])].sort();
- return <div className="workspace" hidden={view==='help'}>
+ return <div className="workspace" hidden={view==='help'||view==='start'}>
   <div className="page-heading"><div className="heading-kicker"><p className="eyebrow">AI-SLOWMATCH</p><span className="pilot">{t('pilot')}</span></div><h1>{t(view==='profile'?'profileTitle':view==='plans'?'plansTitle':'discoverTitle')}</h1><p>{t(view==='profile'?'profileIntro':view==='plans'?'plansIntro':'discoverIntro')}</p></div>
   <div className="mode-row"><div className="segmented" role="group" aria-label={t('mode')}>{(['dating','friendship'] as const).map(m=><button key={m} disabled={busy} aria-pressed={mode===m} onClick={()=>changeMode(m)}>{m==='dating'?<Heart size={17} aria-hidden="true"/>:<Users size={17} aria-hidden="true"/>}{t(m)}</button>)}</div><p>{t('modeHint')}</p></div>
   <p role="status" aria-live="polite" className={'feedback '+(failed?'error':'')} hidden={!busy&&!status}>{busy?t('working'):status?t(status):''}</p>
@@ -93,7 +94,7 @@ export default function MatchingClient({view,navigate}:{view:View;navigate:(view
      {mine.summary&&<div className="actions"><button disabled={busy||mine.status==='expired'} onClick={()=>run(async()=>{setMine(await call('slowmatch_set_discoverability',{discoverable:!mine.discoverable,expected_version:mine.version}));setCandidates(null);})}>{t(mine.discoverable?'pause':'resume')}</button><button className="text-button danger" disabled={busy} onClick={()=>{if(confirm(t('deleteConfirm')))run(async()=>{setMine(await call('slowmatch_delete_my_summary',{expected_version:mine.version}));setCandidates(null);setDraft(null);setApproved(false);setFileKey(k=>k+1);});}}>{t('deleteSummary')}</button></div>}
     </>:<p>{t('loadBeforePublish')}</p>}
    </div>
-   <div className="panel"><h2>{t('reviewShare')}</h2><p>{t('importIntro')}</p><FilePicker key={fileKey} title={t('importSummary')} disabled={busy} onPick={pick}/>{failed&&['error_invalid_summary','error_mode_mismatch'].includes(status)&&<p className="field-error">{t(status)}</p>}
+   <div className="panel"><h2>{t('reviewShare')}</h2><SummaryEditor key={mode} mode={mode} nextVersion={(mine?.last_summary_version||0)+1} disabled={busy} onPreview={value=>{setDraft(value);setApproved(false);}}/><p>{t('importIntro')}</p><FilePicker key={fileKey} title={t('importSummary')} disabled={busy} onPick={pick}/>{failed&&['error_invalid_summary','error_mode_mismatch'].includes(status)&&<p className="field-error">{t(status)}</p>}
     {draft&&<><p className="status-badge">{t('localPreview')}</p><Summary value={draft}/><SiteReminder compact={false}/><label className="consent"><input type="checkbox" checked={approved} onChange={e=>setApproved(e.target.checked)}/><span>{t('reviewConsent')}</span></label>{!mine&&<p>{t('loadBeforePublish')}</p>}<button disabled={busy||!approved||!mine} onClick={()=>run(async()=>{setMine(await call('slowmatch_publish_summary',{summary:draft,approved_digest:await digest(draft),expected_version:mine!.version}));setCandidates(null);setDraft(null);setApproved(false);setFileKey(k=>k+1);setStatus('published');})}>{t('publish')}</button></>}
    </div>
   </section>

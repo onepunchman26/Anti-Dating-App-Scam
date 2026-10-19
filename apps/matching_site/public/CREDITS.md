@@ -38,3 +38,19 @@ or the legacy 0.5.3 executable.
 感谢各团队与贡献者，参考不代表背书。原 Sites 构建整合和 shadcn 声明继续保留在源码旁；
 项目完整致谢位于原 GitHub 仓库。此次网站源码／部署更新不代表重新构建 Windows 0.8.0
 发布包或旧 0.5.3 可执行程序。
+
+
+## October 18 web companion references / 十月十八日网页助手参考
+
+Official OpenAI Sign in with ChatGPT documentation, retrieved October 18, 2026:
+https://developers.openai.com/siwc/token-sharing-open-source
+https://developers.openai.com/siwc/token-sharing-open-source/models-and-inference
+https://developers.openai.com/siwc/token-sharing-open-source/preview-limitations
+Documentation reference only; no third-party application code or assets copied.
+Used to recheck the existing official OAuth/Responses adapter, completed-event gating,
+locally hosted versus remote distribution scope, and unsupported audio/hosted-tool limits.
+Thanks to the OpenAI documentation authors. Document content is not relicensed as bundled code.
+
+上述 OpenAI 官方文档于 2026 年 10 月 18 日核对，仅作实现与边界参考，未复制第三方应用代码或资源。
+用于复核已有 OAuth/Responses 适配器、完整结束事件、本机与远程分发范围及音频／托管工具限制。
+感谢官方文档作者，文档内容不作为打包代码重新授权。

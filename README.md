@@ -2,9 +2,13 @@
 
 [onepunchman26/Anti-Dating-App-Scam](https://github.com/onepunchman26/Anti-Dating-App-Scam)
 
-**[Install with ChatGPT / 通过 ChatGPT 安装](INSTALL_WITH_CHATGPT.md)**
+**[Start here / 从这里开始](WEB_COMPANION.md)** · [Native ChatGPT plugin / 原生插件](INSTALL_WITH_CHATGPT.md)
 
 ## English
+
+The new web-companion preview guides self-discovery, official ChatGPT plan connection,
+local conversation storage and private review before separate sharing. [Setup and gates](WEB_COMPANION.md).
+The prior Site UI/distribution evidence below remains historical until the new deployment receipt is recorded.
 
 The private Site, saved version 7, now has separate English/Chinese interfaces and clearer Discover, Plans together
 and Shared profile pages. Language changes preserve in-progress choices without another
@@ -113,6 +117,9 @@ been selected**; third-party MIT/Apache notices do not license the whole applica
 See [licensing status and options](docs/LICENSING_STATUS.md).
 
 ## 中文版
+
+新的网页本机助手预览提供自我探索引导、官方 ChatGPT 套餐连接、本机会话保存与私人审阅，再单独分享。
+请看[设置与验收限制](WEB_COMPANION.md)。以下旧版界面和分发证据保留为历史记录，新的部署结果另行记录。
 
 私有网站第 7 版已部署，支持完整中文／英文切换，并整理为“发现、共同计划、共享资料”。切换语言保留进行中的
 选择，不增加模型或服务请求。[界面验收与限制](docs/SITE_UI_VALIDATION.md)区分真实本机测试

@@ -6,6 +6,20 @@ Anti-Dating-App-Scam is the authoritative AI-SlowMatch project for relationship 
 
 ## Current Product Direction (2026-10-17)
 
+The owner's October 18 adoption of the latest onboarding/web-chat/local-vault/geo
+supplement changes the daily entry point to the existing product webpage plus a
+lightweight local companion. The native ChatGPT plugin remains compatible and
+ChatGPT desktop is optional for this route. A necessary web conversation interface
+is authorized; reuse the existing Python provider, storage and conversation policy.
+This supersedes the earlier plugin-first/no-new-chat-interface restrictions below.
+The complete latest conversation was retrieved; its new Markdown attachment was
+not exposed by the conversation reader. Do not claim its unseen clauses were read.
+Only official, separately authorized ChatGPT plan inference may power this route.
+Do not infer runtime eligibility from sign-in or a successful model-list request.
+Browser-to-local access must require explicit pairing, exact origins, bounded
+operations and per-account storage. Remote Sites still receives approved objects
+alone. Keep the previously approved bilingual UI and owner-private audience.
+
 The owner-endorsed October 18 `Codex_Site_UI_Bilingual_Design_Addendum.md`
 additionally governs Site presentation. Use one shared component/behavior tree with
 complete English and Simplified Chinese resources and a persistent language selector.

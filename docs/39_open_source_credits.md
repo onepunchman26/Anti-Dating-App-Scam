@@ -180,3 +180,19 @@ Site 依赖版本记录在其 `package.json` 与锁文件，各自许可独立�
 回复与问题字段重复同一句追问，显示层现只在回复末尾没有完全相同问题时追加。
 失败记录继续保留。当前验收与交付状态见 [CURRENT_STATUS](../CURRENT_STATUS.md)，
 模型列表成功本身不能证明推理可用，也不能证明上游实际模型 ID。
+
+
+## October 18 web companion references / 十月十八日网页助手参考
+
+Official OpenAI Sign in with ChatGPT documentation, retrieved October 18, 2026:
+https://developers.openai.com/siwc/token-sharing-open-source
+https://developers.openai.com/siwc/token-sharing-open-source/models-and-inference
+https://developers.openai.com/siwc/token-sharing-open-source/preview-limitations
+Documentation reference only; no third-party application code or assets copied.
+Used to recheck the existing official OAuth/Responses adapter, completed-event gating,
+locally hosted versus remote distribution scope, and unsupported audio/hosted-tool limits.
+Thanks to the OpenAI documentation authors. Document content is not relicensed as bundled code.
+
+上述 OpenAI 官方文档于 2026 年 10 月 18 日核对，仅作实现与边界参考，未复制第三方应用代码或资源。
+用于复核已有 OAuth/Responses 适配器、完整结束事件、本机与远程分发范围及音频／托管工具限制。
+感谢官方文档作者，文档内容不作为打包代码重新授权。

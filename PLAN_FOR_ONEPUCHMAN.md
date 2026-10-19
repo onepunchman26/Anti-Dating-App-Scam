@@ -1,6 +1,29 @@
 # Approved plan / 已批准计划
 
-## English — Site UI supplement, October 18, 2026
+## English — Web onboarding supplement, October 18, 2026
+
+The latest owner-adopted conversation changes the daily entry point to the existing
+webpage and local assistant; native ChatGPT remains compatible. Reuse the official
+ChatGPT adapter, account-owned guarded storage and packaged conversation Skill.
+Implementation order: verify the live AI path; paired browser chat and durable restart;
+guided private review; separate shared-summary/city editor and reciprocal geography;
+Windows distribution, browser checks and same-audience Site deployment. No automatic
+profile publication, private Site storage, AI calls during setup, or invented account-B proof.
+The new attachment itself was not exposed; the complete latest conversation is the
+available authority. General hybrid-distribution eligibility and undeclared project
+licensing are unresolved; owner-controlled successful inference is narrower evidence.
+
+## 中文版 — 网页新手引导补充，2026 年 10 月 18 日
+
+本人最新采纳的对话将日常入口改为现有网页与本机助手，原生 ChatGPT 保留兼容。
+复用官方 ChatGPT 适配器、按账号归属的受保护存储和打包的沟通技能。
+实施顺序：核验真实 AI 通路；配对网页聊天与重启恢复；私人审阅；单独共享摘要和城市表单、
+双方地区筛选；Windows 分发、浏览器验收及原受众站点部署。
+不自动发布档案、不在 Site 保存私人内容、不在设置时调用模型、不虚构第二账号证明。
+工具未暴露新附件本身，以已取回的最新完整对话为当前依据。
+面向普通用户发行混合架构的资格与尚未声明的项目许可仍未解决，维护者受控推理成功的证据范围更窄。
+
+## Historical / 历史：English — Site UI supplement, October 18, 2026
 
 The owner adopted `Codex_Site_UI_Bilingual_Design_Addendum.md` from “整合Skills与界面”.
 Improve this existing Site using its real matching and planning interfaces. Use a

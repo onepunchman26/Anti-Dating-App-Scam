@@ -2,12 +2,15 @@
 
 ## English
 
+For the new daily web route, begin with [Web companion setup](WEB_COMPANION.md).
+The steps below install the compatible native ChatGPT plugin.
+
 **Install an existing product; do not rebuild it.** The exact project is
 [onepunchman26/Anti-Dating-App-Scam](https://github.com/onepunchman26/Anti-Dating-App-Scam).
 Give ChatGPT this sentence: “Install AI-SlowMatch from this project's
 INSTALL_WITH_CHATGPT.md, using its pinned Windows preview, and report each setup check honestly.”
 
-The intended release is [v0.8.0 controlled preview](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.0),
+The intended release is [v0.8.1 controlled preview](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.1),
 **a prerelease, not a stable or public-catalog release**. If that page or its Windows assets
 are unavailable, stop at `BLOCKED: release unavailable`; do not substitute a branch ZIP or
 a similarly named project. The Release records the source commit, asset names and checksums.
@@ -15,7 +18,7 @@ a similarly named project. The Release records the source commit, asset names an
 1. Use the Windows x64 ChatGPT desktop environment with permitted local execution and
    plugin installation. Web-only chat cannot manage this computer's files. Other systems
    and independent-account installation are not certified by this preview.
-2. Prefer the Release's [fixed-version Windows installer](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/download/v0.8.0/install_work_preview.ps1).
+2. Prefer the Release's [fixed-version Windows installer](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/download/v0.8.1/install_work_preview.ps1).
    After reviewing its source and publisher, run `./install_work_preview.ps1 -RegisterPlugin`.
    It downloads the pinned package, verifies archive/manifest/file hashes, installs, registers
    the plugin through the official installer and returns a short check. It does not bind an
@@ -55,19 +58,21 @@ uninstall, account changes and remaining platform gates, use [distribution help]
 
 ## 中文版
 
+新的日常网页入口请先看[本机助手设置](WEB_COMPANION.md)。以下步骤安装兼容的原生 ChatGPT 插件。
+
 **这是安装现成产品，不是重新开发。** 正确项目是
 [onepunchman26/Anti-Dating-App-Scam](https://github.com/onepunchman26/Anti-Dating-App-Scam)。
 把这一句话交给 ChatGPT：“请按这个项目的 INSTALL_WITH_CHATGPT.md 安装 AI-SlowMatch
 慢慢相识，使用固定的 Windows 预览发布包，并如实报告各层设置检查。”
 
-目标发布为 [v0.8.0 受控预览](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.0)，
+目标发布为 [v0.8.1 受控预览](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.1)，
 **这是预发布，不是稳定版或公共插件目录上架版**。若该页面或 Windows 产物不可取得，
 报告 `BLOCKED: release unavailable`；不改用分支源码 ZIP 或同名项目。Release 记录源码提交、
 产物名称和校验值。
 
 1. 使用允许本机执行和插件安装的 Windows x64 ChatGPT 桌面环境。纯网页聊天不能管理本机文件。
    本预览尚不证明其他系统或独立账号安装已获验证。
-2. 优先使用 Release 中的[固定版本 Windows 安装程序](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/download/v0.8.0/install_work_preview.ps1)。
+2. 优先使用 Release 中的[固定版本 Windows 安装程序](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/download/v0.8.1/install_work_preview.ps1)。
    核对来源及代码后运行 `./install_work_preview.ps1 -RegisterPlugin`。它自动下载固定包、核验包／清单／
    文件哈希、安装、通过官方安装器注册插件，并返回短自检结果；不绑定账号、不改变脚本执行策略。
    执行受限时如实记录平台条件，不绕过。成功后直接继续第 4 步。
