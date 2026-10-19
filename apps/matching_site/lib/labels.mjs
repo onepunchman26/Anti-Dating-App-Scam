@@ -1,4 +1,10 @@
 export const labels={
+  cafe_walk: ['Cafe and walk', '咖啡与散步'],
+  park_walk: ['Park walk', '公园散步'],
+  museum: ['Museum', '博物馆'],
+  gallery: ['Gallery', '画廊'],
+  board_games: ['Board games', '桌游'],
+  volunteer: ['Volunteering activity', '志愿活动'],
   "dating": [
     "Dating",
     "恋爱"

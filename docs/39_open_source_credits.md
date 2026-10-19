@@ -196,3 +196,12 @@ Thanks to the OpenAI documentation authors. Document content is not relicensed a
 上述 OpenAI 官方文档于 2026 年 10 月 18 日核对，仅作实现与边界参考，未复制第三方应用代码或资源。
 用于复核已有 OAuth/Responses 适配器、完整结束事件、本机与远程分发范围及音频／托管工具限制。
 感谢官方文档作者，文档内容不作为打包代码重新授权。
+
+
+## 2026-10-18 friends/groups extension
+
+Original project code at rollback `9e0876c` was reused for platform authentication, controlled scopes, Pydantic shared contracts, deterministic planning, official provider adapters and localization. New social logic and UI are project-authored from the owner-endorsed requirements in “整合Skills与界面”; no new third-party code, prompt corpus, license or design asset was copied. Existing dependency notices remain applicable. Thanks to the original contributors credited above.
+
+## 2026-10-18 好友群组扩展
+
+复用原项目回退点 `9e0876c` 的平台认证、受控范围、Pydantic共享结构、确定性规划、官方模型适配器及语言资源。新增社交逻辑和界面按所有者认可的“整合Skills与界面”要求由本项目编写，没有复制新的第三方代码、提示词集、许可或设计素材。原依赖声明继续适用，感谢上文所列贡献者。

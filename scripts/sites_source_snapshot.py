@@ -49,6 +49,8 @@ def main():
         ("shareable_profile", "shareable-profile"),
         ("shared_planning_preferences", "shared-planning-preferences"),
         ("meeting_plan", "meeting-plan"),
+        ("group_preferences", "group-preferences"),
+        ("group_context", "group-context"),
     ):
         contract = ROOT / f"src/anti_dating_scam/schemas/{local}.schema.json"
         if json.loads(contract.read_text(encoding="utf-8")) != json.loads(

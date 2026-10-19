@@ -1,0 +1,336 @@
+{
+  "$defs": {
+    "Budget": {
+      "additionalProperties": false,
+      "properties": {
+        "currency": {
+          "enum": [
+            "USD",
+            "CAD",
+            "EUR",
+            "GBP",
+            "CNY",
+            "AUD",
+            "JPY"
+          ],
+          "title": "Currency",
+          "type": "string"
+        },
+        "max_per_person_minor": {
+          "maximum": 100000,
+          "minimum": 0,
+          "title": "Max Per Person Minor",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "currency",
+        "max_per_person_minor"
+      ],
+      "title": "Budget",
+      "type": "object"
+    },
+    "GroupParticipant": {
+      "additionalProperties": false,
+      "properties": {
+        "public_id": {
+          "pattern": "^[a-f0-9]{32}$",
+          "title": "Public Id",
+          "type": "string"
+        },
+        "preferences": {
+          "$ref": "#/$defs/GroupPreferences"
+        },
+        "approved_digest": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Approved Digest",
+          "type": "string"
+        }
+      },
+      "required": [
+        "public_id",
+        "preferences",
+        "approved_digest"
+      ],
+      "title": "GroupParticipant",
+      "type": "object"
+    },
+    "GroupPreferences": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "mode": {
+          "enum": [
+            "dating",
+            "friendship"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "areas": {
+          "items": {
+            "maxLength": 60,
+            "minLength": 2,
+            "pattern": "^[A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF][A-Za-z\\u00C0-\\u024F\\u3400-\\u9FFF '\\u2019.,-]*$",
+            "type": "string"
+          },
+          "maxItems": 5,
+          "minItems": 1,
+          "title": "Areas",
+          "type": "array"
+        },
+        "availability": {
+          "items": {
+            "$ref": "#/$defs/Window"
+          },
+          "maxItems": 5,
+          "minItems": 1,
+          "title": "Availability",
+          "type": "array"
+        },
+        "budget": {
+          "$ref": "#/$defs/Budget"
+        },
+        "duration_minutes": {
+          "maximum": 480,
+          "minimum": 15,
+          "title": "Duration Minutes",
+          "type": "integer"
+        },
+        "interests": {
+          "items": {
+            "enum": [
+              "reading",
+              "music",
+              "art",
+              "outdoors",
+              "cooking",
+              "games",
+              "travel",
+              "sport",
+              "learning",
+              "volunteering"
+            ],
+            "type": "string"
+          },
+          "maxItems": 8,
+          "minItems": 1,
+          "title": "Interests",
+          "type": "array"
+        },
+        "environment": {
+          "items": {
+            "enum": [
+              "public_place",
+              "quiet",
+              "outdoors",
+              "indoors",
+              "alcohol_free",
+              "easy_exit",
+              "step_free"
+            ],
+            "type": "string"
+          },
+          "maxItems": 5,
+          "minItems": 1,
+          "title": "Environment",
+          "type": "array"
+        },
+        "arrangement_needs": {
+          "items": {
+            "enum": [
+              "vegetarian",
+              "vegan",
+              "halal_options",
+              "allergen_menu",
+              "step_free_access",
+              "accessible_toilet",
+              "quiet_space",
+              "short_walk"
+            ],
+            "type": "string"
+          },
+          "maxItems": 6,
+          "title": "Arrangement Needs",
+          "type": "array"
+        },
+        "expires_at": {
+          "maxLength": 40,
+          "minLength": 20,
+          "title": "Expires At",
+          "type": "string"
+        },
+        "origin_area": {
+          "maxLength": 60,
+          "minLength": 2,
+          "title": "Origin Area",
+          "type": "string"
+        },
+        "max_travel_minutes": {
+          "maximum": 240,
+          "minimum": 0,
+          "title": "Max Travel Minutes",
+          "type": "integer"
+        },
+        "avoid_interests": {
+          "items": {
+            "enum": [
+              "reading",
+              "music",
+              "art",
+              "outdoors",
+              "cooking",
+              "games",
+              "travel",
+              "sport",
+              "learning",
+              "volunteering"
+            ],
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Avoid Interests",
+          "type": "array"
+        },
+        "values": {
+          "items": {
+            "enum": [
+              "honesty",
+              "kindness",
+              "autonomy",
+              "curiosity",
+              "family",
+              "community",
+              "growth",
+              "stability",
+              "creativity",
+              "adventure"
+            ],
+            "type": "string"
+          },
+          "maxItems": 5,
+          "title": "Values",
+          "type": "array"
+        },
+        "communication_preferences": {
+          "items": {
+            "enum": [
+              "direct",
+              "reflective",
+              "frequent_checkins",
+              "space_between_chats",
+              "discuss_conflict_calmly",
+              "gradual_disclosure"
+            ],
+            "type": "string"
+          },
+          "maxItems": 5,
+          "title": "Communication Preferences",
+          "type": "array"
+        },
+        "allow_shared_ai": {
+          "title": "Allow Shared Ai",
+          "type": "boolean"
+        },
+        "allow_romance_analysis": {
+          "title": "Allow Romance Analysis",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "schema_version",
+        "mode",
+        "areas",
+        "availability",
+        "budget",
+        "duration_minutes",
+        "interests",
+        "environment",
+        "arrangement_needs",
+        "expires_at",
+        "origin_area",
+        "max_travel_minutes",
+        "avoid_interests",
+        "values",
+        "communication_preferences",
+        "allow_shared_ai",
+        "allow_romance_analysis"
+      ],
+      "title": "GroupPreferences",
+      "type": "object"
+    },
+    "Window": {
+      "additionalProperties": false,
+      "properties": {
+        "start_at": {
+          "maxLength": 40,
+          "minLength": 20,
+          "title": "Start At",
+          "type": "string"
+        },
+        "end_at": {
+          "maxLength": 40,
+          "minLength": 20,
+          "title": "End At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start_at",
+        "end_at"
+      ],
+      "title": "Window",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "group-1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "planning_id": {
+      "pattern": "^[a-f0-9]{32}$",
+      "title": "Planning Id",
+      "type": "string"
+    },
+    "mode": {
+      "enum": [
+        "dating",
+        "friendship"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "revision": {
+      "maximum": 9007199254740991,
+      "minimum": 1,
+      "title": "Revision",
+      "type": "integer"
+    },
+    "participants": {
+      "items": {
+        "$ref": "#/$defs/GroupParticipant"
+      },
+      "maxItems": 8,
+      "minItems": 2,
+      "title": "Participants",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "planning_id",
+    "mode",
+    "revision",
+    "participants"
+  ],
+  "title": "GroupContext",
+  "type": "object",
+  "x-slowmatch-label-forbidden-pattern": "https?|www\\.|private|secret|token|password|ignore|upload|system|instruction|prompt|trauma|diagnos|therapy|sexual|abuse|隐私|私密|密码|令牌|忽略|上传|指令|创伤|诊断|治疗|性生活|住址"
+}

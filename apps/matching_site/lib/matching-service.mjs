@@ -1,5 +1,6 @@
 import { validate, validateStored, summaryMode, summaryExpiry, summaryExpired, digest, canonical, reciprocal, explain, ServiceError } from './summary.mjs';
 import { createPlanningService, closePlanningSql } from './planning-service.mjs';
+import {createSocialService} from './social-service.mjs';
 import {parseTestScopes,parseDefaultTestScope,resolvePrincipal,clientArguments,SERVICE_VERSION,SERVICE_PROTOCOL,MCP_PROTOCOLS} from './service-policy.mjs';
 
 export function ownerFromHeaders(headers) {
@@ -27,6 +28,8 @@ export function createService(database, {clock=()=>new Date(),testScopeConfigura
       const write=args.write&&principal.data_scope.access==='enabled';
       await db.prepare('SELECT scope FROM participations LIMIT 0').all();
       await db.prepare('SELECT scope FROM planning_sessions LIMIT 0').all();
+      await db.prepare('SELECT scope FROM social_accounts LIMIT 0').all();
+      await db.prepare('SELECT scope FROM social_groups LIMIT 0').all();
       if(write)await db.prepare('INSERT INTO channel_checks(owner,marker) VALUES (?,?) ON CONFLICT(owner) DO UPDATE SET marker=excluded.marker').bind(principal.owner,'slowmatch-channel-v1').run();
       const marker=await db.prepare('SELECT marker FROM channel_checks WHERE owner=?').bind(principal.owner).first();
       return {authenticated:true,account_fingerprint:principal.account_fingerprint,data_scope:principal.data_scope,service_name:'AI-SlowMatch',service_version:SERVICE_VERSION,service_protocol_version:SERVICE_PROTOCOL,mcp_protocol_versions:MCP_PROTOCOLS,summary_schema_versions:['2.0'],planning_schema_versions:['1.0'],database_read:'passed',database_schema:'passed',write_check:write?'passed':args.write?'blocked':'not_checked',persisted:marker?.marker==='slowmatch-channel-v1',synthetic:true,client_skill:'not_checked',client_local_tools:'not_checked'};
@@ -48,6 +51,7 @@ function createScopedService(db,{clock,scope,scopePolicy}) {
     if(row.count>max) throw new ServiceError('rate_limit_try_next_hour',429);
   }
   const planning=createPlanningService(db,{clock,read,limit,shape,revision,modeValue,scope,ownerAllowed,activeValue});
+  const social=createSocialService(db,{clock,scope,ownerAllowed,limit,shape});
   const self=(row,mode)=>{
     if(!row)return {mode,summary:null,version:0,last_summary_version:0,discoverable:false,status:'not_joined'};
     const summary=row.summary==='{}'?null:validateStored(JSON.parse(row.summary)),expired=summary?summaryExpired(summary,clock()):false;
@@ -57,6 +61,7 @@ function createScopedService(db,{clock,scope,scopePolicy}) {
   return async function operate(name,args,owner) {
     if(!owner) throw new ServiceError('sign_in_required',401);
     if(typeof name!=='string')throw new ServiceError('invalid_arguments');
+    if(name==='slowmatch_social')return social(args,owner);
     if(name.startsWith('slowmatch_planning_')) return planning(name,args,owner);
     modeValue(args?.mode);
     // Bounded owner-scoped conversion. Old approvals never turn on either pool.

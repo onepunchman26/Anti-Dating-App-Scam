@@ -78,3 +78,14 @@ export const planningSessions = sqliteTable("planning_sessions", {
   createdAt: text("created_at").notNull(),
   updatedAt: text("updated_at").notNull(),
 }, table => [index("planning_owner_a").on(table.ownerA),index("planning_owner_b").on(table.ownerB),uniqueIndex("planning_open_pair").on(table.pairKey,table.mode).where(sql`status NOT IN ('withdrawn','expired')`)]);
+
+// Server-scoped social identities and a revision-guarded private-group aggregate.
+export const socialAccounts = sqliteTable("social_accounts", {
+ scope:text("scope").notNull(),owner:text("owner").notNull(),publicId:text("public_id").notNull(),alias:text("alias").notNull(),discoverable:integer("discoverable").notNull().default(0),revision:integer("revision").notNull().default(1),createdAt:text("created_at").notNull(),
+},table=>[primaryKey({columns:[table.scope,table.owner]}),uniqueIndex("social_accounts_scope_id").on(table.scope,table.publicId)]);
+export const socialFriends = sqliteTable("social_friends", {
+ scope:text("scope").notNull(),pairKey:text("pair_key").notNull(),sender:text("sender").notNull(),recipient:text("recipient").notNull(),status:text("status").notNull(),blockedBy:text("blocked_by").notNull().default(""),revision:integer("revision").notNull().default(1),updatedAt:text("updated_at").notNull(),
+},table=>[primaryKey({columns:[table.scope,table.pairKey]}),index("social_friends_sender").on(table.scope,table.sender),index("social_friends_recipient").on(table.scope,table.recipient)]);
+export const socialGroups = sqliteTable("social_groups", {
+ id:text("id").primaryKey(),scope:text("scope").notNull(),revision:integer("revision").notNull().default(1),data:text("data").notNull(),expiresAt:text("expires_at").notNull(),updatedAt:text("updated_at").notNull(),
+},table=>[index("social_groups_scope").on(table.scope,table.updatedAt)]);

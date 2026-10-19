@@ -1,5 +1,13 @@
 # Current handoff / 当前交接
 
+## Latest work — Friends/groups 0.8.2 / 最新工作 — 好友群组0.8.2
+
+Implemented stable IDs, mutual friends, private circles and individually approved group activities. Source and browser each completed one real synthetic OpenAI request. Three local synthetic browser identities confirmed one exact plan. Site37 and focused Python62 pass; packaging/deployment and full regression are in progress. Real B/C accounts remain unavailable and NOT EXERCISED. [Guide](FRIENDS_GROUPS.md) · [Evidence](docs/FRIENDS_GROUPS_VALIDATION.md).
+
+已实现稳定ID、双向好友、私人群组和逐人批准活动。源码及浏览器各完成一次真实合成OpenAI请求，三个本机合成浏览器身份确认同一准确方案。网站37项、针对性Python62项通过；打包、部署及完整回归进行中。真实B／C账号不可用，明确未实测。[指引](FRIENDS_GROUPS.md) · [证据](docs/FRIENDS_GROUPS_VALIDATION.md)。
+
+The 0.8.1 section below is historical baseline evidence. / 下方0.8.1为历史基线证据。
+
 ## English — Web companion 0.8.1, October 18, 2026
 
 **[Start here](WEB_COMPANION.md)** · [v0.8.1 release](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.1)

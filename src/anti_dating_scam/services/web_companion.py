@@ -99,6 +99,7 @@ class WebCompanion:
             self._ready()
         return {
             "protocol": "1.0",
+            "capabilities": ["private-chat", "group-suggest"],
             "account_label": status.label,
             "connected": status.connected,
             "plan_permission": status.sharing,
@@ -271,7 +272,26 @@ separate review. Summaries remain provisional; distinguish self-report from infe
         # Existing Pydantic consent/revision/source validation remains authoritative.
         return self._ready().update_profile(data).model_dump(mode="json")
 
+    def shared_group(self, data):
+        from anti_dating_scam.services.social_planning import generate_shared
+
+        if not self.lock.acquire(blocking=False):
+            raise CompanionError("request_in_progress")
+        self.cancel.clear()
+        try:
+            # This operation deliberately never loads a vault or private session.
+            identity = self._identity()
+            result = generate_shared(data, self.connection, self.cancel)
+            if identity != self._identity():
+                raise CompanionError("account_changed")
+            self.inference_passed = True
+            return result
+        finally:
+            self.lock.release()
+
     def dispatch(self, operation, args):
+        if operation == "group-suggest":
+            return self.shared_group(args)
         if operation == "status" and not args:
             return self.status()
         if operation == "models" and not args:

@@ -43,6 +43,13 @@
       "when": 1792299381108,
       "tag": "0005_wandering_zarda",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1792379000000,
+      "tag": "0006_private_friends_groups",
+      "breakpoints": true
     }
   ]
 }

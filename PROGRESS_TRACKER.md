@@ -1,8 +1,15 @@
+Latest checkpoint / 最新检查点
+
+- ✅ Friends/groups implementation and local browser acceptance passed: three synthetic identities, current-owner real OpenAI generation, individual same-option confirmation; Site37, focused Python62, TypeScript and compile passed. Release build/deployment remains in progress. Independent B/C accounts are NOT EXERCISED.
+- ✅ 好友群组实现及本机浏览器验收通过：三个合成身份、当前所有者真实OpenAI生成、各自确认同一方案；网站37、针对性Python62、TypeScript和编译通过。发布构建／部署进行中，独立B／C账号尚未实测。
+
 # Progress tracker / 进度追踪
 
 Updated / 更新：2026-10-18。Agent-maintained; change both languages together / 代理维护，状态须同步更新双语。
 
 ## English
+
+- 🔄 Friends/groups supplement started on `codex/friends-groups`, rollback `9e0876c`. Latest full conversation read; attachment body unavailable. Reusing platform identity, local AI and guarded planning boundaries; implementing stable IDs, friend consent, private 2–8 person groups, shared conditions and revision-bound proposals. Real account B/C remain unavailable.
 
 - ✅ Web onboarding feasible delivery: `codex/web-onboarding-local`, rollback `d6255d0`; original core reused, real source/browser/EXE inference and restart pass. Guided review, separate shared form and reciprocal cities implemented; 2,562 Python / 11 skipped, 31 Node, final focused 59, bootstrap 41 / 1 skipped. Site version 9 deployed, hosting source `1aacfbf`; v0.8.1 prerelease published from clean package source `98ae73a`, 148 files. 29 isolated EXE calls and public-download installation/official plugin registration pass. ⚠ Hosted HTTPS browser-to-loopback acceptance needs the owner's sign-in; independent B, fresh-account setup and general hybrid-distribution eligibility remain unverified. The new attachment body was unavailable; the complete latest conversation was read. See WEB_COMPANION_VALIDATION.
 
@@ -63,6 +70,8 @@ The current distribution status is R8 above; the following records preserve earl
 Hourly automation stays paused. No purchase, paid API key, real private archive, email delivery or public deployment was used. The [prior tracker](docs/history/2026-10-01-before-standards-correction/PROGRESS_TRACKER.md) is historical, not an extra backlog. Current evidence belongs in [CURRENT_STATUS](CURRENT_STATUS.md).
 
 ## 中文版
+
+- 🔄 好友／群组补充已开始：分支 `codex/friends-groups`，回退 `9e0876c`。已读最新完整对话，附件正文不可用。复用平台身份、本机 AI 及计划授权边界，正在实现稳定 ID、好友确认、2–8 人私人群组、共享条件和版本绑定方案。真实 B／C 账号仍不可用。
 
 - ✅ 网页新手引导的可执行交付：`codex/web-onboarding-local`，回退 `d6255d0`；复用原核心，源码／浏览器／EXE 真实推理与重启通过。实现私人审阅、独立共享表单和双向城市条件；Python 2,562／11 跳过、Node 31、最终针对性 59、安装器 41／1 跳过。Site 第 9 版已部署，托管源码 `1aacfbf`；v0.8.1 预览已发布，包来自干净源码 `98ae73a`，148 个文件。29 项独立 EXE 调用、公开下载安装及官方插件登记通过。⚠ 托管 HTTPS 浏览器到本机助手需本人登录后验收；独立 B、全新账号设置及混合发行资格尚未验证。新附件正文不可用，已读取最新完整对话。详见 WEB_COMPANION_VALIDATION。
 

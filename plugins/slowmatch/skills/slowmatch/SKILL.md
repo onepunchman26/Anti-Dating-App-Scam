@@ -18,6 +18,7 @@ Choose only the relevant reference; do not load the whole collection:
 - Self-understanding, interaction observations, private debrief or supplied audio: [reflection](references/reflection.md).
 - Life direction or a practical next step: [direction](references/direction.md).
 - Remembering, correcting, sharing or matching: [profile tools](references/profile-tools.md).
+- Personal IDs, known friends or private groups: [friends and groups](references/friends-groups.md).
 - A shared activity or meeting: [activity planning](references/activity-planning.md).
 - Explaining matching limits or implementing the warning: [Site reminder](references/site-reminder.md).
 
@@ -68,6 +69,7 @@ website deployment or authenticated remote access.
 - 自我理解、互动观察、私人复盘或所供音频：[关系探索与复盘](references/reflection.md)。
 - 人生方向或可执行的下一步：[方向与行动](references/direction.md)。
 - 记忆、纠正、分享或匹配：[档案工具](references/profile-tools.md)。
+- 个人 ID、熟人好友或私人群组：[好友与群组](references/friends-groups.md)。
 - 共同活动或见面：[活动安排](references/activity-planning.md)。
 - 解释匹配局限或实现网站提醒：[网站提醒](references/site-reminder.md)。
 

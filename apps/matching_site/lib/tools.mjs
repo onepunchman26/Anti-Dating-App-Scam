@@ -1,5 +1,6 @@
 import { schema } from './summary.mjs';
 import {preferencesSchema,planSchema} from './planning-service.mjs';
+import {socialRequestSchema} from './social-service.mjs';
 // JSON references are rooted at the entire tool schema. Expand our standalone
 // contracts before nesting them so tools/list has no broken #/$defs references.
 const inline=(value,root=value)=>{
@@ -17,6 +18,7 @@ const expiry={type:'string',format:'date-time',description:'Explicit UTC expiry,
 const scope={mode,planning_id:id};
 const approved={type:'boolean',const:true};
 export const tools=[
+  {name:'slowmatch_social',description:'Manage your stable ID, mutual friends, private groups of up to eight, and individually approved activity preferences and plans. Inspect account_read/friends/groups first. A friend request or invitation requires explicit user direction. Never send private chats, profiles or analysis. Use a separate approved group context for shared AI; all selected members must allow it. Mutations require current versions and exact reviewed content. / 管理本人ID、双向好友、最多8人私人群组和逐人批准的活动；发申请前须本人明确要求；不上传私人聊天、档案或分析；共同AI只用全员批准的隔离上下文。',inputSchema:object({request:socialRequestSchema}),annotations:{readOnlyHint:false,destructiveHint:true}},
   {name:'slowmatch_read_my_summary',description:'Read only your own summary and participation status in the selected mode. / 读取本人所选恋爱或朋友模式的摘要与参与状态。',inputSchema:object({mode}),annotations:{readOnlyHint:true}},
   {name:'slowmatch_publish_summary',description:'Publish ONLY the exact locally approved mode-specific summary. Show its contents, mode and audience first. A checksum alone is not consent. Never send a private profile, observation, report, source quote, path or audio. / 仅发布逐项批准的指定模式摘要；校验码不是同意，禁止私人档案、观察、报告、引用、路径或音频。',inputSchema:object({mode,summary:inline(schema),approved_digest:hash,expected_version:version}),annotations:{readOnlyHint:false,destructiveHint:true,idempotentHint:true}},
   {name:'slowmatch_set_discoverability',description:'Pause or resume only the selected mode. Pausing ends shared planning in that mode; other participation is unaffected. / 仅暂停或恢复所选模式，暂停会终止该模式共同计划，不影响另一模式。',inputSchema:object({mode,discoverable:{type:'boolean'},expected_version:version}),annotations:{readOnlyHint:false,destructiveHint:true}},

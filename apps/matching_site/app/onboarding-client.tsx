@@ -1,8 +1,10 @@
 'use client';
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import {useLanguage} from './language';
 import {onboardingText} from '../lib/onboarding.mjs';
 import type {View} from './site-app';
+import {rememberLocal} from '../lib/local-connection';
+import {socialText} from '../lib/social-copy.mjs';
 import SiteReminder from './site-reminder';
 
 const LOCAL='http://127.0.0.1:8911';
@@ -16,6 +18,7 @@ export default function OnboardingClient({navigate}:{navigate:(view:View)=>void}
  const [topic,setTopic]=useState('self'),[session,setSession]=useState<Session|null>(null),[sessions,setSessions]=useState<Session[]>([]),[message,setMessage]=useState('');
  const [profile,setProfile]=useState<Profile|null>(null),[claim,setClaim]=useState(''),[claimId,setClaimId]=useState<string|null>(null),[claimConsent,setClaimConsent]=useState(false);
  const [busy,setBusy]=useState(false),[feedback,setFeedback]=useState(''),[failed,setFailed]=useState(false);
+ useEffect(()=>{rememberLocal(code,model);},[code,model]);
  async function call(operation:string,args:Record<string,unknown>={}){
   let response;try{response=await fetch(LOCAL+'/v1',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+code.trim()},body:JSON.stringify({operation,arguments:args}),cache:'no-store',credentials:'omit'});}catch{throw Error('unreachable');}
   const body=await response.json() as {ok?:boolean;error?:string;result:any};if(!response.ok||!body.ok)throw Error(body.error||'error');return body.result;
@@ -33,6 +36,7 @@ export default function OnboardingClient({navigate}:{navigate:(view:View)=>void}
  return <div className="onboarding-page">
   <div className="page-heading"><p className="eyebrow">AI-SLOWMATCH</p><h1>{w('intro')}</h1><p>{w('pace')}</p></div>
   <SiteReminder/>
+  <div className="actions"><button className="secondary" onClick={()=>navigate('discover')}>{socialText(locale,'meetNew')}</button><button className="secondary" onClick={()=>navigate('friends')}>{socialText(locale,'add')}</button><button className="secondary" onClick={()=>navigate('friends')}>{socialText(locale,'friends')}</button></div>
   <div role={failed?'alert':'status'} aria-live="polite">{feedback&&<p className={failed?'error':'notice'}>{w(feedback)}</p>}</div>
   <section className="panel"><h2>{w('assistant')}</h2><p>{w('assistantBody')}</p><div className="actions"><a className="text-link" href="https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/main/WEB_COMPANION.md" target="_blank" rel="noreferrer">{w('install')}</a><a className="text-link" href={LOCAL} target="_blank" rel="noreferrer">{w('open')}</a></div>
    <label>{w('pair')}<input type="password" autoComplete="off" disabled={busy} value={code} onChange={e=>{setCode(e.target.value);setStatus(null);setSession(null);setProfile(null);setSessions([]);setMessage('');setClaim('');setClaimId(null);setClaimConsent(false);setPath('');setModel('');setCloudConsent(false);setUsage(false);setIncludeProfile(false);setVaultConsent(false);}}/></label><p className="muted">{w('pairHint')}</p>

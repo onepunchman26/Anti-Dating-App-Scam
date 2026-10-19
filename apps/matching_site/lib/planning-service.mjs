@@ -2,6 +2,16 @@ import {validate,digest,canonical,reciprocal,summaryExpiry,summaryExpired,Servic
 import preferencesSchema from './shared-planning-preferences.schema.json' with {type:'json'};
 import planSchema from './meeting-plan.schema.json' with {type:'json'};
 export {preferencesSchema,planSchema};
+export function publicSource(value){
+    if(/[\s\\\u0000-\u001f\u007f]|%(?:0[0-9a-f]|1[0-9a-f]|7f)/iu.test(value))throw new ServiceError('invalid_public_source');
+    let url;try{url=new URL(value);}catch{throw new ServiceError('invalid_public_source');}
+    if(url.protocol!=='https:'||url.username||url.password||url.hash||url.search||url.port||url.hostname==='localhost'||/\.(?:local|localhost|internal|test|invalid)$/u.test(url.hostname)||!url.hostname.includes('.')||/^[\d.]+$/u.test(url.hostname)||url.hostname.includes(':'))throw new ServiceError('invalid_public_source');
+    const labels=url.hostname.split('.');
+    if(!/^[A-Za-z]{2,63}$/u.test(labels.at(-1))||labels.some(label=>!/^[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?$/u.test(label)))throw new ServiceError('invalid_public_source');
+    let pathname;try{pathname=decodeURIComponent(url.pathname);}catch{throw new ServiceError('invalid_public_source');}
+    if(new RegExp(planSchema['x-slowmatch-label-forbidden-pattern'],'iu').test(pathname))throw new ServiceError('invalid_public_source');
+  }
+
 
 const closed=new Set(['withdrawn','expired']);
 const resetPlan="plan='{}',plan_digest='',plan_approved_by='',plan_approved_at='',confirmation_a=0,confirmation_b=0,option_a='',option_b='',feedback_a='',feedback_b=''";
@@ -72,15 +82,6 @@ export function createPlanningService(db,{clock,read,limit,shape,revision,modeVa
     if([value.areas,value.environment,value.interests,value.arrangement_needs].some(values=>values.length!==new Set(values).size))throw new ServiceError('duplicate_preference');
     if(args.approved_digest!==await digest(value))throw new ServiceError('approval_content_mismatch');
     return expiry;
-  }
-  function publicSource(value){
-    if(/[\s\\\u0000-\u001f\u007f]|%(?:0[0-9a-f]|1[0-9a-f]|7f)/iu.test(value))throw new ServiceError('invalid_public_source');
-    let url;try{url=new URL(value);}catch{throw new ServiceError('invalid_public_source');}
-    if(url.protocol!=='https:'||url.username||url.password||url.hash||url.search||url.port||url.hostname==='localhost'||/\.(?:local|localhost|internal|test|invalid)$/u.test(url.hostname)||!url.hostname.includes('.')||/^[\d.]+$/u.test(url.hostname)||url.hostname.includes(':'))throw new ServiceError('invalid_public_source');
-    const labels=url.hostname.split('.');
-    if(!/^[A-Za-z]{2,63}$/u.test(labels.at(-1))||labels.some(label=>!/^[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?$/u.test(label)))throw new ServiceError('invalid_public_source');
-    let pathname;try{pathname=decodeURIComponent(url.pathname);}catch{throw new ServiceError('invalid_public_source');}
-    if(new RegExp(planSchema['x-slowmatch-label-forbidden-pattern'],'iu').test(pathname))throw new ServiceError('invalid_public_source');
   }
   async function checkedPlan(plan,row,args){
     validate(plan,planSchema);

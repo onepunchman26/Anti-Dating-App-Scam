@@ -6,6 +6,19 @@ Anti-Dating-App-Scam is the authoritative AI-SlowMatch project for relationship 
 
 ## Current Product Direction (2026-10-17)
 
+The owner's latest October 18 friends/groups/ID supplement adds stable account IDs,
+mutually accepted friendships, acquaintance support and private groups of 2–8 people.
+ID connections do not require discovery enrollment or a matching score. Invitees may
+accept and submit activity preferences on the Site without local AI installation or
+an interview. Each activity has an explicit roster, individually approved minimal
+preferences, expiry, isolated shared analysis and version-specific confirmations.
+Never override one member's hard constraint by majority vote. Changed membership,
+preferences or plan content invalidates prior approvals. A member's own authorized
+AI runs shared-only generation; no private profile is loaded for that operation.
+This supersedes any earlier no-groups first-version scope. Record three independent
+account acceptance separately from synthetic tests. The full latest conversation
+was retrieved; the new attachment itself was not exposed by the reader.
+
 The owner's October 18 adoption of the latest onboarding/web-chat/local-vault/geo
 supplement changes the daily entry point to the existing product webpage plus a
 lightweight local companion. The native ChatGPT plugin remains compatible and

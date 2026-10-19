@@ -164,145 +164,166 @@ class WorkPlanningService:
         evidence. The source status is an assertion, never a claim this function browsed.
         """
         request = PlanningSuggestRequest.model_validate(arguments)
-        context = request.context
-        current = datetime.now(UTC)
-        first, second = [p.preferences for p in context.participants]
-        for participant in context.participants:
-            if _hash(_encode(participant.preferences.model_dump())) != participant.approved_digest:
-                raise WorkProfileError("approval_mismatch")
-            if timestamp(participant.preferences.expires_at) <= current:
-                raise WorkProfileError("sharing_expired")
-        common = set(first.interests) & set(second.interests)
-        common_areas = {area.strip().lower() for area in first.areas} & {
-            area.strip().lower() for area in second.areas
-        }
-        if not common or not common_areas:
-            raise WorkProfileError("no_shared_activity_basis")
-        if first.budget.currency != second.budget.currency:
-            raise WorkProfileError("currency_agreement_required")
-        duration = min(first.duration_minutes, second.duration_minutes)
-        windows = []
-        for a in first.availability:
-            for b in second.availability:
-                start, end = (
-                    max(
-                        timestamp(a.start_at), timestamp(b.start_at), current + timedelta(minutes=5)
-                    ),
-                    min(timestamp(a.end_at), timestamp(b.end_at)),
-                )
-                if end - start >= timedelta(minutes=duration):
-                    windows.append((start, end))
-        if not windows:
-            raise WorkProfileError("no_shared_time_window")
-        expiry = min(timestamp(first.expires_at), timestamp(second.expires_at))
-        if expiry > current + timedelta(days=30):
-            raise WorkProfileError("sharing_expiry_too_long")
-        ceiling = min(first.budget.max_per_person_minor, second.budget.max_per_person_minor)
-        options = []
-        for index, place in enumerate(request.places):
-            if place.planning_area.strip().lower() not in common_areas:
-                raise WorkProfileError("place_outside_shared_area")
-            if timestamp(place.checked_at) > current:
-                raise WorkProfileError("future_source_check")
-            interests = {
-                "museum": {"learning", "art"},
-                "gallery": {"art", "learning"},
-                "park_walk": {"outdoors", "sport"},
-                "board_games": {"games"},
-                "volunteer": {"volunteering", "learning"},
-                "cafe_walk": {"reading", "cooking", "outdoors"},
-                "online_chat": set(common),
-            }[place.activity_type] & common
-            if not interests:
-                raise WorkProfileError("place_not_based_on_shared_interests")
-            eligible_starts = []
-            for start, end in windows:
-                if place.source_open_window:
-                    start = max(start, timestamp(place.source_open_window.start_at))
-                    end = min(end, timestamp(place.source_open_window.end_at))
-                if place.source_event_at:
-                    event_time = timestamp(place.source_event_at)
-                    if event_time < start:
-                        continue
-                    start = event_time
-                if end - start >= timedelta(minutes=duration):
-                    eligible_starts.append(start)
-            if not eligible_starts:
-                raise WorkProfileError("no_shared_time_with_venue_hours")
-            if place.source_admission and (
-                place.source_admission.currency != first.budget.currency
-                or place.source_admission.amount_minor > ceiling
-            ):
-                raise WorkProfileError("admission_exceeds_shared_budget")
-            activity = {
-                "museum": "visit_exhibit",
-                "gallery": "visit_exhibit",
-                "park_walk": "walk",
-                "board_games": "play_game",
-                "cafe_walk": "coffee",
-                "volunteer": "walk",
-                "online_chat": "online_conversation",
-            }[place.activity_type]
-            unknowns = list(
-                dict.fromkeys(
-                    [
-                        "booking_not_made",
-                        "availability_not_checked",
-                        "opening_hours_may_change",
-                        "price_may_change",
-                        "accessibility_to_confirm",
-                        *place.unknowns,
-                    ]
-                )
+        return suggest_plan(request)
+
+
+def _merge_windows(windows):
+    merged = []
+    for start, end in sorted(windows):
+        if end <= start:
+            continue
+        if merged and start <= merged[-1][1]:
+            merged[-1] = (merged[-1][0], max(merged[-1][1], end))
+        else:
+            merged.append((start, end))
+    return merged
+
+
+def suggest_plan(request):
+    """Pure shared-data planner. No storage, profile or provider access."""
+    context = request.context
+    current = datetime.now(UTC)
+    preferences = [p.preferences for p in context.participants]
+    first = preferences[0]
+    for participant in context.participants:
+        if _hash(_encode(participant.preferences.model_dump())) != participant.approved_digest:
+            raise WorkProfileError("approval_mismatch")
+        if timestamp(participant.preferences.expires_at) <= current:
+            raise WorkProfileError("sharing_expired")
+    common = set.intersection(*(set(p.interests) for p in preferences))
+    common -= set().union(*(set(getattr(p, "avoid_interests", [])) for p in preferences))
+    common_areas = set.intersection(*({a.strip().lower() for a in p.areas} for p in preferences))
+    if not common or not common_areas:
+        raise WorkProfileError("no_shared_activity_basis")
+    if any(p.budget.currency != first.budget.currency for p in preferences):
+        raise WorkProfileError("currency_agreement_required")
+    duration = min(p.duration_minutes for p in preferences)
+    windows = [
+        (max(timestamp(w.start_at), current + timedelta(minutes=5)), timestamp(w.end_at))
+        for w in first.availability
+    ]
+    windows = _merge_windows(windows)
+    for preference in preferences[1:]:
+        windows = [
+            (max(a, timestamp(w.start_at)), min(b, timestamp(w.end_at)))
+            for a, b in windows
+            for w in preference.availability
+            if min(b, timestamp(w.end_at)) - max(a, timestamp(w.start_at))
+            >= timedelta(minutes=duration)
+        ]
+        windows = _merge_windows(windows)
+    windows = [(a, b) for a, b in windows if b - a >= timedelta(minutes=duration)]
+    if not windows:
+        raise WorkProfileError("no_shared_time_window")
+    expiry = min(timestamp(p.expires_at) for p in preferences)
+    if expiry > current + timedelta(days=30):
+        raise WorkProfileError("sharing_expiry_too_long")
+    ceiling = min(p.budget.max_per_person_minor for p in preferences)
+    options = []
+    for index, place in enumerate(request.places):
+        if place.planning_area.strip().lower() not in common_areas:
+            raise WorkProfileError("place_outside_shared_area")
+        if timestamp(place.checked_at) > current:
+            raise WorkProfileError("future_source_check")
+        interests = {
+            "museum": {"learning", "art"},
+            "gallery": {"art", "learning"},
+            "park_walk": {"outdoors", "sport"},
+            "board_games": {"games"},
+            "volunteer": {"volunteering", "learning"},
+            "cafe_walk": {"reading", "cooking", "outdoors"},
+            "online_chat": set(common),
+        }[place.activity_type] & common
+        if not interests:
+            raise WorkProfileError("place_not_based_on_shared_interests")
+        eligible_starts = []
+        for start, end in windows:
+            if place.source_open_window:
+                start = max(start, timestamp(place.source_open_window.start_at))
+                end = min(end, timestamp(place.source_open_window.end_at))
+            if place.source_event_at:
+                event_time = timestamp(place.source_event_at)
+                if event_time < start:
+                    continue
+                start = event_time
+            if end - start >= timedelta(minutes=duration):
+                eligible_starts.append(start)
+        if not eligible_starts:
+            raise WorkProfileError("no_shared_time_with_venue_hours")
+        if place.source_admission and (
+            place.source_admission.currency != first.budget.currency
+            or place.source_admission.amount_minor > ceiling
+        ):
+            raise WorkProfileError("admission_exceeds_shared_budget")
+        activity = {
+            "museum": "visit_exhibit",
+            "gallery": "visit_exhibit",
+            "park_walk": "walk",
+            "board_games": "play_game",
+            "cafe_walk": "coffee",
+            "volunteer": "walk",
+            "online_chat": "online_conversation",
+        }[place.activity_type]
+        unknowns = list(
+            dict.fromkeys(
+                [
+                    "booking_not_made",
+                    "availability_not_checked",
+                    "opening_hours_may_change",
+                    "price_may_change",
+                    "accessibility_to_confirm",
+                    *place.unknowns,
+                ]
             )
-            sequence = (
-                ["online_conversation"]
-                if place.activity_type == "online_chat"
-                else ["meet_public", activity, "leave_independently"]
-            )
-            options.append(
-                place.model_dump()
-                | {
-                    "option_id": "abc"[index],
-                    "start_at": min(eligible_starts).isoformat(),
-                    "duration_minutes": duration,
-                    "estimated_budget_minor": ceiling,
-                    "currency": first.budget.currency,
-                    "sequence": sequence,
-                    "shared_interest_reasons": sorted(interests),
-                    "conversation_starters": ["shared_hobby", "preferred_pace"],
-                    "arrival_exit": "independent_arrival_easy_exit",
-                    "fallback": "end_without_pressure",
-                    "booking_status": "not_booked",
-                    "unknowns": unknowns,
-                }
-            )
-        requirements = {
-            "environment": sorted(set(first.environment + second.environment)),
-            "arrangement_needs": sorted(set(first.arrangement_needs + second.arrangement_needs)),
-            "status": "confirm_venue_suitability_before_agreeing",
-        }
-        plan = MeetingPlan(
-            schema_version="1.0",
-            mode=context.mode,
-            context_digest=_hash(_encode(context.model_dump())),
-            version=request.version,
-            expires_at=expiry.isoformat(),
-            options=options,
-            budget_basis="shared_budget_ceiling_not_verified_price",
-            requirements=requirements,
         )
-        return {
-            "plan": plan.model_dump(),
-            "status": "suggestion_not_approved_or_booked",
-            "source_checks": "supplied_public_evidence_not_verified_by_generator",
-            "context_authorization": "supplied_context_requires_current_server_verification",
-            "location_basis": "supplied_coarse_region_not_geocoded",
-            "budget_basis": plan.budget_basis,
-            "arrangement_requirements": requirements["arrangement_needs"],
-            "environment_requirements": requirements["environment"],
-            "requirements_status": requirements["status"],
-        }
+        sequence = (
+            ["online_conversation"]
+            if place.activity_type == "online_chat"
+            else ["meet_public", activity, "leave_independently"]
+        )
+        options.append(
+            place.model_dump()
+            | {
+                "option_id": "abc"[index],
+                "start_at": min(eligible_starts).isoformat(),
+                "duration_minutes": duration,
+                "estimated_budget_minor": ceiling,
+                "currency": first.budget.currency,
+                "sequence": sequence,
+                "shared_interest_reasons": sorted(interests),
+                "conversation_starters": ["shared_hobby", "preferred_pace"],
+                "arrival_exit": "independent_arrival_easy_exit",
+                "fallback": "end_without_pressure",
+                "booking_status": "not_booked",
+                "unknowns": unknowns,
+            }
+        )
+    requirements = {
+        "environment": sorted(set().union(*(set(p.environment) for p in preferences))),
+        "arrangement_needs": sorted(set().union(*(set(p.arrangement_needs) for p in preferences))),
+        "status": "confirm_venue_suitability_before_agreeing",
+    }
+    plan = MeetingPlan(
+        schema_version="1.0",
+        mode=context.mode,
+        context_digest=_hash(_encode(context.model_dump())),
+        version=request.version,
+        expires_at=expiry.isoformat(),
+        options=options,
+        budget_basis="shared_budget_ceiling_not_verified_price",
+        requirements=requirements,
+    )
+    return {
+        "plan": plan.model_dump(),
+        "status": "suggestion_not_approved_or_booked",
+        "source_checks": "supplied_public_evidence_not_verified_by_generator",
+        "context_authorization": "supplied_context_requires_current_server_verification",
+        "location_basis": "supplied_coarse_region_not_geocoded",
+        "budget_basis": plan.budget_basis,
+        "arrangement_requirements": requirements["arrangement_needs"],
+        "environment_requirements": requirements["environment"],
+        "requirements_status": requirements["status"],
+    }
 
 
 PLANNING_OPERATIONS = {
