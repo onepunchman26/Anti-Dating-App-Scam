@@ -6,62 +6,37 @@
 
 ## English
 
-The new web-companion preview guides self-discovery, official ChatGPT plan connection,
-local conversation storage and private review before separate sharing. [Setup and gates](WEB_COMPANION.md).
-The prior Site UI/distribution evidence below remains historical until the new deployment receipt is recorded.
+The **0.8.1 controlled Windows preview** adds a guided web conversation to the existing
+project. Start with self-understanding, keep dedicated sessions and confirmed statements
+on your computer, then separately review what to share for dating or friendship.
+Your answers are your own; there are no founder-default preferences or personality scores.
 
-The private Site, saved version 7, now has separate English/Chinese interfaces and clearer Discover, Plans together
-and Shared profile pages. Language changes preserve in-progress choices without another
-model or service request. [UI verification and limitations](docs/SITE_UI_VALIDATION.md)
-distinguishes real local tests from independent-account acceptance. The following screenshot
-uses synthetic local test profiles, not real members or a populated live service.
+The [private Site](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site) now includes
+**Start with yourself**, complete English/Chinese selection, shared-profile forms and
+reciprocal city choices. [Actual evidence and remaining gates](docs/WEB_COMPANION_VALIDATION.md).
+The screenshot is the real local QA page, with no private conversation or real member data.
 
-![English Site discovery with synthetic test profiles](docs/images/site-ui-discover-en-desktop.png)
-
-Understand your values, relationships and life direction through **your own ChatGPT
-conversation**. Keep a correctable private profile on your computer, decide what to share,
-explore dating or friendship separately, and get thoughtful help before, during or after
-meeting someone. Your answers belong to you; there are no founder-default preferences,
-public personality scores or guarantees about another person's honesty.
-
-**v0.8.0 is the published controlled Windows x64 preview. There is no stable release yet.**
-The [v0.8.0 Release](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.0)
-contains the prebuilt component, source-commit mapping and checksums. The public-download
-installer and repeat installation passed on the current Windows desktop; an independent
-clean desktop remains untested. This is not a public ChatGPT plugin-directory listing.
+![English guided start](docs/evidence/web-onboarding/start-en-1440.png)
 
 ### Start here
 
-1. Give ChatGPT the exact project link above and ask it to follow
-   [INSTALL_WITH_CHATGPT.md](INSTALL_WITH_CHATGPT.md). This installs the existing product;
-   it should not audit the whole repository or rebuild your application.
-2. Use Windows x64 with a ChatGPT desktop environment that permits local execution and
-   plugin installation. The package includes its runtime: **no user-installed Python,
-   Git, Node or compiler is required**. Automatic plugin registration separately requires
-   the supported desktop `codex` installer to be available. Web-only chat cannot access
-   your local profile; other operating systems are not verified.
-3. Use the Release's [fixed-version Windows installer script](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/download/v0.8.0/install_work_preview.ps1).
-   It downloads the exact package, verifies archive/manifest/component hashes, extracts only
-   allowed files, installs and runs diagnostics. Run `./install_work_preview.ps1 -RegisterPlugin`
-   to request official plugin registration too; without that flag it installs the local component only.
-   It never changes execution policy or binds a user account. If script execution is restricted,
-   report that platform condition rather than bypass it. The script pins the verified build's
-   hashes; its [source](scripts/install_work_preview.ps1) is available for review.
-   Complete your own platform login/permissions, run setup,
-   then begin chatting. Everyone connects to the one maintained
-   [matching service](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site);
-   ordinary users do not deploy a website or database.
+1. Open the [short Windows guide](WEB_COMPANION.md) and its pinned **0.8.1** release.
+   Extract the entire ZIP and open **Start-SlowMatch.cmd**. No Python, Node, compiler,
+   developer checkout or separate server is needed. Keep the helper window open.
+2. Pair the webpage with the local helper, finish official ChatGPT authorization,
+   check plan/model access, and explicitly choose or reconnect your private folder.
+   ChatGPT desktop is optional for this web route. Do not enable extra credits for testing.
+3. Begin a dedicated conversation, review your own statements, and only then choose
+   a separate summary to publish. Nothing in the private conversation is auto-published.
+   [The native plugin](INSTALL_WITH_CHATGPT.md) remains an alternative.
 
-A website opening successfully or a plugin being installed does not prove your account can
-call the private Site. After the installed tools became available, the current existing Codex
-desktop conversation read the setup Skill, made authenticated native reads and completed a
-bound synthetic local write/read probe. A fresh ChatGPT setup conversation and the real
-two-account flow remain unverified. See [validation and costs](docs/DISTRIBUTION_VALIDATION.md) and
-[CURRENT_STATUS](CURRENT_STATUS.md) for actual results rather than assuming completion.
-
-Offline installer checks, including extraction beyond 260 characters, passed in this
-host's current PowerShell. Windows PowerShell 5.1 is execution-policy restricted on this
-host, so its script compatibility remains unverified. No policy was changed or bypassed.
+Current-owner real inference, local-browser chat, packaged-helper restart and 29 isolated
+installation/repair calls passed. **The hosted browser currently requires the owner's
+login; HTTPS-to-loopback browser acceptance is still open.** Independent account B,
+fresh-account installation, and broad eligibility of the hosted-UI/local-SIWC combination
+remain unverified. No stable release, public plugin-directory listing or universal setup
+success is claimed. The project-wide license remains undeclared. See
+[CURRENT_STATUS](CURRENT_STATUS.md) for the latest release and download evidence.
 
 ### What the preview implements
 
@@ -118,46 +93,31 @@ See [licensing status and options](docs/LICENSING_STATUS.md).
 
 ## 中文版
 
-新的网页本机助手预览提供自我探索引导、官方 ChatGPT 套餐连接、本机会话保存与私人审阅，再单独分享。
-请看[设置与验收限制](WEB_COMPANION.md)。以下旧版界面和分发证据保留为历史记录，新的部署结果另行记录。
+**0.8.1 Windows 受控预览**在原项目中加入了网页对话引导。先认识自己，将专用会话和
+本人确认的陈述保存在电脑，再单独审阅恋爱或朋友匹配要分享的内容。
+每个人的答案以本人为准，不套用创始人偏好，也不设人格评分。
 
-私有网站第 7 版已部署，支持完整中文／英文切换，并整理为“发现、共同计划、共享资料”。切换语言保留进行中的
-选择，不增加模型或服务请求。[界面验收与限制](docs/SITE_UI_VALIDATION.md)区分真实本机测试
-与独立账号验收。下图使用本机合成测试资料，不是真实成员，也不代表线上已有候选。
+[私有网站](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site)现有“开始了解自己”、
+完整中英文切换、共享摘要表单与双方城市选择。见[实际证据和未完成项](docs/WEB_COMPANION_VALIDATION.md)。
+下图为真实本机验证页面，不含私人对话或真实成员资料。
 
-![中文发现页，使用合成测试资料](docs/images/site-ui-discover-zh-desktop.png)
-
-通过**你自己的 ChatGPT 对话**理解价值观、关系与人生方向。在自己的电脑上保留可纠正的私人档案，
-自主决定分享什么，分别探索恋爱或友谊，并在见面前、中途或之后获得具体帮助。每个人的答案以本人为准，
-不套用创始人偏好、不设公开人格分，也不保证他人诚实。
-
-**v0.8.0 是已发布的 Windows x64 受控预览，目前没有稳定版。**
-[v0.8.0 发布页](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.0)
-已提供预编译组件、源码提交对应关系和校验值。公开下载的安装脚本及重复安装已在当前 Windows
-桌面通过；独立干净桌面尚未实测，也未上架 ChatGPT 公共插件目录。
+![中文新手入口](docs/evidence/web-onboarding/start-zh-1440.png)
 
 ### 从这里开始
 
-1. 把页首准确项目链接交给 ChatGPT，请它遵照 [INSTALL_WITH_CHATGPT.md](INSTALL_WITH_CHATGPT.md)。
-   这是安装现有产品，不应要求全库审计或重新开发应用。
-2. 使用允许本机执行和插件安装的 Windows x64 ChatGPT 桌面环境。发布包自带运行组件，
-   **普通用户无需另装 Python、Git、Node 或编译器**。自动插件登记另需桌面环境能够调用受支持的
-   `codex` 安装器。纯网页聊天不能访问本机档案；其他操作系统尚未验证。
-3. 使用 Release 中的[固定版本 Windows 安装脚本](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/download/v0.8.0/install_work_preview.ps1)。
-   它下载指定包、验证压缩包／清单／组件哈希，仅解压允许文件，然后安装并诊断。
-   运行 `./install_work_preview.ps1 -RegisterPlugin` 可同时请求官方插件登记；不带该参数则只安装本机组件。
-   它不改变执行策略、不绑定用户账号。脚本执行受限时准确报告平台条件，不绕过。
-   脚本已固定核实构建的哈希；可先查看[源码](scripts/install_work_preview.ps1)。
-   完成本人平台登录／权限和设置检查，然后开始聊天。所有人连接统一维护的
-   [匹配服务](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site)，普通用户不部署网站或数据库。
+1. 打开[Windows 短指引](WEB_COMPANION.md)，使用其中固定的 **0.8.1** 版本。
+   解压整个 ZIP，打开 **Start-SlowMatch.cmd**，使用时保持助手窗口开启。
+   不要求 Python、Node、编译器、开发者源码环境或另建服务器。
+2. 将网页与本机助手配对，完成官方 ChatGPT 授权，检查套餐和模型权限，
+   明确选择或重连私人文件夹。网页路线不要求 ChatGPT 桌面应用；测试不要开启额外点数。
+3. 开始专用会话、审阅本人陈述，再单独选择发布摘要；私人聊天不会自动发布。
+   [原生插件](INSTALL_WITH_CHATGPT.md)仍可作为替代入口。
 
-网站能打开或插件已安装，不证明本人账号能调用私有 Site。安装工具变为可用后，当前已有 Codex 桌面
-会话已读取 setup Skill、完成本人认证的原生读取和绑定账号的合成本机写读探针；新 ChatGPT 设置会话
-及真实独立双账号流程仍未验证。实际结果见[验证与成本](docs/DISTRIBUTION_VALIDATION.md)
-和 [CURRENT_STATUS](CURRENT_STATUS.md)，不能据功能描述推断全部通过。
-
-本机当前 PowerShell 的安装器离线检查已通过，包括超过 260 字符的路径提取。此机器的 Windows
-PowerShell 5.1 受执行策略限制，因此尚未验证其脚本兼容性；没有修改或绕过策略。
+当前维护者的真实推理、本机浏览器聊天、打包助手重启和 29 项独立安装／修复调用通过。
+**托管网站的浏览器当前需要本人登录，HTTPS 网页到本机助手的浏览器验收尚未完成。**
+独立 B 账号、全新账号安装，以及“托管网页＋本机 SIWC”组合的广泛发行资格仍未验证。
+不宣称稳定版、公共插件目录上架或所有用户均可完成设置；项目整体许可仍未声明。
+最新发布与下载实测见 [CURRENT_STATUS](CURRENT_STATUS.md)。
 
 ### 预览已实现的能力
 
@@ -184,7 +144,7 @@ ChatGPT 可按你的 OpenAI 设置处理本人授权的信息；这不等于允�
 
 ### 原项目、帮助与致谢
 
-本次继续迁移原仓库，复用 Python 结构、存储及服务，以 ChatGPT 为主要对话入口。原有
+本次继续迁移原仓库，复用 Python 结构、存储及服务；网页助手与原生插件共用核心。原有
 **0.5.3 `AI-SlowMatch.exe`** 保留为历史恢复应用；它与新的 **`SlowMatch-Work.exe`** 组件不同，
 没有被宣称为重建的 0.8 桌面应用。
 
