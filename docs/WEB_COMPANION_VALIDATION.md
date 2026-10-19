@@ -47,6 +47,9 @@ Original app code `98ae73a`, final Site adjustment `0529530`, one-way deployment
 Previous version 7 remains the pre-change Site rollback. Windows package source is exactly
 `98ae73ab94cdd3cf5ee13e12739428a297aedca0`, clean, 148 manifested files. Packaging is separate
 from installation, authorization and browser acceptance.
+The v0.8.1 prerelease now has six public assets with matching GitHub digests. Its public-download
+bootstrap and official plugin registration passed; a second installation used the verified cache
+and passed. These checks did not invoke a new native ChatGPT session.
 
 **Still blocked/unverified:**
 
@@ -111,6 +114,8 @@ Live catalog, `store:false`, streaming and completed-event checks use the retain
 最终网页调整 `0529530`，单向同步托管镜像；第 7 版仍为改动前回退点。
 Windows 包严格来自干净提交 `98ae73ab94cdd3cf5ee13e12739428a297aedca0`，含 148 个清单文件。
 打包、安装、授权和浏览器验收分别记录。
+v0.8.1 预发布已提供六个公开附件，GitHub 摘要校验一致；从公开链接下载安装器并完成官方插件登记通过，
+第二次安装使用已验证缓存并通过。这些检查没有触发新的原生 ChatGPT 会话。
 
 **仍受阻或未实测：**
 

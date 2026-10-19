@@ -2,7 +2,7 @@
 
 ## English
 
-Start at the [original project's releases](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases).
+Start at the [original project's releases](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.1).
 The **0.8.1 controlled preview** adds a local web companion to the existing project.
 Download the Windows ZIP for that version, extract the entire folder to a private
 local application location, and open **Start-SlowMatch.cmd**. Keep its window open
@@ -64,7 +64,7 @@ explicitly retained. See CURRENT_STATUS for the actual latest test/build/deploy 
 
 ## 中文版
 
-从[原项目的版本发布页](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases)开始。
+从[原项目的版本发布页](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.1)开始。
 **0.8.1 受控预览版**在现有项目中增加了本机网页助手。下载对应 Windows ZIP，
 将整个文件夹解压到私人本机应用位置，打开 **Start-SlowMatch.cmd**，使用期间保持窗口开启。
 已构建的包不要求安装 Python、Node、编译器、API key 或开发者源码环境。

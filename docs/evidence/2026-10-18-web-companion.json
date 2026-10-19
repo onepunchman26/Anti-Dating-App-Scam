@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-18",
+  "timezone": "America/Toronto",
+  "repository": "onepunchman26/Anti-Dating-App-Scam",
+  "branch": "codex/web-onboarding-local",
+  "rollback_commit": "d6255d06a1fc8dbe580530bd9d8f2f3c25812305",
+  "package": {
+    "version": "0.8.1",
+    "source_commit": "98ae73ab94cdd3cf5ee13e12739428a297aedca0",
+    "source_dirty": false,
+    "manifested_files": 148,
+    "archive_sha256": "be096ff1e998cff1da6f68f92c6f28c8a9eb7a714ae2ab8602d9b9c96aa98af8",
+    "manifest_sha256": "db752b3199c086c447c341054d8021ec54da0129ae0c18961848ea0e290c1580",
+    "isolated_executable_calls": 29,
+    "public_download_install": "passed",
+    "repeat_install": "passed_verified_cache",
+    "official_plugin_registration": "installer_completed_not_native_invocation"
+  },
+  "site": {
+    "project_id": "appgprj_6ad4306f79e88191bbbd502f495ec501",
+    "version_id": "appgprj_6ad4306f79e88191bbbd502f495ec501~appgver_16ebc355cd2c819187ccf094c32b0eb9",
+    "version_number": 9,
+    "source_commit": "1aacfbfc3d9780ba88a19624b13c63f11ee1adef",
+    "deployment_status": "succeeded",
+    "url": "https://slowmatch-private-pilot.fizzydeer7.chatgpt.site",
+    "environment_revision": 1,
+    "audience": "owner-private_unchanged"
+  },
+  "tests": {
+    "python_full": {
+      "passed": 2562,
+      "skipped": 11,
+      "scope": "before_final_bounded_refinements"
+    },
+    "python_focused": 59,
+    "bootstrap": {
+      "passed": 41,
+      "skipped": 1
+    },
+    "node_all": 31,
+    "node_final_subset": 6,
+    "compile": "passed",
+    "typescript": "passed",
+    "production_build": "passed",
+    "real_completed_synthetic_inference_requests": 3,
+    "packaged_restart": {
+      "session_count": 2,
+      "messages_per_session": [
+        2,
+        2
+      ],
+      "profile_revision": 1,
+      "inference_badge_reset": true
+    },
+    "local_browser": [
+      "real_reply",
+      "private_statement_save",
+      "language_draft_consent_preservation",
+      "synthetic_summary_version2_publish",
+      "EN_ZH_360_768_1440_no_horizontal_overflow"
+    ]
+  },
+  "native_mcp": {
+    "authenticated": true,
+    "database_read": "passed",
+    "database_schema": "passed",
+    "write_check": "not_checked"
+  },
+  "not_exercised": [
+    "hosted_https_browser_to_loopback_requires_owner_signin",
+    "second_independent_account",
+    "clean_account_installation",
+    "fresh_siwc_authorization",
+    "new_native_chat_after_081_registration",
+    "web_audio_transcription_gps_automatic_mcp"
+  ],
+  "unresolved": [
+    "general_hybrid_siwc_eligibility",
+    "project_wide_license_undeclared",
+    "new_attachment_body_not_exposed_complete_conversation_read"
+  ],
+  "privacy": {
+    "only_synthetic_new_test_content": true,
+    "existing_private_vault_scan": false,
+    "real_hosted_profile_publish": false,
+    "credentials_in_receipt": false
+  }
+}

@@ -1,5 +1,22 @@
 # AI Development Log
 
+## 2026-10-18 — Web onboarding and local companion / 网页引导与本机助手
+
+English: Adopted the latest full referenced conversation; attachment body unavailable.
+Reused SIWC, guarded profile core and packaged coaching policy. Implemented paired local
+web chat, durable sessions, private review, separate shared editor and reciprocal cities.
+Three real synthetic requests, source/browser/EXE and restart checks passed. Python 2,562/11,
+Node 31, focused 59, bootstrap 41/1; package 29 isolated calls. Site version 9 deployed,
+0.8.1 prerelease/public-download install and official plugin registration completed.
+Hosted browser sign-in, independent B and hybrid eligibility remain gates. No real vault
+scan, hosted private publication, access widening or legacy EXE replacement.
+
+中文版：采纳最新完整引用对话，附件正文不可用。复用 SIWC、受保护档案核心与打包辅导规则，
+实现配对本机网页聊天、会话持久化、私人审阅、独立共享表单和双方城市条件。三次真实合成请求、
+源码／浏览器／EXE 与重启通过。Python 2,562／11，Node 31，针对性 59，安装器 41／1；
+包通过 29 项独立调用。Site 第 9 版、0.8.1 预发布、公开下载安装和官方插件登记完成。
+托管浏览器登录、独立 B 与混合发行资格仍待验收；无真实档案扫描、私人线上发布、访问扩大或旧 EXE 替换。
+
 ## 2026-10-18 — Site UI and complete language selection / 网站界面与完整语言切换
 
 English: Implemented the owner-adopted Site UI supplement on `codex/sites-ui-language`,

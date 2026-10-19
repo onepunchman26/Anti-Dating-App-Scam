@@ -4,7 +4,7 @@ Updated / 更新：2026-10-18。Agent-maintained; change both languages together
 
 ## English
 
-- 🔄 Web onboarding implementation and validation complete on `codex/web-onboarding-local`, rollback point `d6255d0`. Latest full conversation read; the new Markdown attachment itself was not returned. Existing official ChatGPT authorization and live model discovery passed. Implementing paired local web chat, durable account-owned sessions, guided private review and geographic sharing controls; real completed inference, browser chat, restart persistence, private review and local synthetic summary publication now pass. 0.8.1 package and 29 isolated EXE calls pass; packaged real inference/restart pass. Site version 9 deployed. GitHub release is being finalized. Hosted-browser acceptance requires the owner login; account B remains unavailable.
+- ✅ Web onboarding feasible delivery: `codex/web-onboarding-local`, rollback `d6255d0`; original core reused, real source/browser/EXE inference and restart pass. Guided review, separate shared form and reciprocal cities implemented; 2,562 Python / 11 skipped, 31 Node, final focused 59, bootstrap 41 / 1 skipped. Site version 9 deployed, hosting source `1aacfbf`; v0.8.1 prerelease published from clean package source `98ae73a`, 148 files. 29 isolated EXE calls and public-download installation/official plugin registration pass. ⚠ Hosted HTTPS browser-to-loopback acceptance needs the owner's sign-in; independent B, fresh-account setup and general hybrid-distribution eligibility remain unverified. The new attachment body was unavailable; the complete latest conversation was read. See WEB_COMPANION_VALIDATION.
 
 - ✅ UI supplement delivered: original repository checked at `2d21f43`; isolated branch `codex/sites-ui-language`. Deployed version 6 and real components audited. Whole-interface language selection, clearer navigation and responsive layouts implemented; both-language browser checks at 360/768/1440, state preservation and local service workflows passed. Python 2,549/11 skipped, Site 25 and localization 3 passed. Production build/package passed; same owner-private Site deployed as version 7, hosting source `4b3ef64`. Actual browser bilingual persistence/both-mode reads/plans/health and native read-only health passed. Source implementation `e4d6f06`; independent account B remains unexercised.
 
@@ -64,7 +64,7 @@ Hourly automation stays paused. No purchase, paid API key, real private archive,
 
 ## 中文版
 
-- 🔄 网页新手引导实现及验证已完成：分支 `codex/web-onboarding-local`，回退点 `d6255d0`。已读取最新完整对话，但工具未返回新 Markdown 附件本身。现有官方 ChatGPT 授权与真实模型发现通过；正在接入配对本机网页聊天、按账号持久保存会话、私人审阅和地区共享设置。真实完整推理、浏览器聊天、重启持久性、私人审阅及本机合成摘要发布已通过；0.8.1 打包、29 项独立 EXE 检查及打包真实推理／重启通过；Site 第 9 版已部署，正在完成 GitHub 发布。托管浏览器验收需本人登录，第二账号仍不可用。
+- ✅ 网页新手引导的可执行交付：`codex/web-onboarding-local`，回退 `d6255d0`；复用原核心，源码／浏览器／EXE 真实推理与重启通过。实现私人审阅、独立共享表单和双向城市条件；Python 2,562／11 跳过、Node 31、最终针对性 59、安装器 41／1 跳过。Site 第 9 版已部署，托管源码 `1aacfbf`；v0.8.1 预览已发布，包来自干净源码 `98ae73a`，148 个文件。29 项独立 EXE 调用、公开下载安装及官方插件登记通过。⚠ 托管 HTTPS 浏览器到本机助手需本人登录后验收；独立 B、全新账号设置及混合发行资格尚未验证。新附件正文不可用，已读取最新完整对话。详见 WEB_COMPANION_VALIDATION。
 
 - ✅ UI 补充已交付：原仓库核对至 `2d21f43`，独立分支 `codex/sites-ui-language`；已审计部署第 6 版及真实组件。完整界面语言选择、清晰导航与响应式布局已实现；双语 360／768／1440 浏览器、状态保留和本机服务流程通过，Python 2,549 项通过／11 项跳过，Site 25 项与语言 3 项通过。生产构建／打包通过，同一所有者私有站已部署第 7 版，托管源码 `4b3ef64`；真实浏览器双语持久性／双模式读取／计划／自检及原生只读健康调用通过。原项目实现 `e4d6f06`，独立 B 账号仍尚未实测。
 

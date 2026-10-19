@@ -1,5 +1,77 @@
 # Current handoff / 当前交接
 
+## English — Web companion 0.8.1, October 18, 2026
+
+**[Start here](WEB_COMPANION.md)** · [v0.8.1 release](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.1)
+· [existing private Site](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site/#start).
+
+Implemented in the original project: paired webpage/local helper, official ChatGPT plan
+inference, dedicated local conversations, guided private review and separately approved
+shared summaries with reciprocal city choices. Native plugin and existing activity flows
+remain. The desktop ChatGPT app is optional for the web route. No raw chats or private
+profile are sent to the matching service.
+
+**Verified:** three real completed synthetic AI requests across source/browser/EXE;
+local-browser consent and language preservation, local synthetic summary publication;
+packaged EXE restart retained two sessions (two messages each) and profile revision 1.
+Full Python 2,562 passed / 11 skipped, Node 31 passed; final focused 59 and bootstrap
+41 / 1 skipped passed. Build, compile and TypeScript passed. Windows package (148 files)
+passes 29 isolated EXE installation/repair calls. Public-download bootstrap and official
+plugin registration completed on this host. New native-chat invocation is not inferred
+from installer success. No existing real vault was scanned or migrated.
+
+**Delivered:** owner-private Site saved version 9, hosting source `1aacfbf`, environment
+revision 1; native authenticated read-only database/schema check passed. GitHub v0.8.1
+is a prerelease, with six assets and a pinned verified bootstrap. Package source `98ae73a`
+is clean; source branch and main were fast-forwarded without force. Prior Site version 7,
+original rollback `d6255d0`, old releases and the fixed 0.5.3 EXE remain available.
+
+**Needs the owner/platform, later:** sign in to the Site in the browser, then verify its
+HTTPS-to-loopback connection and any browser local-network prompt. The current browser
+stopped at official sign-in, so that channel is NOT EXERCISED. Independent B remains
+unavailable: no second-account installation, reciprocal hosted matching or joint planning
+acceptance. Fresh-account SIWC authorization, hybrid distribution eligibility and the
+project's undeclared license remain gates. Web chat does not automatically invoke MCP,
+record/transcribe audio, locate by GPS, or import ChatGPT history. Text and manual cities
+work. The new Markdown attachment itself was not exposed; the full latest conversation
+was retrieved and followed. No questions, purchases or access widening; automation stays paused.
+
+[Detailed bilingual evidence](docs/WEB_COMPANION_VALIDATION.md) and
+[sanitized receipt](docs/evidence/2026-10-18-web-companion.json) distinguish code, deployment,
+installation, connection and acceptance.
+
+## 中文版 — 2026 年 10 月 18 日网页助手 0.8.1
+
+**[从这里开始](WEB_COMPANION.md)** · [v0.8.1 发布](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.1)
+· [原私有网站](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site/#start)。
+
+在原项目中实现网页／本机助手配对、官方 ChatGPT 套餐推理、专用本机会话、私人审阅及单独批准的
+共享摘要与双方城市条件。原生插件和已有活动流程保留。网页路线不要求 ChatGPT 桌面应用。
+原始聊天与私人档案不会上传匹配服务。
+
+**已实测：**源码／浏览器／EXE 合计三次完整合成 AI 请求，本机浏览器的授权与语言状态保留、
+本机合成摘要发布；打包 EXE 重启后保留两个各含两条消息的会话、私人档案第 1 版。
+完整 Python 2,562 通过／11 跳过，Node 31；最终针对性 59、安装器 41／1 跳过通过。
+构建、编译及 TypeScript 通过。Windows 包 148 个文件，通过 29 项独立 EXE 安装／修复调用。
+本机从公开发布页下载的安装器及官方插件登记已完成；不据此声称新的原生会话已调用插件。
+没有扫描或迁移已有真实档案。
+
+**已交付：**所有者私有 Site 第 9 版、托管源码 `1aacfbf`、环境版本 1；原生认证只读数据库／
+结构检查通过。GitHub v0.8.1 以预发布交付六个附件和固定校验安装器。包来自干净源码 `98ae73a`，
+迁移分支和 main 正常快进同步，没有强推。原 Site 第 7 版、原仓库 `d6255d0`、旧发布和固定
+0.5.3 EXE 仍可回退。
+
+**留待本人／平台处理：**在浏览器登录 Site 后，验证 HTTPS 网页到本机助手及可能的本机网络权限。
+当前浏览器停在官方登录页，此通道尚未实测。独立 B 账号仍不可用，第二账号安装、线上双方匹配与
+共同计划确认均未实测。全新账号 SIWC 授权、混合发行资格及未声明的整体许可仍是限制。
+网页聊天不会自动调用 MCP、录音／转写、GPS 定位或导入 ChatGPT 历史；文字和手选城市可用。
+新 Markdown 附件本身未暴露，已取回并遵循最新完整对话。没有再提问、购买或扩大访问；自动化继续暂停。
+
+[双语验收](docs/WEB_COMPANION_VALIDATION.md)与[脱敏回执](docs/evidence/2026-10-18-web-companion.json)
+分别记录代码、部署、安装、连接和完整验收。
+
+## Historical records / 历史记录
+
 ## English — Site UI delivered, October 18, 2026
 
 The [existing private Site](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site) is now
