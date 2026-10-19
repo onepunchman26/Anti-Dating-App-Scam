@@ -22,6 +22,11 @@ browser and packaged executable each completed a real synthetic OpenAI request. 
 package passed 29 isolated install/repair/retention/interruption checks. The 150-file
 package comes from clean source `e22ffd2f2152d686dea612febd8ff1a484713563`.
 
+The published installer was downloaded and run successfully on the current host;
+repeat installation reused the verified cache. Official plugin registration completed
+both times, with zero model calls. Bootstrap tests: 41 passed / 1 skipped. Registration
+alone does not prove a refreshed native chat can call the new social tool.
+
 The original owner-private Site is saved version 10, service 0.8.2, protocol 1.0; native
 authenticated read-only health and the new database structure passed. Access remains
 one owner, no additional users/groups/external visitors. No real shared profile was written.
@@ -48,6 +53,9 @@ preview, not a claim of general availability or verified independent-account acc
 浏览器身份完成申请、邀请、填条件、真实OpenAI草案及各自确认同一选项。源码、浏览器、打包EXE
 分别完成一次真实合成OpenAI请求。实际安装包通过29项隔离安装／修复／保留／中断检查。
 150文件包来自干净源码 `e22ffd2f2152d686dea612febd8ff1a484713563`。
+
+已从公开发布页下载安装器并在本机成功运行，重复安装复用校验缓存。两次官方插件登记完成，
+模型调用均为零。安装器测试41通过／1跳过；登记成功本身不证明新原生会话已调用社交工具。
 
 原所有者私有网站已保存第10版，服务0.8.2、协议1.0；原生认证只读检查及新数据库结构通过。
 仍仅一位所有者，无新增用户／群组／外部访问者，没有写入真实共享档案。

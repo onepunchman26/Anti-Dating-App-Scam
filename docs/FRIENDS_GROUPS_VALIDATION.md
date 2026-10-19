@@ -30,8 +30,14 @@ after three separate confirmations. Language changes left the QA API-call count 
 kept the unsubmitted area draft and approval, and initiated no model call.
 
 Automated Site suite: **37 passed**. Final focused Python planning/companion suite:
-**62 passed**. Compile and TypeScript passed. Full Python run and final package/deployment
-results are recorded in CURRENT_STATUS and the release receipt when complete.
+**62 passed**. Compile, TypeScript and production build passed. Full Python: **2,571 passed,
+11 skipped**; final capability checks 22; bootstrap 41 passed / 1 skipped. The 150-file
+0.8.2 package from clean source `e22ffd2` passed 29 actual EXE calls and one real synthetic
+three-person AI generation. Its public GitHub download and repeated cached installation
+both passed, including official plugin registration and zero setup model calls. Site
+version10 deployed from hosting source `a9d7eb5`; authenticated native read-only health
+checked the new database structure. The new social tool still needs a refreshed native
+chat invocation. [Sanitized receipt](evidence/2026-10-18-friends-groups.json).
 
 Important limits: public venue links are supplied and marked unverified; map/place
 search and route-duration checks are not automated. Every participant must check route,
@@ -71,8 +77,12 @@ ID、好友、熟人、私人群组与共同活动要求。
 测试目录，没有扫描真实档案。三个成员分别确认后，页面显示“全员已确认同一方案”。切换语言时
 测试API调用数保持99，未提交区域草稿和批准状态保留，没有触发模型请求。
 
-网站自动化套件 **37项通过**，最终Python规划／助手针对性套件 **62项通过**，编译及TypeScript
-通过。完整Python、新安装包及部署结果完成后记录于CURRENT_STATUS和发布证据。
+网站自动化套件 **37项通过**，最终Python规划／助手针对性套件 **62项通过**，编译、TypeScript
+及正式构建通过。完整Python **2,571通过、11跳过**，最终能力检查22项，安装器41通过／1跳过。
+来自干净源码 `e22ffd2` 的0.8.2包含150个清单文件，通过29项实际EXE调用及一次真实合成三人AI
+生成。GitHub公开下载及缓存重复安装均通过，包括官方插件登记，设置时模型调用为零。
+网站第10版由托管源码 `a9d7eb5` 部署，认证原生只读检查确认新数据库结构。新社交工具仍需新原生
+会话调用验收。[脱敏记录](evidence/2026-10-18-friends-groups.json)。
 
 实际限制：公共场所链接由人提供且标记未核实；地图／地点搜索与路程计算尚未自动化。每个人确认前
 须自行核对路线、费用、营业时间和必要条件。过期／撤回上下文不能批准后续结果，但无法收回已传出

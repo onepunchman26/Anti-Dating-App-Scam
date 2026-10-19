@@ -1,8 +1,8 @@
 Latest scope / 最新范围: [Friends and groups / 好友与群组](FRIENDS_GROUPS.md)
 
-Stable IDs, known friends and 2–8-person private activity planning now belong to this migration, independent of discovery. Implementation and local browser/AI acceptance are complete; release and real-account gates are tracked in CURRENT_STATUS.
+Stable IDs, known friends and 2–8-person private activity planning now belong to this migration, independent of discovery. Implementation, local browser/AI acceptance, Site version10 and v0.8.2 public-download installation are complete. Independent-account and hosted browser gates remain in CURRENT_STATUS.
 
-稳定ID、熟人好友与2–8人私人活动现已纳入本次迁移，不依赖陌生人推荐。实现与本机浏览器／AI验收已完成；发布与真实账号限制见CURRENT_STATUS。
+稳定ID、熟人好友与2–8人私人活动现已纳入本次迁移，不依赖陌生人推荐。实现、本机浏览器／AI验收、网站第10版及v0.8.2公开下载安装已完成。独立账号与托管浏览器限制仍见CURRENT_STATUS。
 
 # Approved plan / 已批准计划
 

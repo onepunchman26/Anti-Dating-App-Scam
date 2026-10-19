@@ -2,9 +2,25 @@
 
 ## Latest work — Friends/groups 0.8.2 / 最新工作 — 好友群组0.8.2
 
-Implemented stable IDs, mutual friends, private circles and individually approved group activities. Source and browser each completed one real synthetic OpenAI request. Three local synthetic browser identities confirmed one exact plan. Site37 and focused Python62 pass; packaging/deployment and full regression are in progress. Real B/C accounts remain unavailable and NOT EXERCISED. [Guide](FRIENDS_GROUPS.md) · [Evidence](docs/FRIENDS_GROUPS_VALIDATION.md).
+Implemented stable IDs, mutual friends, private circles and individually approved group activities in the original project. Three local synthetic browser identities completed the full invitation → individual conditions → real AI draft → same-option confirmation flow. Source, browser and compiled EXE each completed a real synthetic OpenAI request; the shared generator does not read private profiles or chats.
 
-已实现稳定ID、双向好友、私人群组和逐人批准活动。源码及浏览器各完成一次真实合成OpenAI请求，三个本机合成浏览器身份确认同一准确方案。网站37项、针对性Python62项通过；打包、部署及完整回归进行中。真实B／C账号不可用，明确未实测。[指引](FRIENDS_GROUPS.md) · [证据](docs/FRIENDS_GROUPS_VALIDATION.md)。
+**Delivered and checked:** [v0.8.2 prerelease](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.2), six assets, clean package source `e22ffd2`, 150 manifested files. Actual public-download install, repeat verified-cache install and official plugin registration passed on this host, with zero model calls. The isolated package passed 29 actual executable checks. Full Python **2,571 passed / 11 skipped**, final focused planning/companion 62, capability checks 22, bootstrap 41 / 1 skipped; Site 37, TypeScript, compile and production build passed. Language switching preserved drafts/consent and sent zero requests; actual 360/1280/1440 widths passed.
+
+The original owner-private [Site](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site/#friends) is saved version **10**, hosting source `a9d7eb5`, service 0.8.2, environment revision 1. Native authenticated read-only health confirmed the new database structure. Access remains one owner, without added users/groups/external visitors. Rollback `9e0876c`, previous releases and fixed 0.5.3 EXE remain available; no real vault was scanned.
+
+**Unverified or blocked:** independent B/C accounts and fresh-account authorization remain unavailable; the hosted browser remains at official sign-in, so HTTPS-to-loopback acceptance is NOT EXERCISED. New social MCP invocation in a refreshed native chat is not inferred from deployment or registration. Automatic venue/route lookup is not connected; supplied links and journey conditions require human verification. General hybrid distribution eligibility, undeclared project license and the inaccessible new attachment body remain recorded gates. No questions or access changes; automation remains paused.
+
+[Guide](FRIENDS_GROUPS.md) · [Detailed evidence](docs/FRIENDS_GROUPS_VALIDATION.md) · [Sanitized receipt](docs/evidence/2026-10-18-friends-groups.json).
+
+在原项目中实现稳定ID、双向好友、私人群组和逐人批准活动。三个本机合成浏览器身份完成“邀请→各自条件→真实AI草案→确认同一选项”完整流程。源码、浏览器、打包EXE各完成一次真实合成OpenAI请求；共同生成器不读取私人档案或聊天。
+
+**已交付并实测：**[v0.8.2预发布](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.2)，六个附件，包来自干净源码 `e22ffd2`，清单150个文件。本机公开下载安装、使用校验缓存重复安装及官方插件登记通过，模型调用为零。隔离安装包通过29项实际EXE检查。完整Python **2,571通过／11跳过**，最终规划／助手针对性62项、能力检查22项、安装器41项／1跳过；网站37项、TypeScript、编译及正式构建通过。切语言保留草稿／批准且未发送请求，实际360／1280／1440宽度通过。
+
+原所有者私有[网站](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site/#friends)已保存第 **10** 版，托管源码 `a9d7eb5`、服务0.8.2、环境版本1。原生认证只读检查确认新数据库结构。访问范围仍为一位所有者，无新增用户／群组／外部访问者。回退点 `9e0876c`、旧发布及固定0.5.3 EXE保留，没有扫描真实档案。
+
+**未实测或受阻：**独立B／C账号与全新账号授权仍不可用；托管浏览器仍停在官方登录，HTTPS到本机助手尚未实测。不据部署或登记推定新原生会话已调用社交MCP。自动场所／路线查找未连接，所给链接和路程条件须人工核验。混合发行通用资格、未声明的项目许可及不可访问的新附件正文仍列为限制。不再提问、不扩大访问，自动化保持暂停。
+
+[使用指引](FRIENDS_GROUPS.md) · [详细证据](docs/FRIENDS_GROUPS_VALIDATION.md) · [脱敏记录](docs/evidence/2026-10-18-friends-groups.json)。
 
 The 0.8.1 section below is historical baseline evidence. / 下方0.8.1为历史基线证据。
 

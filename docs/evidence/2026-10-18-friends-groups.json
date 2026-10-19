@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-18",
+  "timezone": "America/Toronto",
+  "repository": "onepunchman26/Anti-Dating-App-Scam",
+  "branch": "codex/friends-groups",
+  "rollback_commit": "9e0876cfa4b2d90921f59413c268fac414461e80",
+  "package": {
+    "version": "0.8.2",
+    "source_commit": "e22ffd2f2152d686dea612febd8ff1a484713563",
+    "source_dirty": false,
+    "manifested_files": 150,
+    "archive_sha256": "c631bd92e33dcb452b00fbf8a9aabac42ab83199172fe4cecf3a68ccedd831f7",
+    "manifest_sha256": "661e747f99c0066673e84f61bd443ce1717e1bcae60a01213d15b0d48ee29ab9",
+    "isolated_executable_calls": 29,
+    "developer_tools_on_child_path": false,
+    "public_download_install": "passed",
+    "public_download_install_ms": 15742,
+    "repeat_install": "passed_verified_cache",
+    "repeat_install_ms": 4876,
+    "official_plugin_registration": "installer_completed_not_native_invocation",
+    "setup_model_calls": 0,
+    "release": "https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.2",
+    "release_prerelease": true,
+    "release_asset_count": 6
+  },
+  "site": {
+    "project_id": "appgprj_6ad4306f79e88191bbbd502f495ec501",
+    "version_id": "appgprj_6ad4306f79e88191bbbd502f495ec501~appgver_56a51e59f5ec819196ac3b392229bb4f",
+    "version_number": 10,
+    "source_commit": "a9d7eb5909296c89b5da789d9d9d083b6efeecf5",
+    "deployment_id": "appgdep_6ad5929136288191b3e818acbf325216",
+    "deployment_status": "succeeded",
+    "url": "https://slowmatch-private-pilot.fizzydeer7.chatgpt.site",
+    "environment_revision": 1,
+    "audience": "owner-private_unchanged",
+    "additional_users": 0,
+    "additional_groups": 0,
+    "external_visitors": 0
+  },
+  "tests": {
+    "python_full": {
+      "passed": 2571,
+      "skipped": 11,
+      "scope": "before_final_bounded_refinements"
+    },
+    "python_focused": 62,
+    "python_capability_final": 22,
+    "bootstrap": {
+      "passed": 41,
+      "skipped": 1
+    },
+    "node_all": 37,
+    "compile": "passed",
+    "typescript": "passed",
+    "production_build": "passed",
+    "ruff_changed_python": "passed",
+    "real_completed_synthetic_inference_requests": 3,
+    "inference_routes": [
+      "source",
+      "local_browser_to_helper",
+      "packaged_executable_http"
+    ],
+    "local_browser": {
+      "identity_kind": "three_fixed_synthetic_not_independent_ChatGPT_accounts",
+      "storage": "real_Miniflare_D1_production_service",
+      "flow": [
+        "stable_id_lookup",
+        "mutual_friend_requests",
+        "group_invite_and_individual_accept",
+        "three_individual_preferences",
+        "real_AI_reviewed_draft",
+        "proposal_publish",
+        "three_same_option_confirmations"
+      ],
+      "actual_widths": [
+        360,
+        1280,
+        1440
+      ],
+      "horizontal_overflow": false,
+      "language_change": {
+        "draft_preserved": true,
+        "consent_preserved": true,
+        "api_call_count_before": 99,
+        "api_call_count_after": 99,
+        "model_calls": 0
+      }
+    }
+  },
+  "native_mcp": {
+    "authenticated": true,
+    "database_read": "passed",
+    "database_schema_including_social_tables": "passed",
+    "service_version": "0.8.2",
+    "write_check": "not_checked",
+    "new_social_tool_invocation": "not_exercised"
+  },
+  "not_exercised": [
+    "independent_account_B",
+    "independent_account_C",
+    "hosted_https_browser_to_loopback_requires_owner_signin",
+    "fresh_account_authorization",
+    "clean_account_installation",
+    "new_native_chat_social_tool"
+  ],
+  "unresolved": [
+    "general_hybrid_siwc_eligibility",
+    "project_wide_license_undeclared",
+    "new_attachment_body_not_exposed_complete_conversation_read",
+    "automated_venue_search_and_route_checks_not_connected"
+  ],
+  "privacy": {
+    "only_synthetic_new_test_content": true,
+    "existing_private_vault_scan": false,
+    "real_hosted_profile_publish": false,
+    "shared_generator_private_profile_or_chat_read": false,
+    "credentials_in_receipt": false
+  },
+  "cleanup": {
+    "owned_preview_servers_stopped": true,
+    "temporary_pairing_helpers_stopped": true,
+    "owned_qa_browser_tabs_closed": true,
+    "automation": "remains_paused"
+  }
+}
