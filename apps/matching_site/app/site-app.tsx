@@ -8,7 +8,7 @@ import MatchingClient from './matching-client';
 import OnboardingClient from './onboarding-client';
 import {onboardingText} from '../lib/onboarding.mjs';
 export type View='start'|'discover'|'plans'|'profile'|'help';
-const INSTALL='https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/main/INSTALL_WITH_CHATGPT.md';
+const INSTALL='https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/main/WEB_COMPANION.md';
 const CREDITS='https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/main/docs/39_open_source_credits.md';
 const steps=[{Icon:MessageCircle,key:'stepOne'},{Icon:ShieldCheck,key:'stepTwo'},{Icon:HeartHandshake,key:'stepThree'}];
 export default function SiteApp({signedIn,accountHref}:{signedIn:boolean;accountHref:string}){

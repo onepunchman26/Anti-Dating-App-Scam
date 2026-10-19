@@ -34,7 +34,7 @@ def make_archive(tmp_path, *, files=None, extras=(), overrides=None, modes=None)
     }
     manifest = {
         "schema_version": 1,
-        "version": "0.8.0",
+        "version": "0.8.1",
         "repository": "onepunchman26/Anti-Dating-App-Scam",
         "product": "AI-SlowMatch",
         "channel": "controlled-preview",
@@ -240,7 +240,7 @@ def test_integrity_mismatch_stops_before_extraction(tmp_path, which):
 @pytest.mark.parametrize(
     "overrides",
     [
-        {"version": "0.8.1"},
+        {"version": "0.8.2"},
         {"source_dirty": True},
         {"repository": "other/repo"},
         {"service_origin": "https://other.chatgpt.site"},
@@ -320,7 +320,7 @@ def test_bootstrap_has_no_arbitrary_sources_or_policy_bypass():
     source = SCRIPT.read_text(encoding="utf-8")
     assert "param([switch]$RegisterPlugin)" in source
     assert (
-        "releases/download/v0.8.0/AI-SlowMatch-Work-0.8.0-windows-x64-controlled-preview.zip"
+        "releases/download/v0.8.1/AI-SlowMatch-Work-0.8.1-windows-x64-controlled-preview.zip"
         in source
     )
     assert "Expand-Archive" not in source

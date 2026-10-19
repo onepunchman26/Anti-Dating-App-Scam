@@ -4,13 +4,13 @@
 param([switch]$RegisterPlugin)
 
 $ErrorActionPreference = 'Stop'
-$script:SMVersion = '0.8.0'
+$script:SMVersion = '0.8.1'
 $script:SMRepository = 'onepunchman26/Anti-Dating-App-Scam'
-$script:SMAsset = 'AI-SlowMatch-Work-0.8.0-windows-x64-controlled-preview.zip'
-$script:SMAssetUrl = 'https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/download/v0.8.0/AI-SlowMatch-Work-0.8.0-windows-x64-controlled-preview.zip'
-# Final verified payload source: a056985781fda503fa2e143db35e1e3d349c23f9.
-$script:SMArchiveSha256 = 'a270af2f88bada6bd4d8541db3cf1fb4b57598479e74816b208ffe004f87d23f'
-$script:SMManifestSha256 = 'cbf0685e1ddde65e523c32b7a08ffee0840efa056668a26d9033d709cf3339dd'
+$script:SMAsset = 'AI-SlowMatch-Work-0.8.1-windows-x64-controlled-preview.zip'
+$script:SMAssetUrl = 'https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/download/v0.8.1/AI-SlowMatch-Work-0.8.1-windows-x64-controlled-preview.zip'
+# Final verified payload source: 98ae73ab94cdd3cf5ee13e12739428a297aedca0.
+$script:SMArchiveSha256 = 'be096ff1e998cff1da6f68f92c6f28c8a9eb7a714ae2ab8602d9b9c96aa98af8'
+$script:SMManifestSha256 = 'db752b3199c086c447c341054d8021ec54da0129ae0c18961848ea0e290c1580'
 $script:SMArchiveLimit = 300000000L
 $script:SMFileLimit = 300000000L
 $script:SMTotalLimit = 1000000000L
@@ -244,7 +244,7 @@ function Receive-SMPinnedArchive([string]$Destination) {
     $handler.UseDefaultCredentials = $false
     $client = [Net.Http.HttpClient]::new($handler)
     $client.Timeout = [TimeSpan]::FromSeconds(180)
-    $client.DefaultRequestHeaders.UserAgent.ParseAdd('AI-SlowMatch-Installer/0.8.0')
+    $client.DefaultRequestHeaders.UserAgent.ParseAdd('AI-SlowMatch-Installer/0.8.1')
     $cancel = [Threading.CancellationTokenSource]::new(180000)
     $response = $null
     try {
