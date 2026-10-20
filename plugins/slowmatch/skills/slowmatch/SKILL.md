@@ -14,6 +14,8 @@ or compatibility scores, diagnose, or claim access to a peer's private profile.
 
 Choose only the relevant reference; do not load the whole collection:
 
+- Starting or resuming a relationship-focused interview: [short interview and private draft](references/relationship-interview.md).
+
 - Relationship questions, boundaries or a short request during a meeting: [relationship support](references/relationship-support.md).
 - Self-understanding, interaction observations, private debrief or supplied audio: [reflection](references/reflection.md).
 - Life direction or a practical next step: [direction](references/direction.md).
@@ -64,6 +66,8 @@ website deployment or authenticated remote access.
 不声称访问了对方的完整私人档案。
 
 只读取当前需要的参考：
+
+- 开始或继续关系访谈：[短访谈与私人草稿](references/relationship-interview.md)。
 
 - 关系问题、边界或见面中途的简短咨询：[关系支持](references/relationship-support.md)。
 - 自我理解、互动观察、私人复盘或所供音频：[关系探索与复盘](references/reflection.md)。

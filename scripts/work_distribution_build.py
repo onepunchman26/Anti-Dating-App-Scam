@@ -43,6 +43,7 @@ PUBLIC_FILES = {
         for name in (
             "plugins/slowmatch/skills/slowmatch/references/activity-planning.md",
             "plugins/slowmatch/skills/slowmatch/references/friends-groups.md",
+            "plugins/slowmatch/skills/slowmatch/references/relationship-interview.md",
             "plugins/slowmatch/skills/slowmatch/references/direction.md",
             "plugins/slowmatch/skills/slowmatch/references/profile-tools.md",
             "plugins/slowmatch/skills/slowmatch/references/reflection.md",
@@ -53,6 +54,7 @@ PUBLIC_FILES = {
     "INSTALL_WITH_CHATGPT.md": "INSTALL_WITH_CHATGPT.md",
     "WEB_COMPANION.md": "WEB_COMPANION.md",
     "FRIENDS_GROUPS.md": "FRIENDS_GROUPS.md",
+    "RELATIONSHIP_INTERVIEW.md": "RELATIONSHIP_INTERVIEW.md",
     "scripts/start_companion.cmd": "Start-SlowMatch.cmd",
     "CONTROLLED_TEST.md": "CONTROLLED_TEST.md",
     "docs/DISTRIBUTION_HELP.md": "docs/DISTRIBUTION_HELP.md",
@@ -90,6 +92,7 @@ DEPENDENCIES = (
     "pywin32-ctypes",
 )
 SOURCE_FILES = (
+    "src/anti_dating_scam/services/relationship_interview.py",
     "src/anti_dating_scam/models/social_planning.py",
     "src/anti_dating_scam/services/social_planning.py",
     "src/anti_dating_scam/api/__init__.py",

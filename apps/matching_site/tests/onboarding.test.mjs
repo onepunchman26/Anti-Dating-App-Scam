@@ -1,12 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {onboardingMessages} from '../lib/onboarding.mjs';
+import {interviewMessages} from '../lib/interview.mjs';
 import {editorMessages,buildSummary} from '../lib/summary-editor.mjs';
 import {schema,reciprocal} from '../lib/summary.mjs';
 import {fixture,dating,friendship} from './helpers.mjs';
 
 test('onboarding and sharing translations are complete and separate',()=>{
- for(const [key,pair] of Object.entries({...onboardingMessages,...editorMessages})){
+ for(const [key,pair] of Object.entries({...onboardingMessages,...editorMessages,...interviewMessages})){
   assert.equal(pair.length,2,key);assert.ok(pair.every(v=>typeof v==='string'&&v.trim()),key);
   assert.doesNotMatch(pair[0],/[\u4e00-\u9fff]/,key);assert.match(pair[1],/[\u4e00-\u9fff]/,key);
  }

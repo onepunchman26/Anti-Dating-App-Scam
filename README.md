@@ -1,3 +1,7 @@
+Relationship-first preview / 关系优先预览: the 0.8.3 interview counts the opening and follow-ups toward eight initial questions, offers a private editable draft, and makes later life exploration optional. HUMAN 3.0 is a credited method reference, not a bundled external Skill or validated matching test. [Interview guide](RELATIONSHIP_INTERVIEW.md).
+
+0.8.3访谈将开场和追问计入首轮最多八问，提供可编辑私人草稿，后续人生探索按意愿进行。HUMAN 3.0仅作已署名的方法参考，未打包外部Skill，也不声称是已验证的匹配测评。[访谈指引](RELATIONSHIP_INTERVIEW.md)。
+
 # AI-SlowMatch / 慢慢相识
 
 [onepunchman26/Anti-Dating-App-Scam](https://github.com/onepunchman26/Anti-Dating-App-Scam)
@@ -8,7 +12,7 @@
 
 [Friends and private groups](FRIENDS_GROUPS.md) add stable IDs, mutual requests and individually approved 2–8-person activities. Invitees can participate without the local assistant. Only a willing AI executor needs it; shared generation never reads private profiles.
 
-The **0.8.2 controlled Windows preview** adds a guided web conversation to the existing
+The **0.8.3 controlled Windows preview** adds a guided web conversation to the existing
 project. Start with self-understanding, keep dedicated sessions and confirmed statements
 on your computer, then separately review what to share for dating or friendship.
 Your answers are your own; there are no founder-default preferences or personality scores.
@@ -22,7 +26,7 @@ The screenshot is the real local QA page, with no private conversation or real m
 
 ### Start here
 
-1. Open the [short Windows guide](WEB_COMPANION.md) and its pinned **0.8.2** release.
+1. Open the [short Windows guide](WEB_COMPANION.md) and its pinned **0.8.3** release.
    Extract the entire ZIP and open **Start-SlowMatch.cmd**. No Python, Node, compiler,
    developer checkout or separate server is needed. Keep the helper window open.
 2. Pair the webpage with the local helper, finish official ChatGPT authorization,
@@ -97,7 +101,7 @@ See [licensing status and options](docs/LICENSING_STATUS.md).
 
 [好友与私人群组](FRIENDS_GROUPS.md)增加稳定 ID、双向申请和逐人批准的2–8人活动。受邀者无需本机助手即可参与；仅自愿运行 AI 的成员需要助手，共同生成不读取私人档案。
 
-**0.8.2 Windows 受控预览**在原项目中加入了网页对话引导。先认识自己，将专用会话和
+**0.8.3 Windows 受控预览**在原项目中加入了网页对话引导。先认识自己，将专用会话和
 本人确认的陈述保存在电脑，再单独审阅恋爱或朋友匹配要分享的内容。
 每个人的答案以本人为准，不套用创始人偏好，也不设人格评分。
 
@@ -109,7 +113,7 @@ See [licensing status and options](docs/LICENSING_STATUS.md).
 
 ### 从这里开始
 
-1. 打开[Windows 短指引](WEB_COMPANION.md)，使用其中固定的 **0.8.2** 版本。
+1. 打开[Windows 短指引](WEB_COMPANION.md)，使用其中固定的 **0.8.3** 版本。
    解压整个 ZIP，打开 **Start-SlowMatch.cmd**，使用时保持助手窗口开启。
    不要求 Python、Node、编译器、开发者源码环境或另建服务器。
 2. 将网页与本机助手配对，完成官方 ChatGPT 授权，检查套餐和模型权限，

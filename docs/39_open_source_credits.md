@@ -205,3 +205,35 @@ Original project code at rollback `9e0876c` was reused for platform authenticati
 ## 2026-10-18 好友群组扩展
 
 复用原项目回退点 `9e0876c` 的平台认证、受控范围、Pydantic共享结构、确定性规划、官方模型适配器及语言资源。新增社交逻辑和界面按所有者认可的“整合Skills与界面”要求由本项目编写，没有复制新的第三方代码、提示词集、许可或设计素材。原依赖声明继续适用，感谢上文所列贡献者。
+
+
+## 2026-10-19 relationship-first interview / 关系优先访谈
+
+Method references inspected 2026-10-19:
+- Dan Koe, HUMAN 3.0 interview article (published 2025-08-27):
+  https://letters.thedankoe.com/p/prompt-human-30-self-discovery-and
+- Dan Koe, knowledge base (published 2025-08-31):
+  https://letters.thedankoe.com/p/a-complete-knowledge-base-of-human
+- Community Skill repository chengjialu8888/Human-3.0, revision
+  e876f97db9acb992fad95ba8e01e95a2f4b43065: https://github.com/chengjialu8888/Human-3.0
+  GitHub license metadata: not declared. No repository content bundled.
+- Community prompt repository chiisen/HUMAN3_PROMPT, revision
+  3d41af10dfe04bbe0632ff2a0203dfe0635b41c1: https://github.com/chiisen/HUMAN3_PROMPT
+  GitHub repository license metadata: MIT; this does not establish rights to upstream
+  third-party text. No repository content bundled.
+
+Scope: general ideas of progressive questioning, concrete examples and optional
+Mind/Body/Spirit/Vocation lenses informed an original project-authored relationship
+interview. No external code, full prompt, questionnaire, scoring rubric or asset was
+copied, installed or relicensed. Article redistribution permission was not established;
+links and attribution are provided. Community repositories are not represented as
+Dan Koe-maintained originals. The user's previously tried Skill was not identified
+in the inspected local Skill directories. Thanks to Dan Koe and community maintainers
+for making their methods discussable; no endorsement or validated matching benefit claimed.
+
+2026年10月19日核对上述作者文章与社区仓库及固定版本。社区Skill仓库未声明许可；另一个
+仓库的GitHub许可元数据为MIT，但不据此推定上游第三方文字的权利。未打包任何仓库内容。
+只参考渐进提问、具体情境及可选四领域思路，由本项目原创实现关系访谈；未复制、安装或
+重新授权外部代码、完整Prompt、问卷、评分规则或素材。未确认文章再分发许可，仅保留链接
+和署名。社区项目不称为Dan Koe本人维护的原仓库，在所检查本机Skill目录里也没有确认
+用户此前试用的具体版本。感谢作者和社区维护者，不暗示作者背书或已证实的匹配效果提升。

@@ -13,6 +13,13 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 from anti_dating_scam.ai.chatgpt_auth import ChatGPTConnectionService
 from anti_dating_scam.ai.privacy import build_reviewed_request
 from anti_dating_scam.services.coaching_policy import COACHING_POLICY
+from anti_dating_scam.services.relationship_interview import (
+    InterviewControl,
+    InterviewState,
+    accept_reply,
+    control,
+    interview_policy,
+)
 from anti_dating_scam.services.work_profile import WorkProfileService
 
 
@@ -48,6 +55,9 @@ class TurnInput(Input):
 
 class SessionInput(Input):
     topic: Literal["self", "dating", "friendship", "reflection"]
+    guided: bool = False
+    language: Literal["en", "zh-CN"] = "en"
+    reuse_session_id: str | None = Field(default=None, pattern=r"^[a-f0-9]{32}$")
 
 
 class ReadInput(Input):
@@ -59,6 +69,7 @@ class Session(Input):
     topic: Literal["self", "dating", "friendship", "reflection"]
     revision: int = 0
     messages: list[dict] = Field(default_factory=list, max_length=200)
+    interview: InterviewState | None = None
 
 
 class CompanionError(ValueError):
@@ -99,7 +110,7 @@ class WebCompanion:
             self._ready()
         return {
             "protocol": "1.0",
-            "capabilities": ["private-chat", "group-suggest"],
+            "capabilities": ["private-chat", "group-suggest", "relationship-interview-v1"],
             "account_label": status.label,
             "connected": status.connected,
             "plan_permission": status.sharing,
@@ -157,7 +168,14 @@ class WebCompanion:
         result = []
         for path in sorted((vault.root / "sessions").glob("*.json"))[:100]:
             session = vault._read(path, Session)
-            result.append({"id": session.id, "topic": session.topic, "revision": session.revision})
+            result.append(
+                {
+                    "id": session.id,
+                    "topic": session.topic,
+                    "revision": session.revision,
+                    "interview": bool(session.interview),
+                }
+            )
         return result
 
     def create_session(self, data):
@@ -166,6 +184,32 @@ class WebCompanion:
         if len(self.sessions()) >= 100:
             raise CompanionError("session_limit")
         session = Session(id=uuid4().hex, topic=request.topic)
+        if request.guided:
+            if request.topic not in {"dating", "friendship"}:
+                raise CompanionError("interview_topic_required")
+            session.interview = InterviewState()
+        if request.reuse_session_id:
+            previous = self.read_session({"session_id": request.reuse_session_id})
+            if not request.guided or previous.topic != request.topic or not previous.interview:
+                raise CompanionError("interview_reuse_mismatch")
+            # Explicitly selected, same account/topic; no transcript or vault scan.
+            session.interview = previous.interview.model_copy(deep=True)
+            session.interview.awaiting = None
+        elif request.guided:
+            question = {
+                "dating": (
+                    "If you met someone suitable, how would you like the relationship to develop?",
+                    "如果遇到合适的人，你希望关系怎样发展？",
+                ),
+                "friendship": (
+                    "What would you enjoy sharing with a friend?",
+                    "你希望和朋友一起分享怎样的时光？",
+                ),
+            }[request.topic][request.language == "zh-CN"]
+            session.messages = [{"role": "assistant", "content": question}]
+            session.interview.question_count = 1
+            session.interview.awaiting = "goal"
+            session.interview.asked["goal"] = 1
         vault._atomic(vault.root / "sessions" / (session.id + ".json"), session.model_dump())
         return session.model_dump()
 
@@ -188,6 +232,54 @@ class WebCompanion:
                 raise CompanionError("revision_conflict")
             if len(session.messages) >= 198:
                 raise CompanionError("session_limit")
+            if session.interview and session.interview.paused:
+                raise CompanionError("interview_paused")
+            if session.interview:
+                commands = {
+                    "pause": "pause",
+                    "stop": "pause",
+                    "暂停": "pause",
+                    "停止": "pause",
+                    "先看草稿": "draft",
+                    "看草稿": "draft",
+                    "show draft": "draft",
+                    "skip": "skip",
+                    "跳过": "skip",
+                    "不确定": "unknown",
+                    "没有经验": "inexperienced",
+                }
+                action = commands.get(request.text.strip().lower())
+                if action:
+                    if (
+                        action in {"skip", "unknown", "inexperienced"}
+                        and not session.interview.awaiting
+                    ):
+                        action = "draft"
+                    session.interview = control(
+                        session.interview,
+                        InterviewControl(
+                            session_id=session.id,
+                            expected_revision=session.revision,
+                            action=action,
+                            confirmed=True,
+                        ),
+                    )
+                    session.messages.extend(
+                        [
+                            {"role": "user", "content": request.text},
+                            {
+                                "role": "assistant",
+                                "content": "已保留当前草稿，可随时审阅。"
+                                if request.language == "zh-CN"
+                                else "Your draft is kept and ready to review.",
+                            },
+                        ]
+                    )
+                    session.revision += 2
+                    vault._atomic(
+                        vault.root / "sessions" / (session.id + ".json"), session.model_dump()
+                    )
+                    return session.model_dump()
             backend = self.connection.create_backend(request.model, included_plan_confirmed=True)
             backend.set_cancel_event(self.cancel)
             retry_saved = bool(
@@ -248,6 +340,12 @@ Do not claim anything was saved as a profile or published. Profile changes requi
 separate review. Summaries remain provisional; distinguish self-report from inference.
 """
             )
+            if session.interview:
+                policy = (
+                    COACHING_POLICY
+                    + "\n"
+                    + interview_policy(session.interview, session.topic, language)
+                )
             reviewed = build_reviewed_request(selected, system=policy, recipient=backend.recipient)
             # Sending explicitly approves this conversation context to OpenAI only.
             # Save the user's turn before inference, so failure cannot lose their words.
@@ -260,10 +358,36 @@ separate review. Summaries remain provisional; distinguish self-report from infe
             self._ready()
             if self.cancel.is_set():
                 raise CompanionError("cancelled")
-            session.messages.append({"role": "assistant", "content": result.text})
+            reply_text = result.text
+            if session.interview:
+                session.interview, reply_text = accept_reply(
+                    session.interview, result.text, request.text
+                )
+            session.messages.append({"role": "assistant", "content": reply_text})
             session.revision += 1
             vault._atomic(path, session.model_dump())
             self.inference_passed = True
+            return session.model_dump()
+        finally:
+            self.lock.release()
+
+    def interview_control(self, data):
+        if data.get("confirmed") is not True:
+            raise CompanionError("explicit_consent_required")
+        request = InterviewControl.model_validate(data)
+        if not self.lock.acquire(blocking=False):
+            raise CompanionError("request_in_progress")
+        try:
+            session = self.read_session({"session_id": request.session_id})
+            if session.revision != request.expected_revision:
+                raise CompanionError("revision_conflict")
+            if not session.interview:
+                raise CompanionError("interview_required")
+            session.interview = control(session.interview, request)
+            session.revision += 1
+            self._ready()._atomic(
+                self.vault.root / "sessions" / (session.id + ".json"), session.model_dump()
+            )
             return session.model_dump()
         finally:
             self.lock.release()
@@ -311,6 +435,8 @@ separate review. Summaries remain provisional; distinguish self-report from infe
             return self.read_session(args).model_dump()
         if operation == "send":
             return self.send(args)
+        if operation == "interview-control":
+            return self.interview_control(args)
         if operation == "profile-read" and not args:
             return self._ready().read_profile().model_dump()
         if operation == "profile-update":

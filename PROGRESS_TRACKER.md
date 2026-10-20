@@ -1,5 +1,8 @@
 Latest checkpoint / 最新检查点
 
+- 🔄 Relationship-first interview started on `codex/relationship-first-interview`, rollback `7b16cd7`. Adding bounded short questions, editable private drafts, remembered skips/corrections and optional later life exploration. Source/license verification is separate from external Skill installation.
+- 🔄 关系优先访谈已开始，分支 `codex/relationship-first-interview`，回退 `7b16cd7`。新增有上限的短问题、可编辑私人草稿、跳过／修正记忆及可选后续人生探索。来源／许可核验与外部Skill安装分别处理。
+
 - ✅ Friends/groups 0.8.2 delivered: Site version10, original GitHub prerelease, public download/repeat installation and plugin registration passed. Three synthetic browser identities confirmed the same plan; source/browser/EXE each completed real OpenAI generation. Python2,571 / 11 skipped, Site37, focused62, bootstrap41 / 1 skipped and29 EXE checks passed. Independent B/C and hosted HTTPS-to-loopback remain NOT EXERCISED; see CURRENT_STATUS.
 - ✅ 好友群组0.8.2已交付：网站第10版、原GitHub预发布、公开下载／重复安装及插件登记通过。三个合成浏览器身份确认同一方案；源码／浏览器／EXE分别完成真实OpenAI生成。Python2,571／11跳过、网站37、针对性62、安装器41／1跳过及29项EXE检查通过。独立B／C及托管HTTPS到本机助手仍未实测，详见CURRENT_STATUS。
 

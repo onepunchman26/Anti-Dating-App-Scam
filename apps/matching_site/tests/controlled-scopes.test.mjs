@@ -158,6 +158,9 @@ test('additive scope migration preserves existing production records and channel
     const migration=await readFile(new URL('../drizzle/0005_wandering_zarda.sql',import.meta.url),'utf8');
     assert.equal(/\b(?:DROP|DELETE|UPDATE|INSERT)\b/iu.test(migration),false,'migration changes schema only');
     for(const statement of migration.split('--> statement-breakpoint').map(sql=>sql.trim()).filter(Boolean))await f.db.prepare(statement).run();
+    // Current health also checks the additive 0.8.2 social tables.
+    const socialMigration=await readFile(new URL('../drizzle/0006_private_friends_groups.sql',import.meta.url),'utf8');
+    for(const statement of socialMigration.split('--> statement-breakpoint').map(sql=>sql.trim()).filter(Boolean))await f.db.prepare(statement).run();
     const row=await f.db.prepare('SELECT scope,summary,revision,last_summary_version,active FROM participations WHERE owner=?').bind('synthetic-existing').first();
     assert.deepEqual(row,{scope:'production',summary:original,revision:4,last_summary_version:3,active:1});
     assert.equal((await f.db.prepare('SELECT scope FROM planning_sessions WHERE id=?').bind('c'.repeat(32)).first()).scope,'production');

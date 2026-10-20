@@ -2,10 +2,10 @@
 
 ## English
 
-To join an existing circle, use [Friends & groups](FRIENDS_GROUPS.md) directly. Only the member running shared AI needs the helper; the 0.8.2 helper adds isolated group generation.
+To join an existing circle, use [Friends & groups](FRIENDS_GROUPS.md) directly. Only the member running shared AI needs the helper; the 0.8.3 helper adds isolated group generation.
 
-Start at the [original project's releases](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.2).
-The **0.8.2 controlled preview** adds a local web companion to the existing project.
+Start at the [original project's releases](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.3).
+The **0.8.3 controlled preview** adds a local web companion to the existing project.
 Download the Windows ZIP for that version, extract the entire folder to a private
 local application location, and open **Start-SlowMatch.cmd**. Keep its window open
 while using SlowMatch. No Python, Node, compiler, API key or developer checkout is
@@ -66,10 +66,10 @@ explicitly retained. See CURRENT_STATUS for the actual latest test/build/deploy 
 
 ## 中文版
 
-参加已有圈子可直接使用[好友与群组](FRIENDS_GROUPS.md)。仅运行共同 AI 的成员需要助手，0.8.2 助手加入了隔离的群组生成。
+参加已有圈子可直接使用[好友与群组](FRIENDS_GROUPS.md)。仅运行共同 AI 的成员需要助手，0.8.3 助手加入了隔离的群组生成。
 
-从[原项目的版本发布页](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.2)开始。
-**0.8.2 受控预览版**在现有项目中增加了本机网页助手。下载对应 Windows ZIP，
+从[原项目的版本发布页](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.3)开始。
+**0.8.3 受控预览版**在现有项目中增加了本机网页助手。下载对应 Windows ZIP，
 将整个文件夹解压到私人本机应用位置，打开 **Start-SlowMatch.cmd**，使用期间保持窗口开启。
 已构建的包不要求安装 Python、Node、编译器、API key 或开发者源码环境。
 旧版 0.8.0 不包含本功能。请查看发布页实测记录与 SHA256SUMS；有源码不代表安装已验证。

@@ -6,6 +6,18 @@ Anti-Dating-App-Scam is the authoritative AI-SlowMatch project for relationship 
 
 ## Current Product Direction (2026-10-17)
 
+The owner's October 19 relationship-first interview supplement governs initial
+discovery: one short focus per turn, at most eight substantive initial questions
+including follow-ups, and an editable private draft available at any time. Reuse
+answered/skipped/corrected context with explicit local and cloud boundaries. Dating
+starts with relationship goals, pace, care, communication and boundaries; friendship
+keeps friendship language. Mind/Body/Spirit/Vocation are optional later lenses, never
+required coverage or matching levels. Group invitees keep their lightweight path.
+HUMAN 3.0 is a method reference, not a diagnostic/scientific matching guarantee.
+Check provenance/license before copying; no installed version has been identified
+in the inspected local Skill directories. The complete latest conversation was read;
+the new linked attachment body was not exposed, so its unseen clauses are not claimed.
+
 The owner's latest October 18 friends/groups/ID supplement adds stable account IDs,
 mutually accepted friendships, acquaintance support and private groups of 2–8 people.
 ID connections do not require discovery enrollment or a matching score. Invitees may
