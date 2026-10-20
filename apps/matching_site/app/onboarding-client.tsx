@@ -3,7 +3,7 @@ import {useState,useEffect} from 'react';
 import {useLanguage} from './language';
 import {onboardingText} from '../lib/onboarding.mjs';
 import type {View} from './site-app';
-import {rememberLocal} from '../lib/local-connection';
+import {rememberLocal,localCall} from '../lib/local-connection';
 import {socialText} from '../lib/social-copy.mjs';
 import SiteReminder from './site-reminder';
 import InterviewPanel,{type InterviewState} from './interview-panel';
@@ -22,8 +22,7 @@ export default function OnboardingClient({navigate}:{navigate:(view:View)=>void}
  const [busy,setBusy]=useState(false),[feedback,setFeedback]=useState(''),[failed,setFailed]=useState(false);
  useEffect(()=>{rememberLocal(code,model);},[code,model]);
  async function call(operation:string,args:Record<string,unknown>={}){
-  let response;try{response=await fetch(LOCAL+'/v1',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+code.trim()},body:JSON.stringify({operation,arguments:args}),cache:'no-store',credentials:'omit'});}catch{throw Error('unreachable');}
-  const body=await response.json() as {ok?:boolean;error?:string;result:any};if(!response.ok||!body.ok)throw Error(body.error||'error');return body.result;
+  return localCall(code,operation,args);
  }
  async function run(action:()=>Promise<void>){setBusy(true);setFeedback('');setFailed(false);try{await action();}catch(error){const key=error instanceof Error?error.message:'';setFeedback(key==='unreachable'||key==='pairing_required'?'unreachable':key==='account_changed'?'accountChanged':key==='revision_conflict'?'conflict':key.includes('vault')||key==='private_directory_required'?'existingVault':'error');setFailed(true);}finally{setBusy(false);}}
  async function check(){const next=await call('status');setStatus(next);if(next.protocol!=='1.0')throw Error('error');}
