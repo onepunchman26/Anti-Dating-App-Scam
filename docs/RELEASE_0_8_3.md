@@ -29,6 +29,12 @@ checks. Three real synthetic local-browser AI requests and one final packaged EX
 request completed. Restart retained the draft and confirmed correction, with private profile
 revision still zero. Language changes retained draft edits and consent.
 
+The public release installer was downloaded, hash-verified and run on the current host;
+repeat installation used its verified cache. Both official plugin registrations completed,
+with zero model calls. The original owner-private Site is saved version 12, service 0.8.3;
+native authenticated read-only database/schema checks passed. The hosted browser visibly
+recovered from its stalled connection with the new retryable timeout message in both languages.
+
 Still unverified: independent second/third-account installation and use, fresh-account plan
 authorization, and hosted HTTPS-to-loopback browser acceptance. The current IAB connection
 attempt waited without a response; a bounded timeout and retry recovery were added, without
@@ -58,6 +64,10 @@ map lookup or recording/transcription support.
 1跳过，网站回归37通过加最终连接超时3项。TypeScript、编译、修改Python检查、Skill校验及正式构建
 通过。实际EXE通过29项安装／修复／保留检查。三次真实合成本机浏览器AI请求及一次最终EXE朋友访谈
 请求完成。重启保留草稿和确认的修正，私人档案版本仍为零。切换语言保留草稿编辑和批准状态。
+
+已从公开发布页下载安装器、核对哈希并在本机执行；重复安装使用校验缓存。两次官方插件登记
+完成，模型调用均为零。原所有者私有网站为第12版、服务0.8.3；原生认证只读数据库／结构检查
+通过。托管浏览器停滞连接后，新增超时提示已实际恢复可重试状态，中英文显示均验证。
 
 仍未实测：独立第二／第三账号安装及使用、新账号套餐授权，以及托管HTTPS网页到本机助手的
 浏览器完整流程。当前IAB连接尝试一直等待响应，已补充有上限的超时及重试恢复，没有放宽来源或

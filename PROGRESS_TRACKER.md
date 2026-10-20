@@ -1,14 +1,14 @@
 Latest checkpoint / 最新检查点
 
-- 🔄 Relationship-first interview started on `codex/relationship-first-interview`, rollback `7b16cd7`. Adding bounded short questions, editable private drafts, remembered skips/corrections and optional later life exploration. Source/license verification is separate from external Skill installation.
-- 🔄 关系优先访谈已开始，分支 `codex/relationship-first-interview`，回退 `7b16cd7`。新增有上限的短问题、可编辑私人草稿、跳过／修正记忆及可选后续人生探索。来源／许可核验与外部Skill安装分别处理。
+- ✅ Relationship-first interview 0.8.3 delivered on `codex/relationship-first-interview`, rollback `7b16cd7`: bounded short questions, private drafts, remembered corrections/skips and optional exploration. Four real synthetic AI requests, 29 EXE checks and public-download installation/registration passed. Site version12 remains owner-private. Python2,583 / 11 skipped; final interview25; bootstrap41 / 1 skipped; Site37 + timeout3. Hosted IAB connection attempted but not accepted; retryable timeout verified. Independent B/C, fresh-account and licensing gates remain open; see CURRENT_STATUS.
+- ✅ 关系优先访谈0.8.3已交付，分支 `codex/relationship-first-interview`，回退 `7b16cd7`：有上限的短问题、私人草稿、修正／跳过记忆及可选探索。四次真实合成AI、29项EXE及公开下载安装／登记通过。网站第12版仍为所有者私有。Python2,583／11跳过，最终访谈25、安装器41／1跳过、网站37加超时3。托管IAB连接已尝试但未验收，可重试超时已验证；独立B／C、新账号及许可限制仍开放，详见CURRENT_STATUS。
 
 - ✅ Friends/groups 0.8.2 delivered: Site version10, original GitHub prerelease, public download/repeat installation and plugin registration passed. Three synthetic browser identities confirmed the same plan; source/browser/EXE each completed real OpenAI generation. Python2,571 / 11 skipped, Site37, focused62, bootstrap41 / 1 skipped and29 EXE checks passed. Independent B/C and hosted HTTPS-to-loopback remain NOT EXERCISED; see CURRENT_STATUS.
 - ✅ 好友群组0.8.2已交付：网站第10版、原GitHub预发布、公开下载／重复安装及插件登记通过。三个合成浏览器身份确认同一方案；源码／浏览器／EXE分别完成真实OpenAI生成。Python2,571／11跳过、网站37、针对性62、安装器41／1跳过及29项EXE检查通过。独立B／C及托管HTTPS到本机助手仍未实测，详见CURRENT_STATUS。
 
 # Progress tracker / 进度追踪
 
-Updated / 更新：2026-10-18。Agent-maintained; change both languages together / 代理维护，状态须同步更新双语。
+Updated / 更新：2026-10-19。Agent-maintained; change both languages together / 代理维护，状态须同步更新双语。
 
 ## English
 

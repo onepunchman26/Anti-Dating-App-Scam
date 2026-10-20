@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-19",
+  "timezone": "America/Toronto",
+  "repository": "onepunchman26/Anti-Dating-App-Scam",
+  "branch": "codex/relationship-first-interview",
+  "rollback_commit": "7b16cd7fa40d30b15af1d85a7aa84bd818599027",
+  "package": {
+    "version": "0.8.3",
+    "source_commit": "b880c8d0399fbfaeee9c5560e5ea60e25a280740",
+    "source_dirty": false,
+    "manifested_files": 152,
+    "archive_sha256": "f3db20cb14093ddee16d6048624fce8951e86ff8046490a46c1c1552725be402",
+    "manifest_sha256": "b851472ec6762515c108d9bf13324175a0a171a5b1f2c3386644de98f88d1fbe",
+    "installer_sha256": "e82d577d1a2d35d124f81091510555121a6d28d332896dfc25478ff293ccdd05",
+    "isolated_executable_checks": 29,
+    "public_download_install": "downloaded_and_verified",
+    "public_download_install_ms": 14702,
+    "repeat_install": "verified_cache",
+    "repeat_install_ms": 4733,
+    "official_plugin_registration": "installer_completed_not_native_invocation",
+    "setup_model_calls": 0,
+    "release": "https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.3",
+    "prerelease": true,
+    "asset_count": 6
+  },
+  "site": {
+    "project_id": "appgprj_6ad4306f79e88191bbbd502f495ec501",
+    "version_id": "appgprj_6ad4306f79e88191bbbd502f495ec501~appgver_9364ef0632c881919a1d811f64917195",
+    "version_number": 12,
+    "source_commit": "02bd9d4d99df5c99f1043413cc98c6a69a960063",
+    "deployment_id": "appgdep_6ad6d673aec08191a2463c302f3cbeec",
+    "deployment_status": "succeeded",
+    "url": "https://slowmatch-private-pilot.fizzydeer7.chatgpt.site",
+    "environment_revision": 1,
+    "audience": "owner-private_unchanged",
+    "additional_users": 0,
+    "additional_groups": 0,
+    "external_visitors": 0
+  },
+  "tests": {
+    "python_full": {
+      "passed": 2583,
+      "skipped": 11,
+      "scope": "before_final_optional_exploration_guard_refinement"
+    },
+    "python_interview_companion_final": 25,
+    "bootstrap": {
+      "passed": 41,
+      "skipped": 1
+    },
+    "node_full_before_timeout": 37,
+    "node_timeout_final": 3,
+    "compile": "passed",
+    "typescript": "passed",
+    "production_build": "passed",
+    "ruff_changed_python": "passed",
+    "skill_validation_utf8": "passed",
+    "real_completed_synthetic_inference_requests": 4,
+    "real_routes": {
+      "local_browser_to_source_companion": 3,
+      "exact_origin_programmatic_to_final_exe": 1
+    },
+    "restart": {
+      "saved_messages_read": 7,
+      "confirmed_correction_retained": true,
+      "question_count_retained": true,
+      "private_profile_revision": 0
+    },
+    "language_change": {
+      "unsubmitted_edit_retained": true,
+      "consent_retained": true,
+      "authored_content_unchanged": true
+    },
+    "hosted_browser": {
+      "signed_in_page": "passed",
+      "english_chinese_rendering": "passed",
+      "loopback_connection": "attempted_no_response_not_accepted",
+      "retryable_15_second_timeout": "visibly_passed",
+      "security_bypass": false,
+      "viewport_variants_this_turn": "not_exercised"
+    }
+  },
+  "native_mcp": {
+    "authenticated": true,
+    "database_read": "passed",
+    "database_schema": "passed",
+    "service_version": "0.8.3",
+    "write_check": "not_checked",
+    "new_native_skill_invocation": "not_exercised"
+  },
+  "source_provenance": {
+    "installed_human_skill": "not_found_in_inspected_skill_locations",
+    "external_skill_installed": false,
+    "third_party_full_prompt_bundled": false,
+    "original_adaptation": true,
+    "new_attachment_body": "unavailable_full_conversation_read"
+  },
+  "not_accepted": [
+    "hosted_https_browser_to_loopback",
+    "independent_account_B",
+    "independent_account_C",
+    "fresh_account_inference_authorization",
+    "refreshed_native_skill_invocation",
+    "general_hybrid_distribution_eligibility",
+    "project_license_undeclared",
+    "new_attachment_body_unavailable"
+  ],
+  "privacy": {
+    "synthetic_test_content_only": true,
+    "real_vault_scanned": false,
+    "remote_private_data_written": false,
+    "automatic_profile_update": false,
+    "audience_expanded": false
+  }
+}

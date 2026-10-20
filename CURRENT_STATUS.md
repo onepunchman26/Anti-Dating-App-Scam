@@ -1,6 +1,60 @@
 # Current handoff / 当前交接
 
-## Latest work — Friends/groups 0.8.2 / 最新工作 — 好友群组0.8.2
+## Latest work — Relationship interviews 0.8.3 / 最新工作 — 关系访谈0.8.3
+
+Implemented in the original project: short relationship/friendship questions, eight-question
+initial cap including opening and clarifications, editable source-linked private drafts,
+remembered corrections/skips and optional later life exploration. Draft, private profile and
+shared summary approvals remain separate. HUMAN sources are credited as methodological
+references; no external Skill or complete third-party prompt is bundled.
+
+**Delivered:** [v0.8.3 prerelease](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.3),
+six assets; clean payload source `b880c8d`, 152 manifested files. Public-download installation
+and official plugin registration passed on this host with zero setup model calls. The EXE
+passed 29 isolated install/repair/retention checks. Python 2,583 passed / 11 skipped before
+the final optional-follow-up refinement; final interview/companion 25, bootstrap 41 / 1
+skipped, Site regression 37 plus final timeout tests 3 passed. Compile, TypeScript, build,
+changed-Python lint and Skill validation passed. Three local-browser and one final-EXE real
+synthetic AI requests completed. Restart retained the draft and confirmed correction;
+private profile revision remained zero. Language switching preserved edits and approval.
+
+The original private [Site](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site/#start)
+is saved version **12**, hosting source `02bd9d4`, environment revision 1. Native authenticated
+read-only health confirms service 0.8.3 and database/schema access. Audience remains one
+owner, no extra users/groups/external visitors. Rollback `7b16cd7` and the fixed 0.5.3 EXE remain.
+
+**Unverified or blocked:** hosted IAB-to-loopback attempted but no response arrived; the new
+15-second connection timeout visibly recovers to a retryable EN/ZH error. This channel is
+NOT ACCEPTED, despite programmatic exact-origin EXE success. Independent B/C accounts,
+fresh-account authorization, refreshed native Skill invocation, general hybrid distribution
+eligibility, undeclared project license and unavailable new attachment body remain gates.
+Automatic venue lookup and recording/transcription are not newly claimed. No questions,
+private uploads, access widening or automation changes.
+
+[Interview guide](RELATIONSHIP_INTERVIEW.md) · [Validation](docs/RELATIONSHIP_INTERVIEW_VALIDATION.md)
+· [Sanitized receipt](docs/evidence/2026-10-19-relationship-interview.json).
+
+原项目已实现简短关系／朋友访谈，开场及澄清计入首轮最多八问；新增有来源原句的可编辑私人草稿、
+修正／跳过记忆及可选后续人生探索。草稿、私人档案与共享摘要分别批准。HUMAN来源仅作方法参考并
+列明致谢，没有打包外部Skill或完整第三方Prompt。
+
+**已交付：**[v0.8.3预发布](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.3)，
+六个附件，干净包源码 `b880c8d`，152文件。本机公开下载安装及官方插件登记通过，设置零模型调用。
+EXE通过29项隔离安装／修复／保留检查。最终可选追问修正前Python 2,583通过／11跳过；最终访谈／
+助手25项、安装器41／1跳过、网站回归37加最终超时3项通过。编译、TypeScript、构建、修改Python
+检查及Skill校验通过。三次本机浏览器及一次最终EXE真实合成AI请求完成。重启保留草稿及确认的修正，
+私人档案版本保持零；切语言保留编辑与批准。
+
+原私有[网站](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site/#start)第 **12** 版已部署，托管源码
+`02bd9d4`，环境版本1。原生认证只读检查确认服务0.8.3及数据库／结构可访问。仍仅一位所有者，无新增
+用户／群组／外部访问者。回退点 `7b16cd7` 和固定0.5.3 EXE保留。
+
+**未通过或受阻：**托管IAB到本机助手已尝试但无响应，新增15秒连接超时已在页面恢复可重试的中英文
+提示。此通路尚未验收，程序准确Origin调用EXE成功不能替代。独立B／C、新账号授权、刷新后的原生Skill
+调用、一般混合分发资格、原项目未声明许可及新附件正文不可读仍有限制。未新增宣称自动场所搜索或
+录音／转写可用。没有提问、私人资料上传、扩大访问或更改自动任务。
+
+## Previous work — Friends/groups 0.8.2 / 历史工作 — 好友群组0.8.2
 
 Implemented stable IDs, mutual friends, private circles and individually approved group activities in the original project. Three local synthetic browser identities completed the full invitation → individual conditions → real AI draft → same-option confirmation flow. Source, browser and compiled EXE each completed a real synthetic OpenAI request; the shared generator does not read private profiles or chats.
 

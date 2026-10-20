@@ -1,4 +1,16 @@
-Latest scope / 最新范围: [Friends and groups / 好友与群组](FRIENDS_GROUPS.md)
+Latest scope / 最新范围: [Relationship interviews / 关系访谈](RELATIONSHIP_INTERVIEW.md)
+
+The relationship-first supplement is implemented and delivered as 0.8.3: short initial
+interview, editable private draft and optional later life exploration. Existing friends,
+groups and newcomer routes remain. Actual AI/package tests and Site version12 are verified;
+hosted IAB-to-loopback is attempted but not accepted, with timeout recovery verified.
+Independent-account and distribution gates remain explicit in CURRENT_STATUS.
+
+关系优先补充已在0.8.3实现并交付：简短首轮访谈、可编辑私人草稿及可选后续人生探索。保留好友、
+群组与新手流程。真实AI／安装包及网站第12版已验证；托管IAB到本机助手已尝试但未通过验收，
+超时恢复已验证。独立账号及分发限制仍在CURRENT_STATUS明确记录。
+
+Previous scope / 先前范围: [Friends and groups / 好友与群组](FRIENDS_GROUPS.md)
 
 Stable IDs, known friends and 2–8-person private activity planning now belong to this migration, independent of discovery. Implementation, local browser/AI acceptance, Site version10 and v0.8.2 public-download installation are complete. Independent-account and hosted browser gates remain in CURRENT_STATUS.
 

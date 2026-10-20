@@ -19,7 +19,7 @@ Your answers are your own; there are no founder-default preferences or personali
 
 The [private Site](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site) now includes
 **Start with yourself**, complete English/Chinese selection, shared-profile forms and
-reciprocal city choices. [Actual evidence and remaining gates](docs/WEB_COMPANION_VALIDATION.md).
+reciprocal city choices. [Actual evidence and remaining gates](docs/RELATIONSHIP_INTERVIEW_VALIDATION.md).
 The screenshot is the real local QA page, with no private conversation or real member data.
 
 ![English guided start](docs/evidence/web-onboarding/start-en-1440.png)
@@ -37,8 +37,8 @@ The screenshot is the real local QA page, with no private conversation or real m
    [The native plugin](INSTALL_WITH_CHATGPT.md) remains an alternative.
 
 Current-owner real inference, local-browser chat, packaged-helper restart and 29 isolated
-installation/repair calls passed. **The hosted browser currently requires the owner's
-login; HTTPS-to-loopback browser acceptance is still open.** Independent account B,
+installation/repair calls passed. **The signed-in hosted page rendered, but its IAB-to-local
+connection returned no response. Timeout recovery passed; browser acceptance remains open.** Independent account B,
 fresh-account installation, and broad eligibility of the hosted-UI/local-SIWC combination
 remain unverified. No stable release, public plugin-directory listing or universal setup
 success is claimed. The project-wide license remains undeclared. See
@@ -106,7 +106,7 @@ See [licensing status and options](docs/LICENSING_STATUS.md).
 每个人的答案以本人为准，不套用创始人偏好，也不设人格评分。
 
 [私有网站](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site)现有“开始了解自己”、
-完整中英文切换、共享摘要表单与双方城市选择。见[实际证据和未完成项](docs/WEB_COMPANION_VALIDATION.md)。
+完整中英文切换、共享摘要表单与双方城市选择。见[实际证据和未完成项](docs/RELATIONSHIP_INTERVIEW_VALIDATION.md)。
 下图为真实本机验证页面，不含私人对话或真实成员资料。
 
 ![中文新手入口](docs/evidence/web-onboarding/start-zh-1440.png)
@@ -122,7 +122,7 @@ See [licensing status and options](docs/LICENSING_STATUS.md).
    [原生插件](INSTALL_WITH_CHATGPT.md)仍可作为替代入口。
 
 当前维护者的真实推理、本机浏览器聊天、打包助手重启和 29 项独立安装／修复调用通过。
-**托管网站的浏览器当前需要本人登录，HTTPS 网页到本机助手的浏览器验收尚未完成。**
+**已登录托管页面显示正常，但内置浏览器到本机助手未收到响应；超时恢复通过，浏览器通路仍未验收。**
 独立 B 账号、全新账号安装，以及“托管网页＋本机 SIWC”组合的广泛发行资格仍未验证。
 不宣称稳定版、公共插件目录上架或所有用户均可完成设置；项目整体许可仍未声明。
 最新发布与下载实测见 [CURRENT_STATUS](CURRENT_STATUS.md)。
