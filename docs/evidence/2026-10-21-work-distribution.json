@@ -1,0 +1,331 @@
+{
+  "schema_version": 1,
+  "product": "AI-SlowMatch",
+  "version": "0.8.4",
+  "channel": "controlled-preview",
+  "scope": "isolated_local_synthetic_only",
+  "manifest_sha256": "9ae5881c094a90679d28d06650a3f621baf9d22d26364a3ed98112b4032462dd",
+  "source_commit": "8fd37104008bcc5f7a3a00eb54196a6b41d7fb8b",
+  "source_dirty": false,
+  "developer_tools_on_child_path": false,
+  "model_calls": 0,
+  "native_chatgpt": "not_checked",
+  "remote_authentication": "not_checked",
+  "two_independent_accounts": "not_checked",
+  "real_upgrade_atomic_rollback": "unit_tests_only",
+  "checks": {
+    "first_and_repeat_install": "passed_actual_package",
+    "profile_persistence_selection_correction": "passed_actual_package",
+    "private_assessment_storage": "passed_fixed_synthetic_content_no_generation",
+    "synthetic_local_probe": "passed_actual_package",
+    "explicit_local_binding_refusals": "passed_local_assertions_not_authentication",
+    "repair": "passed_controlled_guide_corruption",
+    "uninstall_reinstall_data_preservation": "passed_actual_package",
+    "actual_interrupted_install_retry": "passed_owned_process_terminated_during_actual_copy_then_retry"
+  },
+  "steps": [
+    {
+      "step": "first_install",
+      "passed": true,
+      "elapsed_ms": 6957.173,
+      "input_utf8_bytes": 0,
+      "output_utf8_bytes": 99,
+      "output_unicode_characters": 99,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "repeat_install",
+      "passed": true,
+      "elapsed_ms": 1345.296,
+      "input_utf8_bytes": 0,
+      "output_utf8_bytes": 107,
+      "output_unicode_characters": 107,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "doctor",
+      "passed": true,
+      "elapsed_ms": 884.751,
+      "input_utf8_bytes": 0,
+      "output_utf8_bytes": 371,
+      "output_unicode_characters": 371,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "synthetic_slot",
+      "passed": true,
+      "elapsed_ms": 337.93,
+      "input_utf8_bytes": 0,
+      "output_utf8_bytes": 161,
+      "output_unicode_characters": 161,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "owner_doctor",
+      "passed": true,
+      "elapsed_ms": 952.379,
+      "input_utf8_bytes": 0,
+      "output_utf8_bytes": 385,
+      "output_unicode_characters": 385,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "empty_profile",
+      "passed": true,
+      "elapsed_ms": 345.34,
+      "input_utf8_bytes": 2,
+      "output_utf8_bytes": 194,
+      "output_unicode_characters": 194,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "profile_update_full",
+      "passed": true,
+      "elapsed_ms": 377.259,
+      "input_utf8_bytes": 703,
+      "output_utf8_bytes": 1201,
+      "output_unicode_characters": 1129,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "profile_index",
+      "passed": true,
+      "elapsed_ms": 364.021,
+      "input_utf8_bytes": 2,
+      "output_utf8_bytes": 328,
+      "output_unicode_characters": 328,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "profile_read_full",
+      "passed": true,
+      "elapsed_ms": 357.31,
+      "input_utf8_bytes": 2,
+      "output_utf8_bytes": 1248,
+      "output_unicode_characters": 1176,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "profile_read_targeted",
+      "passed": true,
+      "elapsed_ms": 355.425,
+      "input_utf8_bytes": 21,
+      "output_utf8_bytes": 730,
+      "output_unicode_characters": 698,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "profile_update_incremental",
+      "passed": true,
+      "elapsed_ms": 381.558,
+      "input_utf8_bytes": 451,
+      "output_utf8_bytes": 754,
+      "output_unicode_characters": 714,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "assessment_prepare",
+      "passed": true,
+      "elapsed_ms": 365.632,
+      "input_utf8_bytes": 556,
+      "output_utf8_bytes": 2679,
+      "output_unicode_characters": 2421,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "assessment_save",
+      "passed": true,
+      "elapsed_ms": 397.192,
+      "input_utf8_bytes": 640,
+      "output_utf8_bytes": 805,
+      "output_unicode_characters": 805,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "assessment_read",
+      "passed": true,
+      "elapsed_ms": 352.93,
+      "input_utf8_bytes": 41,
+      "output_utf8_bytes": 805,
+      "output_unicode_characters": 805,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "local_probe",
+      "passed": true,
+      "elapsed_ms": 371.492,
+      "input_utf8_bytes": 2,
+      "output_utf8_bytes": 195,
+      "output_unicode_characters": 195,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "wrong_account_refused",
+      "passed": true,
+      "elapsed_ms": 301.749,
+      "input_utf8_bytes": 2,
+      "output_utf8_bytes": 78,
+      "output_unicode_characters": 78,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": true
+    },
+    {
+      "step": "wrong_scope_refused",
+      "passed": true,
+      "elapsed_ms": 299.156,
+      "input_utf8_bytes": 2,
+      "output_utf8_bytes": 78,
+      "output_unicode_characters": 78,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": true
+    },
+    {
+      "step": "corruption_detected",
+      "passed": true,
+      "elapsed_ms": 285.681,
+      "input_utf8_bytes": 0,
+      "output_utf8_bytes": 82,
+      "output_unicode_characters": 82,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": true
+    },
+    {
+      "step": "repair",
+      "passed": true,
+      "elapsed_ms": 6964.366,
+      "input_utf8_bytes": 0,
+      "output_utf8_bytes": 99,
+      "output_unicode_characters": 99,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "repaired_doctor",
+      "passed": true,
+      "elapsed_ms": 959.562,
+      "input_utf8_bytes": 0,
+      "output_utf8_bytes": 371,
+      "output_unicode_characters": 371,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "uninstall",
+      "passed": true,
+      "elapsed_ms": 543.481,
+      "input_utf8_bytes": 0,
+      "output_utf8_bytes": 220,
+      "output_unicode_characters": 220,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "reinstall_retained_data",
+      "passed": true,
+      "elapsed_ms": 6985.989,
+      "input_utf8_bytes": 0,
+      "output_utf8_bytes": 99,
+      "output_unicode_characters": 99,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "read_retained_data",
+      "passed": true,
+      "elapsed_ms": 391.328,
+      "input_utf8_bytes": 2,
+      "output_utf8_bytes": 1251,
+      "output_unicode_characters": 1179,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "assessment_after_reinstall",
+      "passed": true,
+      "elapsed_ms": 348.225,
+      "input_utf8_bytes": 41,
+      "output_utf8_bytes": 805,
+      "output_unicode_characters": 805,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "final_uninstall",
+      "passed": true,
+      "elapsed_ms": 425.761,
+      "input_utf8_bytes": 0,
+      "output_utf8_bytes": 220,
+      "output_unicode_characters": 220,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "actual_install_interruption",
+      "passed": true,
+      "elapsed_ms": 607.689,
+      "input_utf8_bytes": 0,
+      "output_utf8_bytes": 0,
+      "output_unicode_characters": 0,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": true,
+      "owned_process_terminated_during_observed_copy": true
+    },
+    {
+      "step": "interrupted_install_retry",
+      "passed": true,
+      "elapsed_ms": 7192.398,
+      "input_utf8_bytes": 0,
+      "output_utf8_bytes": 99,
+      "output_unicode_characters": 99,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "interrupted_retry_doctor",
+      "passed": true,
+      "elapsed_ms": 917.904,
+      "input_utf8_bytes": 0,
+      "output_utf8_bytes": 371,
+      "output_unicode_characters": 371,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    },
+    {
+      "step": "interrupted_retry_uninstall",
+      "passed": true,
+      "elapsed_ms": 420.06,
+      "input_utf8_bytes": 0,
+      "output_utf8_bytes": 220,
+      "output_unicode_characters": 220,
+      "stderr_utf8_bytes": 0,
+      "expected_refusal": false
+    }
+  ],
+  "ok": true,
+  "metrics": {
+    "executable_calls": 29,
+    "elapsed_ms": 40789.037,
+    "input_utf8_bytes": 2467,
+    "output_utf8_bytes": 14055,
+    "output_unicode_characters": 13509,
+    "true_model_tokens": "unavailable_not_inferred_from_text_or_subscription_usage",
+    "private_explanation_generation": "not_measured_no_model_session",
+    "measurement_scope": "local_executable_only_not_chatgpt_guidance"
+  },
+  "synthetic_data": "retained_in_isolated_verification_workspace"
+}

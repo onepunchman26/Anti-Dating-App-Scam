@@ -8,9 +8,9 @@ $script:SMVersion = '0.8.4'
 $script:SMRepository = 'onepunchman26/Anti-Dating-App-Scam'
 $script:SMAsset = 'AI-SlowMatch-Work-0.8.4-windows-x64-controlled-preview.zip'
 $script:SMAssetUrl = 'https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/download/v0.8.4/AI-SlowMatch-Work-0.8.4-windows-x64-controlled-preview.zip'
-# Final verified payload source: b880c8d0399fbfaeee9c5560e5ea60e25a280740.
-$script:SMArchiveSha256 = 'f3db20cb14093ddee16d6048624fce8951e86ff8046490a46c1c1552725be402'
-$script:SMManifestSha256 = 'b851472ec6762515c108d9bf13324175a0a171a5b1f2c3386644de98f88d1fbe'
+# Final verified payload source: 8fd37104008bcc5f7a3a00eb54196a6b41d7fb8b.
+$script:SMArchiveSha256 = '28dfb529ff740cdc9e4ea003ed98a76eec3b9285d5a543a6e79a1bb3192fc139'
+$script:SMManifestSha256 = '9ae5881c094a90679d28d06650a3f621baf9d22d26364a3ed98112b4032462dd'
 $script:SMArchiveLimit = 300000000L
 $script:SMFileLimit = 300000000L
 $script:SMTotalLimit = 1000000000L
