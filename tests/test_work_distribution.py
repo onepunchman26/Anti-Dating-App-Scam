@@ -15,6 +15,19 @@ from scripts import work_distribution_build as builder
 from scripts import work_distribution_runtime as runtime
 
 
+def test_runtime_probe_checks_verified_tls_without_network(monkeypatch):
+    import ssl
+
+    assert runtime.runtime_check()["tls_verification"] == "ready"
+
+    def missing_resource():
+        raise FileNotFoundError("synthetic private installation path")
+
+    monkeypatch.setattr(ssl, "create_default_context", missing_resource)
+    with pytest.raises(runtime.DistributionError, match="^tls_runtime_unavailable$"):
+        runtime.runtime_check()
+
+
 def package(tmp_path, version="0.8.0", label="payload", **overrides):
     folder = tmp_path / label
     folder.mkdir()

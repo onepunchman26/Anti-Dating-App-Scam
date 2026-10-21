@@ -13,6 +13,7 @@ import marshal
 import os
 import platform
 import shutil
+import ssl
 import subprocess
 import sys
 import tomllib
@@ -448,6 +449,12 @@ def build(root, output, *, allow_dirty=False):
         "--hidden-import",
         "uvicorn.lifespan.on",
     ]
+    # The bundled Python runtime's ssl.py loads this public CA rejection
+    # resource beside itself. Preserve its security policy in the frozen app;
+    # do not remove the check or substitute an unverified TLS context.
+    rejected_cas = Path(ssl.__file__).with_name("codex-rejected-cas.pem")
+    if rejected_cas.is_file():
+        command.extend(["--add-data", f"{runtime.logical_path(rejected_cas)};."])
     for name in (
         "PySide6",
         "shiboken6",

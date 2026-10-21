@@ -352,6 +352,17 @@ def test_network_catalog_failure_has_safe_typed_error(monkeypatch):
     assert "synthetic-private" not in str(caught.value)
 
 
+def test_tls_setup_failure_has_safe_typed_error(monkeypatch):
+    def unavailable(*args):
+        raise FileNotFoundError("synthetic-private-runtime-path")
+
+    monkeypatch.setattr(urllib.request, "build_opener", unavailable)
+    with pytest.raises(ChatGPTConnectionError) as caught:
+        OfficialChatGPTHttpTransport().get_json(MODELS_URL, {}, 20)
+    assert caught.value.code == "network_unavailable"
+    assert "synthetic-private" not in str(caught.value)
+
+
 def test_refresh_rotates_atomically_and_retains_verified_hint(service):
     connection, transport = service
     credential = ChatGPTCredential(

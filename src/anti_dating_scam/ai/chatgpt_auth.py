@@ -218,8 +218,8 @@ class OfficialChatGPTHttpTransport:
         request = urllib.request.Request(
             url, data=body, headers=headers, method="POST" if body is not None else "GET"
         )
-        opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), _NoRedirect())
         try:
+            opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), _NoRedirect())
             return opener.open(request, timeout=timeout)
         except urllib.error.HTTPError as exc:
             raise _safe_http_error(exc) from None

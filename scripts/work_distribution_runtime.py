@@ -809,14 +809,23 @@ class Parser(argparse.ArgumentParser):
 
 
 def runtime_check():
+    import ssl
+
     from anti_dating_scam.version import build_info
     from anti_dating_scam.work_cli import dispatch
 
     operations = dispatch("schema", {"compact": True})["operations"]
+    try:
+        context = ssl.create_default_context()
+        if context.verify_mode != ssl.CERT_REQUIRED or not context.check_hostname:
+            raise DistributionError("tls_verification_required")
+    except OSError:
+        raise DistributionError("tls_runtime_unavailable") from None
     return {
         "ok": True,
         "version": build_info()["version"],
         "operation_count": len(operations),
+        "tls_verification": "ready",
         "model_calls": 0,
     }
 
