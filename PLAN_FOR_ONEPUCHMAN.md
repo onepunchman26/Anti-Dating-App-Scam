@@ -1,3 +1,5 @@
+Current requirement / 当前要求：[Product continuity / 核心功能连续性](PRODUCT_CONTINUITY.md). Entry-point changes do not remove the original relationship support, evolving understanding, correction and owned-data workflows. / 入口改变不删除原有关系支持、持续理解、纠正与自有资料流程。
+
 Latest implementation / 最新实施：0.8.4 follows the October 20 usability request: Codex setup,
 a local daily entry with no manual pairing, server-side coarse area/age/interests, reviewed
 AI summary drafts and private candidate comparisons. Current browser results are synthetic;

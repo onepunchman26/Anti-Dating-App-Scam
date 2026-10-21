@@ -37,6 +37,8 @@ PUBLIC_FILES = {
         for name in ("index.html", "app.js", "app.css")
     },
     "SETUP_WITH_CODEX.md": "SETUP_WITH_CODEX.md",
+    "PRIVATE_REFLECTION.md": "PRIVATE_REFLECTION.md",
+    "PRODUCT_CONTINUITY.md": "PRODUCT_CONTINUITY.md",
     ".agents/plugins/marketplace.json": ".agents/plugins/marketplace.json",
     "plugins/slowmatch/plugin.json": "plugins/slowmatch/plugin.json",
     "plugins/slowmatch/.app.json": "plugins/slowmatch/.app.json",
@@ -122,6 +124,9 @@ SOURCE_FILES = (
     "apps/matching_site/lib/shareable-profile.schema.json",
     "src/anti_dating_scam/services/local_launcher.py",
     "src/anti_dating_scam/services/private_matching.py",
+    "src/anti_dating_scam/services/web_reflection.py",
+    "apps/matching_site/app/private-reflection-panel.tsx",
+    "apps/matching_site/lib/reflection-copy.mjs",
     "apps/matching_site/local/index.html",
     "apps/matching_site/local/main.tsx",
     "apps/matching_site/local-vite.config.mjs",

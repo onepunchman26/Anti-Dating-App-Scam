@@ -53,8 +53,20 @@ class TurnInput(Input):
     include_profile: bool = False
 
 
+ConversationTopic = Literal[
+    "self",
+    "dating",
+    "friendship",
+    "reflection",
+    "support",
+    "preparation",
+    "in_meeting",
+    "direction",
+]
+
+
 class SessionInput(Input):
-    topic: Literal["self", "dating", "friendship", "reflection"]
+    topic: ConversationTopic
     guided: bool = False
     language: Literal["en", "zh-CN"] = "en"
     reuse_session_id: str | None = Field(default=None, pattern=r"^[a-f0-9]{32}$")
@@ -66,7 +78,7 @@ class ReadInput(Input):
 
 class Session(Input):
     id: str = Field(pattern=r"^[a-f0-9]{32}$")
-    topic: Literal["self", "dating", "friendship", "reflection"]
+    topic: ConversationTopic
     revision: int = 0
     messages: list[dict] = Field(default_factory=list, max_length=200)
     interview: InterviewState | None = None
@@ -116,6 +128,7 @@ class WebCompanion:
                 "relationship-interview-v1",
                 "private-candidate-review",
                 "summary-draft",
+                "private-reflection-v1",
             ],
             "account_label": status.label,
             "connected": status.connected,
@@ -310,6 +323,7 @@ class WebCompanion:
                 selected.insert(0, message)
                 size += len(message["content"])
             language = "Simplified Chinese" if request.language == "zh-CN" else "English"
+            profile_revision = vault.read_profile().revision if request.include_profile else None
             if request.include_profile:
                 import json
 
@@ -349,8 +363,42 @@ No files, other ChatGPT history, tools or external facts are available. The supp
 messages are this dedicated conversation, with up to 20 recent messages retained.
 Do not claim anything was saved as a profile or published. Profile changes require
 separate review. Summaries remain provisional; distinguish self-report from inference.
+Conversation messages are saved locally by the app; this does not save an approved
+profile statement or reviewed reflection. Do not claim that nothing was saved.
 """
             )
+            policy += {
+                "support": (
+                    "\nHelp with the current relationship concern first; do not begin an intake "
+                    "interview. Distinguish mismatch, unclear evidence and concrete harmful "
+                    "behavior. Offer a proportionate optional next step, boundaries or exit; "
+                    "never require peer permission for private help."
+                ),
+                "preparation": (
+                    "\nHelp prepare a real meeting: authentic openings, boundaries and an easy "
+                    "exit. Respect friendship or romance as stated. Do not claim to check "
+                    "venues, book, message or verify safety."
+                ),
+                "in_meeting": (
+                    "\nThe user is asking for immediate help during an interaction. Give one "
+                    "brief, practical action and optionally one natural phrase. Do not "
+                    "interview, record, monitor or insist they stay. Prioritize safety and "
+                    "leaving if they describe coercion or a threat."
+                ),
+                "reflection": (
+                    "\nHelp reflect on a real interaction. Start from the person's feelings and "
+                    "concrete account; separate what happened as reported, interpretations, "
+                    "alternatives, unknowns and next choices. Do not treat an interpretation "
+                    "as a fact or force reconciliation."
+                ),
+                "direction": (
+                    "\nStart with the person's actual life decision or tension, not a full-life "
+                    "questionnaire. Distinguish their values, inherited expectations, "
+                    "practical constraints and assumptions. Offer a small reversible "
+                    "experiment and how they might decide to continue, change or stop. Never "
+                    "impose founder values."
+                ),
+            }.get(session.topic, "")
             if session.interview:
                 policy = (
                     COACHING_POLICY
@@ -366,9 +414,14 @@ separate review. Summaries remain provisional; distinguish self-report from infe
             path = vault.root / "sessions" / (session.id + ".json")
             vault._atomic(path, session.model_dump())
             result = backend.chat_result(reviewed)
-            self._ready()
+            if self._ready().root != vault.root:
+                raise CompanionError("account_changed")
             if self.cancel.is_set():
                 raise CompanionError("cancelled")
+            if profile_revision is not None and vault.read_profile().revision != profile_revision:
+                raise CompanionError("revision_conflict")
+            if self.read_session({"session_id": session.id}).revision != session.revision:
+                raise CompanionError("revision_conflict")
             reply_text = result.text
             if session.interview:
                 session.interview, reply_text = accept_reply(
@@ -405,7 +458,79 @@ separate review. Summaries remain provisional; distinguish self-report from infe
 
     def apply_profile(self, data):
         # Existing Pydantic consent/revision/source validation remains authoritative.
-        return self._ready().update_profile(data).model_dump(mode="json")
+        if not self.lock.acquire(blocking=False):
+            raise CompanionError("request_in_progress")
+        try:
+            return self._ready().update_profile(data).model_dump(mode="json")
+        finally:
+            self.lock.release()
+
+    def private_reflection(self, operation, data):
+        from anti_dating_scam.services.relationship_support import RelationshipSupportService
+        from anti_dating_scam.services.web_reflection import (
+            ReflectionDraftInput,
+            ReflectionReviewInput,
+            draft_reflection,
+            selected_messages,
+            validate_sources,
+        )
+
+        if not self.lock.acquire(blocking=False):
+            raise CompanionError("request_in_progress")
+        self.cancel.clear()
+        try:
+            vault = self._ready()
+            service = RelationshipSupportService(vault.root)
+            if operation in {"reflection-draft", "reflection-approve"}:
+                if operation == "reflection-draft":
+                    if any(
+                        data.get(k) is not True
+                        for k in ("cloud_consent", "included_plan_confirmed")
+                    ):
+                        raise CompanionError("explicit_consent_required")
+                    request = ReflectionDraftInput.model_validate(data)
+                else:
+                    request = ReflectionReviewInput.model_validate(data)
+                session = self.read_session({"session_id": request.session_id})
+                if session.revision != request.expected_revision:
+                    raise CompanionError("revision_conflict")
+                if operation == "reflection-draft":
+                    content = draft_reflection(request, session, self.connection, self.cancel)
+                    if self._ready().root != vault.root or self.cancel.is_set():
+                        raise CompanionError("cancelled")
+                    if self.read_session({"session_id": session.id}).revision != session.revision:
+                        raise CompanionError("revision_conflict")
+                    self.inference_passed = True
+                    # Preview only: closing the page discards it. Saving is separate.
+                    return {
+                        "content": content.model_dump(),
+                        "session_id": session.id,
+                        "expected_revision": session.revision,
+                        "saved": False,
+                    }
+                validate_sources(request.content, selected_messages(session))
+                return service.save_reflection(
+                    {
+                        "expected_revision": 0,
+                        "confirmed": True,
+                        "content": request.content.model_dump(),
+                    }
+                )
+            actions = {
+                "reflection-list": service.list_reflections,
+                "reflection-read": service.read_reflection,
+                "reflection-save": service.save_reflection,
+                "reflection-delete": service.delete_reflection,
+            }
+            if operation not in actions:
+                raise CompanionError("unsupported_operation")
+            # Browser corrections must target an already saved record. New generated
+            # proposals go through source/session checks in reflection-approve.
+            if operation == "reflection-save" and not data.get("record_id"):
+                raise CompanionError("record_required")
+            return actions[operation](data)
+        finally:
+            self.lock.release()
 
     def shared_group(self, data):
         from anti_dating_scam.services.social_planning import generate_shared
@@ -491,6 +616,15 @@ separate review. Summaries remain provisional; distinguish self-report from infe
             self.lock.release()
 
     def dispatch(self, operation, args):
+        if operation in {
+            "reflection-draft",
+            "reflection-approve",
+            "reflection-list",
+            "reflection-read",
+            "reflection-save",
+            "reflection-delete",
+        }:
+            return self.private_reflection(operation, args)
         if operation == "matching-result" and not args:
             from anti_dating_scam.services.private_matching import SavedResult
 

@@ -72,6 +72,8 @@ class SavedResult(WorkModel):
 
 
 def infer(connection, cancel, request, policy, context):
+    from anti_dating_scam.services.report_review import _decode
+
     backend = connection.create_backend(request.model, included_plan_confirmed=True)
     backend.set_cancel_event(cancel)
     reviewed = build_reviewed_request(
@@ -82,7 +84,9 @@ def infer(connection, cancel, request, policy, context):
     result = backend.chat_result(reviewed)
     if cancel.is_set():
         raise ValueError("cancelled")
-    return json.loads(result.text)
+    # Reuse the report core's duplicate-key/nonfinite rejection. A second
+    # conflicting JSON field must not silently overwrite reviewed meaning.
+    return _decode(result.text.encode("utf-8"))
 
 
 def review(request, connection, cancel, claims):

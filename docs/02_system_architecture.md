@@ -1,3 +1,5 @@
+> Current authority / 当前权威：The October 21 continuity map in [PRODUCT_CONTINUITY.md](../PRODUCT_CONTINUITY.md) preserves the core purpose while identifying superseded entry-point restrictions. Dated implementation claims below are historical; current acceptance is in [CURRENT_STATUS.md](../CURRENT_STATUS.md). / 10月21日连续性对照保留核心用途并明确已替代的入口限制；下方带日期的实现记录为历史，最新验收见当前状态。
+
 # System Architecture / 系统架构
 
 ## English — full replacement architecture

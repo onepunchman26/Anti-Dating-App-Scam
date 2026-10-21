@@ -6,6 +6,16 @@ Anti-Dating-App-Scam is the authoritative AI-SlowMatch project for relationship 
 
 ## Current Product Direction (2026-10-17)
 
+The owner's October 21 continuity instruction governs every subsequent iteration:
+changing the entry point does not remove the original relationship-support purpose
+or silently retire existing core functions. Read `PRODUCT_CONTINUITY.md` and the
+linked original specifications before changing scope. Track whether each capability
+is implemented, reachable in the current entry, exercised, or blocked. Preserve the
+Python core and verified legacy features; connect missing user journeys instead of
+replacing the product with another setup/matching demo. Current entry-point decisions
+override dated UI/offline/no-discovery restrictions, not evidence, correction,
+autonomy, privacy, relationship support, or consent requirements.
+
 The owner's October 20 usability correction prioritizes actual ordinary-user setup:
 provide official desktop/Codex guidance and a short copyable installer prompt, reuse
 existing installation and account authorization, minimize manual pairing, and prove
@@ -134,7 +144,7 @@ permission to send information to the matching service.
 - Keep FastAPI routes thin and put behavior in services.
 - Use Pydantic models for API inputs and outputs.
 - Keep AI provider code behind interfaces; do not hard-code vendor-specific calls.
-- Current phase is ChatGPT-plugin-first: local CLI/tool code and retained PySide6 utilities call the core engine, not own business logic.
+- Current web/local, plugin/CLI and retained PySide6 entry points call the same Python core; interfaces do not own business logic.
 - The core engine must remain UI-independent. The hosted Sites service uses its supported Worker runtime; do not assume Python/FastAPI can run unchanged there.
 - Provider adapters must be isolated behind shared interfaces and registry code.
 - All report-like outputs should become schema-valid before export, signing, or verification.

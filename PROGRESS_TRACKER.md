@@ -1,5 +1,8 @@
 Latest checkpoint / 最新检查点
 
+- ⏳ October 21 continuity iteration: re-read original vision, relationship/trust/compatibility, personal-model and current migration requirements. Connect private support/reflection to the current browser entry using the existing service; verify correction, deletion and disclosure boundaries before delivery.
+- ⏳ 10月21日核心连续性迭代：重读原愿景、关系／信任／相处适合度、持续个人模型及当前迁移要求。复用原服务，把私人支持／复盘接入现在的网页；交付前验证纠正、删除和披露边界。
+
 - ✅ 0.8.4 usability repair delivered: original GitHub release, verified public-download install/reinstall/launch, desktop shortcut, local Chrome AI chat and private review, server-side city/age/interest filters and owner-private Site version 13. Independent B/C and fresh-account acceptance remain NOT TESTED; hosted-to-loopback is not accepted. See CURRENT_STATUS.
 - ✅ 0.8.4易用性修复已交付：原GitHub发布、公开下载校验与安装／重装／启动、桌面快捷方式、本机Chrome真实AI聊天和私人分析、服务端城市／年龄／兴趣筛选及私有网站第13版。独立B／C和新账号验收仍未实测，托管页直连本机未通过。详见CURRENT_STATUS。
 

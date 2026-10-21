@@ -2,7 +2,7 @@
 
 ## English
 
-**Windows x64 preview 0.8.4.** One maintained service, a prebuilt local assistant,
+**Windows x64 preview 0.8.5.** One maintained service, a prebuilt local assistant,
 no source checkout, Python, compiler or API key. Existing ChatGPT/Codex users can
 skip the download. Otherwise follow the [official desktop setup](https://learn.chatgpt.com/docs/quickstart?setup=app),
 sign in, choose a local folder and select **Codex**. Use a small setup folder outside
@@ -10,7 +10,7 @@ OneDrive, for example `%LOCALAPPDATA%/AI-SlowMatch/setup`; this is not your priv
 
 Copy this request into Codex:
 
-> Read this pinned guide: https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/v0.8.4/SETUP_WITH_CODEX.md . Install or repair the released Windows assistant, verify it and open the local page. Reuse my existing ChatGPT authorization when available. Do not clone/rebuild the project, launch development agents, scan my private files, change security settings, buy credits or publish a profile. Let me complete any official sign-in and select/confirm the private folder on the local page. Report installation, AI authorization, actual inference and Site access separately.
+> Read this pinned guide: https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/v0.8.5/SETUP_WITH_CODEX.md . Install or repair the released Windows assistant, verify it and open the local page. Reuse my existing ChatGPT authorization when available. Do not clone/rebuild the project, launch development agents, scan my private files, change security settings, buy credits or publish a profile. Let me complete any official sign-in and select/confirm the private folder on the local page. Report installation, AI authorization, actual inference and Site access separately.
 
 ### Bounded instructions for Codex
 
@@ -18,8 +18,8 @@ Copy this request into Codex:
    change machine execution policy. Read only this guide and a matching error-help
    section if needed. No full repository exploration or model calls during installation.
 2. Download **only** `install_work_preview.ps1` and `SHA256SUMS.txt` from
-   `https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/download/v0.8.4/`.
-   Save under `%LOCALAPPDATA%/AI-SlowMatch/setup/v0.8.4`, outside source/cloud folders.
+   `https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/download/v0.8.5/`.
+   Save under `%LOCALAPPDATA%/AI-SlowMatch/setup/v0.8.5`, outside source/cloud folders.
    Compare the script's SHA-256 to its exact `install_work_preview.ps1` entry in the
    release checksum file before running. If the release/assets are missing, stop with
    that fact; do not substitute a build or an unpinned `main` script.
@@ -51,7 +51,7 @@ does not grant another account access. No independent-account installation is cl
 
 ## 中文版
 
-**Windows x64 0.8.4 预览版。** 使用统一匹配服务和预先构建的本机助手，不需要源码、Python、
+**Windows x64 0.8.5 预览版。** 使用统一匹配服务和预先构建的本机助手，不需要源码、Python、
 编译器或 API key。已经装有 ChatGPT／Codex 可直接使用；否则按
 [官方桌面安装说明](https://learn.chatgpt.com/docs/quickstart?setup=app)下载、登录，选择本地文件夹，
 切换到 **Codex**。设置文件夹可选 `%LOCALAPPDATA%/AI-SlowMatch/setup`，不要放 OneDrive；
@@ -59,15 +59,15 @@ does not grant another account access. No independent-account installation is cl
 
 复制给 Codex：
 
-> 请读取固定版本指引 https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/v0.8.4/SETUP_WITH_CODEX.md ，安装或修复已发布的 Windows 助手，验证并打开本机页面。有现成 ChatGPT 授权则复用。不克隆或重建项目、不启开发 agent、不扫描私人文件、不改变安全设置、不购买额度、不发布档案。需要官方登录及私人文件夹选择／确认时，由我在本机页面完成。分别报告安装、AI授权、真实推理和网站访问状态。
+> 请读取固定版本指引 https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/v0.8.5/SETUP_WITH_CODEX.md ，安装或修复已发布的 Windows 助手，验证并打开本机页面。有现成 ChatGPT 授权则复用。不克隆或重建项目、不启开发 agent、不扫描私人文件、不改变安全设置、不购买额度、不发布档案。需要官方登录及私人文件夹选择／确认时，由我在本机页面完成。分别报告安装、AI授权、真实推理和网站访问状态。
 
 ### 给 Codex 的有限步骤
 
 1. 检查 Windows x64 和本机执行能力，使用当前 PowerShell，不修改机器执行策略。只读本页，
    出错时再读对应帮助段落；安装时不全库审查、不调用模型。
-2. 仅从 `https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/download/v0.8.4/`
+2. 仅从 `https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/download/v0.8.5/`
    下载 `install_work_preview.ps1` 和 `SHA256SUMS.txt`，保存到
-   `%LOCALAPPDATA%/AI-SlowMatch/setup/v0.8.4`。执行前将脚本 SHA-256 与校验文件里
+   `%LOCALAPPDATA%/AI-SlowMatch/setup/v0.8.5`。执行前将脚本 SHA-256 与校验文件里
    `install_work_preview.ps1` 的精确条目比较。版本／文件不存在就准确报告，不能自行编译或改用 main。
 3. 运行已核对脚本，带 `-Launch`。脚本核对固定压缩包和清单、安装或复用完整组件、自检并打开
    本机私人页面。想同时使用原生插件时才加 `-RegisterPlugin`；本机网页聊天不依赖该插件或远程权限。

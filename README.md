@@ -1,3 +1,5 @@
+Product purpose and retained capabilities / 产品用途与保留能力：[Continuity map / 连续性对照](PRODUCT_CONTINUITY.md).
+
 0.8.4 usability update: [copy the Codex setup instruction](SETUP_WITH_CODEX.md), open the local assistant without pairing-code copying, and discover by coarse area, age and interests. Real AI chat and private candidate analysis passed on the final Windows package; independent-account acceptance remains untested.
 
 0.8.4易用性更新：[复制Codex安装指令](SETUP_WITH_CODEX.md)，打开本机助手，无需复制配对码；按粗略地区、年龄、兴趣发现候选。最终Windows安装包真实AI聊天与私人候选分析已通过，独立账号验收仍未实测。

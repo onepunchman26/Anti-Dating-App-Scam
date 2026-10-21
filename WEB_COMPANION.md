@@ -2,7 +2,9 @@
 
 ## English
 
-Use the [short Codex setup prompt](SETUP_WITH_CODEX.md) for the pinned **0.8.4 Windows x64
+Private support, preparation, immediate help, reflection and life direction now have distinct conversation routes. Generate, review, correct and delete a private reflection using the existing local store; see [private reflection](PRIVATE_REFLECTION.md).
+
+Use the [short Codex setup prompt](SETUP_WITH_CODEX.md) for the pinned **0.8.5 Windows x64
 preview**. Existing ChatGPT/Codex users skip downloading another client. Codex installs
 the prebuilt release and opens the local page; ordinary users do not rebuild source.
 
@@ -42,7 +44,9 @@ remains owner-private. See [current status](CURRENT_STATUS.md).
 
 ## 中文版
 
-使用[简短Codex安装指令](SETUP_WITH_CODEX.md)安装固定 **0.8.4 Windows x64预览版**。
+私人支持、见面准备、即时求助、复盘和人生方向现有独立对话入口。复用原有本机存储生成、审阅、纠正和删除私人复盘；详见[私人复盘](PRIVATE_REFLECTION.md)。
+
+使用[简短Codex安装指令](SETUP_WITH_CODEX.md)安装固定 **0.8.5 Windows x64预览版**。
 已有ChatGPT／Codex不需重复下载。Codex安装已构建版本并打开本机页，普通用户不重建源码。
 
 1. 安装后打开 `%LOCALAPPDATA%/AI-SlowMatch/portable/Start-SlowMatch.cmd`。程序启动或复用

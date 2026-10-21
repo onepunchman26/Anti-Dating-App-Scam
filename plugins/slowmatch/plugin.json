@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "slowmatch",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "description": "Dating, friendship, private support and shared activities / 恋爱、交友、私人支持与共同活动",
   "author": {
     "name": "onepuchman"
