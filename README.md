@@ -1,8 +1,8 @@
 Product purpose and retained capabilities / 产品用途与保留能力：[Continuity map / 连续性对照](PRODUCT_CONTINUITY.md).
 
-0.8.4 usability update: [copy the Codex setup instruction](SETUP_WITH_CODEX.md), open the local assistant without pairing-code copying, and discover by coarse area, age and interests. Real AI chat and private candidate analysis passed on the final Windows package; independent-account acceptance remains untested.
+0.8.5 continuity update: the web assistant now connects the original relationship-support and private-reflection services. Prepare a meeting, ask for help, review an interaction, or explore next steps. [Private reflections](PRIVATE_REFLECTION.md) can be edited, saved locally, corrected and reused with separate consent. [Copy the Codex setup instruction](SETUP_WITH_CODEX.md). Independent-account acceptance remains untested.
 
-0.8.4易用性更新：[复制Codex安装指令](SETUP_WITH_CODEX.md)，打开本机助手，无需复制配对码；按粗略地区、年龄、兴趣发现候选。最终Windows安装包真实AI聊天与私人候选分析已通过，独立账号验收仍未实测。
+0.8.5核心连续性更新：网页助手已接入原关系支持与私人复盘服务，可准备见面、主动求助、梳理相处或讨论人生下一步。[私人复盘](PRIVATE_REFLECTION.md)可编辑、本机保存、纠正，并经另行同意用于后续讨论。[复制Codex安装指令](SETUP_WITH_CODEX.md)。独立账号验收仍未实测。
 
 # AI-SlowMatch / 慢慢相识
 
@@ -14,7 +14,7 @@ Product purpose and retained capabilities / 产品用途与保留能力：[Conti
 
 [Friends and private groups](FRIENDS_GROUPS.md) add stable IDs, mutual requests and individually approved 2–8-person activities. Invitees can participate without the local assistant. Only a willing AI executor needs it; shared generation never reads private profiles.
 
-The **0.8.4 controlled Windows preview** adds a guided web conversation to the existing
+The **0.8.5 controlled Windows preview** adds a guided web conversation to the existing
 project. Start with self-understanding, keep dedicated sessions and confirmed statements
 on your computer, then separately review what to share for dating or friendship.
 Your answers are your own; there are no founder-default preferences or personality scores.
@@ -30,7 +30,7 @@ The screenshot shows the deployed private setup page, with no private conversati
 
 1. Open the [short Codex setup guide](SETUP_WITH_CODEX.md). Existing ChatGPT/Codex users
    can copy its prompt directly; others use its official desktop download link.
-2. Codex installs the pinned **0.8.4** Windows preview and opens the local page. Use
+2. Codex installs the pinned **0.8.5** Windows preview and opens the local page. Use
    `Start-SlowMatch.cmd` next time; no manual pairing code is needed on this route.
 3. Connect existing official authorization, confirm plan use and your private folder,
    then chat. AI can draft broad shared tags from the selected conversation; review
@@ -104,7 +104,7 @@ See [licensing status and options](docs/LICENSING_STATUS.md).
 
 [好友与私人群组](FRIENDS_GROUPS.md)增加稳定 ID、双向申请和逐人批准的2–8人活动。受邀者无需本机助手即可参与；仅自愿运行 AI 的成员需要助手，共同生成不读取私人档案。
 
-**0.8.4 Windows 受控预览**在原项目中加入了网页对话引导。先认识自己，将专用会话和
+**0.8.5 Windows 受控预览**在原项目中加入了网页对话引导。先认识自己，将专用会话和
 本人确认的陈述保存在电脑，再单独审阅恋爱或朋友匹配要分享的内容。
 每个人的答案以本人为准，不套用创始人偏好，也不设人格评分。
 
@@ -118,7 +118,7 @@ See [licensing status and options](docs/LICENSING_STATUS.md).
 
 1. 打开[简短 Codex 设置指引](SETUP_WITH_CODEX.md)。已有 ChatGPT／Codex 可直接复制其中的
    安装指令；没有则使用指引里的官方客户端下载链接。
-2. Codex 安装固定 **0.8.4** Windows 预览版并打开本机页面。以后使用 `Start-SlowMatch.cmd`，
+2. Codex 安装固定 **0.8.5** Windows 预览版并打开本机页面。以后使用 `Start-SlowMatch.cmd`，
    这条路线不需要手动复制配对码。
 3. 连接现有官方授权，确认套餐使用和私人文件夹后开始聊天。AI可从所选对话起草宽泛共享标签，
    逐项审阅后才导出，发布仍是独立操作。

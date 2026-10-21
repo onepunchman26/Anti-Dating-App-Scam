@@ -12,7 +12,7 @@ This is a requirement map, not a declaration that the whole product is accepted.
 | Thoughtful relationship conversation, autonomy, no engagement farming | docs/00, 01, 03–05, 30–32; packaged coaching policy and web companion | Existing real AI chat evidence; support must remain useful before asking another question. |
 | Evolving understanding with evidence, uncertainty and correction | docs/13, 17–29, 32; work_profile, relationship_interview, retained personal_model/report services | Current web has approved statements and a provisional interview draft. Legacy full-report/import tools remain available; not all have web equivalents. Never call tags a complete personal model. |
 | Values, relationship needs, communication, boundaries and life direction | docs/11, 13, 30, 32; mode summaries and private_matching | City/age are eligibility; interests are a conversation opening. Detailed private review must not claim scientific compatibility, personality levels or certainty. |
-| Concrete relationship and scam support, preparation and immediate help | docs/03–05, 30–32; relationship_support and plugin references | Python/CLI exists; current web lacks a dedicated support and durable review path. This iteration connects it. Personal help needs no peer permission. |
+| Concrete relationship and scam support, preparation and immediate help | docs/03–05, 30–32; relationship_support and plugin references | 0.8.5 connects dedicated support/preparation/immediate-help/direction topics and a durable reflection editor to the existing core. Real reflection generation/save/correction/restart passed on the final EXE. Individual topic quality still needs broader acceptance. Personal help needs no peer permission. |
 | Private reflection, correction, deletion and optional materials | docs/06, 31–32; relationship_support | Existing guarded storage and material lifecycle must be reused. Text works independently of audio. Physical microphone/transcription remain separate gates. |
 | Independently chosen dating and friendship discovery | current full migration, docs/35; matching_site | Reciprocal approved summaries, coarse city/age/interest filtering implemented. No live independent-account candidates accepted; private pilot is not an established community. |
 | Known friends, IDs, groups and shared activities | FRIENDS_GROUPS.md; social service and isolated shared planning | Existing synthetic/browser/AI evidence; real three-account acceptance absent. Invitees keep the lightweight route. |
@@ -50,7 +50,7 @@ Unrelated untracked work and private vaults are not part of this audit.
 | 有深度的关系对话、自主选择、不追求使用时长 | docs/00、01、03–05、30–32；打包沟通策略及网页助手 | 已有真实AI聊天证据；继续追问前先提供实际帮助。 |
 | 带证据、不确定性和纠正的持续理解 | docs/13、17–29、32；work_profile、relationship_interview及保留的个人模型／报告服务 | 网页已有确认陈述和暂定访谈草稿；旧完整报告／导入仍保留，尚未全部接入网页。标签不等于完整个人模型。 |
 | 价值观、关系需要、沟通、边界和人生方向 | docs/11、13、30、32；分模式摘要与私人比较 | 城市／年龄用于资格筛选，兴趣用于打开话题；私人细致分析不宣称科学匹配、人格等级或确定结论。 |
-| 具体关系与诈骗风险支持、见面准备和主动中途求助 | docs/03–05、30–32；relationship_support及插件参考 | Python／CLI已有，网页缺少独立支持与可保存审阅入口，本轮接通。私人求助不要求对方许可。 |
+| 具体关系与诈骗风险支持、见面准备和主动中途求助 | docs/03–05、30–32；relationship_support及插件参考 | 0.8.5已把关系支持／见面准备／即时帮助／人生方向主题和可保存复盘编辑器接入原核心。最终EXE真实复盘生成、保存、纠正和重启读取通过；各主题质量仍需更多验收。私人求助不要求对方许可。 |
 | 私人复盘、纠正、删除及可选材料 | docs/06、31–32；relationship_support | 复用已有受保护存储与材料生命周期。文字不依赖音频；实体麦克风／转写单独验收。 |
 | 各自选择的恋爱与交友发现 | 当前完整迁移、docs/35；matching_site | 已实现获准摘要、双向条件、粗略城市／年龄／兴趣过滤；未验收真实独立账号候选，私有测试站不是已有活跃社区。 |
 | 熟人、ID、好友群组与共同活动 | FRIENDS_GROUPS.md；社交服务与隔离共享规划 | 已有合成／浏览器／AI证据，缺少真实三账号验收；受邀者保留轻量入口。 |
