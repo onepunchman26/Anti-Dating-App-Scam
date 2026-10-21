@@ -810,7 +810,10 @@ class Parser(argparse.ArgumentParser):
 
 def runtime_check():
     import ssl
+    import tempfile
+    from types import SimpleNamespace
 
+    from anti_dating_scam.services.web_companion import WebCompanion
     from anti_dating_scam.version import build_info
     from anti_dating_scam.work_cli import dispatch
 
@@ -821,11 +824,36 @@ def runtime_check():
             raise DistributionError("tls_verification_required")
     except OSError:
         raise DistributionError("tls_runtime_unavailable") from None
+    # Exercise frozen web storage without reading credentials, using AI, or
+    # touching a user vault. A schema import alone missed a packaging failure.
+    connection = SimpleNamespace(
+        status=lambda: SimpleNamespace(
+            connected=True, sharing=True, client_id="synthetic-runtime-check", label="Synthetic"
+        ),
+        diagnostic=lambda: SimpleNamespace(phase="synthetic"),
+    )
+    try:
+        with tempfile.TemporaryDirectory(prefix="AI-SlowMatch-runtime-check-") as temporary:
+            companion = WebCompanion(Path(temporary) / "state", connection)
+            companion.initialize({"confirmed": True})
+            session = companion.create_session({"topic": "friendship"})
+            companion.read_session({"session_id": session["id"]})
+    except Exception as error:
+        # Only public exception/frame names; never paths, values or raw errors.
+        frames = []
+        trace = error.__traceback__
+        while trace:
+            frames.append(trace.tb_frame.f_code.co_name)
+            trace = trace.tb_next
+        raise DistributionError(
+            "companion_probe_" + type(error).__name__.lower() + "_" + "_".join(frames[-3:])
+        ) from None
     return {
         "ok": True,
         "version": build_info()["version"],
         "operation_count": len(operations),
         "tls_verification": "ready",
+        "synthetic_companion_storage": "ready",
         "model_calls": 0,
     }
 
