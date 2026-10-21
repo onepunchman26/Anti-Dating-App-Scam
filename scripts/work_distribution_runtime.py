@@ -926,9 +926,10 @@ def main(argv=None):
     except Exception as error:
         # Private input, source paths and third-party stderr never enter diagnostics.
         try:
+            from anti_dating_scam.services.local_launcher import LaunchError
             from anti_dating_scam.services.work_profile import WorkProfileError
 
-            known = isinstance(error, (DistributionError, WorkProfileError))
+            known = isinstance(error, (DistributionError, WorkProfileError, LaunchError))
         except ImportError:
             known = isinstance(error, DistributionError)
         value = str(error) if known else "operation_failed"

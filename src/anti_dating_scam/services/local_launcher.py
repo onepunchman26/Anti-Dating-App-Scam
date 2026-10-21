@@ -15,7 +15,20 @@ import webbrowser
 from anti_dating_scam.version import build_info
 
 
+class LaunchError(ValueError):
+    """Stable, non-sensitive launch status only."""
+
+
 def launch(*, state_root=None, open_browser=True):
+    try:
+        return _launch(state_root=state_root, open_browser=open_browser)
+    except LaunchError:
+        raise
+    except Exception as error:
+        raise LaunchError("local_launch_" + type(error).__name__.lower()) from None
+
+
+def _launch(*, state_root=None, open_browser=True):
     url = "http://127.0.0.1:8911"
     expected = build_info()["version"]
     opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
@@ -34,7 +47,7 @@ def launch(*, state_root=None, open_browser=True):
         with socket.socket() as probe:
             probe.settimeout(0.5)
             if probe.connect_ex(("127.0.0.1", 8911)) == 0:
-                raise ValueError("local_port_in_use_close_old_assistant")
+                raise LaunchError("local_port_in_use_close_old_assistant")
         command = (
             [sys.executable, "companion"]
             if getattr(sys, "frozen", False)
@@ -53,15 +66,15 @@ def launch(*, state_root=None, open_browser=True):
         started = True
         for _ in range(30):
             if process.poll() is not None:
-                raise ValueError("local_assistant_start_failed")
+                raise LaunchError("local_assistant_start_failed")
             current = health()
             if current:
                 break
             time.sleep(0.2)
     if not current or current.get("service") != "slowmatch-local":
-        raise ValueError("local_assistant_not_ready")
+        raise LaunchError("local_assistant_not_ready")
     if current.get("version") != expected or not current.get("ui_ready"):
-        raise ValueError("restart_updated_assistant_required")
+        raise LaunchError("restart_updated_assistant_required")
     opened = bool(webbrowser.open(url + "/app")) if open_browser else False
     return {
         "ok": True,
