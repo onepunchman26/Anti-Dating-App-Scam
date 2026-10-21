@@ -1,7 +1,7 @@
 Latest checkpoint / 最新检查点
 
-- 🔄 0.8.4 usability repair started from `cb82d22` on `codex/easy-setup-discovery`: guided Codex install, fewer pairing steps, server-side area/age/interest filters and explicit private AI candidate review. Actual Chrome flow is the acceptance target; independent accounts remain unavailable.
-- 🔄 0.8.4易用性修复已从 `cb82d22` 开始，分支 `codex/easy-setup-discovery`：Codex安装引导、减少配对步骤、服务端地区／年龄／兴趣筛选及明确的私人AI候选分析。以真实Chrome流程为验收目标，独立账号仍不可用。
+- ✅ 0.8.4 usability repair delivered: original GitHub release, verified public-download install/reinstall/launch, desktop shortcut, local Chrome AI chat and private review, server-side city/age/interest filters and owner-private Site version 13. Independent B/C and fresh-account acceptance remain NOT TESTED; hosted-to-loopback is not accepted. See CURRENT_STATUS.
+- ✅ 0.8.4易用性修复已交付：原GitHub发布、公开下载校验与安装／重装／启动、桌面快捷方式、本机Chrome真实AI聊天和私人分析、服务端城市／年龄／兴趣筛选及私有网站第13版。独立B／C和新账号验收仍未实测，托管页直连本机未通过。详见CURRENT_STATUS。
 
 - ✅ Relationship-first interview 0.8.3 delivered on `codex/relationship-first-interview`, rollback `7b16cd7`: bounded short questions, private drafts, remembered corrections/skips and optional exploration. Four real synthetic AI requests, 29 EXE checks and public-download installation/registration passed. Site version12 remains owner-private. Python2,583 / 11 skipped; final interview25; bootstrap41 / 1 skipped; Site37 + timeout3. Hosted IAB connection attempted but not accepted; retryable timeout verified. Independent B/C, fresh-account and licensing gates remain open; see CURRENT_STATUS.
 - ✅ 关系优先访谈0.8.3已交付，分支 `codex/relationship-first-interview`，回退 `7b16cd7`：有上限的短问题、私人草稿、修正／跳过记忆及可选探索。四次真实合成AI、29项EXE及公开下载安装／登记通过。网站第12版仍为所有者私有。Python2,583／11跳过，最终访谈25、安装器41／1跳过、网站37加超时3。托管IAB连接已尝试但未验收，可重试超时已验证；独立B／C、新账号及许可限制仍开放，详见CURRENT_STATUS。

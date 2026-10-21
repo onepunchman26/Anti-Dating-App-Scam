@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "version": "0.8.4",
+  "date": "2026-10-21",
+  "repository": "onepunchman26/Anti-Dating-App-Scam",
+  "branch": "codex/easy-setup-discovery",
+  "rollback": "cb82d223a4412f0bf2b1066570fcd6b62de5bc69",
+  "payload_source": "8fd37104008bcc5f7a3a00eb54196a6b41d7fb8b",
+  "source_dirty": false,
+  "payload_files": 161,
+  "archive_sha256": "28dfb529ff740cdc9e4ea003ed98a76eec3b9285d5a543a6e79a1bb3192fc139",
+  "manifest_sha256": "9ae5881c094a90679d28d06650a3f621baf9d22d26364a3ed98112b4032462dd",
+  "installer_sha256": "d69da7eb9823ff3e7d28a2c886b8d39db065b231df852b643b9e3336648c5607",
+  "public_download_install": "passed_current_host",
+  "repeat_install": "passed_verified_cache_same_process",
+  "plugin_registration": "installer_completed_not_skill_invocation",
+  "setup_model_calls": 0,
+  "browser_final_package": {
+    "local_no_code_connection": "passed",
+    "existing_official_authorization_and_catalog": "passed",
+    "synthetic_vault_initialization": "passed",
+    "restart_reconnect": "passed",
+    "real_interview_reply": "completed",
+    "real_private_candidate_review": "completed_saved_locally",
+    "confirmed_profile_loaded_for_review": false,
+    "private_result_recovery": "covered_by_focused_tests_browser_click_not_finally_observed"
+  },
+  "discovery": {
+    "local_d1_synthetic_tests": "passed",
+    "browser_city_age_interest_filters": "passed",
+    "live_owner_state": "no_published_dating_summary",
+    "real_multiaccount_matches": "not_tested",
+    "geographic_precision": "coarse_city_no_radius",
+    "eligible_pool_limit": 100
+  },
+  "site": {
+    "version": 13,
+    "hosting_source": "fcc3dca2e24892f9362d8776930c79499e91f9fb",
+    "deployment": "succeeded",
+    "environment_revision": 1,
+    "owner_private_preserved": true,
+    "native_authenticated_read": "passed_service_0.8.4_database_schema",
+    "new_production_records": 0,
+    "deployed_bilingual_setup_and_copy": "passed"
+  },
+  "tests": {
+    "full_before_final_packaging_fixes": {
+      "passed": 2598,
+      "skipped": 11
+    },
+    "final_focused": {
+      "passed": 171,
+      "skipped": 1
+    },
+    "node": 45,
+    "final_exe_distribution_calls": 29,
+    "typescript": "passed",
+    "production_and_local_builds": "passed",
+    "compileall": "passed"
+  },
+  "unaccepted": [
+    "hosted_browser_to_loopback",
+    "independent_B_C_accounts",
+    "fresh_account_installation",
+    "general_runtime_distribution_eligibility",
+    "project_license",
+    "public_plugin_catalog",
+    "refreshed_native_skill_invocation"
+  ]
+}

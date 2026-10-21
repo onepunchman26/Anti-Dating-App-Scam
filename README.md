@@ -1,6 +1,6 @@
-Relationship-first preview / 关系优先预览: the 0.8.3 interview counts the opening and follow-ups toward eight initial questions, offers a private editable draft, and makes later life exploration optional. HUMAN 3.0 is a credited method reference, not a bundled external Skill or validated matching test. [Interview guide](RELATIONSHIP_INTERVIEW.md).
+0.8.4 usability update: [copy the Codex setup instruction](SETUP_WITH_CODEX.md), open the local assistant without pairing-code copying, and discover by coarse area, age and interests. Real AI chat and private candidate analysis passed on the final Windows package; independent-account acceptance remains untested.
 
-0.8.3访谈将开场和追问计入首轮最多八问，提供可编辑私人草稿，后续人生探索按意愿进行。HUMAN 3.0仅作已署名的方法参考，未打包外部Skill，也不声称是已验证的匹配测评。[访谈指引](RELATIONSHIP_INTERVIEW.md)。
+0.8.4易用性更新：[复制Codex安装指令](SETUP_WITH_CODEX.md)，打开本机助手，无需复制配对码；按粗略地区、年龄、兴趣发现候选。最终Windows安装包真实AI聊天与私人候选分析已通过，独立账号验收仍未实测。
 
 # AI-SlowMatch / 慢慢相识
 
@@ -19,10 +19,10 @@ Your answers are your own; there are no founder-default preferences or personali
 
 The [private Site](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site) now includes
 **Start with yourself**, complete English/Chinese selection, shared-profile forms and
-reciprocal city choices. [Actual evidence and remaining gates](docs/RELATIONSHIP_INTERVIEW_VALIDATION.md).
-The screenshot is the real local QA page, with no private conversation or real member data.
+reciprocal city choices. [Actual evidence and remaining gates](docs/EASY_SETUP_DISCOVERY_VALIDATION.md).
+The screenshot shows the deployed private setup page, with no private conversation or member data.
 
-![English guided start](docs/evidence/web-onboarding/start-en-1440.png)
+![English guided start](docs/evidence/easy-setup/start-en-deployed.png)
 
 ### Start here
 
@@ -107,10 +107,10 @@ See [licensing status and options](docs/LICENSING_STATUS.md).
 每个人的答案以本人为准，不套用创始人偏好，也不设人格评分。
 
 [私有网站](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site)现有“开始了解自己”、
-完整中英文切换、共享摘要表单与双方城市选择。见[实际证据和未完成项](docs/RELATIONSHIP_INTERVIEW_VALIDATION.md)。
-下图为真实本机验证页面，不含私人对话或真实成员资料。
+完整中英文切换、共享摘要表单与双方城市选择。见[实际证据和未完成项](docs/EASY_SETUP_DISCOVERY_VALIDATION.md)。
+下图为已部署的私有网站安装页，不含私人对话或成员资料。
 
-![中文新手入口](docs/evidence/web-onboarding/start-zh-1440.png)
+![中文新手入口](docs/evidence/easy-setup/start-zh-deployed.png)
 
 ### 从这里开始
 

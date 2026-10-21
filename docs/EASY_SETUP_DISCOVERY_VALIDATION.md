@@ -31,8 +31,14 @@ exact allowed origins, no cross-site embedding, no-store and bounded operations 
 The launcher does not initialize a vault, call a model, duplicate a running helper or
 kill an unknown/older listener. The local UI includes no Site write transport.
 
-Final package, public-download installation and deployment receipts are recorded in
-CURRENT_STATUS after verification. Independent B/C accounts are unavailable, so genuine
+Final package source `8fd3710` has 161 manifested files. Its 29 executable checks passed;
+Chrome completed initialization/reconnection, real synthetic AI chat and private review.
+The release installer was downloaded publicly, checksum-verified and run twice: first
+start and same-process reuse both passed, with zero setup model calls. Site version 13
+is deployed; authenticated native read-only service 0.8.4/database/schema checks passed.
+The real account has no published dating summary; this is an empty/prerequisite state,
+not proof of real people being matched. See CURRENT_STATUS and the dated JSON receipts.
+Independent B/C accounts are unavailable, so genuine
 cross-account matching and fresh-account installation remain **NOT TESTED**. Owner-private
 Site access is preserved. No real profiles or synthetic people were published in production.
 
@@ -60,5 +66,9 @@ Site access is preserved. No real profiles or synthetic people were published in
 本机页仅在连接点击后使用内存能力码，保留严格Host、精确来源、防嵌入、不缓存和有限操作。
 启动器不初始化资料库、不调用AI、不重复起服务、不结束不明或旧进程。本机UI不向网站写入。
 
-最终打包、公开下载安装和部署证据验收后记入CURRENT_STATUS。缺独立B／C账号，真实多账号匹配
+最终包源码`8fd3710`，161个清单文件；实际EXE的29项检查通过，Chrome完成建库／重连、真实合成
+AI聊天和私人分析。公开下载安装器并校验后执行两次，分别启动和复用同一进程，设置零模型调用。
+网站第13版部署成功，原生认证只读检查通过0.8.4服务／数据库／结构。真实账号尚未发布恋爱摘要，
+线上是正确的前置条件空状态，不能据此声称真实成员匹配已验收。见CURRENT_STATUS及带日期JSON证据。
+缺独立B／C账号，真实多账号匹配
 和新账号安装明确为**未实测**。保持网站所有者私有，未向生产发布真实档案或合成人物。

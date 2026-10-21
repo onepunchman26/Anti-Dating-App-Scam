@@ -1,19 +1,76 @@
 # Current handoff / 当前交接
 
-## 0.8.4 implementation checkpoint / 0.8.4实现检查点
+## Delivered 0.8.4 usability repair / 0.8.4易用性修复已交付
 
-Guided Codex setup, a reusable local-page launcher, server-side coarse area/age/interest
-filters, AI shared-summary drafts and private candidate reviews are implemented.
-Chrome connection, synthetic real AI chat/draft/review and local D1 filtering passed.
-Final package/public-download/deployment verification is in progress; independent B/C
-and fresh-account acceptance remain untested. See [evidence](docs/EASY_SETUP_DISCOVERY_VALIDATION.md).
+**[Start here](https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/v0.8.4/SETUP_WITH_CODEX.md)** ·
+[v0.8.4 release](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.4) ·
+[Private Site](https://slowmatch-private-pilot.fizzydeer7.chatgpt.site/#start).
 
-Codex安装引导、复用本机页启动器、服务端粗略地区／年龄／兴趣筛选、AI共享摘要草稿及私人候选
-解释已实现。Chrome连接、真实合成AI聊天／草稿／解释及本地D1筛选通过。最终打包、公开下载及
-部署验证正在进行；独立B／C和新账号验收仍未实测。详见上方证据链接。
+The published installer was downloaded from GitHub, checksum-verified and installed on
+this host. It started the local assistant and registered the optional plugin; repeating
+it reused the verified cache and the same process. Setup made zero model calls. The
+owner's desktop now has an **AI-SlowMatch** shortcut; normal setup needs only the short
+Codex prompt. The local page reuses existing official authorization without a pairing code.
+Private-folder and cloud-context confirmation remain explicit.
 
+**Actual final-package acceptance:** Chrome created an isolated synthetic vault, reconnected
+after restart, completed a real AI interview reply and saved a real private candidate
+analysis. TLS and synthetic worker-thread storage are now checked before installation.
+Fixed both a missing runtime certificate resource and canonical Windows AppData redirection.
+The ZIP has 161 manifested files, clean payload source `8fd3710`; 29 actual EXE distribution
+checks passed. Full regression before the final packaging fixes: 2,598 passed / 11 skipped;
+final focused regression: 171 passed / 1 skipped. Site tests 45, TypeScript, production and
+local UI builds, Python compilation, changed-file lint and setup Skill validation passed.
 
-## Latest work — Relationship interviews 0.8.3 / 最新工作 — 关系访谈0.8.3
+**Discovery:** coarse area, age and interests are applied on the server before the 12-result
+limit; reciprocal conditions still apply. Synthetic local D1/browser tests cover city
+aliases and a qualifying candidate beyond the former first 12. The real owner currently
+has no published dating summary; production correctly shows the sharing prerequisite.
+No fake people or real private data were published. Private AI explains fit, differences,
+questions and unknowns from approved summaries, optionally with bounded owner-confirmed
+context; saved results can be read without another model request.
+
+Original Site **version 13** is deployed from hosting mirror `fcc3dca`, environment revision 1.
+Authenticated native read-only checking confirms service 0.8.4 and database/schema access.
+Owner-private audience remains one owner, zero additional groups/external visitors. The
+English and Chinese setup guide and copy button were checked on the deployed page.
+
+**Not accepted:** independent B/C accounts, fresh-account installation, general runtime
+eligibility, project licensing and public catalog listing. Hosted browser-to-loopback
+requests still fail in this environment; the installed local page is the tested daily route.
+City filtering is not GPS/radius/geocoding; the pilot scans at most 100 eligible records and
+reports a capped pool. Plugin registration does not prove refreshed native Skill invocation.
+Rollback `cb82d22`, legacy 0.5.3 EXE and unrelated work remain intact.
+
+[Validation](docs/EASY_SETUP_DISCOVERY_VALIDATION.md) ·
+[Delivery receipt](docs/evidence/2026-10-21-easy-setup.json) ·
+[Actual EXE checks](docs/evidence/2026-10-21-work-distribution.json).
+
+**[从这里开始](https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/v0.8.4/SETUP_WITH_CODEX.md)**。
+已从GitHub公开发布下载、校验并在本机安装0.8.4，启动助手并登记可选插件；重复安装复用校验过的
+缓存和同一个进程，设置零模型调用。桌面已增加 **AI-SlowMatch** 快捷方式。普通用户可复制简短
+Codex指令安装，本机页可复用已有官方授权，无须复制配对码；私人目录和云端上下文仍需本人确认。
+
+**最终安装包实测：**Chrome创建隔离合成资料库、重启重连、完成真实AI访谈回复和私人候选分析并
+保存。安装前新增证书校验及工作线程合成存储自检，修复遗漏证书资源和Windows AppData实际路径
+重定向问题。ZIP有161个清单文件，干净包源码`8fd3710`，实际EXE的29项分发检查通过。最终打包修复
+前完整回归2,598通过／11跳过；最后专项171通过／1跳过。网站45项、TypeScript、网站和本机页面
+构建、Python编译、修改文件检查和安装Skill校验通过。
+
+**发现：**服务端先按粗略地区、年龄和兴趣筛选，再限制最多12个结果，保留双方条件。真实本地D1
+及浏览器合成测试覆盖城市别名和旧前12条之外的合格候选。当前真实账号尚未发布恋爱摘要，线上
+正确显示先共享资料；没有向生产发布假人物或私人数据。私人AI依据获准摘要，按选择使用有限的
+本人已确认陈述，解释契合、差异、问题和未知；可以不重复调用AI读取已保存结果。
+
+原网站**第13版**部署成功，托管镜像`fcc3dca`，环境版本1。原生认证只读检查确认0.8.4及数据库／
+结构可访问。保持一位所有者，无新增群组或外部访问者；线上中英文安装引导及复制按钮已实测。
+
+**未通过／受阻：**缺独立B／C账号，新账号安装未实测；一般运行资格、项目许可、公开插件目录仍
+待解决。此环境托管页面到本机直连未通过，已实测日常入口为安装后的本机页面。城市筛选不等于
+GPS／半径／地理编码；试点最多扫描100条符合范围记录并报告上限。插件登记不证明新版原生Skill
+已调用。保留回退点`cb82d22`、0.5.3 EXE及他人工作。证据见上方链接。
+
+## Previous release — Relationship interviews 0.8.3 / 上一版本 — 关系访谈0.8.3
 
 Implemented in the original project: short relationship/friendship questions, eight-question
 initial cap including opening and clarifications, editable source-linked private drafts,
