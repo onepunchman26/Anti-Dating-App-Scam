@@ -1,3 +1,4 @@
+from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
@@ -217,3 +218,24 @@ def test_private_profile_not_implicitly_in_inference(tmp_path):
         }
     )
     assert "SYNTHETIC_PRIVATE_MARKER" in str(connection.requests)
+
+
+def test_vault_uses_guarded_canonical_root_after_windows_redirection(tmp_path, monkeypatch):
+    import anti_dating_scam.services.web_companion as module
+
+    original = module.WorkProfileService
+    selected = tmp_path / "selected-spelling"
+    canonical = tmp_path / "canonical-storage"
+    service = WebCompanion(tmp_path / "state", Connection())
+
+    def redirected(root):
+        return original(canonical if root == selected else root)
+
+    monkeypatch.setattr(module, "WorkProfileService", redirected)
+    status = service.initialize({"confirmed": True, "path": str(selected)})
+    assert status["vault_ready"] and Path(status["vault_path"]) == canonical.resolve()
+    assert (canonical / "web-owner.json").is_file()
+    assert (canonical / "web-storage-check.json").is_file()
+    assert not selected.exists()
+    session = service.create_session({"topic": "friendship"})
+    assert service.read_session({"session_id": session["id"]}).topic == "friendship"

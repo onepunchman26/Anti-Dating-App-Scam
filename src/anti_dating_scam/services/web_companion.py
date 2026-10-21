@@ -152,6 +152,11 @@ class WebCompanion:
         if root.exists() and any(root.iterdir()) and not marker.exists():
             raise CompanionError("existing_vault_needs_explicit_migration")
         vault = WorkProfileService(root)
+        # Windows packaged apps can resolve AppData to their per-app location.
+        # The guarded store is bound to that verified canonical root; never
+        # mix the original spelling with paths used for its atomic writes.
+        root = vault.root
+        marker = root / "web-owner.json"
 
         class Owner(Input):
             account: str
