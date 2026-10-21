@@ -218,7 +218,7 @@ It expires after 8 hours or when you close the assistant. Keep it private.</p>
             frames = []
             trace = error.__traceback__
             while trace:
-                frames.append(trace.tb_frame.f_code.co_name)
+                frames.append(trace.tb_frame.f_code.co_name + str(trace.tb_lineno))
                 trace = trace.tb_next
             logging.getLogger(__name__).warning(
                 "Local operation failed: %s at %s", type(error).__name__, ":".join(frames[-3:])

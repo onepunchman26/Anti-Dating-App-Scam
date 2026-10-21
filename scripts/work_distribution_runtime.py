@@ -811,6 +811,7 @@ class Parser(argparse.ArgumentParser):
 def runtime_check():
     import ssl
     import tempfile
+    from concurrent.futures import ThreadPoolExecutor
     from types import SimpleNamespace
 
     from anti_dating_scam.services.web_companion import WebCompanion
@@ -835,15 +836,16 @@ def runtime_check():
     try:
         with tempfile.TemporaryDirectory(prefix="AI-SlowMatch-runtime-check-") as temporary:
             companion = WebCompanion(Path(temporary) / "state", connection)
-            companion.initialize({"confirmed": True})
-            session = companion.create_session({"topic": "friendship"})
-            companion.read_session({"session_id": session["id"]})
+            with ThreadPoolExecutor(max_workers=1) as executor:
+                executor.submit(companion.initialize, {"confirmed": True}).result()
+                session = executor.submit(companion.create_session, {"topic": "friendship"}).result()
+                executor.submit(companion.read_session, {"session_id": session["id"]}).result()
     except Exception as error:
         # Only public exception/frame names; never paths, values or raw errors.
         frames = []
         trace = error.__traceback__
         while trace:
-            frames.append(trace.tb_frame.f_code.co_name)
+            frames.append(trace.tb_frame.f_code.co_name + str(trace.tb_lineno))
             trace = trace.tb_next
         raise DistributionError(
             "companion_probe_" + type(error).__name__.lower() + "_" + "_".join(frames[-3:])
