@@ -838,7 +838,9 @@ def runtime_check():
             companion = WebCompanion(Path(temporary) / "state", connection)
             with ThreadPoolExecutor(max_workers=1) as executor:
                 executor.submit(companion.initialize, {"confirmed": True}).result()
-                session = executor.submit(companion.create_session, {"topic": "friendship"}).result()
+                session = executor.submit(
+                    companion.create_session, {"topic": "friendship"}
+                ).result()
                 executor.submit(companion.read_session, {"session_id": session["id"]}).result()
     except Exception as error:
         # Only public exception/frame names; never paths, values or raw errors.
