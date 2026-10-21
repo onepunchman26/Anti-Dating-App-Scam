@@ -237,3 +237,23 @@ for making their methods discussable; no endorsement or validated matching benef
 重新授权外部代码、完整Prompt、问卷、评分规则或素材。未确认文章再分发许可，仅保留链接
 和署名。社区项目不称为Dan Koe本人维护的原仓库，在所检查本机Skill目录里也没有确认
 用户此前试用的具体版本。感谢作者和社区维护者，不暗示作者背书或已证实的匹配效果提升。
+
+
+## Local web assistant and setup, October 20, 2026 / 本机网页与安装
+
+English: The official [OpenAI desktop/Codex quickstart](https://learn.chatgpt.com/docs/quickstart?setup=app)
+was checked on October 20 for download, folder selection and Codex mode instructions.
+It is a linked setup reference, not bundled content or proof of every account's eligibility.
+The new local page reuses this project's React components, Python provider, guarded storage
+and policies. Bundled React/React DOM 19.2.6, Scheduler 0.27.0 and Tailwind CSS 4.2.1 are MIT;
+their installed full license notices are included as LICENSES/web-*.txt in the Windows package.
+Source: https://github.com/facebook/react and https://github.com/tailwindlabs/tailwindcss;
+exact dependency resolution remains in apps/matching_site/package-lock.json. Thanks to
+OpenAI's documentation team and the maintainers of these libraries. No external interview
+prompt, personal profile or HUMAN 3.0 code is newly copied.
+
+中文版：10月20日核对官方OpenAI桌面／Codex入门页，用于下载、选择文件夹和切换Codex的引导。
+仅提供引用链接，不打包页面文字，不以文档推定所有账号都符合接入条件。新增本机网页复用本项目
+React组件、Python提供方、受保护存储和策略。Windows包包含上述React／React DOM、Scheduler、
+Tailwind版本的MIT完整许可；依赖精确版本以package-lock.json为准。感谢官方文档团队及库维护者。
+本次未复制外部访谈Prompt、个人档案或HUMAN 3.0代码。

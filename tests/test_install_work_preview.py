@@ -34,7 +34,7 @@ def make_archive(tmp_path, *, files=None, extras=(), overrides=None, modes=None)
     }
     manifest = {
         "schema_version": 1,
-        "version": "0.8.3",
+        "version": "0.8.4",
         "repository": "onepunchman26/Anti-Dating-App-Scam",
         "product": "AI-SlowMatch",
         "channel": "controlled-preview",
@@ -318,9 +318,9 @@ def test_unready_release_fails_without_filesystem_network_or_runtime(tmp_path):
 
 def test_bootstrap_has_no_arbitrary_sources_or_policy_bypass():
     source = SCRIPT.read_text(encoding="utf-8")
-    assert "param([switch]$RegisterPlugin)" in source
+    assert "param([switch]$RegisterPlugin, [switch]$Launch)" in source
     assert (
-        "releases/download/v0.8.3/AI-SlowMatch-Work-0.8.3-windows-x64-controlled-preview.zip"
+        "releases/download/v0.8.4/AI-SlowMatch-Work-0.8.4-windows-x64-controlled-preview.zip"
         in source
     )
     assert "Expand-Archive" not in source

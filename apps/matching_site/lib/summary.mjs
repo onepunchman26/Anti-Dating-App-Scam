@@ -68,7 +68,8 @@ export function canonical(value) {
 export async function digest(value) {
   return [...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(canonical(value))))].map(b=>b.toString(16).padStart(2,'0')).join('');
 }
-const normalize=v=>v.normalize('NFKC').trim().toLocaleLowerCase('en');
+import {normalizePlace} from './discovery.mjs';
+const normalize=normalizePlace;
 const regionAllows=(a,b)=>(a.areas.length?a.areas:[a.city]).map(normalize).includes(normalize(b.city));
 export function reciprocal(a,b,at=new Date()) {
   const mode=summaryMode(a);

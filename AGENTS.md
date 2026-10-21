@@ -6,6 +6,15 @@ Anti-Dating-App-Scam is the authoritative AI-SlowMatch project for relationship 
 
 ## Current Product Direction (2026-10-17)
 
+The owner's October 20 usability correction prioritizes actual ordinary-user setup:
+provide official desktop/Codex guidance and a short copyable installer prompt, reuse
+existing installation and account authorization, minimize manual pairing, and prove
+the browser path. Discovery must apply coarse area, age and interest selections on
+the server before result limits. Distinguish deterministic eligibility from real AI
+candidate review. Deeper private context stays local/OpenAI-authorized; no hidden
+personality dossier is uploaded to improve matching. Do not describe empty/private
+pilot pools or synthetic identities as a real community or independent-account proof.
+
 The owner's October 19 relationship-first interview supplement governs initial
 discovery: one short focus per turn, at most eight substantive initial questions
 including follow-ups, and an editable private draft available at any time. Reuse

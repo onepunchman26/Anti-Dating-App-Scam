@@ -27,6 +27,15 @@ except ModuleNotFoundError:
 
 SERVICE_ORIGIN = "https://slowmatch-private-pilot.fizzydeer7.chatgpt.site"
 PUBLIC_FILES = {
+    **{
+        f"apps/matching_site/node_modules/{name}/LICENSE": f"LICENSES/web-{name}.txt"
+        for name in ("react", "react-dom", "scheduler", "tailwindcss")
+    },
+    **{
+        f"apps/matching_site/local-dist/{name}": f"web/{name}"
+        for name in ("index.html", "app.js", "app.css")
+    },
+    "SETUP_WITH_CODEX.md": "SETUP_WITH_CODEX.md",
     ".agents/plugins/marketplace.json": ".agents/plugins/marketplace.json",
     "plugins/slowmatch/plugin.json": "plugins/slowmatch/plugin.json",
     "plugins/slowmatch/.app.json": "plugins/slowmatch/.app.json",
@@ -92,6 +101,32 @@ DEPENDENCIES = (
     "pywin32-ctypes",
 )
 SOURCE_FILES = (
+    "apps/matching_site/package.json",
+    "apps/matching_site/package-lock.json",
+    "apps/matching_site/app/globals.css",
+    "apps/matching_site/app/language.tsx",
+    "apps/matching_site/app/site-reminder.tsx",
+    "apps/matching_site/app/interview-panel.tsx",
+    "apps/matching_site/app/setup-guide.tsx",
+    "apps/matching_site/lib/setup-copy.mjs",
+    "apps/matching_site/lib/onboarding.mjs",
+    "apps/matching_site/lib/interview.mjs",
+    "apps/matching_site/lib/i18n.mjs",
+    "apps/matching_site/lib/labels.mjs",
+    "apps/matching_site/lib/local-connection.ts",
+    "apps/matching_site/lib/local-request.mjs",
+    "apps/matching_site/lib/summary.mjs",
+    "apps/matching_site/lib/summary-editor.mjs",
+    "apps/matching_site/lib/discovery.mjs",
+    "apps/matching_site/lib/shareable-profile.schema.json",
+    "src/anti_dating_scam/services/local_launcher.py",
+    "src/anti_dating_scam/services/private_matching.py",
+    "apps/matching_site/local/index.html",
+    "apps/matching_site/local/main.tsx",
+    "apps/matching_site/local-vite.config.mjs",
+    "apps/matching_site/app/onboarding-client.tsx",
+    "apps/matching_site/app/private-match-panel.tsx",
+    "apps/matching_site/lib/private-match-copy.mjs",
     "src/anti_dating_scam/services/relationship_interview.py",
     "src/anti_dating_scam/models/social_planning.py",
     "src/anti_dating_scam/services/social_planning.py",

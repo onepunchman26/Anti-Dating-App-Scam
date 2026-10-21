@@ -328,6 +328,30 @@ def locked(home):
 
 
 class Distribution:
+    def write_daily_launcher(self, release):
+        if not re.fullmatch(RELEASE, release):
+            raise DistributionError("invalid_release")
+        target = check_path(self.home / "Start-SlowMatch.cmd", directory=False)
+        content = (
+            "@echo off\r\nREM AI-SlowMatch managed daily launcher\r\n"
+            '"%~dp0releases\\' + release + '\\SlowMatch-Work.exe" launch\r\n'
+            "if errorlevel 1 pause\r\n"
+        )
+        if target.exists() and b"AI-SlowMatch managed daily launcher" not in read_bytes(
+            target, 4096
+        ):
+            raise DistributionError("unrecognized_launcher_preserved")
+        temporary = self.home / (".pending-" + uuid4().hex)
+        try:
+            with temporary.open("xb") as stream:
+                stream.write(content.encode("ascii"))
+                stream.flush()
+                os.fsync(stream.fileno())
+            check_path(target, directory=False)
+            os.replace(temporary, target)
+        finally:
+            temporary.unlink(missing_ok=True)
+
     def __init__(self, home=None):
         self.home = private_location(home or default_home())
         self.home = mkdir(self.home)
@@ -451,6 +475,7 @@ class Distribution:
                 try:
                     self.checked_active()
                     self.probe(self.releases / previous["release"], value["version"])
+                    self.write_daily_launcher(previous["release"])
                     return {
                         "ok": True,
                         "status": "already_installed",
@@ -501,6 +526,7 @@ class Distribution:
                 if previous:
                     atomic(self.home / "previous.json", previous)
                 atomic(self.home / "active.json", pointer)
+                self.write_daily_launcher(name)
             finally:
                 if staging.exists():
                     self._remove_managed(staging)
@@ -804,6 +830,9 @@ def main(argv=None):
         companion = sub.add_parser("companion")
         companion.add_argument("--state-root", type=Path)
         companion.add_argument("--no-browser", action="store_true")
+        launch = sub.add_parser("launch")
+        launch.add_argument("--state-root", type=Path)
+        launch.add_argument("--no-browser", action="store_true")
         for name in (
             "install",
             "repair",
@@ -841,6 +870,10 @@ def main(argv=None):
                 options.append("--no-browser")
             companion_main(options)
             return 0
+        elif args.command == "launch":
+            from anti_dating_scam.services.local_launcher import launch
+
+            result = launch(state_root=args.state_root, open_browser=not args.no_browser)
         elif args.command == "_runtime-check":
             result = runtime_check()
         elif args.command == "schema":

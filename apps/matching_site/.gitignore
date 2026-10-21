@@ -48,6 +48,7 @@ next-env.d.ts
 !/build/sites-worker.ts
 
 /dist/
+/local-dist/
 /.wrangler/
 # Checkout-local execution profile and tool state; never publish them.
 /.sites-runtime/

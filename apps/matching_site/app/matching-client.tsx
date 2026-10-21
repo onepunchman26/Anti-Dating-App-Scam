@@ -1,5 +1,5 @@
 'use client';
-import {useState} from 'react';
+import {useState,useEffect,useRef} from 'react';
 import {Compass,MapPin,ArrowRight,Heart,Users,ShieldCheck} from 'lucide-react';
 import {validate,digest} from '../lib/summary.mjs';
 import {errorKey} from '../lib/i18n.mjs';
@@ -8,6 +8,7 @@ import SiteReminder from './site-reminder';
 import FilePicker from './file-picker';
 import PlanningClient from './planning-client';
 import SummaryEditor from './summary-editor';
+import {discoveryText} from '../lib/discovery.mjs';
 import type {View} from './site-app';
 
 type Mode='dating'|'friendship';
@@ -32,14 +33,16 @@ function Summary({value,currentDiscoverable}:{value:SummaryValue;currentDiscover
  </dl>;
 }
 export default function MatchingClient({view,navigate}:{view:View;navigate:(view:View)=>void}){
- const {t,label}=useLanguage();
+ const {t,label,locale}=useLanguage();const d=(key:string)=>discoveryText(locale,key);
  const [mode,setMode]=useState<Mode>('dating');
  const [planningPeer,setPlanningPeer]=useState<{id:string;alias:string}|null>(null);
  const [mine,setMine]=useState<Shared|null>(null),[draft,setDraft]=useState<SummaryValue|null>(null);
  const [candidates,setCandidates]=useState<Candidate[]|null>(null),[approved,setApproved]=useState(false);
  const [busy,setBusy]=useState(false),[status,setStatus]=useState(''),[failed,setFailed]=useState(false);
- const [region,setRegion]=useState(''),[interest,setInterest]=useState(''),[expanded,setExpanded]=useState<string|null>(null);
+ const [region,setRegion]=useState(''),[interest,setInterest]=useState<string[]>([]),[ages,setAges]=useState<string[]>([]),[expanded,setExpanded]=useState<string|null>(null),[bundle,setBundle]=useState('');
  const [fileKey,setFileKey]=useState(0);
+ const loadedMode=useRef('');
+ useEffect(()=>{if(view==='discover'&&loadedMode.current!==mode){loadedMode.current=mode;void run(load);}},[view,mode]);
  async function call(name:string,args:Record<string,unknown>):Promise<Shared>{
   const response=await fetch('/api/matching',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,arguments:{...args,mode}}),cache:'no-store'});
   const body=await response.json() as Shared;if(!response.ok||body.error)throw Error(body.error||'unavailable');return body;
@@ -56,11 +59,11 @@ export default function MatchingClient({view,navigate}:{view:View;navigate:(view
  }
  function changeMode(next:Mode){
   if(next===mode)return;
-  setMode(next);setMine(null);setDraft(null);setCandidates(null);setApproved(false);setPlanningPeer(null);setStatus('');setRegion('');setInterest('');setExpanded(null);setFileKey(k=>k+1);
+  setMode(next);setMine(null);setDraft(null);setCandidates(null);setApproved(false);setPlanningPeer(null);setStatus('');setRegion('');setInterest([]);setAges([]);setBundle('');setExpanded(null);setFileKey(k=>k+1);
  }
  const sharingLabel=mine?.status==='expired'?'profileExpired':mine?.status==='withdrawn'?'profileWithdrawn':mine?.summary?(mine.discoverable?'visible':'paused'):'notShared';
- const filtered=candidates?.filter(c=>(!region.trim()||[c.summary.city,...c.summary.areas].some(a=>a.toLocaleLowerCase().includes(region.trim().toLocaleLowerCase())))&&(!interest||c.summary.interests.includes(interest)));
- const interests=[...new Set(candidates?.flatMap(c=>c.summary.interests)||[])].sort();
+ const interests=['reading','music','art','outdoors','cooking','games','travel','sport','learning','volunteering'];
+ async function search(){const result=await call('slowmatch_find_candidates',{filters:{regions:region.split('\n').map(s=>s.trim()).filter(Boolean),age_bands:ages,interests:interest}});setCandidates(result.candidates);setBundle('');setExpanded(null);if(result.pool_limited)setStatus('poolLimited');}
  return <div className="workspace" hidden={view==='help'||view==='start'}>
   <div className="page-heading"><div className="heading-kicker"><p className="eyebrow">AI-SLOWMATCH</p><span className="pilot">{t('pilot')}</span></div><h1>{t(view==='profile'?'profileTitle':view==='plans'?'plansTitle':'discoverTitle')}</h1><p>{t(view==='profile'?'profileIntro':view==='plans'?'plansIntro':'discoverIntro')}</p></div>
   <div className="mode-row"><div className="segmented" role="group" aria-label={t('mode')}>{(['dating','friendship'] as const).map(m=><button key={m} disabled={busy} aria-pressed={mode===m} onClick={()=>changeMode(m)}>{m==='dating'?<Heart size={17} aria-hidden="true"/>:<Users size={17} aria-hidden="true"/>}{t(m)}</button>)}</div><p>{t('modeHint')}</p></div>
@@ -69,11 +72,15 @@ export default function MatchingClient({view,navigate}:{view:View;navigate:(view
    <SiteReminder/>
    {!mine?<div className="empty"><span className="empty-icon"><Compass size={32} aria-hidden="true"/></span><h2>{t('notLoaded')}</h2><p>{t('notLoadedBody')}</p><button disabled={busy} onClick={()=>run(load)}>{t('loadSummary')}<ArrowRight size={17} aria-hidden="true"/></button></div>:!mine.summary?<div className="empty"><span className="empty-icon"><HeartHandshakeIcon/></span><h2>{t('noSummary')}</h2><p>{t('noSummaryBody')}</p><button onClick={()=>navigate('profile')}>{t('manageProfile')}<ArrowRight size={17} aria-hidden="true"/></button></div>:<>
     <div className="status-strip"><span><span className={'status-dot '+(!mine.discoverable?'paused-dot':'')}/>{t(sharingLabel)}</span><button className="text-button" onClick={()=>navigate('profile')}>{t('manageProfile')}<ArrowRight size={16} aria-hidden="true"/></button></div>
-    {!mine.discoverable?<div className="empty"><h2>{t(sharingLabel)}</h2><p>{t(mine.status==='expired'?'expiredBody':'pauseBody')}</p></div>:<div className="search-heading"><div><h2>{t('findIntro')}</h2><p>{t('findBody')}</p></div><button disabled={busy} onClick={()=>run(async()=>{const result=await call('slowmatch_find_candidates',{});setCandidates(result.candidates);setExpanded(null);if(result.pool_limited)setStatus('poolLimited');})}>{t('find')}<ArrowRight size={17} aria-hidden="true"/></button></div>}
-    {candidates&&candidates.length>0&&<div className="filters"><label>{t('region')}<input type="search" value={region} onChange={e=>setRegion(e.target.value)} placeholder={t('regionPlaceholder')}/></label><label>{t('interest')}<select value={interest} onChange={e=>setInterest(e.target.value)}><option value="">{t('allInterests')}</option>{interests.map(i=><option key={i} value={i}>{label(i)}</option>)}</select></label><button className="quiet" disabled={!region&&!interest} onClick={()=>{setRegion('');setInterest('');}}>{t('reset')}</button><p className="filter-caption">{t('resultCount',{count:filtered?.length||0})} · {t('filterHint')}</p></div>}
-    {candidates?.length===0&&<div className="empty"><span className="empty-icon"><Compass size={32} aria-hidden="true"/></span><h2>{t('noCandidates')}</h2><p>{t('noCandidatesBody')}</p></div>}
-    {candidates&&candidates.length>0&&filtered?.length===0&&<div className="empty"><h2>{t('noFiltered')}</h2><button className="quiet" onClick={()=>{setRegion('');setInterest('');}}>{t('reset')}</button></div>}
-    <div className="candidate-grid">{filtered?.map(c=><article className={'candidate '+(expanded===c.public_id?'is-expanded':'')} key={c.public_id}>
+    {!mine.discoverable?<div className="empty"><h2>{t(sharingLabel)}</h2><p>{t(mine.status==='expired'?'expiredBody':'pauseBody')}</p></div>:<section className="panel"><h2>{d('title')}</h2>
+     <label>{d('region')}<textarea rows={2} maxLength={300} value={region} onChange={e=>setRegion(e.target.value)}/></label><p className="muted">{d('locationHint')}</p>
+     <fieldset><legend>{d('ages')}</legend><div className="choice-grid">{['18-24','25-34','35-44','45-54','55-64','65+'].map(a=><label key={a}><input type="checkbox" checked={ages.includes(a)} onChange={e=>setAges(e.target.checked?[...ages,a]:ages.filter(x=>x!==a))}/>{a}</label>)}</div></fieldset>
+     <fieldset><legend>{d('interests')}</legend><div className="choice-grid">{interests.map(i=><label key={i}><input type="checkbox" checked={interest.includes(i)} disabled={!interest.includes(i)&&interest.length>=8} onChange={e=>setInterest(e.target.checked?[...interest,i]:interest.filter(x=>x!==i))}/>{label(i)}</label>)}</div></fieldset>
+     <button disabled={busy} onClick={()=>run(search)}>{t('find')}<ArrowRight size={17} aria-hidden="true"/></button>
+    </section>}
+    {candidates?.length===0&&<div className="empty"><span className="empty-icon"><Compass size={32} aria-hidden="true"/></span><h2>{t('noCandidates')}</h2><p>{d('empty')}</p></div>}
+    {!!candidates?.length&&<section className="panel"><p>{d('rule')}</p><h2>{d('ai')}</h2><p>{d('prompt')}</p><p>{d('bundleHint')}</p><button onClick={async()=>{const text=JSON.stringify({schema_version:'1.0',mode,own_summary:mine.summary,candidates:candidates.map(c=>({public_id:c.public_id,summary:c.summary}))});setBundle(text);try{await navigator.clipboard.writeText(text);}catch{}}}>{d('bundle')}</button> <a href="http://127.0.0.1:8911/app" target="_blank" rel="noreferrer">{d('open')}</a>{bundle&&<label>{d('bundle')}<textarea readOnly rows={4} value={bundle}/></label>}</section>}
+    <div className="candidate-grid">{candidates?.map(c=><article className={'candidate '+(expanded===c.public_id?'is-expanded':'')} key={c.public_id}>
      <div className="candidate-top"><span className="avatar" aria-hidden="true">{Array.from(c.summary.alias)[0]}</span><div><h2>{c.summary.alias}</h2><p><MapPin size={14} aria-hidden="true"/>{c.summary.city} · {c.summary.age_band}</p></div></div>
      <p className="candidate-intent">{label(mode==='friendship'?c.summary.friendship_intent:c.summary.relationship_goal)}</p>
      <div className="tags">{c.summary.interests.slice(0,4).map(i=><span key={i}>{label(i)}</span>)}</div>

@@ -5,12 +5,13 @@ from __future__ import annotations
 import html
 import json
 import secrets
+import sys
 import threading
 import time
 from pathlib import Path
 
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, Response
 from starlette.concurrency import run_in_threadpool
 
 from anti_dating_scam.ai.privacy import BackendError
@@ -21,13 +22,24 @@ SITE_ORIGIN = "https://slowmatch-private-pilot.fizzydeer7.chatgpt.site"
 PORT = 8911
 
 
-def create_companion_app(companion: WebCompanion, *, pairing_token=None, site_origin=SITE_ORIGIN):
+def create_companion_app(
+    companion: WebCompanion, *, pairing_token=None, site_origin=SITE_ORIGIN, ui_root=None
+):
     app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
     token = pairing_token or secrets.token_urlsafe(32)
     expires = time.monotonic() + 8 * 3600
     login_thread = None
     login_error = ""
     local_origin = f"http://127.0.0.1:{PORT}"
+    ui_root = (
+        Path(ui_root)
+        if ui_root
+        else (
+            Path(sys.executable).parent / "web"
+            if getattr(sys, "frozen", False)
+            else Path(__file__).resolve().parents[3] / "apps/matching_site/local-dist"
+        )
+    )
 
     @app.middleware("http")
     async def boundary(request, call_next):
@@ -39,7 +51,9 @@ def create_companion_app(companion: WebCompanion, *, pairing_token=None, site_or
             return JSONResponse({"error": "origin_denied"}, status_code=403)
         if request.method == "OPTIONS":
             response = JSONResponse({"ok": True}, status_code=200 if allowed else 403)
-        elif request.url.path == "/" and request.method == "GET":
+        elif request.method == "GET" and (
+            request.url.path in {"/", "/app", "/health"} or request.url.path.startswith("/assets/")
+        ):
             top_level_click = (
                 request.headers.get("sec-fetch-mode") == "navigate"
                 and request.headers.get("sec-fetch-dest") == "document"
@@ -75,9 +89,48 @@ def create_companion_app(companion: WebCompanion, *, pairing_token=None, site_or
         response.headers["Referrer-Policy"] = "no-referrer"
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["Content-Security-Policy"] = (
-            "default-src 'none'; style-src 'unsafe-inline'; frame-ancestors 'none'"
+            "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; "
+            "connect-src 'self'; img-src 'self' data:; frame-ancestors 'none'; "
+            "base-uri 'none'; form-action 'none'"
         )
+        response.headers["Cross-Origin-Resource-Policy"] = "same-origin"
         return response
+
+    @app.get("/health")
+    def health():
+        from anti_dating_scam.version import build_info
+
+        return {
+            "service": "slowmatch-local",
+            "version": build_info()["version"],
+            "ui_ready": all(
+                (ui_root / name).is_file() for name in ("index.html", "app.js", "app.css")
+            ),
+        }
+
+    @app.get("/app", response_class=HTMLResponse)
+    def local_page():
+        page = ui_root / "index.html"
+        if not page.is_file():
+            return HTMLResponse(
+                "Local page missing. Install the complete release. / 请安装完整发布包。",
+                status_code=503,
+            )
+        return page.read_text(encoding="utf-8").replace(
+            "__SLOWMATCH_PAIR__", html.escape(token, quote=True)
+        )
+
+    @app.get("/assets/{filename}")
+    def local_asset(filename: str):
+        if filename not in {"app.js", "app.css"}:
+            return Response(status_code=404)
+        file = ui_root / filename
+        if not file.is_file():
+            return Response(status_code=404)
+        return Response(
+            file.read_bytes(),
+            media_type="text/javascript" if filename.endswith(".js") else "text/css",
+        )
 
     @app.get("/", response_class=HTMLResponse)
     def pair():
@@ -88,7 +141,9 @@ def create_companion_app(companion: WebCompanion, *, pairing_token=None, site_or
 <style>body{{font:18px system-ui;background:#faf8f6;color:#29242a;max-width:720px;
 margin:8vh auto;padding:24px}}code{{display:block;background:white;padding:20px;
 overflow-wrap:anywhere}}a{{color:#6d3b5f}}</style>
-<h1>Your local assistant is running</h1><p>Open SlowMatch, choose Start with yourself,
+<h1>Your local assistant is running</h1>
+<p><a href="/app">Open your private conversation / 打开私人对话</a></p>
+<p>Advanced hosted-page connection: open SlowMatch, choose Start with yourself,
 and paste this temporary pairing code. It allows this Site to access the local assistant.
 It expires after 8 hours or when you close the assistant. Keep it private.</p>
 <code>{html.escape(token)}</code><p>
@@ -179,7 +234,7 @@ def main(argv=None):
     companion = WebCompanion(root)
     app = create_companion_app(companion)
     if not args.no_browser:
-        threading.Timer(1, lambda: webbrowser.open(f"http://127.0.0.1:{PORT}/")).start()
+        threading.Timer(1, lambda: webbrowser.open(f"http://127.0.0.1:{PORT}/app")).start()
     uvicorn.run(
         app,
         host="127.0.0.1",

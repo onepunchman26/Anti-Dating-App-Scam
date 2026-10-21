@@ -6,13 +6,13 @@ Relationship-first preview / 关系优先预览: the 0.8.3 interview counts the 
 
 [onepunchman26/Anti-Dating-App-Scam](https://github.com/onepunchman26/Anti-Dating-App-Scam)
 
-**[Start here / 从这里开始](WEB_COMPANION.md)** · [Native ChatGPT plugin / 原生插件](INSTALL_WITH_CHATGPT.md)
+**[Start here / 从这里开始](SETUP_WITH_CODEX.md)** · [Native ChatGPT plugin / 原生插件](INSTALL_WITH_CHATGPT.md)
 
 ## English
 
 [Friends and private groups](FRIENDS_GROUPS.md) add stable IDs, mutual requests and individually approved 2–8-person activities. Invitees can participate without the local assistant. Only a willing AI executor needs it; shared generation never reads private profiles.
 
-The **0.8.3 controlled Windows preview** adds a guided web conversation to the existing
+The **0.8.4 controlled Windows preview** adds a guided web conversation to the existing
 project. Start with self-understanding, keep dedicated sessions and confirmed statements
 on your computer, then separately review what to share for dating or friendship.
 Your answers are your own; there are no founder-default preferences or personality scores.
@@ -26,23 +26,24 @@ The screenshot is the real local QA page, with no private conversation or real m
 
 ### Start here
 
-1. Open the [short Windows guide](WEB_COMPANION.md) and its pinned **0.8.3** release.
-   Extract the entire ZIP and open **Start-SlowMatch.cmd**. No Python, Node, compiler,
-   developer checkout or separate server is needed. Keep the helper window open.
-2. Pair the webpage with the local helper, finish official ChatGPT authorization,
-   check plan/model access, and explicitly choose or reconnect your private folder.
-   ChatGPT desktop is optional for this web route. Do not enable extra credits for testing.
-3. Begin a dedicated conversation, review your own statements, and only then choose
-   a separate summary to publish. Nothing in the private conversation is auto-published.
-   [The native plugin](INSTALL_WITH_CHATGPT.md) remains an alternative.
+1. Open the [short Codex setup guide](SETUP_WITH_CODEX.md). Existing ChatGPT/Codex users
+   can copy its prompt directly; others use its official desktop download link.
+2. Codex installs the pinned **0.8.4** Windows preview and opens the local page. Use
+   `Start-SlowMatch.cmd` next time; no manual pairing code is needed on this route.
+3. Connect existing official authorization, confirm plan use and your private folder,
+   then chat. AI can draft broad shared tags from the selected conversation; review
+   them before exporting and separately publishing.
+4. Discover by coarse city/area, age and interests. Reciprocal rules run on the server
+   before the result limit. Private AI review can compare approved candidate summaries
+   with your own selected confirmed statements; results stay local.
 
-Current-owner real inference, local-browser chat, packaged-helper restart and 29 isolated
-installation/repair calls passed. **The signed-in hosted page rendered, but its IAB-to-local
-connection returned no response. Timeout recovery passed; browser acceptance remains open.** Independent account B,
-fresh-account installation, and broad eligibility of the hosted-UI/local-SIWC combination
-remain unverified. No stable release, public plugin-directory listing or universal setup
-success is claimed. The project-wide license remains undeclared. See
-[CURRENT_STATUS](CURRENT_STATUS.md) for the latest release and download evidence.
+Current-owner Chrome connection, a real AI interview reply, AI summary drafting and
+private candidate review have passed with synthetic material. The direct hosted-to-local
+request still times out in this environment; the supported daily fallback opens the same
+conversation components locally. Independent B/C accounts, fresh-account installation,
+broad runtime eligibility and public-catalog listing remain unverified. The Site remains
+owner-private. City filtering is not GPS/radius search; AI reasoning is not a verified
+personality test or proof of honesty. See [CURRENT_STATUS](CURRENT_STATUS.md).
 
 ### What the preview implements
 
@@ -101,7 +102,7 @@ See [licensing status and options](docs/LICENSING_STATUS.md).
 
 [好友与私人群组](FRIENDS_GROUPS.md)增加稳定 ID、双向申请和逐人批准的2–8人活动。受邀者无需本机助手即可参与；仅自愿运行 AI 的成员需要助手，共同生成不读取私人档案。
 
-**0.8.3 Windows 受控预览**在原项目中加入了网页对话引导。先认识自己，将专用会话和
+**0.8.4 Windows 受控预览**在原项目中加入了网页对话引导。先认识自己，将专用会话和
 本人确认的陈述保存在电脑，再单独审阅恋爱或朋友匹配要分享的内容。
 每个人的答案以本人为准，不套用创始人偏好，也不设人格评分。
 
@@ -113,19 +114,19 @@ See [licensing status and options](docs/LICENSING_STATUS.md).
 
 ### 从这里开始
 
-1. 打开[Windows 短指引](WEB_COMPANION.md)，使用其中固定的 **0.8.3** 版本。
-   解压整个 ZIP，打开 **Start-SlowMatch.cmd**，使用时保持助手窗口开启。
-   不要求 Python、Node、编译器、开发者源码环境或另建服务器。
-2. 将网页与本机助手配对，完成官方 ChatGPT 授权，检查套餐和模型权限，
-   明确选择或重连私人文件夹。网页路线不要求 ChatGPT 桌面应用；测试不要开启额外点数。
-3. 开始专用会话、审阅本人陈述，再单独选择发布摘要；私人聊天不会自动发布。
-   [原生插件](INSTALL_WITH_CHATGPT.md)仍可作为替代入口。
+1. 打开[简短 Codex 设置指引](SETUP_WITH_CODEX.md)。已有 ChatGPT／Codex 可直接复制其中的
+   安装指令；没有则使用指引里的官方客户端下载链接。
+2. Codex 安装固定 **0.8.4** Windows 预览版并打开本机页面。以后使用 `Start-SlowMatch.cmd`，
+   这条路线不需要手动复制配对码。
+3. 连接现有官方授权，确认套餐使用和私人文件夹后开始聊天。AI可从所选对话起草宽泛共享标签，
+   逐项审阅后才导出，发布仍是独立操作。
+4. 在发现页面选择粗略城市／地区、年龄和兴趣，服务端在结果截断前检查双方条件。私人AI分析
+   可比较对方获准摘要与本人选择的已确认陈述，结果只留本机。
 
-当前维护者的真实推理、本机浏览器聊天、打包助手重启和 29 项独立安装／修复调用通过。
-**已登录托管页面显示正常，但内置浏览器到本机助手未收到响应；超时恢复通过，浏览器通路仍未验收。**
-独立 B 账号、全新账号安装，以及“托管网页＋本机 SIWC”组合的广泛发行资格仍未验证。
-不宣称稳定版、公共插件目录上架或所有用户均可完成设置；项目整体许可仍未声明。
-最新发布与下载实测见 [CURRENT_STATUS](CURRENT_STATUS.md)。
+当前账号的Chrome连接、真实AI访谈回复、AI摘要草稿及私人候选分析均已用合成材料跑通。
+此环境的托管网页直接连接本机仍会超时，日常替代入口在本机打开同一套对话组件。独立B／C账号、
+新账号安装、广泛接入资格和公共目录上架仍未验证，网站仍为所有者私有测试。城市筛选不是GPS或
+半径搜索，AI解释不是经验证的人格测评，也不证明对方诚实。详见[当前交接](CURRENT_STATUS.md)。
 
 ### 预览已实现的能力
 

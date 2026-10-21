@@ -13,9 +13,9 @@ test('blocked local-network request times out once and can be retried',async t=>
   return {ok:true,json:async()=>({ok:true,result:{connected:true}})};
  });assert.equal(value.connected,true);
 });
-test('AI request has a bounded longer wait and is never automatically resubmitted',async t=>{
+for(const operation of ['send','group-suggest','summary-draft','candidate-review'])test(operation+' has a bounded longer wait and is never automatically resubmitted',async t=>{
  t.mock.timers.enable({apis:['setTimeout']});let calls=0,signal;
- const failed=assert.rejects(requestLocal('synthetic','send',{},async(_url,options)=>{
+ const failed=assert.rejects(requestLocal('synthetic',operation,{},async(_url,options)=>{
   calls++;signal=options.signal;return new Promise((_,reject)=>signal.addEventListener('abort',()=>reject(Error('aborted')),{once:true}));
  }),/unreachable/);
  t.mock.timers.tick(15000);assert.equal(signal.aborted,false);

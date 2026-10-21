@@ -1,0 +1,75 @@
+"""Start/reuse the bounded loopback helper; never read a vault or infer permissions."""
+
+from __future__ import annotations
+
+import json
+import os
+import socket
+import subprocess
+import sys
+import time
+import urllib.error
+import urllib.request
+import webbrowser
+
+from anti_dating_scam.version import build_info
+
+
+def launch(*, state_root=None, open_browser=True):
+    url = "http://127.0.0.1:8911"
+    expected = build_info()["version"]
+    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+
+    def health():
+        try:
+            with opener.open(url + "/health", timeout=2) as response:
+                result = json.loads(response.read(2048))
+            return result
+        except (OSError, ValueError, urllib.error.URLError):
+            return None
+
+    current = health()
+    started = False
+    if current is None:
+        with socket.socket() as probe:
+            probe.settimeout(0.5)
+            if probe.connect_ex(("127.0.0.1", 8911)) == 0:
+                raise ValueError("local_port_in_use_close_old_assistant")
+        command = (
+            [sys.executable, "companion"]
+            if getattr(sys, "frozen", False)
+            else [sys.executable, "-m", "anti_dating_scam.api.web_companion"]
+        )
+        command += ["--no-browser"]
+        if state_root is not None:
+            command += ["--state-root", str(state_root)]
+        process = subprocess.Popen(
+            command,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+        )
+        started = True
+        for _ in range(30):
+            if process.poll() is not None:
+                raise ValueError("local_assistant_start_failed")
+            current = health()
+            if current:
+                break
+            time.sleep(0.2)
+    if not current or current.get("service") != "slowmatch-local":
+        raise ValueError("local_assistant_not_ready")
+    if current.get("version") != expected or not current.get("ui_ready"):
+        raise ValueError("restart_updated_assistant_required")
+    opened = bool(webbrowser.open(url + "/app")) if open_browser else False
+    return {
+        "ok": True,
+        "version": expected,
+        "assistant": "started" if started else "already_running",
+        "url": url + "/app",
+        "browser_opened": opened,
+        "model_calls": 0,
+        "private_storage": "awaiting_owner_selection",
+        "inference": "not_checked",
+    }

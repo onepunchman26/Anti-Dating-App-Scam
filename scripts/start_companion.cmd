@@ -1,3 +1,3 @@
 @echo off
-"%~dp0SlowMatch-Work.exe" companion
+"%~dp0SlowMatch-Work.exe" launch
 if errorlevel 1 pause

@@ -1,13 +1,13 @@
 # Fixed-release bootstrap. No Python/Git/Node, account binding or model calls.
 # Read the publisher's release before running; do not change system execution policy.
 [CmdletBinding()]
-param([switch]$RegisterPlugin)
+param([switch]$RegisterPlugin, [switch]$Launch)
 
 $ErrorActionPreference = 'Stop'
-$script:SMVersion = '0.8.3'
+$script:SMVersion = '0.8.4'
 $script:SMRepository = 'onepunchman26/Anti-Dating-App-Scam'
-$script:SMAsset = 'AI-SlowMatch-Work-0.8.3-windows-x64-controlled-preview.zip'
-$script:SMAssetUrl = 'https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/download/v0.8.3/AI-SlowMatch-Work-0.8.3-windows-x64-controlled-preview.zip'
+$script:SMAsset = 'AI-SlowMatch-Work-0.8.4-windows-x64-controlled-preview.zip'
+$script:SMAssetUrl = 'https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/download/v0.8.4/AI-SlowMatch-Work-0.8.4-windows-x64-controlled-preview.zip'
 # Final verified payload source: b880c8d0399fbfaeee9c5560e5ea60e25a280740.
 $script:SMArchiveSha256 = 'f3db20cb14093ddee16d6048624fce8951e86ff8046490a46c1c1552725be402'
 $script:SMManifestSha256 = 'b851472ec6762515c108d9bf13324175a0a171a5b1f2c3386644de98f88d1fbe'
@@ -244,7 +244,7 @@ function Receive-SMPinnedArchive([string]$Destination) {
     $handler.UseDefaultCredentials = $false
     $client = [Net.Http.HttpClient]::new($handler)
     $client.Timeout = [TimeSpan]::FromSeconds(180)
-    $client.DefaultRequestHeaders.UserAgent.ParseAdd('AI-SlowMatch-Installer/0.8.3')
+    $client.DefaultRequestHeaders.UserAgent.ParseAdd('AI-SlowMatch-Installer/0.8.4')
     $cancel = [Threading.CancellationTokenSource]::new(180000)
     $response = $null
     try {
@@ -359,8 +359,19 @@ function Invoke-SMPreviewInstall([bool]$InstallPlugin = $false) {
         }
         $registration = 'not_requested'
         if ($InstallPlugin) { Invoke-SMRuntime $executable 'register-plugin' | Out-Null; $registration = 'installer_completed' }
+        $assistant = 'not_requested'
+        if ($Launch) {
+            $activePath = Join-Path $env:LOCALAPPDATA 'AI-SlowMatch\portable\active.json'
+            Assert-SMAncestors $activePath
+            $active = [IO.File]::ReadAllText((Get-SMNativePath $activePath)) | ConvertFrom-Json
+            if ($active.release -cnotmatch '^0\.8\.4-[a-f0-9]{12}(?:-repair-[a-f0-9]{8})?$') { Stop-SMBootstrap 'invalid_active_release' }
+            $installedExe = Join-Path $env:LOCALAPPDATA ('AI-SlowMatch\portable\releases\' + $active.release + '\SlowMatch-Work.exe')
+            Assert-SMAncestors $installedExe
+            $started = Invoke-SMRuntime $installedExe 'launch'
+            $assistant = $started.assistant
+        }
         return @{ok=$true; version=$script:SMVersion; channel='controlled-preview'; download=$download;
-            program_check='passed'; plugin_registration=$registration; account_binding='not_requested';
+            program_check='passed'; plugin_registration=$registration; account_binding='not_requested'; local_assistant=$assistant;
             native_chatgpt='not_checked'; remote_identity='not_checked'; two_accounts='not_checked';
             public_staging='retained_for_repair'; elapsed_ms=$timer.ElapsedMilliseconds; model_calls=0}
     } catch {

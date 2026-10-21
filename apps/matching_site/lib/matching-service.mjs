@@ -1,6 +1,7 @@
 import { validate, validateStored, summaryMode, summaryExpiry, summaryExpired, digest, canonical, reciprocal, explain, ServiceError } from './summary.mjs';
 import { createPlanningService, closePlanningSql } from './planning-service.mjs';
 import {createSocialService} from './social-service.mjs';
+import {discoveryFilter,acceptsFilter} from './discovery.mjs';
 import {parseTestScopes,parseDefaultTestScope,resolvePrincipal,clientArguments,SERVICE_VERSION,SERVICE_PROTOCOL,MCP_PROTOCOLS} from './service-policy.mjs';
 
 export function ownerFromHeaders(headers) {
@@ -112,7 +113,9 @@ function createScopedService(db,{clock,scope,scopePolicy}) {
       return self(await read(owner,args.mode),args.mode);
     }
     if(name==='slowmatch_find_candidates') {
-      shape(args,['mode']); await limit(owner,'query',12);
+      shape(args,Object.hasOwn(args,'filters')?['mode','filters']:['mode']);
+      let filters;try{filters=discoveryFilter(args.filters);}catch{throw new ServiceError('invalid_discovery_filter');}
+      await limit(owner,'query',12);
       const own=await read(owner,args.mode);
       if(own?.active!==activeValue || own.summary==='{}') throw new ServiceError('publish_and_enable_discovery_first',403);
       const summary=validate(JSON.parse(own.summary));
@@ -124,10 +127,10 @@ function createScopedService(db,{clock,scope,scopePolicy}) {
       const candidates=[];
       for(const row of rows.results.slice(0,100)) {
         const other=validate(JSON.parse(row.summary));
-        if(reciprocal(summary,other,clock())) candidates.push({public_id:row.public_id,summary:other,explanation:explain(summary,other)});
+        if(reciprocal(summary,other,clock())&&acceptsFilter(other,filters)) candidates.push({public_id:row.public_id,summary:other,explanation:explain(summary,other)});
         if(candidates.length===12) break;
       }
-      return {mode:args.mode,candidates,limit:12,pilot_pool_limit:100,pool_limited:rows.results.length>100,scope:'current_shared_summaries',no_automatic_contact:true};
+      return {mode:args.mode,candidates,filters,matching_method:'deterministic_reciprocal_filters',ai_review:'not_run',limit:12,pilot_pool_limit:100,pool_limited:rows.results.length>100,scope:'current_shared_summaries',no_automatic_contact:true};
     }
     throw new ServiceError('unknown_tool',404);
   };

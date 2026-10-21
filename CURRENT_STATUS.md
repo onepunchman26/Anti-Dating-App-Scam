@@ -1,5 +1,18 @@
 # Current handoff / 当前交接
 
+## 0.8.4 implementation checkpoint / 0.8.4实现检查点
+
+Guided Codex setup, a reusable local-page launcher, server-side coarse area/age/interest
+filters, AI shared-summary drafts and private candidate reviews are implemented.
+Chrome connection, synthetic real AI chat/draft/review and local D1 filtering passed.
+Final package/public-download/deployment verification is in progress; independent B/C
+and fresh-account acceptance remain untested. See [evidence](docs/EASY_SETUP_DISCOVERY_VALIDATION.md).
+
+Codex安装引导、复用本机页启动器、服务端粗略地区／年龄／兴趣筛选、AI共享摘要草稿及私人候选
+解释已实现。Chrome连接、真实合成AI聊天／草稿／解释及本地D1筛选通过。最终打包、公开下载及
+部署验证正在进行；独立B／C和新账号验收仍未实测。详见上方证据链接。
+
+
 ## Latest work — Relationship interviews 0.8.3 / 最新工作 — 关系访谈0.8.3
 
 Implemented in the original project: short relationship/friendship questions, eight-question

@@ -110,7 +110,13 @@ class WebCompanion:
             self._ready()
         return {
             "protocol": "1.0",
-            "capabilities": ["private-chat", "group-suggest", "relationship-interview-v1"],
+            "capabilities": [
+                "private-chat",
+                "group-suggest",
+                "relationship-interview-v1",
+                "private-candidate-review",
+                "summary-draft",
+            ],
             "account_label": status.label,
             "connected": status.connected,
             "plan_permission": status.sharing,
@@ -413,7 +419,84 @@ separate review. Summaries remain provisional; distinguish self-report from infe
         finally:
             self.lock.release()
 
+    def matching_ai(self, operation, data):
+        import json
+
+        from anti_dating_scam.services import private_matching
+
+        if any(data.get(key) is not True for key in ("cloud_consent", "included_plan_confirmed")):
+            raise CompanionError("explicit_consent_required")
+        cls = (
+            private_matching.ReviewInput
+            if operation == "candidate-review"
+            else private_matching.DraftInput
+        )
+        request = cls.model_validate(data)
+        if not self.lock.acquire(blocking=False):
+            raise CompanionError("request_in_progress")
+        self.cancel.clear()
+        try:
+            vault = self._ready()
+            if operation == "candidate-review":
+                claims = []
+                if request.include_profile:
+                    for claim in vault.read_profile().claims:
+                        if claim.confirmation not in {"confirmed", "corrected"}:
+                            continue
+                        item = {"text": claim.text, "uncertainty": claim.uncertainty}
+                        if (
+                            len(claims) >= 10
+                            or len(json.dumps(claims + [item], ensure_ascii=False)) > 4500
+                        ):
+                            break
+                        claims.append(item)
+                result = {
+                    "status": "private_review",
+                    "review": private_matching.review(
+                        request, self.connection, self.cancel, claims
+                    ).model_dump(),
+                    "published": False,
+                }
+            else:
+                session = self.read_session({"session_id": request.session_id})
+                if session.revision != request.expected_revision:
+                    raise CompanionError("revision_conflict")
+                if session.topic != request.mode or not any(
+                    m["role"] == "user" for m in session.messages
+                ):
+                    raise CompanionError("selected_conversation_required")
+                result = private_matching.draft(request, session, self.connection, self.cancel)
+            self._ready()
+            if self.cancel.is_set():
+                raise CompanionError("cancelled")
+            # Private result only. This service has no Site write transport.
+            vault.store._mkdir(vault.root / "matching-drafts")
+            receipt = uuid4().hex
+            vault._atomic(vault.root / "matching-drafts" / (receipt + ".json"), result)
+            if operation == "candidate-review":
+                result["review"]["aliases"] = {
+                    c.public_id: c.summary.alias for c in request.bundle.candidates
+                }
+            vault._atomic(
+                vault.root / "latest-matching.json", {"result": result, "local_receipt": receipt}
+            )
+            self.inference_passed = True
+            return {**result, "local_receipt": receipt}
+        finally:
+            self.lock.release()
+
     def dispatch(self, operation, args):
+        if operation == "matching-result" and not args:
+            from anti_dating_scam.services.private_matching import SavedResult
+
+            vault = self._ready()
+            path = vault.root / "latest-matching.json"
+            if not path.exists():
+                return {"status": "none"}
+            saved = vault._read(path, SavedResult)
+            return {**saved.result, "local_receipt": saved.local_receipt}
+        if operation in {"candidate-review", "summary-draft"}:
+            return self.matching_ai(operation, args)
         if operation == "group-suggest":
             return self.shared_group(args)
         if operation == "status" and not args:

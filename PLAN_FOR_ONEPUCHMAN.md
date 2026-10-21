@@ -1,3 +1,10 @@
+Latest implementation / 最新实施：0.8.4 follows the October 20 usability request: Codex setup,
+a local daily entry with no manual pairing, server-side coarse area/age/interests, reviewed
+AI summary drafts and private candidate comparisons. Current browser results are synthetic;
+independent accounts remain a separate acceptance gate. / 0.8.4落实10月20日易用性要求：Codex设置、
+免手动配对的本机日常入口、服务端粗略地区／年龄／兴趣、经审阅的AI摘要及私人候选比较。
+当前浏览器结果使用合成材料，独立账号仍须另行验收。
+
 Latest scope / 最新范围: [Relationship interviews / 关系访谈](RELATIONSHIP_INTERVIEW.md)
 
 The relationship-first supplement is implemented and delivered as 0.8.3: short initial
