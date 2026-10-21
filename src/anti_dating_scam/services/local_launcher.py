@@ -2,14 +2,13 @@
 
 from __future__ import annotations
 
+import http.client
 import json
 import os
 import socket
 import subprocess
 import sys
 import time
-import urllib.error
-import urllib.request
 import webbrowser
 
 from anti_dating_scam.version import build_info
@@ -31,15 +30,18 @@ def launch(*, state_root=None, open_browser=True):
 def _launch(*, state_root=None, open_browser=True):
     url = "http://127.0.0.1:8911"
     expected = build_info()["version"]
-    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
-
     def health():
+        connection = http.client.HTTPConnection("127.0.0.1", 8911, timeout=2)
         try:
-            with opener.open(url + "/health", timeout=2) as response:
-                result = json.loads(response.read(2048))
-            return result
-        except (OSError, ValueError, urllib.error.URLError):
+            # A fixed plain loopback request needs neither proxies nor TLS/CA setup.
+            # Never follow redirects to another destination.
+            connection.request("GET", "/health")
+            response = connection.getresponse()
+            return json.loads(response.read(2048)) if response.status == 200 else None
+        except (OSError, ValueError, http.client.HTTPException):
             return None
+        finally:
+            connection.close()
 
     current = health()
     started = False

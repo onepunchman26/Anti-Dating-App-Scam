@@ -66,10 +66,17 @@ def test_daily_launcher_reuses_and_rejects_foreign_service(monkeypatch):
     from anti_dating_scam.version import build_info
 
     class Reply:
+        status = 200
         data = {"service": "slowmatch-local", "version": build_info()["version"], "ui_ready": True}
 
-        def open(self, *args, **kwargs):
+        def getresponse(self):
             return self
+
+        def request(self, *args):
+            pass
+
+        def close(self):
+            pass
 
         def __enter__(self):
             return self
@@ -81,7 +88,7 @@ def test_daily_launcher_reuses_and_rejects_foreign_service(monkeypatch):
             return json.dumps(self.data).encode()
 
     reply = Reply()
-    monkeypatch.setattr(mod.urllib.request, "build_opener", lambda *args: reply)
+    monkeypatch.setattr(mod.http.client, "HTTPConnection", lambda *args, **kwargs: reply)
     monkeypatch.setattr(
         mod.subprocess,
         "Popen",
