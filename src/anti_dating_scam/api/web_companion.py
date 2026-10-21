@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import html
 import json
+import logging
 import secrets
 import sys
 import threading
@@ -212,8 +213,16 @@ It expires after 8 hours or when you close the assistant. Keep it private.</p>
             )
         except (CompanionError, WorkProfileError) as error:
             return JSONResponse({"error": str(error)}, status_code=409)
-        except Exception:
+        except Exception as error:
             # Never echo request bodies, paths, raw provider output or secrets.
+            frames = []
+            trace = error.__traceback__
+            while trace:
+                frames.append(trace.tb_frame.f_code.co_name)
+                trace = trace.tb_next
+            logging.getLogger(__name__).warning(
+                "Local operation failed: %s at %s", type(error).__name__, ":".join(frames[-3:])
+            )
             return JSONResponse({"error": "invalid_or_unavailable"}, status_code=400)
 
     return app
