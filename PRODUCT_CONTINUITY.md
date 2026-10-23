@@ -1,5 +1,14 @@
 # Product continuity / 产品连续性
 
+Current voice increment / 当前语音增量: 0.8.6 connects the existing local recognizer and
+ChatGPT conversation. Synthetic English recognition, local playback completion and public
+installation passed; physical mic, Chinese recognition and complete spoken turns remain
+separate gates. This adds an entry method without removing any capability below.
+See [voice evidence](docs/VOICE_VALIDATION.md) and [current status](CURRENT_STATUS.md).
+
+0.8.6接通原本机识别器和ChatGPT对话，合成英语识别、本机朗读完成及公开安装已通过；实体麦克风、
+中文识别和完整语音回合分别待验收。本次增加输入方式，不删除下表任何能力。见上述证据及当前状态。
+
 ## English
 
 The owner's October 21 instruction is persistent: entry points may change; the purpose

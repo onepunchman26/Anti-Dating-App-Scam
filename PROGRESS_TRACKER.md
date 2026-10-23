@@ -1,4 +1,9 @@
-Latest voice checkpoint / 最新语音检查点 (2026-10-23)
+Delivered voice checkpoint / 语音交付检查点 (2026-10-23)
+
+- ✅ 0.8.6 published, public-download installed/launched and repeated with the same helper; owner-private Site deployment succeeded. Final package has 29 passing EXE checks; real English synthetic recognition and local playback completion passed. Physical mic, Chinese recognition, complete spoken turn and independent accounts remain NOT ACCEPTED. See CURRENT_STATUS and docs/VOICE_VALIDATION.md.
+- ✅ 0.8.6已发布、公开下载安装／启动并复用同一助手；原私有网站部署成功。最终包29项EXE检查、真实英语合成识别及本机朗读完成通过。实体麦克风、中文识别、完整语音回合和独立账号仍未验收，详见CURRENT_STATUS及docs/VOICE_VALIDATION.md。
+
+Earlier implementation checkpoint / 此前实施检查点
 
 - ⏳ 0.8.6: local dictation, editable drafts, opt-in turn-based send/read, bounded recording and local-only playback implemented and connected. Real English synthetic audio passed through the original recognizer and authenticated loopback API. Browser UI/recognition readiness passed; file chooser is blocked by extension file access. Physical microphone, complete voice turn and independent accounts are not accepted. Packaging/installed validation in progress. A real interview failure from null optional question was diagnosed and corrected without relaxing evidence checks.
 - ⏳ 0.8.6：已实现并接通本机听写、可编辑草稿、明确开启的逐轮发送／朗读、有时限录音及本机声音。真实英语合成音频通过原识别器及认证本机接口；浏览器界面／识别就绪通过，文件选择受扩展文件权限阻挡。实体麦克风、完整语音回合和独立账号尚未验收。正在打包及验证安装产物；已定位并修复空问题为null导致的真实访谈失败，证据校验保留。

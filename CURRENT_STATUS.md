@@ -1,6 +1,64 @@
 # Current handoff / 当前交接
 
-## 0.8.5 continuity delivery; voice iteration active / 0.8.5连续性已交付，语音开发进行中
+## 0.8.6 voice preview delivered / 0.8.6语音预览已交付
+
+October 23: [v0.8.6](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.6)
+is published with six assets. Public-download checksum verification, installation,
+launch and optional plugin registration passed. Repeating installation reused verified
+cache and the same helper. Health reports 0.8.6 and UI ready; setup made zero model calls.
+Continue using the existing AI-SlowMatch desktop shortcut / portable launcher.
+Registration does not prove a fresh native Skill invocation.
+
+The same owner-private Site deployed successfully from mirror
+`0080df676d216a0efda6d41629b1ff993c5a53e4`, deployment
+`appgdep_6adb1cb4f4988191b940da884f5be97d`, environment revision 1, MCP present.
+Saved version: `appgprj_6ad4306f79e88191bbbd502f495ec501~appgver_d1f0f136348c8191bdb06e897c4440c9`.
+No audience expansion or private/member-data publication. The remote browser has a
+sign-in gate; deployment success is not a hosted browser acceptance result.
+
+[Voice guide](VOICE.md) and [validation](docs/VOICE_VALIDATION.md): local dictation,
+editable drafts, selected short WAVs, local reading and opt-in turn-based send/read are
+implemented and connected. Final EXE recognized synthetic English through its authenticated
+local endpoint. Chrome reached local playback completion. A real null-question interview
+failure was fixed and real ChatGPT replies succeeded. UI language changes retain choices.
+
+Full Python 2,637 passed / 11 skipped; Node 51 before the final loading fix plus final
+6 voice checks; final installer 46 / 1 skipped; final EXE distribution 29 passed.
+Compilation, TypeScript, lint and local/Site builds passed. Clean payload source `b24b8d7`,
+192 files. Archive SHA-256 `26597dcdb198a48e3554d0837fab633f724f63e37304d1d641684a61826fc14a`;
+manifest `15dbb8f98e3d602dc3a51b02094b3ffc9380d3e6c81a34df420c901725e3e046`;
+installer `a010913367fe714febc6636e6eeb290b74d86c54cefef4620acee95a697fa688`.
+
+**Not accepted:** physical microphone/quality, audible speaker output, Chinese recognition
+or voice, a complete microphone→automatic send→spoken reply turn, independent B/C and
+fresh accounts. Chrome automated file selection needs extension file-URL permission;
+it was not enabled. Both language models downloaded and verified; that is not Chinese
+recognition proof. Full-duplex plan audio is unsupported. Previous eligibility/licensing,
+hosted-to-loopback and legacy web-parity gaps remain. Owner/device actions are deferred.
+
+10月23日：[v0.8.6](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.6)
+已发布六个文件。公开下载安装器、校验、安装、启动和可选插件登记通过；重复安装复用校验缓存及
+同一助手。健康检查为0.8.6、页面就绪，安装零模型调用。继续使用原AI-SlowMatch桌面快捷方式／
+便携启动器即可；登记不等于新的原生Skill调用已验收。
+
+原所有者私有网站部署成功，上述镜像、部署ID及保存版本为本次回执，环境版本1、MCP存在。
+没有扩大访问或发布私人／成员资料。远程浏览器仍有登录门槛，部署成功不等于托管浏览器验收。
+详见[语音说明](VOICE.md)及[验证记录](docs/VOICE_VALIDATION.md)。
+
+本机听写、可编辑草稿、选定短WAV、本机朗读及明确开启的逐轮发送／朗读已实现并接通。最终EXE
+经认证本机接口识别合成英语音频，Chrome触发本机朗读完成。修复真实访谈中null空问题导致的失败，
+真实ChatGPT回复复测成功；界面语言切换保留选择，原关系支持／复盘等核心功能继续保留。
+
+Python完整回归2,637通过／11跳过；最终声音修复前Node51项及修复后语音6项通过；最终安装器
+46／1跳过，最终EXE分发29项通过，编译、TypeScript、检查及两种构建通过。干净包源码`b24b8d7`、
+192文件，压缩包／清单／安装器校验值见上方。
+
+**未验收：**实体麦克风及质量、扬声器实际声音、中文识别／声音、完整“麦克风→自动发送→语音
+回复”、独立B／C及新账号。Chrome自动选择文件需要扩展文件URL权限，本轮未启用。中英文模型
+下载校验不代表中文识别已测；实时双向套餐音频仍不支持。此前接入资格／许可、托管页直连本机、
+旧功能网页对应流程等限制继续保留，需要本人或设备参与的事项留在此处。
+
+## Previous 0.8.5 continuity delivery / 此前0.8.5连续性交付
 
 October 22: [v0.8.5](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.5)
 is published, publicly downloaded, checksum-verified, installed and launched on this host.
