@@ -31,6 +31,33 @@ class InterviewConnection(Connection):
         return base
 
 
+def test_null_optional_question_preserves_help_without_inventing_a_question():
+    state = InterviewState(question_count=1, awaiting="goal")
+    next_state, text = accept_reply(
+        state,
+        json.dumps(
+            {
+                "response": "Quiet walks can be a comfortable shared activity.",
+                "question": None,
+                "area": None,
+                "observations": [],
+            }
+        ),
+        "I enjoy quiet walks.",
+    )
+    assert text == "Quiet walks can be a comfortable shared activity."
+    assert next_state.question_count == 1 and next_state.notes == {}
+    with pytest.raises(ValueError, match="question_area_required"):
+        accept_reply(
+            state,
+            json.dumps({"response": "Thanks.", "question": None, "area": "care"}),
+            "I enjoy quiet walks.",
+        )
+    for bad in (False, 1, [], {}):
+        with pytest.raises(ValueError):
+            accept_reply(state, json.dumps({"response": "Thanks.", "question": bad}), "hello")
+
+
 def setup(tmp_path):
     connection = InterviewConnection()
     service = WebCompanion(tmp_path / "state", connection)

@@ -113,3 +113,28 @@ prompt, personal profile or HUMAN 3.0 code is newly copied.
 React组件、Python提供方、受保护存储和策略。Windows包包含上述React／React DOM、Scheduler、
 Tailwind版本的MIT完整许可；依赖精确版本以package-lock.json为准。感谢官方文档团队及库维护者。
 本次未复制外部访谈Prompt、个人档案或HUMAN 3.0代码。
+
+
+## Local dictation 0.8.6 / 本机听写0.8.6
+
+English: Reuses this project's voice_input service. Vosk 0.3.45 Python/native runtime
+(Alpha Cephei, Apache-2.0) is now included in the Windows companion; pinned English
+small-en-us-0.15 and Chinese small-cn-0.22 models (Apache-2.0) download separately
+after consent. Upstream tagged COPYING: https://github.com/alphacep/vosk-api/blob/v0.3.45/COPYING .
+The wheel's native GCC runtime libraries use GPL-3.0 with the GCC Runtime Library
+Exception; MinGW winpthreads, Kaldi, OpenFst and OpenBLAS notices are retained under
+LICENSES/voice in the package. Notices were obtained from GCC 10.2.0 COPYING3 and
+COPYING.RUNTIME, MinGW-w64 v10.0.0 winpthreads COPYING, Kaldi/OpenFst upstream COPYING
+and OpenBLAS v0.3.21 LICENSE. These notice editions do not assert exact compiler/dependency
+build provenance of the upstream wheel. The original wheel DLLs are copied unchanged.
+Python dependency notices are copied from the pinned installed distributions. Thanks
+to Alpha Cephei and all named upstream contributors. No recognizer/model is an LLM.
+
+中文：复用本项目voice_input服务。Windows助手现包含Vosk 0.3.45 Python／原生运行组件
+（Alpha Cephei，Apache-2.0）；固定英语small-en-us-0.15和中文small-cn-0.22模型
+（Apache-2.0）仅经同意后另行下载。上述链接为上游对应标签许可。原始wheel中的GCC运行库
+采用GPL-3.0及GCC运行库例外，另保留MinGW winpthreads、Kaldi、OpenFst、OpenBLAS声明；
+完整文件随包放在LICENSES/voice中。许可文本版本来自GCC 10.2.0、MinGW-w64 v10.0.0、
+Kaldi／OpenFst上游及OpenBLAS v0.3.21，不声称这些等于wheel内每个依赖的准确构建版本。
+原始DLL未经修改，Python依赖保留已固定安装版本的声明。感谢Alpha Cephei及各上游贡献者。
+语音识别器和语言模型不替代ChatGPT对话分析。

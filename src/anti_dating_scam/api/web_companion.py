@@ -156,6 +156,7 @@ It expires after 8 hours or when you close the assistant. Keep it private.</p>
 完整记录保存在本机，单独批准的摘要才会发布。</p></section></html>"""
 
     @app.post("/v1")
+    @app.post("/voice/v1")
     async def operation(request: Request):
         nonlocal login_thread, login_error
         if request.headers.get("content-type", "").split(";")[0] != "application/json":
@@ -163,7 +164,7 @@ It expires after 8 hours or when you close the assistant. Keep it private.</p>
         raw = bytearray()
         async for chunk in request.stream():
             raw.extend(chunk)
-            if len(raw) > 64000:
+            if len(raw) > (1_282_000 if request.url.path == "/voice/v1" else 64000):
                 return JSONResponse({"error": "input_limit"}, status_code=413)
         try:
             body = json.loads(raw)
@@ -174,6 +175,8 @@ It expires after 8 hours or when you close the assistant. Keep it private.</p>
             ):
                 raise CompanionError("invalid_arguments")
             name, args = body["operation"], body["arguments"]
+            if request.url.path == "/voice/v1" and name != "voice-transcribe":
+                raise CompanionError("unsupported_operation")
             if name == "login" and set(args) == {"confirmed"} and args["confirmed"] is True:
                 if companion.lock.locked():
                     raise CompanionError("request_in_progress")

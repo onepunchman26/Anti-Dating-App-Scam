@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 Area = Literal[
     "goal",
@@ -71,6 +71,13 @@ class InterviewReply(Contract):
     area: Area | None = None
     clarification: bool = False
     observations: list[Observation] = Field(default_factory=list, max_length=8)
+
+    @field_validator("question", mode="before")
+    @classmethod
+    def absent_question(cls, value):
+        # A completed model reply may use JSON null to mean no next question.
+        # Normalize only this optional field; area/evidence/type checks still apply.
+        return "" if value is None else value
 
 
 class InterviewControl(Contract):
@@ -150,7 +157,8 @@ skip, respect it. Lack of experience, uncertainty or refusal is not a negative t
 An interview cannot prove honesty, safety or compatibility. Do not promise better matches.
 For threats or coercion prioritize brief practical safety support, no question or observations.
 Return ONLY one JSON object with: response (brief acknowledgment/help, no question),
-question (one optional single-line question, at most 140 characters), area (one of
+question (one optional single-line question, at most 140 characters; use "" when absent),
+area (one of
 {json.dumps(ALL_AREAS)}, or null if no question), clarification (boolean), observations
 (at most eight objects with area, text, quote). Do not add any other keys.
 Each observation must have an EXACT contiguous quote from the CURRENT user message.

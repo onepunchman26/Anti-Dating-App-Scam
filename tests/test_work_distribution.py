@@ -561,7 +561,8 @@ def test_public_allowlist_includes_guides_and_excludes_private_or_developer_stat
         name.startswith(("data/", "vault/", ".vscode/", "paper/", ".venv"))
         for name in builder.PUBLIC_FILES
     )
-    assert "vosk" not in builder.DEPENDENCIES
+    assert "vosk" in builder.DEPENDENCIES
+    assert not any("vosk-model-small" in name for name in builder.PUBLIC_FILES)
 
 
 @pytest.mark.skipif(os.name != "nt", reason="Win32 extended path behavior")

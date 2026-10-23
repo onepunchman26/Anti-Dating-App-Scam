@@ -7,11 +7,11 @@ description: Set up or repair the released AI-SlowMatch Windows component and pl
 
 ## English
 
-For local webpage setup, first use [the Codex setup guide](https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/v0.8.5/SETUP_WITH_CODEX.md): verified bootstrap `-Launch`, then the permanent daily launcher. This route reuses official AI authorization and explicitly selected account storage. The native plugin/remote binding steps below are optional for that separate route; local chat does not require Site access.
+For local webpage setup, first use [the Codex setup guide](https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/v0.8.6/SETUP_WITH_CODEX.md): verified bootstrap `-Launch`, then the permanent daily launcher. This route reuses official AI authorization and explicitly selected account storage. The native plugin/remote binding steps below are optional for that separate route; local chat does not require Site access.
 
 Install the existing product with bounded deterministic steps. The authority is
-`onepunchman26/Anti-Dating-App-Scam`; use its pinned `v0.8.5` controlled preview and
-[short installation guide](https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/v0.8.5/INSTALL_WITH_CHATGPT.md).
+`onepunchman26/Anti-Dating-App-Scam`; use its pinned `v0.8.6` controlled preview and
+[short installation guide](https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/v0.8.6/INSTALL_WITH_CHATGPT.md).
 If the release is unavailable, report that gate. No source reconstruction, full-repository
 audit, development agents, model/API calls inside scripts or automatic updates during chat.
 Do not deploy a separate service for this user or change their model/subscription settings.
@@ -51,7 +51,7 @@ Do not deploy a separate service for this user or change their model/subscriptio
 
 Stop initialization once the necessary checks pass; route to the [daily Skill](../slowmatch/SKILL.md).
 For failure, read only the matching section of
-[distribution help](https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/v0.8.5/docs/DISTRIBUTION_HELP.md).
+[distribution help](https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/v0.8.6/docs/DISTRIBUTION_HELP.md).
 Retry a diagnosed step only after new evidence; otherwise give the exact remaining condition.
 Report short sanitized status, not full paths, private contents or tokens. Fixed scripts do not
 use a model, but this guidance and real ChatGPT checks may consume usage. On an explicitly
@@ -60,10 +60,10 @@ that marker proves instruction loading alone.
 
 ## 中文版
 
-本机网页设置优先使用[Codex设置指引](https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/v0.8.5/SETUP_WITH_CODEX.md)：核对安装脚本并用 `-Launch` 启动，以后使用固定日常入口。此路线复用官方AI授权及明确选择的账号存储；下列原生插件／远程绑定步骤只适用于另一条可选路线，本机聊天不以网站访问为前提。
+本机网页设置优先使用[Codex设置指引](https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/v0.8.6/SETUP_WITH_CODEX.md)：核对安装脚本并用 `-Launch` 启动，以后使用固定日常入口。此路线复用官方AI授权及明确选择的账号存储；下列原生插件／远程绑定步骤只适用于另一条可选路线，本机聊天不以网站访问为前提。
 
 按有限、确定性的步骤安装现成产品。权威仓库为 `onepunchman26/Anti-Dating-App-Scam`，使用固定
-`v0.8.5` 受控预览和[简短安装页](https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/v0.8.5/INSTALL_WITH_CHATGPT.md)。
+`v0.8.6` 受控预览和[简短安装页](https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/v0.8.6/INSTALL_WITH_CHATGPT.md)。
 发布不可取得就报告受阻条件。不重建源码、不全库审计、不启开发 agent、不在固定脚本内请求模型/API，
 不在日常聊天时自动升级。不为每位用户另建服务，不改变其模型／订阅设置。
 
@@ -91,7 +91,7 @@ that marker proves instruction loading alone.
    A/B 测试需要独立获准账号及服务端强制隔离范围。
 
 必要检查通过即结束初始化，进入[日常 Skill](../slowmatch/SKILL.md)。失败时仅读
-[分发帮助](https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/v0.8.5/docs/DISTRIBUTION_HELP.md)
+[分发帮助](https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/v0.8.6/docs/DISTRIBUTION_HELP.md)
 相关一段；只有新证据时才重试，否则说明具体剩余条件。仅报告简短脱敏状态，不展示完整本机路径、
 私密内容或令牌。固定程序不调用模型，但引导与真实 ChatGPT 检查仍可能耗用额度。
 明确要求加载探针时，只有读到本已安装 Skill 后才返回 `SLOWMATCH_SETUP_LOADED`；它只证明指令加载。

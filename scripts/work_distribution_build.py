@@ -29,6 +29,19 @@ except ModuleNotFoundError:
 SERVICE_ORIGIN = "https://slowmatch-private-pilot.fizzydeer7.chatgpt.site"
 PUBLIC_FILES = {
     **{
+        f"src/anti_dating_scam/licenses/voice/{name}": f"LICENSES/voice/{name}"
+        for name in (
+            "Vosk-0.3.45-APACHE-2.0.txt",
+            "GCC-GPL-3.0.txt",
+            "GCC-Runtime-Library-Exception.txt",
+            "MinGW-winpthreads-COPYING.txt",
+            "Kaldi-COPYING.txt",
+            "OpenFst-COPYING.txt",
+            "OpenBLAS-LICENSE.txt",
+        )
+    },
+    "VOICE.md": "VOICE.md",
+    **{
         f"apps/matching_site/node_modules/{name}/LICENSE": f"LICENSES/web-{name}.txt"
         for name in ("react", "react-dom", "scheduler", "tailwindcss")
     },
@@ -74,10 +87,18 @@ PUBLIC_FILES = {
     "scripts/controlled_test_fixtures.ps1": "tools/controlled-test.ps1",
     "src/anti_dating_scam/licenses/open-source-credits.txt": "LICENSES/project-credits.txt",
 }
-# This small runtime deliberately omits the optional Vosk native runtime/models,
-# GUI and test/development packages. The web companion includes its loopback
+# This runtime includes local Vosk dictation; language models are separately
+# downloaded after consent. It omits GUI and test/development packages.
+# The web companion includes its loopback
 # server and official ChatGPT adapter, never an offline inference engine.
 DEPENDENCIES = (
+    "vosk",
+    "srt",
+    "tqdm",
+    "requests",
+    "urllib3",
+    "charset-normalizer",
+    "certifi",
     "fastapi",
     "starlette",
     "annotated-doc",
@@ -104,6 +125,10 @@ DEPENDENCIES = (
     "pywin32-ctypes",
 )
 SOURCE_FILES = (
+    "src/anti_dating_scam/services/web_voice.py",
+    "apps/matching_site/app/voice-panel.tsx",
+    "apps/matching_site/lib/voice.mjs",
+    "apps/matching_site/lib/voice-copy.mjs",
     "apps/matching_site/package.json",
     "apps/matching_site/package-lock.json",
     "apps/matching_site/app/globals.css",
@@ -238,6 +263,10 @@ def copy_notices(payload):
             )
         ]
         if not files:
+            # The official 0.3.45 wheel omits COPYING; the exact upstream
+            # tagged notice and native dependency notices are allowlisted above.
+            if name == "vosk" and (notices / "voice/Vosk-0.3.45-APACHE-2.0.txt").is_file():
+                continue
             raise runtime.DistributionError("dependency_notice_missing")
         target = runtime.mkdir(notices / name)
         for number, file in enumerate(sorted(files, key=str)):
@@ -358,7 +387,7 @@ def audit_embedded_sources(root, executable):
     pyz = archive.open_embedded_archive("PYZ.pyz")
     audited = []
     for name in pyz.toc:
-        if name.startswith(("vosk", "PySide6", "anti_dating_scam_desktop")):
+        if name.startswith(("PySide6", "anti_dating_scam_desktop")):
             raise runtime.DistributionError("unexpected_optional_runtime")
         if name == "anti_dating_scam" or name.startswith("anti_dating_scam."):
             path = "src/" + name.replace(".", "/")
@@ -383,7 +412,7 @@ def audit_embedded_sources(root, executable):
         "source_modules": len(audited) + 1,
         "embedded_source_match": True,
         "project_code_paths": "relative",
-        "optional_vosk": "not_bundled",
+        "optional_vosk": "bundled_0.3.45_models_separate",
     }
 
 
@@ -439,6 +468,8 @@ def build(root, output, *, allow_dirty=False):
         f"{runtime.logical_path(generated / 'build_info.json')};anti_dating_scam",
         "--optimize",
         "1",
+        "--collect-binaries",
+        "vosk",
         "--add-data",
         f"{runtime.logical_path(root / 'src/anti_dating_scam/skills')};anti_dating_scam/skills",
         "--hidden-import",
@@ -467,7 +498,6 @@ def build(root, output, *, allow_dirty=False):
         "tkinter",
         "pytest",
         "IPython",
-        "vosk",
         "httptools",
         "websockets",
         "watchfiles",

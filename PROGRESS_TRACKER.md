@@ -1,3 +1,8 @@
+Latest voice checkpoint / 最新语音检查点 (2026-10-23)
+
+- ⏳ 0.8.6: local dictation, editable drafts, opt-in turn-based send/read, bounded recording and local-only playback implemented and connected. Real English synthetic audio passed through the original recognizer and authenticated loopback API. Browser UI/recognition readiness passed; file chooser is blocked by extension file access. Physical microphone, complete voice turn and independent accounts are not accepted. Packaging/installed validation in progress. A real interview failure from null optional question was diagnosed and corrected without relaxing evidence checks.
+- ⏳ 0.8.6：已实现并接通本机听写、可编辑草稿、明确开启的逐轮发送／朗读、有时限录音及本机声音。真实英语合成音频通过原识别器及认证本机接口；浏览器界面／识别就绪通过，文件选择受扩展文件权限阻挡。实体麦克风、完整语音回合和独立账号尚未验收。正在打包及验证安装产物；已定位并修复空问题为null导致的真实访谈失败，证据校验保留。
+
 Latest checkpoint / 最新检查点
 
 - ⏳ October 22 voice iteration started: reuse the existing local speech service for explicit dictation and local reply reading; verify a turn-based spoken workflow separately from full-duplex voice. ChatGPT-plan audio/transcription is explicitly unsupported by the current official flow. Keep private audio out of Sites and never enable the microphone automatically.

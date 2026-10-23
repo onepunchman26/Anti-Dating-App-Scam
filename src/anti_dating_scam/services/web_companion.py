@@ -129,6 +129,7 @@ class WebCompanion:
                 "private-candidate-review",
                 "summary-draft",
                 "private-reflection-v1",
+                "local-voice-v1",
             ],
             "account_label": status.label,
             "connected": status.connected,
@@ -616,6 +617,10 @@ profile statement or reviewed reflection. Do not claim that nothing was saved.
             self.lock.release()
 
     def dispatch(self, operation, args):
+        if operation in {"voice-status", "voice-install", "voice-transcribe"}:
+            from anti_dating_scam.services.web_voice import dispatch
+
+            return dispatch(self, operation, args)
         if operation in {
             "reflection-draft",
             "reflection-approve",

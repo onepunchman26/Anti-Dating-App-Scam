@@ -236,6 +236,7 @@ def _cleanup_temporary(path: Path, root: Path) -> None:
         raise VoiceInputError("Speech-model cleanup path was invalid.")
     _safe_path(path)
     if path.is_dir():
+
         def make_writable_and_retry(operation, failed, _error):
             selected = Path(failed).absolute()
             if selected != path and path not in selected.parents:
@@ -294,7 +295,13 @@ def install_model(
                 _cleanup_temporary(temporary, base)
 
 
-def transcribe_pcm(pcm16: bytes, *, language: str, root: Path | None = None) -> str:
+def transcribe_pcm(
+    pcm16: bytes,
+    *,
+    language: str,
+    root: Path | None = None,
+    cancel: threading.Event | None = None,
+) -> str:
     """Recognize at most 30 seconds of 16-kHz mono signed-int16 PCM, in memory."""
     if type(pcm16) is not bytes or not 3_200 <= len(pcm16) <= MAX_PCM_BYTES or len(pcm16) % 2:
         raise VoiceInputError("Record between 0.1 and 30 seconds of voice before transcribing.")
@@ -306,6 +313,8 @@ def transcribe_pcm(pcm16: bytes, *, language: str, root: Path | None = None) -> 
     except ImportError:
         raise VoiceInputError("The offline speech component is not installed.") from None
     try:
+        if cancel is not None and cancel.is_set():
+            raise VoiceInputError("Speech recognition was cancelled.")
         SetLogLevel(-1)
         with _model_lock:
             model = _model_cache.get(str(path))
@@ -315,9 +324,13 @@ def transcribe_pcm(pcm16: bytes, *, language: str, root: Path | None = None) -> 
         recognizer = KaldiRecognizer(model, SAMPLE_RATE)
         parts = []
         for offset in range(0, len(pcm16), 8_000):
+            if cancel is not None and cancel.is_set():
+                raise VoiceInputError("Speech recognition was cancelled.")
             if recognizer.AcceptWaveform(pcm16[offset : offset + 8_000]):
                 parts.append(json.loads(recognizer.Result())["text"])
         parts.append(json.loads(recognizer.FinalResult())["text"])
+        if cancel is not None and cancel.is_set():
+            raise VoiceInputError("Speech recognition was cancelled.")
         transcript = " ".join(part.strip() for part in parts if part.strip())
         if language == "zh":
             transcript = transcript.replace(" ", "")
@@ -330,9 +343,7 @@ def transcribe_pcm(pcm16: bytes, *, language: str, root: Path | None = None) -> 
         raise VoiceInputError("Local speech recognition could not finish.") from None
 
 
-def normalize_capture(
-    raw: bytes, *, sample_rate: int, channels: int, sample_format: str
-) -> bytes:
+def normalize_capture(raw: bytes, *, sample_rate: int, channels: int, sample_format: str) -> bytes:
     """Convert a supported microphone format to 16-kHz mono int16 PCM."""
     widths = {"int16": 2, "int32": 4, "float32": 4, "uint8": 1}
     width = widths.get(sample_format)

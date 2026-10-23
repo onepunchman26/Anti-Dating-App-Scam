@@ -818,6 +818,13 @@ def runtime_check():
     from anti_dating_scam.version import build_info
     from anti_dating_scam.work_cli import dispatch
 
+    # Loading the native library is required; finding a Python module is insufficient.
+    try:
+        import vosk
+
+        vosk.SetLogLevel(-1)
+    except (ImportError, OSError):
+        raise DistributionError("voice_runtime_unavailable") from None
     operations = dispatch("schema", {"compact": True})["operations"]
     try:
         context = ssl.create_default_context()
@@ -858,6 +865,7 @@ def runtime_check():
         "operation_count": len(operations),
         "tls_verification": "ready",
         "synthetic_companion_storage": "ready",
+        "local_dictation_runtime": "ready_models_separate",
         "model_calls": 0,
     }
 
