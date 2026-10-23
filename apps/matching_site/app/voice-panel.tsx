@@ -1,5 +1,5 @@
 'use client';
-import {useEffect,useLayoutEffect,useRef,useState} from 'react';
+import {useLayoutEffect,useRef,useState} from 'react';
 import {useLanguage} from './language';
 import {captureVoice,localVoice,pcmBase64} from '../lib/voice.mjs';
 import {voiceText} from '../lib/voice-copy.mjs';
@@ -17,7 +17,7 @@ export default function VoicePanel(props:Props){
   if(active.current)void latest.current.call('stop').catch(()=>{});
   active.current=false;latest.current.onBusy(false);setPhase('');setTurn(false);if(report)setNotice('paused');
  }
- useEffect(()=>{
+ useLayoutEffect(()=>{
   const stop=()=>abort(false);const hide=()=>{if(document.hidden)stop();};window.addEventListener('pagehide',stop);document.addEventListener('visibilitychange',hide);
   return()=>{window.removeEventListener('pagehide',stop);document.removeEventListener('visibilitychange',hide);abort(false);};
  // Changing the account/session/approved context invalidates pending audio and auto-send.
@@ -83,7 +83,7 @@ export default function VoicePanel(props:Props){
  <p className="muted">{w(ready?'ready':status&&!status.runtime?'missing':'checkFirst')}</p>
  <label>{w('file')}<input type="file" accept=".wav,audio/wav" disabled={!ready||processing||props.disabled} onChange={e=>{const file=e.target.files?.[0];e.target.value='';if(file)void importAudio(file);}}/></label><p className="muted">{w('fileHint')}</p>
  <label className="consent"><input type="checkbox" checked={turn} disabled={processing||props.disabled||!props.canSend||!!props.draft.trim()} onChange={e=>setTurn(e.target.checked)}/>{w('turn')}</label><p className="muted">{w('turnHint')}</p>
- <div className="actions"><button className="secondary" disabled={!ready||processing||props.disabled} onClick={record}>{w('record')}</button>{phase==='recording'&&<button onClick={()=>capture.current?.finish()}>{w('stop')}</button>}<button className="secondary" disabled={processing||props.disabled||!props.reply} onClick={()=>read(props.reply,epoch.current)}>{w('read')}</button>{phase&&<button className="secondary" onClick={()=>abort()}>{w('cancel')}</button>}</div>
+ <div className="actions"><button className="secondary" disabled={!ready||processing||props.disabled} onClick={record}>{w('record')}</button>{phase==='recording'&&<button onClick={()=>capture.current?.finish()}>{w('stop')}</button>}<button className="secondary" disabled={processing||phase==='reading'||props.disabled||!props.reply} onClick={()=>read(props.reply,epoch.current)}>{w('read')}</button>{phase&&<button className="secondary" onClick={()=>abort()}>{w('cancel')}</button>}</div>
  </>}
  <p role="status" aria-live="polite">{phase&&w(phase)}{phase==='recording'?' · '+Math.min(seconds,30)+'s':''}{notice&&' '+w(notice)}</p>
  </section>;
