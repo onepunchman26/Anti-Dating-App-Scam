@@ -20,6 +20,19 @@ export function localVoice(voices, language){
  return voices.find(v=>v.localService===true&&v.lang.toLowerCase().split('-')[0]===language)||null;
 }
 
+export function waitForLocalVoice(synth,language,signal,timeout=2000){
+ return new Promise(resolve=>{
+  let timer;
+  const finish=value=>{clearTimeout(timer);synth.removeEventListener('voiceschanged',changed);signal.removeEventListener('abort',cancel);resolve(value);};
+  const cancel=()=>finish(null);
+  const changed=()=>{const voice=localVoice(synth.getVoices(),language);if(voice)finish(voice);};
+  if(signal.aborted){resolve(null);return;}
+  const current=localVoice(synth.getVoices(),language);if(current){resolve(current);return;}
+  synth.addEventListener('voiceschanged',changed);signal.addEventListener('abort',cancel,{once:true});
+  timer=setTimeout(()=>finish(null),timeout);changed();
+ });
+}
+
 // Injected browser APIs let lifecycle tests exercise late permissions and cleanup.
 export function captureVoice({media,AudioContext,onFinish,onError,onRecording}){
  let cancelled=false,closed=false,stream,context,source,processor,gain,timer,chunks=[],count=0;

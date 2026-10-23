@@ -1,7 +1,7 @@
 'use client';
 import {useLayoutEffect,useRef,useState} from 'react';
 import {useLanguage} from './language';
-import {captureVoice,localVoice,pcmBase64} from '../lib/voice.mjs';
+import {captureVoice,waitForLocalVoice,pcmBase64} from '../lib/voice.mjs';
 import {voiceText} from '../lib/voice-copy.mjs';
 type VoiceStatus={runtime:boolean;languages:Record<string,{ready:boolean;download_mb:number}>};
 type Props={call:(op:string,args?:Record<string,unknown>)=>Promise<unknown>;available:boolean;disabled:boolean;canSend:boolean;contextKey:string;draft:string;onDraft:(s:string)=>void;onBusy:(b:boolean)=>void;onSend:(s:string)=>Promise<string>;reply:string};
@@ -11,9 +11,10 @@ export default function VoicePanel(props:Props){
  const latest=useRef(props);useLayoutEffect(()=>{latest.current=props;});
  const epoch=useRef(0),capture=useRef<ReturnType<typeof captureVoice>|null>(null),tick=useRef<ReturnType<typeof setInterval>|null>(null);
  const active=useRef(false);
+ const speechWait=useRef<AbortController|null>(null);
  function clearCapture(){capture.current?.cancel();capture.current=null;if(tick.current)clearInterval(tick.current);tick.current=null;}
  function abort(report=true){
-  epoch.current++;clearCapture();window.speechSynthesis?.cancel();
+  epoch.current++;clearCapture();speechWait.current?.abort();window.speechSynthesis?.cancel();
   if(active.current)void latest.current.call('stop').catch(()=>{});
   active.current=false;latest.current.onBusy(false);setPhase('');setTurn(false);if(report)setNotice('paused');
  }
@@ -28,10 +29,13 @@ export default function VoicePanel(props:Props){
  async function check(install=false){
   const id=begin('working');try{if(install)await props.call('voice-install',{language,confirmed:true});const result=await props.call('voice-status');if(id===epoch.current)setStatus(result as VoiceStatus);}catch{if(id===epoch.current)setNotice('error');}finally{end(id);}
  }
- function read(text:string,id:number){
+ async function read(text:string,id:number){
   if(id!==epoch.current||!text)return;
-  const synth=window.speechSynthesis,voice=synth&&localVoice(synth.getVoices(),language);
-  if(!voice){setNotice('noVoice');return;}
+  speechWait.current?.abort();const controller=new AbortController();speechWait.current=controller;
+  setPhase('loadingVoice');const synth=window.speechSynthesis;
+  const voice=synth&&await waitForLocalVoice(synth,language,controller.signal) as SpeechSynthesisVoice|null;
+  if(id!==epoch.current||controller.signal.aborted)return;
+  if(!voice){setPhase('');setNotice('noVoice');return;}
   synth.cancel();const utterance=new SpeechSynthesisUtterance(text);utterance.voice=voice;utterance.lang=voice.lang;
   setNotice('');setPhase('reading');utterance.onend=()=>{if(id===epoch.current){setPhase('');setNotice('readDone');}};utterance.onerror=()=>{if(id===epoch.current){setPhase('');setNotice('readFailed');}};synth.speak(utterance);
  }
@@ -51,7 +55,7 @@ export default function VoicePanel(props:Props){
  }
  function record(){
   if(!navigator.mediaDevices?.getUserMedia||!window.AudioContext){setNotice('unavailable');return;}
-  window.speechSynthesis?.cancel();const id=begin('permission');setSeconds(0);
+  speechWait.current?.abort();window.speechSynthesis?.cancel();const id=begin('permission');setSeconds(0);
   capture.current=captureVoice({media:navigator.mediaDevices,AudioContext:window.AudioContext,
    onFinish:(pcm:string)=>{void transcribe(pcm,id,turn);},
    onError:()=>{if(id===epoch.current){clearCapture();setNotice('error');end(id);}},
@@ -75,7 +79,7 @@ export default function VoicePanel(props:Props){
    await transcribe(pcmBase64([samples],decoded.sampleRate),id,false);
   }catch{if(id===epoch.current)setNotice('error');}finally{if(context)void context.close().catch(()=>{});end(id);}
  }
- const processing=['permission','working','recording'].includes(phase),ready=status?.runtime&&status.languages[language]?.ready;
+ const processing=['permission','working','recording','loadingVoice'].includes(phase),ready=status?.runtime&&status.languages[language]?.ready;
  return <section className="voice-panel" aria-label={w('title')}><h3>{w('title')}</h3><p className="muted">{w('intro')}</p>
  {!props.available?<p>{w('missing')}</p>:<>
  <label>{w('language')}<select value={language} disabled={processing} onChange={e=>{abort(false);setLanguage(e.target.value);}}><option value="en">{w('en')}</option><option value="zh">{w('zh')}</option></select></label>

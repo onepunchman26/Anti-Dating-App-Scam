@@ -1,5 +1,5 @@
 const en={
- title:'Speak or type',intro:'Dictation runs on this computer. Audio is not saved or sent to Sites or OpenAI. Review the text before sending it to ChatGPT.',
+ title:'Speak or type',loadingVoice:'Loading device voices…',intro:'Dictation runs on this computer. Audio is not saved or sent to Sites or OpenAI. Review the text before sending it to ChatGPT.',
  file:'Or choose a short WAV recording',fileHint:'Up to 30 seconds. Use your own voice or a recording you have permission to process. Imported audio always becomes an editable draft, even in voice mode.',
  check:'Check voice setup',language:'Spoken language',en:'English',zh:'Chinese',install:'Download dictation model',download:'MB · public language model from Vosk; no conversation is sent.',
  missing:'Update the local assistant to a version with voice support. Text chat remains available.',ready:'Local dictation is ready.',checkFirst:'Check voice setup first. Download the selected language once if needed.',
@@ -11,7 +11,7 @@ const en={
  unavailable:'This browser cannot capture audio here. Open the local page in a supported desktop browser, or type.',paused:'Voice flow stopped. A request already sent to OpenAI may still have been processed.',
 };
 const zh={
- title:'说话或打字',intro:'听写在本机完成，音频不会保存或发送给Sites、OpenAI。默认先审阅文字，再发送给ChatGPT。',
+ title:'说话或打字',loadingVoice:'正在读取本机声音…',intro:'听写在本机完成，音频不会保存或发送给Sites、OpenAI。默认先审阅文字，再发送给ChatGPT。',
  file:'或选择一段WAV录音',fileHint:'最长30秒，仅使用本人的声音或已获准处理的录音。导入录音始终先放入可编辑草稿，逐轮语音模式也不会自动发送。',
  check:'检查语音设置',language:'说话语言',en:'英语',zh:'中文',install:'下载听写模型',download:'MB · 来自Vosk的公开语言模型；不发送对话。',
  missing:'请更新到支持语音的本机助手。文字聊天仍可使用。',ready:'本机听写已就绪。',checkFirst:'先检查语音设置，需要时为所选语言下载一次模型。',

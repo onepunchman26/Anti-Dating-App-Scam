@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {captureVoice,pcmBase64,localVoice} from '../lib/voice.mjs';
+import {captureVoice,pcmBase64,localVoice,waitForLocalVoice} from '../lib/voice.mjs';
 import {requestLocal} from '../lib/local-request.mjs';
 
 test('PCM duration, rates, finite samples and little-endian conversion',()=>{
@@ -11,6 +11,14 @@ test('PCM duration, rates, finite samples and little-endian conversion',()=>{
 test('playback never substitutes a remote voice',()=>{
  const voices=[{localService:false,lang:'en-US'},{localService:true,lang:'zh-CN'}];
  assert.equal(localVoice(voices,'en'),null);assert.equal(localVoice(voices,'zh'),voices[1]);
+});
+test('asynchronous device voices load once and cancellation cleans pending listeners',async()=>{
+ const synth=new EventTarget();let voices=[];synth.getVoices=()=>voices;
+ const controller=new AbortController(),pending=waitForLocalVoice(synth,'en',controller.signal);
+ voices=[{localService:true,lang:'en-US'}];synth.dispatchEvent(new Event('voiceschanged'));
+ assert.equal(await pending,voices[0]);
+ voices=[];const cancelled=waitForLocalVoice(synth,'en',controller.signal);controller.abort();assert.equal(await cancelled,null);
+ assert.equal(await waitForLocalVoice(synth,'en',new AbortController().signal,1),null);
 });
 test('cancel while permission pending stops late tracks without constructing audio context',async()=>{
  let resolve,stopped=0;
