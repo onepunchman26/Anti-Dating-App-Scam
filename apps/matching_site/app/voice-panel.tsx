@@ -23,7 +23,7 @@ export default function VoicePanel(props:Props){
   return()=>{window.removeEventListener('pagehide',stop);document.removeEventListener('visibilitychange',hide);abort(false);};
  // Changing the account/session/approved context invalidates pending audio and auto-send.
  // eslint-disable-next-line react-hooks/exhaustive-deps
- },[props.contextKey,locale]);
+ },[props.contextKey]);
  function begin(label:string){const id=++epoch.current;active.current=true;props.onBusy(true);setNotice('');setPhase(label);return id;}
  function end(id:number){if(id!==epoch.current)return;active.current=false;latest.current.onBusy(false);setPhase('');}
  async function check(install=false){
