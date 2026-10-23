@@ -11,6 +11,7 @@ export default function VoicePanel(props:Props){
  const latest=useRef(props);useLayoutEffect(()=>{latest.current=props;});
  const epoch=useRef(0),capture=useRef<ReturnType<typeof captureVoice>|null>(null),tick=useRef<ReturnType<typeof setInterval>|null>(null);
  const active=useRef(false);
+ const fileInput=useRef<HTMLInputElement|null>(null);
  const speechWait=useRef<AbortController|null>(null);
  function clearCapture(){capture.current?.cancel();capture.current=null;if(tick.current)clearInterval(tick.current);tick.current=null;}
  function abort(report=true){
@@ -85,7 +86,7 @@ export default function VoicePanel(props:Props){
  <label>{w('language')}<select value={language} disabled={processing} onChange={e=>{abort(false);setLanguage(e.target.value);}}><option value="en">{w('en')}</option><option value="zh">{w('zh')}</option></select></label>
  <div className="actions"><button className="secondary" disabled={processing||props.disabled} onClick={()=>check()}>{w('check')}</button>{status?.runtime&&!ready&&<button className="secondary" disabled={processing||props.disabled} onClick={()=>check(true)}>{w('install')} · {status.languages[language].download_mb} {w('download')}</button>}</div>
  <p className="muted">{w(ready?'ready':status&&!status.runtime?'missing':'checkFirst')}</p>
- <label>{w('file')}<input type="file" accept=".wav,audio/wav" disabled={!ready||processing||props.disabled} onChange={e=>{const file=e.target.files?.[0];e.target.value='';if(file)void importAudio(file);}}/></label><p className="muted">{w('fileHint')}</p>
+ <button className="secondary" disabled={!ready||processing||props.disabled} onClick={()=>fileInput.current?.click()}>{w('file')}</button><input hidden ref={fileInput} aria-label={w('file')} type="file" accept=".wav,audio/wav" disabled={!ready||processing||props.disabled} onChange={e=>{const file=e.target.files?.[0];e.target.value='';if(file)void importAudio(file);}}/><p className="muted">{w('fileHint')}</p>
  <label className="consent"><input type="checkbox" checked={turn} disabled={processing||props.disabled||!props.canSend||!!props.draft.trim()} onChange={e=>setTurn(e.target.checked)}/>{w('turn')}</label><p className="muted">{w('turnHint')}</p>
  <div className="actions"><button className="secondary" disabled={!ready||processing||props.disabled} onClick={record}>{w('record')}</button>{phase==='recording'&&<button onClick={()=>capture.current?.finish()}>{w('stop')}</button>}<button className="secondary" disabled={processing||phase==='reading'||props.disabled||!props.reply} onClick={()=>read(props.reply,epoch.current)}>{w('read')}</button>{phase&&<button className="secondary" onClick={()=>abort()}>{w('cancel')}</button>}</div>
  </>}
