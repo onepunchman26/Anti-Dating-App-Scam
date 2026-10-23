@@ -1,3 +1,5 @@
+Current iteration / 当前迭代：[Voice / 语音](VOICE.md). Reuse the existing local recognizer and ChatGPT provider; explicit capture, editable dictation and opt-in turn-based voice. Preserve every core capability in PRODUCT_CONTINUITY. Hardware/browser permissions and independent accounts remain separate acceptance gates. / 复用原本机识别器与ChatGPT接入，支持主动录音、可编辑听写及明确开启的逐轮语音；保留PRODUCT_CONTINUITY中的核心能力。设备／浏览器权限与独立账号单独验收。
+
 Current requirement / 当前要求：[Product continuity / 核心功能连续性](PRODUCT_CONTINUITY.md). Entry-point changes do not remove the original relationship support, evolving understanding, correction and owned-data workflows. / 入口改变不删除原有关系支持、持续理解、纠正与自有资料流程。
 
 Latest implementation / 最新实施：0.8.4 follows the October 20 usability request: Codex setup,

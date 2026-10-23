@@ -1,3 +1,9 @@
+0.8.6 voice preview / 0.8.6语音预览：[Voice guide / 语音说明](VOICE.md).
+
+English: adds local dictation, editable text drafts and explicitly enabled turn-based send/read. ChatGPT still handles conversation. Audio stays on this computer. Physical microphone and complete spoken-turn acceptance remain pending; see CURRENT_STATUS.
+
+中文：新增本机听写、可编辑文字草稿及明确开启的逐轮发送／朗读。ChatGPT仍负责对话，音频保留在本机。实体麦克风及完整语音回合仍待验收，详见CURRENT_STATUS。
+
 Product purpose and retained capabilities / 产品用途与保留能力：[Continuity map / 连续性对照](PRODUCT_CONTINUITY.md).
 
 0.8.5 continuity update: the web assistant now connects the original relationship-support and private-reflection services. Prepare a meeting, ask for help, review an interaction, or explore next steps. [Private reflections](PRIVATE_REFLECTION.md) can be edited, saved locally, corrected and reused with separate consent. [Copy the Codex setup instruction](SETUP_WITH_CODEX.md). Independent-account acceptance remains untested.
@@ -14,7 +20,7 @@ Product purpose and retained capabilities / 产品用途与保留能力：[Conti
 
 [Friends and private groups](FRIENDS_GROUPS.md) add stable IDs, mutual requests and individually approved 2–8-person activities. Invitees can participate without the local assistant. Only a willing AI executor needs it; shared generation never reads private profiles.
 
-The **0.8.5 controlled Windows preview** adds a guided web conversation to the existing
+The **0.8.6 controlled Windows preview** adds a guided web conversation to the existing
 project. Start with self-understanding, keep dedicated sessions and confirmed statements
 on your computer, then separately review what to share for dating or friendship.
 Your answers are your own; there are no founder-default preferences or personality scores.
@@ -30,7 +36,7 @@ The screenshot shows the deployed private setup page, with no private conversati
 
 1. Open the [short Codex setup guide](SETUP_WITH_CODEX.md). Existing ChatGPT/Codex users
    can copy its prompt directly; others use its official desktop download link.
-2. Codex installs the pinned **0.8.5** Windows preview and opens the local page. Use
+2. Codex installs the pinned **0.8.6** Windows preview and opens the local page. Use
    `Start-SlowMatch.cmd` next time; no manual pairing code is needed on this route.
 3. Connect existing official authorization, confirm plan use and your private folder,
    then chat. AI can draft broad shared tags from the selected conversation; review
@@ -60,8 +66,10 @@ personality test or proof of honesty. See [CURRENT_STATUS](CURRENT_STATUS.md).
 - Voluntary activity preferences, two or three proposed options, separate participant
   confirmations and optional private reflection. A plan does not book, pay, invite outside
   the Site, share live location or modify a calendar.
-- Selected text/WAV import and user-supplied or corrected transcripts. The portable preview
-  does **not** include automatic transcription or microphone recording.
+- Selected text/WAV handling and optional local dictation (up to 30 seconds), with an editable draft.
+  Opt-in turn-based voice sends recognized text to ChatGPT and uses device-local reply reading.
+  Model download, microphone, recognition, playback and full spoken turns are separate checks.
+  See the [voice guide](VOICE.md); full-duplex cloud voice is not supported by this plan route.
 
 These are implemented capabilities, not a claim that every deployment/account path has
 passed. [Controlled synthetic A/B instructions](CONTROLLED_TEST.md) cover the remaining
@@ -104,7 +112,7 @@ See [licensing status and options](docs/LICENSING_STATUS.md).
 
 [好友与私人群组](FRIENDS_GROUPS.md)增加稳定 ID、双向申请和逐人批准的2–8人活动。受邀者无需本机助手即可参与；仅自愿运行 AI 的成员需要助手，共同生成不读取私人档案。
 
-**0.8.5 Windows 受控预览**在原项目中加入了网页对话引导。先认识自己，将专用会话和
+**0.8.6 Windows 受控预览**在原项目中加入了网页对话引导。先认识自己，将专用会话和
 本人确认的陈述保存在电脑，再单独审阅恋爱或朋友匹配要分享的内容。
 每个人的答案以本人为准，不套用创始人偏好，也不设人格评分。
 
@@ -118,7 +126,7 @@ See [licensing status and options](docs/LICENSING_STATUS.md).
 
 1. 打开[简短 Codex 设置指引](SETUP_WITH_CODEX.md)。已有 ChatGPT／Codex 可直接复制其中的
    安装指令；没有则使用指引里的官方客户端下载链接。
-2. Codex 安装固定 **0.8.5** Windows 预览版并打开本机页面。以后使用 `Start-SlowMatch.cmd`，
+2. Codex 安装固定 **0.8.6** Windows 预览版并打开本机页面。以后使用 `Start-SlowMatch.cmd`，
    这条路线不需要手动复制配对码。
 3. 连接现有官方授权，确认套餐使用和私人文件夹后开始聊天。AI可从所选对话起草宽泛共享标签，
    逐项审阅后才导出，发布仍是独立操作。
@@ -138,7 +146,9 @@ See [licensing status and options](docs/LICENSING_STATUS.md).
 - 用本人获准档案和对方共享摘要进行私人候选复盘，不假装知道对方的内心或完整档案。
 - 自愿分享活动偏好，比较两三个方案，由各参与者独立确认，并按需私人复盘。方案不自动预订、付款、
   发送站外邀请、共享实时位置或修改日历。
-- 选定文字／WAV 导入及本人提供或纠正的转写。便携预览**不包含自动转写或麦克风录音**。
+- 选定文字／WAV处理及可选本机听写（最长30秒），结果先进入可编辑草稿。明确开启逐轮语音后，
+  将识别文字发给ChatGPT并由本机朗读。模型下载、麦克风、识别、朗读和完整语音回合分别验收；
+  见[语音说明](VOICE.md)，当前套餐接入不支持实时双向云端语音。
 
 这些是已实现能力，不代表每个部署／账号通道都通过验收。[合成双账号测试指南](CONTROLLED_TEST.md)
 覆盖剩余产品验收，不使用任何人的真实私密资料。
