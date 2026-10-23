@@ -18,6 +18,16 @@ $script:SMEntryLimit = 4001
 
 function Stop-SMBootstrap([string]$Code) { throw ('SMB:' + $Code) }
 
+function Assert-SMActiveRelease($Active) {
+    $pattern = '^' + [regex]::Escape($script:SMVersion) + '-[a-f0-9]{12}(?:-repair-[a-f0-9]{8})?$'
+    if ($Active.version -cne $script:SMVersion -or
+        $Active.manifest_sha256 -cne $script:SMManifestSha256 -or
+        $Active.release -cnotmatch $pattern -or
+        -not $Active.release.StartsWith($script:SMVersion + '-' + $script:SMManifestSha256.Substring(0, 12))) {
+        Stop-SMBootstrap 'invalid_active_release'
+    }
+}
+
 function Get-SMNativePath([string]$Path) {
     # Extended Win32 paths avoid legacy path limits; PS5.1 execution is policy-blocked
     # on the validation host, so PS5.1 compatibility is not claimed as tested.
@@ -364,7 +374,7 @@ function Invoke-SMPreviewInstall([bool]$InstallPlugin = $false) {
             $activePath = Join-Path $env:LOCALAPPDATA 'AI-SlowMatch\portable\active.json'
             Assert-SMAncestors $activePath
             $active = [IO.File]::ReadAllText((Get-SMNativePath $activePath)) | ConvertFrom-Json
-            if ($active.release -cnotmatch '^0\.8\.4-[a-f0-9]{12}(?:-repair-[a-f0-9]{8})?$') { Stop-SMBootstrap 'invalid_active_release' }
+            Assert-SMActiveRelease $active
             $installedExe = Join-Path $env:LOCALAPPDATA ('AI-SlowMatch\portable\releases\' + $active.release + '\SlowMatch-Work.exe')
             Assert-SMAncestors $installedExe
             $started = Invoke-SMRuntime $installedExe 'launch'

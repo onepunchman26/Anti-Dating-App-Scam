@@ -99,6 +99,7 @@ def invoke(
         "uri": (
             "Assert-SMDownloadUri ([Uri]$env:SM_TEST_URI); @{ok=$true} | ConvertTo-Json -Compress"
         ),
+        "active": "Assert-SMActiveRelease $active; @{ok=$true} | ConvertTo-Json -Compress",
     }[action]
     code = f"""
 $ErrorActionPreference = 'Stop'
@@ -118,6 +119,26 @@ catch {{ @{{ok=$false; error=$_.Exception.Message}} | ConvertTo-Json -Compress }
     )
     assert completed.returncode == 0, completed.stderr
     return json.loads(completed.stdout)
+
+
+@pytest.mark.parametrize("suffix", ["", "-repair-1234abcd"])
+def test_launch_uses_release_version_and_manifest_not_a_hardcoded_old_version(tmp_path, suffix):
+    setup = (
+        "$script:SMVersion='8.12.34'; $script:SMManifestSha256=('a' * 64); "
+        "$active=@{version='8.12.34'; manifest_sha256=('a' * 64); "
+        f"release='8.12.34-aaaaaaaaaaaa{suffix}'}}"
+    )
+    assert invoke(tmp_path, setup=setup, action="active") == {"ok": True}
+
+
+@pytest.mark.parametrize("release", ["0.8.4-aaaaaaaaaaaa", "8.12.34-bbbbbbbbbbbb", "../elsewhere"])
+def test_launch_refuses_an_old_other_or_unsafe_release(tmp_path, release):
+    setup = (
+        "$script:SMVersion='8.12.34'; $script:SMManifestSha256=('a' * 64); "
+        "$active=@{version='8.12.34'; manifest_sha256=('a' * 64); "
+        f"release='{release}'}}"
+    )
+    assert invoke(tmp_path, setup=setup, action="active")["error"] == "SMB:invalid_active_release"
 
 
 def test_valid_archive_extracts_only_manifested_bytes(tmp_path):
