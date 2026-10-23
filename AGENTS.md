@@ -6,6 +6,14 @@ Anti-Dating-App-Scam is the authoritative AI-SlowMatch project for relationship 
 
 ## Current Product Direction (2026-10-17)
 
+The owner's October 22 addition includes speech-to-text and spoken conversation.
+Reuse existing voice input where feasible; keep the ChatGPT analysis provider.
+Audio capture requires a deliberate user action, visible recording state, bounded
+duration and reliable stop/cleanup. Dictation only fills an editable draft unless
+the user explicitly enables a disclosed turn-based send/read flow. No private
+audio reaches Sites. Distinguish actual recognition, microphone capture, local
+speech playback and full-duplex cloud voice; do not claim unsupported plan audio.
+
 The owner's October 21 continuity instruction governs every subsequent iteration:
 changing the entry point does not remove the original relationship-support purpose
 or silently retire existing core functions. Read `PRODUCT_CONTINUITY.md` and the

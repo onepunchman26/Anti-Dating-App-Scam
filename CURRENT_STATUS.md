@@ -1,5 +1,46 @@
 # Current handoff / 当前交接
 
+## 0.8.5 continuity delivery; voice iteration active / 0.8.5连续性已交付，语音开发进行中
+
+October 22: [v0.8.5](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.5)
+is published, publicly downloaded, checksum-verified, installed and launched on this host.
+Private Site **version 14** is deployed from mirror `f425fbba`, environment revision 1;
+audience remains one owner and zero external visitors. No private or synthetic member
+records were published. Payload source is clean `2b42511`; later installer correction
+`c257a39` fixes a stale 0.8.4 launch regex. The release's installer and checksum assets were
+updated together without changing the tag or ZIP; installer SHA-256 is
+`666b3f5333c1be7e7dd70c50e41315dfc0654dd9301b8db079f6d2a5aae01877`.
+The original install completed but the old launcher check failed; fixed public-download
+installation, launch and optional plugin registration passed with zero model calls.
+
+Original purposes and gaps are persisted in [PRODUCT_CONTINUITY](PRODUCT_CONTINUITY.md).
+Web support/preparation/immediate-help/direction topics now reuse the core. Final EXE
+browser testing completed real reflection generation, local save, correction to revision 3
+and reading earlier corrections after restart. [Detailed evidence](docs/CORE_CONTINUITY_VALIDATION.md).
+Full regression before final parser refinement: 2,617 passed / 11 skipped; final subset 30;
+Node 46; corrected installer 46 / 1 skipped; final EXE distribution repeat 29 checks.
+Initial interruption retry failed once; next install and full repeat passed, cause unconfirmed.
+
+Voice is the active next increment, not yet delivered in 0.8.5. Independent B/C, fresh-account
+installation, hosted-to-loopback and legacy full-report/import web parity remain open.
+Existing eligibility/licensing/native-invocation gates below still apply.
+
+10月22日：[v0.8.5](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.5)
+已发布，从公开链接下载、校验、安装并启动。私有网站**第14版**部署完成，镜像`f425fbba`、环境版本1，
+仍仅一位所有者、无外部访客；未发布私人或合成成员资料。包源码为干净的`2b42511`。
+安装器补丁`c257a39`修复残留0.8.4启动校验；同步更新发布页的安装器与校验文件，不移动标签、不改ZIP。
+新版安装器SHA-256为`666b3f5333c1be7e7dd70c50e41315dfc0654dd9301b8db079f6d2a5aae01877`。
+首次程序安装完成但启动校验失败；修正后公开下载安装、启动及可选插件登记通过，零模型调用。
+
+[产品连续性对照](PRODUCT_CONTINUITY.md)已保存原始用途和缺口。关系支持、见面准备、即时求助和
+人生方向网页入口复用原核心。最终EXE浏览器完成真实AI复盘、保存、纠正至第3版，并重启读取此前
+纠正。详见[验收记录](docs/CORE_CONTINUITY_VALIDATION.md)。最终解析器调整前完整回归2,617通过／
+11跳过，最终专项30；网站46；修正后安装器46／1跳过；EXE完整复测29项。首轮中断重试失败一次，
+后续安装与完整复测通过，原因未确认。
+
+语音是正在开发的下一项，0.8.5尚未交付。独立B／C、新账号、托管页直连本机及旧完整报告／导入
+网页对应流程仍未完成；下述资格、许可及原生调用限制继续有效。
+
 ## Delivered 0.8.4 usability repair / 0.8.4易用性修复已交付
 
 **[Start here](https://github.com/onepunchman26/Anti-Dating-App-Scam/blob/v0.8.4/SETUP_WITH_CODEX.md)** ·

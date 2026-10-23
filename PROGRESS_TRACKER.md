@@ -1,7 +1,10 @@
 Latest checkpoint / 最新检查点
 
-- ⏳ October 21 continuity iteration: re-read original vision, relationship/trust/compatibility, personal-model and current migration requirements. Connect private support/reflection to the current browser entry using the existing service; verify correction, deletion and disclosure boundaries before delivery.
-- ⏳ 10月21日核心连续性迭代：重读原愿景、关系／信任／相处适合度、持续个人模型及当前迁移要求。复用原服务，把私人支持／复盘接入现在的网页；交付前验证纠正、删除和披露边界。
+- ⏳ October 22 voice iteration started: reuse the existing local speech service for explicit dictation and local reply reading; verify a turn-based spoken workflow separately from full-duplex voice. ChatGPT-plan audio/transcription is explicitly unsupported by the current official flow. Keep private audio out of Sites and never enable the microphone automatically.
+- ⏳ 10月22日语音迭代已开始：复用现有本机语音服务，接入主动听写及本机回复朗读；逐轮语音流程与实时双向语音分别验收。官方当前套餐接入明确不支持音频／转写。私人音频不进入Sites，不自动打开麦克风。
+
+- ✅ Continuity increment delivered October 22 as 0.8.5: original requirements mapped, existing support/reflection connected, real final EXE generation/save/correction/restart exercised, corrected public bootstrap launched, owner-private Site version 14 deployed. Remaining legacy-web and independent-account gaps are explicit; see CURRENT_STATUS.
+- ✅ 核心连续性增量10月22日以0.8.5交付：整理原要求、接通原支持／复盘，最终EXE真实生成／保存／纠正／重启已测；修正后的公开安装器启动成功，私有网站第14版已部署。旧功能网页接入及独立账号缺口明确保留，详见CURRENT_STATUS。
 
 - ✅ 0.8.4 usability repair delivered: original GitHub release, verified public-download install/reinstall/launch, desktop shortcut, local Chrome AI chat and private review, server-side city/age/interest filters and owner-private Site version 13. Independent B/C and fresh-account acceptance remain NOT TESTED; hosted-to-loopback is not accepted. See CURRENT_STATUS.
 - ✅ 0.8.4易用性修复已交付：原GitHub发布、公开下载校验与安装／重装／启动、桌面快捷方式、本机Chrome真实AI聊天和私人分析、服务端城市／年龄／兴趣筛选及私有网站第13版。独立B／C和新账号验收仍未实测，托管页直连本机未通过。详见CURRENT_STATUS。
