@@ -1,7 +1,7 @@
 Onboarding layout correction / 首次设置布局修正 (2026-10-23)
 
-- ✅ Implemented and locally exercised: three shortcuts moved to Friends & groups; ChatGPT availability → optional official download → pinned Codex installation instruction. Copy readback, language-state preservation, separate social destinations and mobile layout passed. Python 2,637 / 11 skipped; Node 52; TypeScript/build passed. Private Site publication pending.
-- ✅ 已实现并本机实测：三个入口移至好友与群组；是否已有 ChatGPT → 按需官方下载 → 固定版本 Codex 安装指令。复制回读、语言切换保留步骤、不同社交跳转和手机布局通过。Python 2,637／11跳过，Node 52，TypeScript／构建通过。等待原私有网站发布。
+- ✅ Delivered: three shortcuts moved to Friends & groups; ChatGPT availability → optional official download → pinned Codex installation instruction. Copy readback, language-state preservation, separate social destinations and mobile layout passed. Python 2,637 / 11 skipped; Node 52; TypeScript/build passed. Original owner-private Site deployment succeeded; exact receipt in CURRENT_STATUS. Windows 0.8.6 package unchanged.
+- ✅ 已交付：三个入口移至好友与群组；是否已有 ChatGPT → 按需官方下载 → 固定版本 Codex 安装指令。复制回读、语言切换保留步骤、不同社交跳转和手机布局通过。Python 2,637／11跳过，Node 52，TypeScript／构建通过。原所有者私有网站部署成功，完整回执见CURRENT_STATUS；Windows 0.8.6安装包未变。
 
 Delivered voice checkpoint / 语音交付检查点 (2026-10-23)
 

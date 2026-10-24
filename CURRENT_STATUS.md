@@ -1,5 +1,34 @@
 # Current handoff / 当前交接
 
+## October 23 onboarding layout delivered / 10月23日首次设置布局已交付
+
+Original-source commit `81a47e7` on `codex/onboarding-layout` is pushed to the original
+GitHub project/main. The start page now asks whether ChatGPT is installed, presents the
+official download only when needed, then reveals the existing pinned Codex setup instruction.
+The three social shortcuts moved to the top of Friends & groups with distinct destinations.
+English/Chinese browser flows, copy readback, language-state preservation and mobile layout
+passed; TypeScript/build, Node 52 and Python 2,637 / 11 skipped passed. See
+[UI evidence](docs/SITE_UI_VALIDATION.md). Installed Windows 0.8.6 is unchanged.
+
+Same owner-private Site successfully deployed from mirror
+`1ca13425e0f47e7c529a20b44786ec6f115a57a7`, deployment
+`appgdep_6adc13f9347081918920caf5b648d35f`, environment revision 1, MCP present.
+Saved version: `appgprj_6ad4306f79e88191bbbd502f495ec501~appgver_352c4474c29c8191959c191450680837`.
+Source rollback: `44d9b09`; previous deployed mirror: `0080df676d216a0efda6d41629b1ff993c5a53e4`.
+Audience stayed owner-only. This is local browser QA plus verified deployment, not a new
+independent-account installation or hosted-to-local acceptance. Existing gates below remain.
+
+原源码提交 `81a47e7` 位于 `codex/onboarding-layout`，已推送原GitHub仓库及main。
+首页先询问是否安装ChatGPT，按需显示官方下载，再展示现有固定版本Codex安装指令。
+三个社交入口移至好友与群组页顶部，分别到达对应页面／分区。中英文浏览器流程、复制回读、
+切换语言保留步骤及手机布局通过；TypeScript／构建、Node 52、Python 2,637／11跳过通过。
+详见上述界面证据。已安装Windows 0.8.6未变更。
+
+同一私有网站已由上述镜像提交部署成功，部署与保存版本编号如上，环境修订1，保留MCP。
+源码可回退到 `44d9b09`，上次网站镜像为 `0080df676d216a0efda6d41629b1ff993c5a53e4`。
+访问范围仍只有所有者。本次是本机浏览器验证及真实部署，不代表新增独立账号安装或托管页直连
+本机验收；以下既有阻碍仍保留。
+
 ## 0.8.6 voice preview delivered / 0.8.6语音预览已交付
 
 October 23: [v0.8.6](https://github.com/onepunchman26/Anti-Dating-App-Scam/releases/tag/v0.8.6)
