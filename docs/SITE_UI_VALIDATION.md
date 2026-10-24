@@ -1,5 +1,41 @@
 # Site UI acceptance / 网站界面验收
 
+## October 23 setup layout correction / 10月23日首次设置布局修正
+
+English: The owner's screenshot correction is implemented in the original Site source.
+The start page first asks whether ChatGPT is installed. Existing users continue directly
+to the pinned Codex instruction; new users see the official download followed by an explicit
+installed/continue action. Download and next-step controls share 15px type, weight 600 and
+46px minimum height. SlowMatch's existing-user launch link remains in a compact disclosure.
+The three social shortcuts now appear at the top of Friends & groups. They open discovery,
+focus the add-friend section, or focus groups; without an ID, the last two focus ID setup.
+No identity, consent, private-storage or service behavior changed. The Windows release
+remains 0.8.6; this delivery updates the hosted Site, not the installed EXE's bundled UI.
+
+Actual local Chrome checks: both setup branches, backward navigation, successful clipboard
+copy/readback of the pinned v0.8.6 guide, language switching retaining the install step,
+and all three social destinations. Social checks used an isolated synthetic fixture with
+no hosted writes or real private data. English/Chinese setup screens at 390px had no horizontal
+overflow; 1440px desktop layout was inspected. See [start screenshot](evidence/onboarding/start-zh.jpg).
+Copy now has a two-second bound and reveals selectable instructions on failure; failure
+fallback is implemented but was not forced in the browser. TypeScript and production build
+passed, Node suite 52 passed, Python 2,637 passed / 11 skipped, source compilation passed.
+Independent-account installation remains untested. Deployment receipt is in CURRENT_STATUS.
+
+中文版：已按所有者截图反馈修改原网站源码。初始页面先询问是否安装 ChatGPT；已安装者直接进入
+固定版本的 Codex 安装指令，未安装者先看到官方下载，再由本人点击“已安装完成，下一步”。
+下载与下一步按钮统一为15px字号、600字重和46px最小高度。已有 SlowMatch 用户的启动入口保留在
+简短折叠区。三个社交入口现位于好友与群组页顶部，分别打开发现、定位添加好友区和群组区；
+尚无 ID 时，后两者定位到 ID 设置。身份、授权、私人存储及服务行为未改变。
+Windows 发行版仍为0.8.6，本次交付更新托管网站，不代表已安装EXE内的界面重新打包。
+
+本机 Chrome 实测：两条设置路径、返回上一步、复制并回读指向v0.8.6指南的安装指令、切换语言保留
+安装步骤，以及三个社交目的地。社交操作使用隔离的合成测试数据，没有写入线上或读取真实私人资料。
+390px中英文设置页无横向溢出，1440px桌面布局已检查；见上述首页截图。复制增加两秒等待上限，
+失败时展开可选择的指令；失败降级已实现，本次未在浏览器强制触发。
+TypeScript和生产构建通过，Node 52项通过，Python 2,637通过／11跳过，源码编译通过。
+独立账号安装仍未实测。部署回执见CURRENT_STATUS。
+
 ## English
 
 Revision: October 18, 2026. Authority: the owner-adopted

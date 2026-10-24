@@ -36,3 +36,23 @@ main{max-width:1184px;padding:0 32px;margin:auto;min-height:calc(100vh - 205px)}
 
 .voice-panel {border-top:1px solid #ded5db;margin-top:1.5rem;padding-top:1rem;}
 .voice-panel select {max-width:18rem;}
+
+/* First setup reveals one decision at a time, using the same controls as the app. */
+.setup-progress{display:flex;gap:28px;list-style:none;margin:0 0 28px;padding:0;color:var(--muted);font-size:14px}
+.setup-progress li{display:flex;align-items:center;gap:8px}
+.setup-progress li[aria-current=step]{color:var(--berry);font-weight:650}
+.setup-progress span{display:grid;place-items:center;width:26px;height:26px;border:1px solid var(--line);border-radius:50%;flex-shrink:0}
+.setup-progress [aria-current=step] span{background:#f0e5ed;border-color:#f0e5ed}
+.setup-guide h2:focus{outline:none}
+.setup-guide .setup-actions{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0 12px}
+.setup-guide .setup-actions button{margin:0}
+.setup-instructions{padding-left:24px;margin:0 0 24px;color:var(--muted)}
+.setup-instructions li{padding-left:4px;margin:10px 0}
+.setup-guide .setup-note{font-size:14px;color:var(--muted);margin:12px 0 0}
+.setup-feedback{color:var(--berry);margin:12px 0}
+.setup-returning{border-top:1px solid var(--line);margin-top:24px;padding-top:12px}
+.setup-returning p{color:var(--muted);font-size:14px}
+.social-shortcuts{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 24px}
+.social-shortcuts button{margin:0}
+.social-section{scroll-margin-top:24px}.social-section:focus{outline:2px solid var(--berry);outline-offset:4px}
+@media(max-width:540px){.setup-progress{gap:16px;font-size:13px}.setup-guide .setup-actions{flex-direction:column;align-items:stretch}.social-shortcuts{flex-direction:column;align-items:stretch}}

@@ -1,3 +1,8 @@
+Onboarding layout correction / 首次设置布局修正 (2026-10-23)
+
+- ✅ Implemented and locally exercised: three shortcuts moved to Friends & groups; ChatGPT availability → optional official download → pinned Codex installation instruction. Copy readback, language-state preservation, separate social destinations and mobile layout passed. Python 2,637 / 11 skipped; Node 52; TypeScript/build passed. Private Site publication pending.
+- ✅ 已实现并本机实测：三个入口移至好友与群组；是否已有 ChatGPT → 按需官方下载 → 固定版本 Codex 安装指令。复制回读、语言切换保留步骤、不同社交跳转和手机布局通过。Python 2,637／11跳过，Node 52，TypeScript／构建通过。等待原私有网站发布。
+
 Delivered voice checkpoint / 语音交付检查点 (2026-10-23)
 
 - ✅ 0.8.6 published, public-download installed/launched and repeated with the same helper; owner-private Site deployment succeeded. Final package has 29 passing EXE checks; real English synthetic recognition and local playback completion passed. Physical mic, Chinese recognition, complete spoken turn and independent accounts remain NOT ACCEPTED. See CURRENT_STATUS and docs/VOICE_VALIDATION.md.

@@ -4,7 +4,6 @@ import {useLanguage} from './language';
 import {onboardingText} from '../lib/onboarding.mjs';
 import type {View} from './site-app';
 import {rememberLocal,localCall} from '../lib/local-connection';
-import {socialText} from '../lib/social-copy.mjs';
 import SiteReminder from './site-reminder';
 import InterviewPanel,{type InterviewState} from './interview-panel';
 import {interviewText} from '../lib/interview.mjs';
@@ -49,7 +48,6 @@ export default function OnboardingClient({navigate,localMode=false}:{navigate:(v
  return <div className="onboarding-page">
   <div className="page-heading"><p className="eyebrow">AI-SLOWMATCH</p><h1>{w('intro')}</h1><p>{w('pace')}</p></div>
   <SiteReminder/>
-  <div className="actions"><button className="secondary" onClick={()=>navigate('discover')}>{socialText(locale,'meetNew')}</button><button className="secondary" onClick={()=>navigate('friends')}>{socialText(locale,'add')}</button><button className="secondary" onClick={()=>navigate('friends')}>{socialText(locale,'friends')}</button></div>
   <div role={failed?'alert':'status'} aria-live="polite">{feedback&&<p className={failed?'error':'notice'}>{w(feedback)}</p>}</div>
   {!localMode&&<SetupGuide/>}
   <details className="panel" open={localMode||!!status}><summary>{localMode?sw('localTitle'):sw('advanced')}</summary><p>{localMode?sw('localBody'):w('assistantBody')}</p>

@@ -1,4 +1,5 @@
 export const socialCopy={
+ paths:['Ways to connect','认识与相聚'],
  meetNew:['Meet new people','认识新的人'],updateHelper:['Update the local assistant to 0.8.2 or newer, then reconnect.','请将本机助手更新到0.8.2或更高版本后重新连接。'],
  original:['Shared discussion (original language)','共同讨论（保留原语言）'],budgetCeiling:['Budget ceiling per person; actual price unverified','每人预算上限；实际价格未核实'],
  friends:['Friends & groups','好友与群组'],intro:['Plan something together','一起安排一次相聚'],body:['Add someone you already know, or bring a small circle together. Discovery and romantic matching are optional.','添加已经认识的人，或和小圈子一起安排活动。无需先参加陌生人或恋爱匹配。'],
